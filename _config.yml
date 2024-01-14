@@ -3,12 +3,19 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
-description: ''
-keywords:
-author: John Doe
-language: en
+# 网站标题
+title: Huazie
+# 网站副标题
+subtitle: '一半诗意 一半烟火'
+# 网站描述，告诉搜索引擎一个关于您站点的简单描述，通常建议在其中包含您网站的关键词。
+description: 'Huazie的个人博客'
+# 网站的关键词，支持多个关键词
+keywords: 
+# 文章的作者
+author: Huazie
+# 网站使用的语言
+language: zh-CN
+# 网站时区。Hexo 默认使用您电脑的时区。
 timezone: ''
 
 # URL
