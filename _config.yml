@@ -68,7 +68,10 @@ filename_case: 0
 # 显示草稿
 render_drafts: false
 # 启用 资源文件夹
-post_asset_folder: false
+post_asset_folder: true
+marked:
+  prependRoot: true
+  postAsset: true
 # 把链接改为与根目录的相对位址
 relative_link: false
 # 显示未来的文章
