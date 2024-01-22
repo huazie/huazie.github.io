@@ -1,11 +1,16 @@
 ---
 title: Spring Boot 项目介绍
-date: 2024-01-19 17:55:05
+date: 2023-02-19 22:55:05
+updated: 2024-01-15 22:32:10 
+categories:
+- 开发框架-Spring Boot
 tags:
+- Spring Boot
+- 约定由于配置
 ---
 
 
-[《Spring Boot 源码学习系列》](https://blog.csdn.net/u012855229/category_12387912.html)
+[《Spring Boot 源码学习系列》](/categories/开发框架-Spring-Boot/)
 
 ![](/images/spring-boot-logo.png)
 
@@ -39,9 +44,7 @@ tags:
 
 [Spring Boot 源代码地址](https://github.com/spring-projects/spring-boot)
 
-```
-知识点： **Spring Boot 2.3.x** 系列版本开始用 Gradle 构建 ，**2.2.x 及之前** 的系列版本都用 Maven 构建。
-```
+> 知识点： **Spring Boot 2.3.x** 系列版本开始用 Gradle 构建 ，**2.2.x 及之前** 的系列版本都用 Maven 构建。
 
 **Spring Boot** 项目的目录结构分为两部分，一部分是整个开源项目的目录结构，另一部分是细化到 **jar** 包级别的目录结构。
 
