@@ -3,13 +3,13 @@ title: Go语言学习1-基础入门
 date: 2016-06-27 09:28:36
 updated: 2024-01-16 22:11:19
 categories:
-- [开发语言-Go]
+  - [开发语言-Go]
 tags:
-- Go
-- Go语言安装和配置
-- Go工作区
-- Go源码文件
-- Go代码包
+  - Go
+  - Go语言安装和配置
+  - Go工作区
+  - Go源码文件
+  - Go代码包
 ---
 
 [《开发语言-Go》](/categories/开发语言-Go/)
