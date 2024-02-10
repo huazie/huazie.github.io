@@ -103,13 +103,13 @@ protected List<String> getExcludeAutoConfigurationsProperty() {
 下面我们来演示一下该如何配置，从而排除我们不需要的自动配置组件：
 
 - 添加注解属性 exclude 和 excludeName
-![在这里插入图片描述](https://img-blog.csdnimg.cn/a1ee3ea31a2f4e8fbebcc6eb60ff181c.png)
+![](addexcludeorexcludename.png)
 - 添加配置文件属性
-![在这里插入图片描述](https://img-blog.csdnimg.cn/d4354c1b48b9462cba72c65354e3545c.png)
+![](addexcludeorexcludename1.png)
 - 我们启动先前建的 **Spring Boot** 项目的应用类，分别查看到如下的信息：
-![在这里插入图片描述](https://img-blog.csdnimg.cn/183a2cca37be49418f87b7cd3ccef5e9.png)
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2ef7e887becd42bd97ba72d31729449e.png)
-![在这里插入图片描述](https://img-blog.csdnimg.cn/6c6511341ed343c0ac9b50c0ed98cdb3.png)
+![](getExclusions.png)
+![](getExclusions1.png)
+![](getExclusions2.png)
 
 当上面获取了被排除的自动配置组件之后，需要对待排除的类进行检查，如下所示：
 
@@ -148,13 +148,13 @@ protected void handleInvalidExcludes(List<String> invalidExcludes) {
 我们下面通过示例来验证一下：
 
 - 在我们的示例项目中添加一个自动配置类【注意这里只做演示，无其他意义】
-![](https://img-blog.csdnimg.cn/a1991ff153a04f4dad21afb345087c49.png)
+![](addautoconfiguration.png)
 
 
 - 配置文件添加项目中的一个自动配置类
-![在这里插入图片描述](https://img-blog.csdnimg.cn/263555ac8acb485a9a5be83b1ee20d77.png)
+![](addautoconfiguration1.png)
 - 我们启动先前建的 **Spring Boot** 项目的应用类，可以看到如下的启动异常报错：
-![在这里插入图片描述](https://img-blog.csdnimg.cn/b96b144bc61847b18619fcfa5b5aa890.png)
+![](addautoconfiguration2.png)
 
 如果上述检查通过，则说明待排除的自动配置类都符合要求，则调用如下代码从自动配置集合中移除上面获取的待排除的自动配置类信息。
 
@@ -210,7 +210,7 @@ org.springframework.boot.autoconfigure.condition.OnWebApplicationCondition
 
 相关类图如下所示：
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/1be7fe7beec14d07b0177fe3de363a9c.png)
+![](autoconfigure-condition.png)
 
 我们继续往下看 **invokeAwareMethods**，如下所示：
 
@@ -258,8 +258,8 @@ this.autoConfigurationMetadata = AutoConfigurationMetadataLoader.loadMetadata(cl
 
 详细代码，由于篇幅受限，这里就不贴了，大家可以自行查看相关源码，从如下的截图中，我们也可以直观了解下。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/763ffcf8a47f42ffbc828810ef5ba24c.png)
-![在这里插入图片描述](https://img-blog.csdnimg.cn/4d537c6c5f324f35bf010c2b63104c79.png)
+![](autoconfigurationmetadataloader.png)
+![](spring-autoconfigure-metadata.png)
 
 好了，现在我们进入 `filter` 方法中，最关键的就是下面 的双层 for 循环处理：
 
@@ -416,4 +416,4 @@ org.springframework.boot.autoconfigure.condition.ConditionEvaluationReportAutoCo
 
 # 总结
 
-本篇 **Huazie** 带大家通读了 **Spring Boot** 自动装配逻辑的源码，详细分析了自动装配的后续流程，主要包含 自动配置的排除 和 过滤。超过万字，能够看到这的小伙伴，**Huazie** 在这感谢各位的支持。后续我将持续输出有关 **Spring Boot** 源码学习系列的博文，想要及时了解更新的朋友，[订阅这里即可](https://blog.csdn.net/u012855229/category_12387912.html)。
+本篇 **Huazie** 带大家通读了 **Spring Boot** 自动装配逻辑的源码，详细分析了自动装配的后续流程，主要包含 自动配置的排除 和 过滤。超过万字，能够看到这的小伙伴，**Huazie** 在这感谢各位的支持。后续我将持续输出有关 **Spring Boot** 源码学习系列的博文，想要及时了解更新的朋友，[关注这里即可](/categories/开发框架-Spring-Boot/)。

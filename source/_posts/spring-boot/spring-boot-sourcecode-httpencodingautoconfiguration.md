@@ -126,7 +126,7 @@ tags:
 > **注意：** 以下涉及 **Spring Boot** 源码 均来自版本 `2.7.9`，其他版本有所出入，可自行查看源码。
 
 ### 2.1 加载自动配置组件
-从之前的[《【Spring Boot 源码学习】自动装配流程源码解析（上）》](https://blog.csdn.net/u012855229/article/details/132023311)中，我们知道 Spring Boot 内部针对自动配置类，会读取如下两个配置文件：
+从之前的[《【Spring Boot 源码学习】自动装配流程源码解析（上）》](/2023/08/06/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-1/)中，我们知道 Spring Boot 内部针对自动配置类，会读取如下两个配置文件：
 
 - `META-INF/spring.factories`
 - `META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports`
@@ -141,7 +141,7 @@ tags:
 
 ### 2.2 过滤自动配置组件
 
-上述自动配置加载完之后，就来到了 [《【Spring Boot 源码学习】自动装配流程源码解析（下）》](https://blog.csdn.net/u012855229/article/details/132136590) 介绍的 **过滤自动配置组件** 逻辑。
+上述自动配置加载完之后，就来到了 [《【Spring Boot 源码学习】自动装配流程源码解析（下）》](/2023/08/21/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-2/) 介绍的 **过滤自动配置组件** 逻辑。
 
 这部分数据对应的配置内容在 `META-INF/spring-autoconfigure-metadata.properties` 文件中：
 
