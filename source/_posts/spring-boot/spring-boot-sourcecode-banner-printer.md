@@ -17,7 +17,7 @@ tags:
 ![](/images/spring-boot-logo.png)
 
 # 一、引言
-上篇博文，Huazie 带大家初步了解了 `SpringApplication` 的实例化过程。在介绍 `SpringApplication` 的核心构造函数的第一个参数 `ResourceLoader` 时，简单提及了它用于 **Spring Boot** 在启动时打印对应的 **Banner**  信息。这里就引申出了本篇将要介绍的 **Banner** 信息打印流程。
+上篇博文，**Huazie** 带大家初步了解了 `SpringApplication` 的实例化过程。在介绍 `SpringApplication` 的核心构造函数的第一个参数 `ResourceLoader` 时，简单提及了它用于 **Spring Boot** 在启动时打印对应的 **Banner**  信息。这里就引申出了本篇将要介绍的 **Banner** 信息打印流程。
 
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 # 二、往期内容
