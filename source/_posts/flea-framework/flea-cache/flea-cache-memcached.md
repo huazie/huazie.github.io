@@ -679,7 +679,7 @@ public class MemCachedFleaCacheManager extends AbstractFleaCacheManager {
 ##  3.8 Memcached接入自测 
 [FleaCacheTest](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/test/java/com/huazie/fleaframework/cache/FleaCacheTest.java)  单元测试类可点击查看
 
-首先，这里需要按照 `Memcached` 配置文件中的地址部署相应的 `Memcached` 服务，可参考笔者的 [这篇博文](https://blog.csdn.net/u012855229/article/details/100139652)。
+首先，这里需要按照 `Memcached` 配置文件中的地址部署相应的 `Memcached` 服务，可参考笔者的 [这篇博文](/2019/08/30/flea-framework/flea-cache/flea-cache-windows-more-services/)。
 
 下面开始演示我们的 `Memcached` 接入自测：
 ```java
@@ -1093,4 +1093,4 @@ public FleaParaDetail getParaDetail(String paraType, String paraCode) throws Exc
 }
 ```
 # 结语
-至此，**Memcached** 的接入工作已经全部完成，下一篇将讲解 [flea-cache使用之Redis分片模式接入](/2021/11/18/flea-cache-redissharded/)，敬请期待哦！！！
+至此，**Memcached** 的接入工作已经全部完成，下一篇将讲解 [flea-cache使用之Redis分片模式接入](/2021/11/18/flea-framework/flea-cache/flea-cache-redissharded/)，敬请期待哦！！！

@@ -3,12 +3,13 @@ title: Sublime Text 3配置Go语言开发环境
 date: 2017-05-23 16:45:04
 updated: 2024-01-14 20:30:04 
 categories:
-- [开发工具]
-- [开发语言-Go]
+  - [开发工具]
+  - [开发语言-Go]
 tags:
-- Go
-- Sublime Text 3
-- GoSublime
+  - Go
+  - Sublime Text 3
+  - GoSublime
+  - 开发环境搭建
 ---
 
 [《开发工具系列》](/categories/开发工具/)   [《开发语言-Go》](/categories/开发语言-Go/)

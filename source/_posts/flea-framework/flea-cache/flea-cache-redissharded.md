@@ -49,13 +49,13 @@ tags:
 ```
 # 3. 基础接入
 ## 3.1 定义Flea缓存接口 
-[IFleaCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/IFleaCache.java) 可参考笔者的这篇博文 [Memcached接入](/2019/08/18/flea-cache-memcached/)，不再赘述。
+[IFleaCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/IFleaCache.java) 可参考笔者的这篇博文 [Memcached接入](/2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
 
 ## 3.2 定义抽象Flea缓存类
-[AbstractFleaCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractFleaCache.java)  可参考笔者的这篇博文 [Memcached接入](/2019/08/18/flea-cache-memcached/)，不再赘述。
+[AbstractFleaCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractFleaCache.java)  可参考笔者的这篇博文 [Memcached接入](/2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
 
 ## 3.3 定义Redis客户端接口类 
-[RedisClient](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/RedisClient.java) , 注意该版，相比《[flea-frame-cache使用之Redis接入](/2019/08/19/flea-frame-cache-redis/)》博文中，废弃如下与 **ShardedJedis** 有关的方法：
+[RedisClient](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/RedisClient.java) , 注意该版，相比《[flea-frame-cache使用之Redis接入【旧】](/2019/08/19/flea-framework/flea-cache/flea-frame-cache-redis/)》博文中，废弃如下与 **ShardedJedis** 有关的方法：
 ```java
 	ShardedJedisPool getJedisPool();
 	
@@ -63,7 +63,7 @@ tags:
     
     ShardedJedis getShardedJedis();
 ```
-《[flea-frame-cache使用之Redis接入](/2019/08/19/flea-frame-cache-redis/)》博文中 提到了使用 **Redis**客户端代理方式 访问 **RedisClient**， 在这版为了实现Redis访问异常后的重试机制，废弃了代理模式，采用了命令行模式，可参考下面的 **RedisClientCommand**。
+《[flea-frame-cache使用之Redis接入【旧】](/2019/08/19/flea-framework/flea-cache/flea-frame-cache-redis/)》博文中 提到了使用 **Redis**客户端代理方式 访问 **RedisClient**， 在这版为了实现Redis访问异常后的重试机制，废弃了代理模式，采用了命令行模式，可参考下面的 **RedisClientCommand**。
 
 ## 3.4 定义Redis客户端命令行
 [RedisClientCommand](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/RedisClientCommand.java) 封装了使用ShardedJedis操作Redis缓存的公共逻辑
@@ -562,7 +562,7 @@ public class RedisFleaCache extends AbstractFleaCache {
 }
 ```
 ## 3.9 定义抽象Flea缓存管理类
-[AbstractFleaCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractFleaCacheManager.java) 可参考笔者的这篇博文 [Memcached接入](/2019/08/18/flea-cache-memcached/)，不再赘述。
+[AbstractFleaCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractFleaCacheManager.java) 可参考笔者的这篇博文 [Memcached接入](/2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
 ## 3.10 定义Redis分片模式Flea缓存管理类
 [RedisShardedFleaCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/manager/RedisShardedFleaCacheManager.java)  继承抽象Flea缓存管理类 **AbstractFleaCacheManager**，构造方法使用了 **RedisClientFactory** 获取分片模式下默认连接池的Redis客户端 **RedisClient**，可在 **3.11** 查看。**newCache** 方法返回的是 **RedisFleaCache** 的实例对象，每一类 **Redis** 缓存数据都对应了一个  **RedisFleaCache** 的实例对象。
 
@@ -744,7 +744,7 @@ public class RedisShardedClientStrategy implements IFleaStrategy<RedisClient, St
 ## 3.14 Redis接入自测
 单元测试类详见 [FleaCacheTest](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/test/java/com/huazie/fleaframework/cache/FleaCacheTest.java)
 
-首先，这里需要按照 **Redis** 配置文件中的地址部署相应的 **Redis** 服务，可参考笔者的 [这篇博文](https://blog.csdn.net/u012855229/article/details/100139652)。
+首先，这里需要按照 **Redis** 配置文件中的地址部署相应的 **Redis** 服务，可参考笔者的 [这篇博文](/2019/08/30/flea-framework/flea-cache/flea-cache-windows-more-services/)。
 ```java
     @Test
     public void testRedisShardedFleaCache() {
@@ -771,7 +771,7 @@ public class RedisShardedClientStrategy implements IFleaStrategy<RedisClient, St
 
 # 4. 进阶接入
 ## 4.1 定义抽象Spring缓存 
-[AbstractSpringCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractSpringCache.java) 可参考笔者的这篇博文 [Memcached接入](/2019/08/18/flea-cache-memcached/)，不再赘述。
+[AbstractSpringCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractSpringCache.java) 可参考笔者的这篇博文 [Memcached接入](/2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
 ## 4.2 定义Redis Spring缓存类
 [RedisSpringCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/impl/RedisSpringCache.java) 继承抽象 **Spring** 缓存 **AbstractSpringCache**，用于对接 **Spring**； 从构造方法可见，该类初始化还是使用 **RedisFleaCache**。
 ```java
@@ -818,7 +818,7 @@ public class RedisSpringCache extends AbstractSpringCache {
 ```
 ## 4.3 定义抽象Spring缓存管理类 
 
-[AbstractSpringCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractSpringCacheManager.java) 可参考笔者的这篇博文 [Memcached接入](/2019/08/18/flea-cache-memcached/)，不再赘述。
+[AbstractSpringCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractSpringCacheManager.java) 可参考笔者的这篇博文 [Memcached接入](/2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
 
 ## 4.4 定义Redis分片模式Spring缓存管理类
 [RedisShardedSpringCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/manager/RedisShardedSpringCacheManager.java) 继承抽象 **Spring** 缓存管理类 **AbstractSpringCacheManager**，用于对接**Spring**; 基本实现同 **RedisShardedFleaCacheManager**，唯一不同在于 **newCache** 的实现。
@@ -932,4 +932,4 @@ public class RedisShardedSpringCacheManager extends AbstractSpringCacheManager {
 ```
 
 # 结语
-**Redis** 接入重构工作已经全部结束，当前版本为 **Redis** 分片模式。下一篇博文，我将要介绍 [Redis 集群模式的接入](/2021/11/25/flea-cache-rediscluster/)工作，敬请期待！！！
+**Redis** 接入重构工作已经全部结束，当前版本为 **Redis** 分片模式。下一篇博文，我将要介绍 [Redis 集群模式的接入](/2021/11/25/flea-framework/flea-cache/flea-cache-rediscluster/)工作，敬请期待！！！
