@@ -3,7 +3,8 @@ title: Intellij IDEA 配置Go语言开发环境
 date: 2021-04-28 17:04:15
 updated: 2024-01-14 21:00:22
 categories:
-  - 开发语言-Go
+  - [开发工具]
+  - [开发语言-Go]
 tags:
   - Go
   - Intellij IDEA
