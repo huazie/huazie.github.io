@@ -18,7 +18,7 @@ tags:
 本篇主要介绍笔者 **授权模块**【flea-auth】下的功能子模块。
 # 1. 总览
 目前功能子模块包含 **菜单**、**操作**、 **元素** 和 **资源** 四类功能单元；
-这些功能都和权限相关联【可参考 [权限子模块](https://blog.csdn.net/u012855229/article/details/103719630) 的 **权限关联表 flea_privilege_rel** 】。
+这些功能都和权限相关联【可参考 [权限子模块](/2020/01/14/flea-framework/flea-auth/flea-auth-privilege-module-introduction/) 的 **权限关联表 flea_privilege_rel** 】。
 |  表名                    				   |  中文描述                        |
 |:------------------------------------- |:------------------------------   |  
 |  flea_menu                			|  菜单                            |
