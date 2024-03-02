@@ -1,5 +1,5 @@
 ---
-title: 【Spring Boot 源码学习】 ApplicationListener 详解
+title: 【Spring Boot 源码学习】ApplicationListener 详解
 date: 2023-12-10 22:10:55
 updated: 2024-01-22 17:39:52
 categories:

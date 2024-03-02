@@ -1,5 +1,5 @@
 ---
-title: 【Spring Boot 源码学习】 Banner 信息打印流程
+title: 【Spring Boot 源码学习】Banner 信息打印流程
 date: 2023-11-19 12:11:40
 updated: 2024-01-26 09:39:09
 categories:

@@ -1,5 +1,5 @@
 ---
-title: 【Spring Boot 源码学习】 JedisConnectionConfiguration 详解
+title: 【Spring Boot 源码学习】JedisConnectionConfiguration 详解
 date: 2023-11-05 23:35:22
 updated: 2024-01-27 23:27:14
 categories:

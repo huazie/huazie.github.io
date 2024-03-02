@@ -1,5 +1,5 @@
 ---
-title: 【Spring Boot 源码学习】 SpringApplication 的定制化介绍
+title: 【Spring Boot 源码学习】SpringApplication 的定制化介绍
 date: 2024-01-07 22:35:03
 updated: 2024-01-17 08:32:03
 categories:

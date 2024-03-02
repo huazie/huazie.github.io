@@ -1,5 +1,5 @@
 ---
-title: 【Spring Boot 源码学习】 BootstrapRegistry 详解
+title: 【Spring Boot 源码学习】BootstrapRegistry 详解
 date: 2024-01-31 23:32:34
 updated: 2024-02-01 10:11:18
 categories:

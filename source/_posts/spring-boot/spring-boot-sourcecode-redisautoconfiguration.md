@@ -1,5 +1,5 @@
 ---
-title: 【Spring Boot 源码学习】 RedisAutoConfiguration 详解
+title: 【Spring Boot 源码学习】RedisAutoConfiguration 详解
 date: 2023-10-29 23:11:28
 updated: 2024-01-29 00:18:33
 categories:

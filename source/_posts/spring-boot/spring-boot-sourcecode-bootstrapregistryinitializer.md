@@ -1,5 +1,5 @@
 ---
-title: 【Spring Boot 源码学习】 BootstrapRegistryInitializer 详解
+title: 【Spring Boot 源码学习】BootstrapRegistryInitializer 详解
 date: 2023-11-30 07:00:00
 updated: 2024-01-30 00:07:58
 categories:

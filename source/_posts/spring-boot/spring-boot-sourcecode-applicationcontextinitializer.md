@@ -1,5 +1,5 @@
 ---
-title: 【Spring Boot 源码学习】 ApplicationContextInitializer 详解
+title: 【Spring Boot 源码学习】ApplicationContextInitializer 详解
 date: 2023-12-03 13:37:52
 updated: 2024-01-23 09:41:12
 categories:
