@@ -3,13 +3,19 @@ title: Go语言学习2-基本词法
 date: 2016-06-27 21:22:51
 updated: 2024-01-19 16:42:00
 categories:
-- [开发语言-Go]
+  - [开发语言-Go,Go语言学习]
 tags:
-- Go
-- 基本词法 
+  - Go
+  - 基本词法
+  - 标识符
+  - 关键字
+  - 字面量
+  - 类型
+  - 操作符
+  - 表达式
 ---
 
-[《开发语言-Go》](/categories/开发语言-Go/)
+[《开发语言-Go》](/categories/开发语言-Go/) [《Go语言学习》](/categories/开发语言-Go/Go语言学习/) 
 
 ![](/images/go-logo.png)
 
