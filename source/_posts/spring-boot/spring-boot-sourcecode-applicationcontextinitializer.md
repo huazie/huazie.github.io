@@ -13,7 +13,7 @@ tags:
 
 ![](/images/spring-boot-logo.png)
 
-# 引言
+# 一、引言
 
 书接前文[《初识 SpringApplication》](/2023/11/12/spring-boot/spring-boot-sourcecode-springapplication/)，我们从 **Spring Boot** 的启动类 `SpringApplication` 上入手，了解了 `SpringApplication` 实例化过程。其中，[《BootstrapRegistryInitializer 详解》](/2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/)  博文中，Huazie 已经带大家详细分析了 `BootstrapRegistryInitializer` 的加载和初始化过程，如下还有 **2.4** 和 **2.5** 这两处还未详细分析：
 ![](/images/springboot/loader.png)
@@ -22,7 +22,7 @@ tags:
 
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
-# 往期内容
+# 二、往期内容
 在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：
 
 <table>
@@ -128,9 +128,9 @@ tags:
   </tr>
 </table>
 
-# 主要内容
+# 三、主要内容
 > **注意：** 以下涉及 **Spring Boot** 源码 均来自版本 **2.7.9**，其他版本有所出入，可自行查看源码。
-## 1. 初识 ApplicationContextInitializer
+## 3.1 初识 ApplicationContextInitializer
 我们先来看看 `ApplicationContextInitializer` 接口的源码：
 
 ```java
@@ -149,7 +149,7 @@ public interface ApplicationContextInitializer<C extends ConfigurableApplication
 
 `ApplicationContextInitializer` 的主要用途是在 `ConfigurableApplicationContext` 类型（或其子类型）的应用程序上下文刷新之前，允许用户初始化 **Spring** `ConfigurableApplicationContext` 对象实例。通常用于需要在应用程序上下文中进行一些程序化初始化的 **Web** 应用程序。例如，注册属性源或激活与上下文环境相关的配置文件。请参阅 `ContextLoader` 和`FrameworkServlet` 支持，它们分别支持声明 `"contextInitializerClasses"` 上下文参数和初始化参数。建议使用 `ApplicationContextInitializer` 处理器检测是否实现了 **Spring** 的 `Ordered` 接口或者是否存在`@Order` 注解，并在调用之前根据这些信息对实例进行排序。
 
-## 2. 加载 ApplicationContextInitializer
+## 3.2 加载 ApplicationContextInitializer
 
 ```java
 setInitializers((Collection) getSpringFactoriesInstances(ApplicationContextInitializer.class));
@@ -182,7 +182,7 @@ org.springframework.context.ApplicationContextInitializer=\
 org.springframework.boot.autoconfigure.SharedMetadataReaderFactoryContextInitializer,\
 org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener
 ```
-## 3. ApplicationContextInitializer 的初始化
+## 3.3 ApplicationContextInitializer 的初始化
 
 这里我们需要查看 `SpringApplication` 的 `run(String... args)` 方法，如下所示：
 

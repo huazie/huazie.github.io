@@ -77,7 +77,7 @@ tags:
 | **spring-boot** |  **Spring Boot** 核心代码，也是入口类 **SpringApplication** 类所在项目。|
 | **spring-boot-actuator** |  提供应用程序的监控、统计、管理及自定义等相关功能。|
 | **spring-boot-actuator-autoconfigure** |  针对 **actuator** 提供的自动配置功能。|
-| **spring-boot-autoconfigure** |  **Spring Boot** 核心代码，也是入口类 **SpringApplication** 类所在项目。|
+| **spring-boot-autoconfigure** |  **Spring Boot** 自动配置核心功能，默认集成了多种常用框架的自动配置类等。|
 | **spring-boot-cli** |  命令工具，提供快速搭建项目原型、启动服务、执行 **Groovy** 脚本等功能。**3.0.x** 版本开始被移除。|
 | **spring-boot-dependencies** |  依赖和插件的版本信息。|
 | **spring-boot-devtools** |  开发者工具，提供热部署、实时加载、禁用缓存等提升开发效率的功能。|
