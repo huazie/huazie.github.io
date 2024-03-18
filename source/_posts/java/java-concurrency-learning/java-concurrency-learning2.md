@@ -3,7 +3,7 @@ title: Java并发编程学习2-线程安全性
 date: 2021-03-01 11:51:51
 updated: 2024-03-18 14:22:22
 categories:
-  - 开发语言-Java
+  - [开发语言-Java,Java并发编程]
 tags:
   - Java
   - 并发编程
@@ -13,7 +13,7 @@ tags:
   - 重入
 ---
 
-[《开发语言-Java》](/categories/开发语言-Java/)
+[《开发语言-Java》](/categories/开发语言-Java/) [《Java并发编程》](/categories/开发语言-Go/Go语言学习/) 
 
 ![](/images/java-concurrency-logo.png)
 

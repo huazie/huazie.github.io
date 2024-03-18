@@ -3,7 +3,7 @@ title: Java并发编程学习3-可见性和对象发布
 date: 2021-03-29 17:48:15
 updated: 2023-09-14 12:36:42
 categories:
-  - 开发语言-Java
+  - [开发语言-Java,Java并发编程]
 tags:
   - Java
   - 可见性
@@ -11,7 +11,7 @@ tags:
   - 对象发布与逸出
 ---
 
-[《开发语言-Java》](/categories/开发语言-Java/)
+[《开发语言-Java》](/categories/开发语言-Java/) [《Java并发编程》](/categories/开发语言-Go/Go语言学习/) 
 
 ![](/images/java-concurrency-logo.png)
 

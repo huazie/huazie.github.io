@@ -3,7 +3,7 @@ title: Java并发编程学习1-并发简介
 date: 2021-01-29 18:12:24
 updated: 2023-09-14 12:35:52
 categories:
-  - 开发语言-Java
+  - [开发语言-Java,Java并发编程]
 tags:
   - Java
   - 并发编程
@@ -12,7 +12,7 @@ tags:
   - 线程的风险
 ---
 
-[《开发语言-Java》](/categories/开发语言-Java/)
+[《开发语言-Java》](/categories/开发语言-Java/) [《Java并发编程》](/categories/开发语言-Go/Go语言学习/) 
 
 ![](/images/java-concurrency-logo.png)
 
