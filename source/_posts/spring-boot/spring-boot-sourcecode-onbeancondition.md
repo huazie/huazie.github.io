@@ -295,7 +295,7 @@ protected final MatchResult getMatchingBeans(ConditionContext context, Spec<?> s
 ```java
   boolean considerHierarchy = spec.getStrategy() != SearchStrategy.CURRENT;
 ```
-这里根据 `Spec` 对象的 `SearchStrategy` 属性来确定是否考虑 `bean` 的层次结构。如果`SearchStrategy` 是 `CURRENT`【】，则不考虑层次结构【即 `considerHierarchy 为 false`】；否则，考虑层次结构【即 `considerHierarchy 为 true`】。
+这里根据 `Spec` 对象的 `SearchStrategy` 属性来确定是否考虑 `bean` 的层次结构。如果 `SearchStrategy` 是 `CURRENT`，则不考虑层次结构【即 `considerHierarchy 为 false`】；否则，考虑层次结构【即 `considerHierarchy 为 true`】。
 
 
 ```java
