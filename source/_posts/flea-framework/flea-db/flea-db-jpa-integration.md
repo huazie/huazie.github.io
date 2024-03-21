@@ -394,7 +394,8 @@ public class StudentSVImpl extends AbstractFleaJPASVImpl<Student> implements ISt
 ### 2.8.4 查询学生信息（按条件分页查询）
  表里自行再插入些数据，用于测试查询，查询结果因各自表数据而异；
  目前我表中数据如下：
-![](https://img-blog.csdnimg.cn/20190912114155255.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTI4NTUyMjk=,size_16,color_FFFFFF,t_70)
+![](student_record.png)
+
 ```java
       @Test
     public void testStudentQueryPage() {
