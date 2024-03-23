@@ -9,7 +9,7 @@ tags:
   - 字典类型
 ---
 
-[《开发语言-Go》](/categories/开发语言-Go/)
+[《开发语言-Go》](/categories/开发语言-Go/) [《Go语言学习》](/categories/开发语言-Go/Go语言学习/) 
 
 ![](/images/go-logo.png)
 
