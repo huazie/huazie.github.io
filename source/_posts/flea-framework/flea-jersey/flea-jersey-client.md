@@ -77,4 +77,7 @@ tags:
         }
     }
 ```
+
+# 总结
+
 至此，Flea RESTful接口客户端接入已经完成。上述自测类，可至GitHub查看 [JerseyTest.java](https://github.com/Huazie/flea-framework/blob/dev/flea-jersey/flea-jersey-client/src/test/java/com/huazie/fleaframework/jersey/client/resource/JerseyTest.java)

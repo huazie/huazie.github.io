@@ -174,3 +174,7 @@ public class FleaDownloadSVImpl implements IFleaDownloadSV {
 代码中出现 **ERROR-SERVICE0000000001** 的异常，需要配置如下国际码和错误码的映射关系： （国际码和错误码映射配置表 **flea_jersey_i18n_error_mapping**）
 
 ![](flea_jersey_i18n_error_mapping.png)
+
+# 总结
+
+至此，Flea RESTful接口服务端接入已经完成。

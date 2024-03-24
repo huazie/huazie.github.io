@@ -210,6 +210,9 @@ FPOST("FPOST", "com.huazie.fleaframework.jersey.client.request.impl.FPostFleaReq
         }
     }
 ```
+
+# 总结
+
 至此，文件上传已接入完毕，下篇博文将会讲解文件下载接入。
 
 

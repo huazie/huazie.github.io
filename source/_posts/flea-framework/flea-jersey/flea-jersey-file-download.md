@@ -210,6 +210,8 @@ FGET("FGET", "com.huazie.fleaframework.jersey.client.request.impl.FGetFleaReques
     }
 ```
 
+# 总结
+
 至此，文件下载接入告一段落； 
 
 欢迎了解  [flea-jersey](/categories/开发框架-Flea/flea-jersey/)  其他内容 。

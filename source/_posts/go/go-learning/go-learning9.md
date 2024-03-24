@@ -3,10 +3,10 @@ title: Go语言学习9-结构体类型
 date: 2016-07-07 23:20:45
 updated: 2024-03-19 17:21:57
 categories:
-    - [开发语言-Go,Go语言学习]
+  - [开发语言-Go,Go语言学习]
 tags:
-    - Go
-    - 函数类型
+  - Go
+  - 函数类型
 ---
 
 [《开发语言-Go》](/categories/开发语言-Go/) [《Go语言学习》](/categories/开发语言-Go/Go语言学习/) 
