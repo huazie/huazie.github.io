@@ -21,7 +21,7 @@ tags:
 ![](/images/spring-boot-logo.png)
 
 # 一、引言
-上篇博文[《深入应用上下文初始化器实现》](/2024/03/17/spring-boot/spring-boot-sourcecode-applicationcontextinitializer-impl/)，**Huazie** 带大家详细分析了 分析 **Spring Boot** 中预置的应用上下文初始化器实现【即 `ApplicationContextInitializer` 接口实现类】的源码，了解了在 **Spring** 容器刷新之前初始化应用程序上下文的一些具体操作。
+上篇博文[《深入 ApplicationContext 初始化器实现》](/2024/03/17/spring-boot/spring-boot-sourcecode-applicationcontextinitializer-impl/)，**Huazie** 带大家详细分析了 分析 **Spring Boot** 中预置的应用上下文初始化器实现【即 `ApplicationContextInitializer` 接口实现类】的源码，了解了在 **Spring** 容器刷新之前初始化应用程序上下文的一些具体操作。
 
 当然其中有些实现源码比较复杂，还没有深入分析。那本篇就来对其中的 
 `SharedMetadataReaderFactoryContextInitializer` 【即 **共享 `MetadataReaderFactory` 上下文初始化器**】详细分析下。
@@ -169,7 +169,7 @@ tags:
   </tr>
   <tr>
     <td align="left" > 
-      <a href="/2024/03/17/spring-boot/spring-boot-sourcecode-applicationcontextinitializer-impl/">【Spring Boot 源码学习】深入应用上下文初始化器实现</a> 
+      <a href="/2024/03/17/spring-boot/spring-boot-sourcecode-applicationcontextinitializer-impl/">【Spring Boot 源码学习】深入 ApplicationContext 初始化器实现</a> 
     </td>
   </tr>
 </table>
@@ -216,7 +216,7 @@ class SharedMetadataReaderFactoryContextInitializer
 
 ![](CachingMetadataReaderFactoryPostProcessor.png)
 
-从上述截图中，我们可以看出 `CachingMetadataReaderFactoryPostProcessor` 是一个静态内部类，它同时实现了 `PriorityOrdered` 和 `BeanDefinitionRegistryPostProcessor` 接口，有关这两个接口的作用，可以查看 [《深入应用上下文初始化器实现》](/2024/03/17/spring-boot/spring-boot-sourcecode-applicationcontextinitializer-impl/)中的 **3.1.1** 小节 ，这里不再赘述。
+从上述截图中，我们可以看出 `CachingMetadataReaderFactoryPostProcessor` 是一个静态内部类，它同时实现了 `PriorityOrdered` 和 `BeanDefinitionRegistryPostProcessor` 接口，有关这两个接口的作用，可以查看 [《深入 ApplicationContext 初始化器实现》](/2024/03/17/spring-boot/spring-boot-sourcecode-applicationcontextinitializer-impl/)中的 **3.1.1** 小节 ，这里不再赘述。
 
 我们继续查看 `postProcessBeanDefinitionRegistry` 方法，发现这里调用了 `register` 方法 和 `configureConfigurationClassPostProcessor` 方法，下面一一介绍：
 

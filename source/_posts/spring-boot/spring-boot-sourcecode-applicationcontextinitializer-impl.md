@@ -1,5 +1,5 @@
 ---
-title: 【Spring Boot 源码学习】深入应用上下文初始化器实现
+title: 【Spring Boot 源码学习】深入 ApplicationContext 初始化器实现
 date: 2024-03-17 18:57:56
 updated: 2024-03-17 18:57:56
 categories:
