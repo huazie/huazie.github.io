@@ -69,7 +69,7 @@ if m["a"] { // 判断是否m中包含键为“a”的键值对
 }
 ```
 
-如上 **HashSet** 类型的基本结构已确定了，现在考虑如何初始化 **HashSet** 类型值。由于字典类型的零值为 **nil** ，而用 **new** 函数来创建一个 **HashSet** 类型值，也就是 **new(HashSet).m** 的求值结果将会是一个 **nil** (关于 **new** 函数可以查阅本人另一篇博文 [Go语言学习13-内建函数](https://blog.csdn.net/u012855229/article/details/115485927))。因此，这里需要编写一个专门用于创建和初始化 **HashSet** 类型值的函数，该函数声明如下：
+如上 **HashSet** 类型的基本结构已确定了，现在考虑如何初始化 **HashSet** 类型值。由于字典类型的零值为 **nil** ，而用 **new** 函数来创建一个 **HashSet** 类型值，也就是 **new(HashSet).m** 的求值结果将会是一个 **nil** (关于 **new** 函数可以查阅本人另一篇博文 [Go语言学习14-内建函数](/2016/07/15/go/go-learning/go-learning14/))。因此，这里需要编写一个专门用于创建和初始化 **HashSet** 类型值的函数，该函数声明如下：
 
 ```go
 func NewHashSet() *HashSet {
@@ -77,7 +77,7 @@ func NewHashSet() *HashSet {
 }
 ```
 
-如上可以看到，使用 **make** 函数对字段 **m** 进行了初始化(关于 **make** 函数也可查阅本人另一篇博文 [Go语言学习13-内建函数](https://blog.csdn.net/u012855229/article/details/115485927))。同时注意观察函数 **NewHashSet** 的结果声明的类型是 ***HashSet** 而不是 **HashSet**，目的是让这个结果值的方法集合中包含调用接收者类型为 **HashSet** 或 ***HashSet** 的所有方法。这样做的好处将在后面编写 **Set** 接口类型的时候再予以说明。
+如上可以看到，使用 **make** 函数对字段 **m** 进行了初始化(关于 **make** 函数也可查阅本人另一篇博文 [Go语言学习14-内建函数](/2016/07/15/go/go-learning/go-learning14/))。同时注意观察函数 **NewHashSet** 的结果声明的类型是 ***HashSet** 而不是 **HashSet**，目的是让这个结果值的方法集合中包含调用接收者类型为 **HashSet** 或 ***HashSet** 的所有方法。这样做的好处将在后面编写 **Set** 接口类型的时候再予以说明。
 
 ## 2. 实现HashSet的基本功能
 
