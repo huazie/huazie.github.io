@@ -6,7 +6,11 @@ categories:
   - [开发语言-Java,Java并发编程]
 tags:
   - Java
-  - 
+  - UncaughtExceptionHandler
+  - JVM关闭
+  - 关闭钩子
+  - 守护线程
+  - 终结器
 ---
 
 [《开发语言-Java》](/categories/开发语言-Java/) [《Java并发编程》](/categories/开发语言-Java/Java并发编程/) 
@@ -54,7 +58,7 @@ tags:
 
 **ThreadPoolExecutor** 和 **Swing** 都通过这项技术来确保行为糟糕的任务不会影响到后续任务的执行。
 
-#### 1.1 未捕获异常的处理
+### 1.1 未捕获异常的处理
 
 上面我们介绍了一种主动方法来解决未检查异常，而在 **Thread API** 中同样提供了 **UncaughtExceptionHandler**，它能检测出某个线程由于未捕获的异常而终结的情况。两者结合，能有效地防止线程泄露问题。
 
@@ -118,7 +122,7 @@ public class UEHLogger implements Thread.UncaughtExceptionHandler {
 
 说到 **JVM** 正常关闭，就不得不提接下来的主角 -- **关闭钩子**。
 
-#### 2.1 关闭钩子
+### 2.1 关闭钩子
 
 **何为关闭钩子 ？**
 
@@ -174,7 +178,7 @@ public class UEHLogger implements Thread.UncaughtExceptionHandler {
 
 当应用程序需要维护多个服务之间的显式依赖信息时，上述可以确保关闭操作按照正确的顺序执行。
 
-#### 2.2 守护线程
+### 2.2 守护线程
 
 **何为守护线程？**
 
@@ -198,7 +202,7 @@ public class UEHLogger implements Thread.UncaughtExceptionHandler {
 - 守护线程也不能用来替代应用程序管理程序中各个服务的生命周期。
 
 
-#### 2.3 终结器
+### 2.3 终结器
 
 当不再需要内存资源时，可以通过垃圾回收器来回收它们，但对于其他的一些资源，例如文件句柄或套接字句柄，当不再需要它们时，必须显式地交还给操作系统。
 

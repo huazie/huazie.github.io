@@ -228,7 +228,7 @@ public class ConditionEvaluationReportLoggingListener
 再来看看构造方法，它有两个：
 
 - **无参构造方法**：初始化日志级别为 `DEBUG`【默认通过它实例化该上下文初始化器】
-- **带 `LogLevel` 参数的构造方法**：`Assert.isTrue` 是用于验证一个条件是否为真。通过 `isInfoOrDebug` 来判断日志级别参数 `logLevelForReport`  是否是 **INFO** 或 **DEBUG** 级别，如果不是，则会抛出一个 `IllegalArgumentException` 异常并显示错误信息 **"LogLevel must be INFO or DEBUG"**。
+- **带 `LogLevel` 参数的构造方法**：`Assert.isTrue` 是用于验证一个条件是否为真。通过 `isInfoOrDebug` 来判断日志级别参数 `logLevelForReport` 是否是 **INFO** 或 **DEBUG** 级别，如果不是，则会抛出一个 `IllegalArgumentException` 异常并显示错误信息 **"LogLevel must be INFO or DEBUG"** 。
 
 我们继续查看 `initialize` 方法，可以看到 ：
 - 首先，初始化成员变量应用上下文对象 `applicationContext`，便于后续使用。
