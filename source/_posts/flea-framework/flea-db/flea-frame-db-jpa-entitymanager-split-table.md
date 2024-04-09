@@ -12,7 +12,7 @@ tags:
 
 [《开发框架-Flea》](/categories/开发框架-Flea/) [《flea-db》](/categories/开发框架-Flea/flea-db/)
 
-![](/images/flea-logo.png)
+![](/images/jpa-logo.png)
 
 # 引言
 本文采用 EclipseLink的JPA实现，相关JPA接入使用请移步我的[另外几篇博文](/categories/开发框架-Flea/flea-db/)。

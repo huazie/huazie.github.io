@@ -12,7 +12,7 @@ tags:
 
 [《开发框架-Flea》](/categories/开发框架-Flea/) [《flea-db》](/categories/开发框架-Flea/flea-db/)
 
-![](/images/flea-logo.png)
+![](/images/jpa-logo.png)
 
 # 引言
 在开始本篇的讲解之前，我先来说下之前写过的两篇博文【现在已弃用】：

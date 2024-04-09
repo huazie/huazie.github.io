@@ -14,7 +14,7 @@ tags:
 
 [《开发框架-Flea》](/categories/开发框架-Flea/) [《flea-db》](/categories/开发框架-Flea/flea-db/)
 
-![](/images/flea-logo.png)
+![](/images/jpa-logo.png)
 
 # 引言
 书接上回JPA封装介绍博文，提到 **FleaJPAQuery** 在前一个版本（单例模式）下存在并发的问题，下面首先来分析一下，然后再介绍目前基于对象池的解决方案。
