@@ -1,5 +1,5 @@
 ---
-title: 【Spring Boot 源码学习】初识 SpringApplication
+title: 【Spring Boot 源码学习】SpringApplication 的 run 方法核心流程介绍
 date: 2024-04-12 11:27:53
 updated: 2024-04-12 11:27:53
 categories:
