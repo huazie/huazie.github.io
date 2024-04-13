@@ -48,32 +48,32 @@ public class TestHarness {
     
     public long timeTasks(int nThreads, final Runnable task) throws InterruptedException {
     
-    final CountDownLatch startGate = new CountDownLatch(1);
+        final CountDownLatch startGate = new CountDownLatch(1);
     
-    final CountDownLatch endGate = new CountDownLatch(nThreads);
+        final CountDownLatch endGate = new CountDownLatch(nThreads);
     
-    for (int i = 0; i < nThreads; i++) {
-        Thread t = new Thread() {
-        public void run() {
-            try {
-            startGate.await();
-            try {
-                task.run();
-            } finally {
-                endGate.countDown();
-            }
-            }catch (InterruptedException ignored) {
-            }
+        for (int i = 0; i < nThreads; i++) {
+            Thread t = new Thread() {
+                public void run() {
+                    try {
+                        startGate.await();
+                        try {
+                            task.run();
+                        } finally {
+                            endGate.countDown();
+                        }
+                    }catch (InterruptedException ignored) {
+                    }
+                }
+            };
+            t.start();
         }
-        };
-        t.start();
-    }
     
-    long start = System.nanoTime();
-    startGate.countDown();
-    endGate.await();
-    long end = System.nanoTime();
-    return end - start;
+        long start = System.nanoTime();
+        startGate.countDown();
+        endGate.await();
+        long end = System.nanoTime();
+        return end - start;
     }
 }
 ```
@@ -142,11 +142,11 @@ public class Preloader {
 ```java
 public static RuntimeException launderThrowable(Throwable t) {
     if (t instanceof RuntimeException)
-    return (RuntimeException) t;
+        return (RuntimeException) t;
     else if (t instanceof Error) 
-    throw (Error) t;
+        throw (Error) t;
     else 
-    throw new IllegalStateException("Not unchecked", t);
+        throw new IllegalStateException("Not unchecked", t);
 }
 ```
 
@@ -167,27 +167,27 @@ public class BoundedHashSet<T> {
     private final Semaphore sem;
     
     public BoundedHashSet(int bound) {
-    this.set = Collections.synchronizedSet(new HashSet<T>());
-    sem = new Semaphore(bound);
+        this.set = Collections.synchronizedSet(new HashSet<T>());
+        sem = new Semaphore(bound);
     }
     
     public boolean add(T t) throws InterruptedException {
-    sem.acquire();
-    boolean wasAdded = false;
-    try {
-        wasAdded = set.add(t);
-        return wasAdded;
-    } finally {
-        if (!wasAdded)
-        sem.release();
-    }
+        sem.acquire();
+        boolean wasAdded = false;
+        try {
+            wasAdded = set.add(t);
+            return wasAdded;
+        } finally {
+            if (!wasAdded)
+                sem.release();
+        }
     }
     
     public boolean remove(Object t) {
-    boolean wasRemoved = set.remove(t);
-    if (wasRemoved) 
-        sem.release();
-    return wasRemoved;
+        boolean wasRemoved = set.remove(t);
+        if (wasRemoved) 
+            sem.release();
+        return wasRemoved;
     }
 }
 ```
