@@ -200,9 +200,9 @@ public class UnsafeCachingFactorizer extends HttpServlet {
 Java 提供了一种内置的锁机制来支持原子性：**同步代码块**（Synchronized Block）。同步代码块包括两部分：一个作为锁的对象引用，一个作为由这个锁保护的代码块。以关键字 synchronized 来修饰的方法就是一种横跨整个方法体的同步代码块，其中该同步代码块的锁就是方法调用所在的对象。静态的 synchronized 方法以 Class 对象作为锁。
 
 ```java
-	synchronized(lock) {
-	    // 访问或修改由锁保护的共享状态
-	}
+    synchronized(lock) {
+        // 访问或修改由锁保护的共享状态
+    }
 ```
 
 每个 Java 对象都可以用做一个实现同步的锁，这些锁被称为**内置锁**（Intrinsic Lock）或监视器锁（Monitor Lock）。线程在进入同步代码块之前会自动获得锁，并且在退出同步代码块时自动释放锁（无论是通过正常的控制路径退出，还是通过从代码块中抛出异常退出）。获得内置锁的唯一途径就是进入由这个锁保护的同步代码块或方法。
@@ -243,16 +243,16 @@ public class SynchronizedFactorizer extends HttpServlet {
 
 ```java
 public class Widget {
-	public synchronized void doSomething() {
-		...
-	}
+    public synchronized void doSomething() {
+        // ...
+    }
 }
 
 public class LoggingWidget extends Widget {
-	public synchronized void doSomething() {
-		System.out.println(toString() + ": calling doSomething");
-		super.doSomething();
-	}
+    public synchronized void doSomething() {
+        System.out.println(toString() + ": calling doSomething");
+        super.doSomething();
+    }
 }
 ```
 上述代码中，子类 **LogginWidget** 改写了父类 **Widget** 的 **synchronized** 方法，然后调用父类中的方法。由于 **Widget** 和 **LoggingWidget** 中 **doSomething** 方法都是 **synchronized** 方法，因此每个**doSomething** 方法在执行前都会获取 **Widget** 上的锁。此时如果内置锁不是可重入的，那么在调用**super.doSomething** 时将无法获得 **Widget** 上的锁，因为这个锁已经被持有，从而线程将永远停顿下去，等待一个永远也无法获得的锁。重入则避免了这种死锁情况的发生。
@@ -270,8 +270,8 @@ public class LoggingWidget extends Widget {
 
 如果通过同步可以避免竞态条件问题，那么为什么不在每个方法声明时都使用关键字 **synchronized** 呢？ 因为如果不加区别地滥用 **synchronized**，可能导致程序中出现过多的同步。另外，如果只是将每个方法都作为同步方法，例如 如下代码示例，这里并不足以确保 **Vector** 上复合操作都是原子的：
 ```java
-	if (!vector.contains(element))
-		vector.add(element);
+    if (!vector.contains(element))
+        vector.add(element);
 ```
 虽然 **contains** 和 **add** 方法都是原子方法，但在上述示例代码的操作中仍然存在竞态条件。如果需要把多个操作合并为一个复合操作，仅仅使用 **synchronized** 是不够的，它只能确保单个操作的原子性，还是需要额外的加锁机制（后续笔记将会了解如何在线程安全对象中添加原子操作的方法）。
 

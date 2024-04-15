@@ -37,16 +37,16 @@ Ad-hoc 线程封闭是指，维护线程封闭性的职责完全由程序实现�
 下面一起来看下面的代码示例：
 
 ```java
-	private static ThreadLocal<Connection> connectionHolder = 
-		new ThreadLocal<Connection>() {
-			public Connection initialValue() {
-				return DriverManager.getConnection(DB_URL);
-			}
-		};
-		
-	public static Connection getConnection() {
-		return connectionHolder.get();
-	}
+    private static ThreadLocal<Connection> connectionHolder = 
+        new ThreadLocal<Connection>() {
+            public Connection initialValue() {
+                return DriverManager.getConnection(DB_URL);
+            }
+        };
+        
+    public static Connection getConnection() {
+        return connectionHolder.get();
+    }
 ```
 上述代码通过将 JDBC 的连接保存到 **ThreadLocal** 对象中，每个线程都会拥有属于自己的连接。当某个线程初次调用 **getConnection** 方法时，就会调用 **ThreadLocal** 的 **initialValue** 来获取初始化的连接对象。
 
@@ -163,12 +163,12 @@ public class VolatileCachedFactorizer extends HttpServlet {
 下面我们先看一个发布对象的简单示例：
 
 ```java
-	// 在没有足够同步的情况下发布对象
-	public Holder holder;
+    // 在没有足够同步的情况下发布对象
+    public Holder holder;
 
-	public void initialize() {
-		holder = new Holder(42);
-	}
+    public void initialize() {
+        holder = new Holder(42);
+    }
 ```
 上述代码由于存在可见性问题，其他线程看到的 **Holder** 对象将处于不一致的状态，即便在该对象的构造函数中已经正确地构建了不变性条件。这种不正确的发布导致其他线程看到尚未创建完成的对象。
 
@@ -242,7 +242,7 @@ public static Holder holder = new Holder(42);
 
 ```java
 public Map<String, Date> lastLogin = 
-	Collections.synchronizedMap(new HashMap<String, Date>());
+    Collections.synchronizedMap(new HashMap<String, Date>());
 ```
 上述代码假设需要维护一个保存了每位用户的最近登录时间的 **Map**。如果 **Date** 对象的值在被放入 **Map** 后就不会改变，那么 **synchronizedMap** 中的同步机制就足以使 **Date** 值被安全地发布，并且在访问这些 **Date** 值时不需要额外的同步。
 
