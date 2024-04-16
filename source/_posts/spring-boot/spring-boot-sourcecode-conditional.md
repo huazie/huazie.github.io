@@ -116,10 +116,10 @@ tags:
 @Documented
 public @interface Conditional {
 
-  /**
-   * 必须匹配才能注册组件的所有条件类
-   */
-  Class<? extends Condition>[] value();
+    /**
+     * 必须匹配才能注册组件的所有条件类
+     */
+    Class<? extends Condition>[] value();
 
 }
 ```
@@ -146,13 +146,13 @@ public @interface Conditional {
 @FunctionalInterface
 public interface Condition {
 
-  /**
-   * 确定条件是否匹配。
-   * @param context 条件上下文
-   * @param metadata 正在检查的 AnnotationMetadata 或 MethodMetadata 的元数据
-   * @return 如果条件匹配并且可以注册组件，则返回 true；否则返回 false，否决带有注解的组件的注册。
-   */
-  boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata);
+    /**
+     * 确定条件是否匹配。
+     * @param context 条件上下文
+     * @param metadata 正在检查的 AnnotationMetadata 或 MethodMetadata 的元数据
+     * @return 如果条件匹配并且可以注册组件，则返回 true；否则返回 false，否决带有注解的组件的注册。
+     */
+    boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata);
 
 }
 ```
@@ -160,81 +160,82 @@ public interface Condition {
 上述就是 `Condition` 接口的源码，它的 `matches` 方法用来确定条件是否匹配，其中两个参数分别如下：
 
 - `ConditionContext` ：条件上下文，可通过该接口提供的方法来获得 **Spring** 应用的上下文信息，接口定义如下：
-  
-  ```java
-  public interface ConditionContext {
+    
+    ```java
+    public interface ConditionContext {
 
-    /**
-     * 返回一个 BeanDefinitionRegistry 对象，该对象将包含如果条件匹配时应该持有的bean定义。
-     * 如果没有可用的注册表（这种情况很少见：只有当使用 ClassPathScanningCandidateComponentProvider 时才会出现），
-     * 则会抛出IllegalStateException异常。
-     */
-    BeanDefinitionRegistry getRegistry();
-  
-    /**
-     * 返回一个 ConfigurableListableBeanFactory 对象，该对象将包含如果条件匹配时应该持有的bean定义，
-     * 或者 如果bean工厂不可用（或者无法向下转型为 ConfigurableListableBeanFactory），则返回null。
-     */
-    @Nullable
-    ConfigurableListableBeanFactory getBeanFactory();
-  
-    /**
-     * 返回当前应用程序正在运行的环境。
-     */
-    Environment getEnvironment();
-  
-    /**
-     * 返回当前正在使用的资源加载器。
-     */
-    ResourceLoader getResourceLoader();
-  
-    /**
-     * 返回应该用来加载额外类的 ClassLoader。如果系统类加载器不可访问，则返回null。
-     */
-    @Nullable
-    ClassLoader getClassLoader();
+        /**
+         * 返回一个 BeanDefinitionRegistry 对象，该对象将包含如果条件匹配时应该持有的bean定义。
+         * 如果没有可用的注册表（这种情况很少见：只有当使用 ClassPathScanningCandidateComponentProvider 时才会出现），
+         * 则会抛出IllegalStateException异常。
+         */
+        BeanDefinitionRegistry getRegistry();
+    
+        /**
+         * 返回一个 ConfigurableListableBeanFactory 对象，该对象将包含如果条件匹配时应该持有的bean定义，
+         * 或者 如果bean工厂不可用（或者无法向下转型为 ConfigurableListableBeanFactory），则返回null。
+         */
+        @Nullable
+        ConfigurableListableBeanFactory getBeanFactory();
+    
+        /**
+         * 返回当前应用程序正在运行的环境。
+         */
+        Environment getEnvironment();
+    
+        /**
+         * 返回当前正在使用的资源加载器。
+         */
+        ResourceLoader getResourceLoader();
+    
+        /**
+         * 返回应该用来加载额外类的 ClassLoader。如果系统类加载器不可访问，则返回null。
+         */
+        @Nullable
+        ClassLoader getClassLoader();
 
-  }
-  ```
+    }
+    ```
 
 - `AnnotatedTypeMetadata` ：该接口提供了访问特定类或方法的注解功能，并且不需要加载类，可以用来检查带有 `@Bean` 注解的方法上是否还有其他注解。
 
   下面我们来查看下它的源码【**spring-core 5.3.25**】:
 
-  ```java
-  public interface AnnotatedTypeMetadata {
-    // 返回一个MergedAnnotations对象，表示该类型的注解集合。
-      MergedAnnotations getAnnotations();
-    // 检查是否存在指定名称的注解，如果存在则返回true，否则返回false。
-      default boolean isAnnotated(String annotationName) {
-          return this.getAnnotations().isPresent(annotationName);
-      }
+    ```java
+    public interface AnnotatedTypeMetadata {
+        // 返回一个MergedAnnotations对象，表示该类型的注解集合。
+        MergedAnnotations getAnnotations();
+          
+        // 检查是否存在指定名称的注解，如果存在则返回true，否则返回false。
+        default boolean isAnnotated(String annotationName) {
+            return this.getAnnotations().isPresent(annotationName);
+        }
   
-    // 下面的方法，都是用来获取指定名称注解的属性值
-      @Nullable
-      default Map<String, Object> getAnnotationAttributes(String annotationName) {
-          return this.getAnnotationAttributes(annotationName, false);
-      }
-  
-      @Nullable
-      default Map<String, Object> getAnnotationAttributes(String annotationName, boolean classValuesAsString) {
-          MergedAnnotation<Annotation> annotation = this.getAnnotations().get(annotationName, (Predicate)null, MergedAnnotationSelectors.firstDirectlyDeclared());
-          return !annotation.isPresent() ? null : annotation.asAnnotationAttributes(Adapt.values(classValuesAsString, true));
-      }
-  
-      @Nullable
-      default MultiValueMap<String, Object> getAllAnnotationAttributes(String annotationName) {
-          return this.getAllAnnotationAttributes(annotationName, false);
-      }
-  
-      @Nullable
-      default MultiValueMap<String, Object> getAllAnnotationAttributes(String annotationName, boolean classValuesAsString) {
-          Adapt[] adaptations = Adapt.values(classValuesAsString, true);
-          return (MultiValueMap)this.getAnnotations().stream(annotationName).filter(MergedAnnotationPredicates.unique(MergedAnnotation::getMetaTypes)).map(MergedAnnotation::withNonMergedAttributes).collect(MergedAnnotationCollectors.toMultiValueMap((map) -> {
-              return map.isEmpty() ? null : map;
-          }, adaptations));
-      }
-  }
+        // 下面的方法，都是用来获取指定名称注解的属性值
+        @Nullable
+        default Map<String, Object> getAnnotationAttributes(String annotationName) {
+            return this.getAnnotationAttributes(annotationName, false);
+        }
+    
+        @Nullable
+        default Map<String, Object> getAnnotationAttributes(String annotationName, boolean classValuesAsString) {
+            MergedAnnotation<Annotation> annotation = this.getAnnotations().get(annotationName, (Predicate)null, MergedAnnotationSelectors.firstDirectlyDeclared());
+            return !annotation.isPresent() ? null : annotation.asAnnotationAttributes(Adapt.values(classValuesAsString, true));
+        }
+    
+        @Nullable
+        default MultiValueMap<String, Object> getAllAnnotationAttributes(String annotationName) {
+            return this.getAllAnnotationAttributes(annotationName, false);
+        }
+    
+        @Nullable
+        default MultiValueMap<String, Object> getAllAnnotationAttributes(String annotationName, boolean classValuesAsString) {
+            Adapt[] adaptations = Adapt.values(classValuesAsString, true);
+            return (MultiValueMap)this.getAnnotations().stream(annotationName).filter(MergedAnnotationPredicates.unique(MergedAnnotation::getMetaTypes)).map(MergedAnnotation::withNonMergedAttributes).collect(MergedAnnotationCollectors.toMultiValueMap((map) -> {
+                return map.isEmpty() ? null : map;
+            }, adaptations));
+        }
+    }
   ```
 
 ## 2. @Conditional 的衍生注解
@@ -289,17 +290,17 @@ public interface Condition {
 @Documented
 @Conditional(OnWebApplicationCondition.class)
 public @interface ConditionalOnWebApplication {
-  // 所需的web应用类型
-  Type type() default Type.ANY;
-  // 可选应用类型枚举
-  enum Type { 
-    // 任何类型
+    // 所需的web应用类型
+    Type type() default Type.ANY;
+    // 可选应用类型枚举
+    enum Type { 
+        // 任何类型
         ANY,
         // 基于servlet的web应用
         SERVLET,
         // 基于reactive的web应用
         REACTIVE
-  }
+    }
 }
 ```
 

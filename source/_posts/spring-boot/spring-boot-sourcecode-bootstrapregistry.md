@@ -149,43 +149,43 @@ tags:
 ```java
 public interface BootstrapRegistry {
 
-  <T> void register(Class<T> type, InstanceSupplier<T> instanceSupplier);
+    <T> void register(Class<T> type, InstanceSupplier<T> instanceSupplier);
 
-  <T> void registerIfAbsent(Class<T> type, InstanceSupplier<T> instanceSupplier);
+    <T> void registerIfAbsent(Class<T> type, InstanceSupplier<T> instanceSupplier);
 
-  <T> boolean isRegistered(Class<T> type);
+    <T> boolean isRegistered(Class<T> type);
 
-  <T> InstanceSupplier<T> getRegisteredInstanceSupplier(Class<T> type);
+    <T> InstanceSupplier<T> getRegisteredInstanceSupplier(Class<T> type);
 
-  void addCloseListener(ApplicationListener<BootstrapContextClosedEvent> listener);
+    void addCloseListener(ApplicationListener<BootstrapContextClosedEvent> listener);
 
-  @FunctionalInterface
-  interface InstanceSupplier<T> {
+    @FunctionalInterface
+    interface InstanceSupplier<T> {
 
-    T get(BootstrapContext context);
+        T get(BootstrapContext context);
 
-    default Scope getScope() {
-      return Scope.SINGLETON;
+        default Scope getScope() {
+            return Scope.SINGLETON;
+        }
+
+        default InstanceSupplier<T> withScope(Scope scope) {
+            // 。。。
+        }
+
+        static <T> InstanceSupplier<T> of(T instance) {
+            return (registry) -> instance;
+        }
+
+        static <T> InstanceSupplier<T> from(Supplier<T> supplier) {
+            return (registry) -> (supplier != null) ? supplier.get() : null;
+        }
+
     }
 
-    default InstanceSupplier<T> withScope(Scope scope) {
-      // 。。。
+    enum Scope {
+        SINGLETON,
+        PROTOTYPE
     }
-
-    static <T> InstanceSupplier<T> of(T instance) {
-      return (registry) -> instance;
-    }
-
-    static <T> InstanceSupplier<T> from(Supplier<T> supplier) {
-      return (registry) -> (supplier != null) ? supplier.get() : null;
-    }
-
-  }
-
-  enum Scope {
-    SINGLETON,
-    PROTOTYPE
-  }
 
 }
 
@@ -247,19 +247,19 @@ public interface BootstrapRegistry {
 
 ```java
 default InstanceSupplier<T> withScope(Scope scope) {
-  Assert.notNull(scope, "Scope must not be null");
-  InstanceSupplier<T> parent = this;
-  return new InstanceSupplier<T>() {
-    @Override
-    public T get(BootstrapContext context) {
-      return parent.get(context);
-    }
+    Assert.notNull(scope, "Scope must not be null");
+    InstanceSupplier<T> parent = this;
+    return new InstanceSupplier<T>() {
+        @Override
+        public T get(BootstrapContext context) {
+            return parent.get(context);
+        }
 
-    @Override
-    public Scope getScope() {
-      return scope;
-    }
-  };
+        @Override
+        public Scope getScope() {
+            return scope;
+        }
+    };
 }
 ```
 通过阅读上述代码可知，该方法根据其参数 `scope` ，返回一个指定作用域的新的 `BootstrapRegistry.InstanceSupplier` 的匿名对象，该匿名对象重写了 `get` 和 `getScope` 方法。这里使用匿名对象的好处就是可以在不定义新类的情况下快速地创建一个具有特定行为的对象。

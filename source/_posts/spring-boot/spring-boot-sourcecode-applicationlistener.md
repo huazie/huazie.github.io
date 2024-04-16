@@ -142,11 +142,11 @@ tags:
 @FunctionalInterface
 public interface ApplicationListener<E extends ApplicationEvent> extends EventListener {
 
-  void onApplicationEvent(E event);
+    void onApplicationEvent(E event);
 
-  static <T> ApplicationListener<PayloadApplicationEvent<T>> forPayload(Consumer<T> consumer) {
-    return event -> consumer.accept(event.getPayload());
-  }
+    static <T> ApplicationListener<PayloadApplicationEvent<T>> forPayload(Consumer<T> consumer) {
+        return event -> consumer.accept(event.getPayload());
+    }
 }
 ```
 
@@ -223,12 +223,12 @@ org.springframework.boot.autoconfigure.BackgroundPreinitializer
 
 ```java
 void starting(ConfigurableBootstrapContext bootstrapContext, Class<?> mainApplicationClass) {
-  doWithListeners("spring.boot.application.starting", (listener) -> listener.starting(bootstrapContext),
-      (step) -> {
-        if (mainApplicationClass != null) {
-          step.tag("mainApplicationClass", mainApplicationClass.getName());
-        }
-      });
+    doWithListeners("spring.boot.application.starting", (listener) -> listener.starting(bootstrapContext),
+        (step) -> {
+            if (mainApplicationClass != null) {
+              step.tag("mainApplicationClass", mainApplicationClass.getName());
+            }
+        });
 }
 ```
 

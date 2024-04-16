@@ -53,29 +53,29 @@ tags:
  */
 public interface ImportSelector {
 
-	/**
-	 * 根据导入的 @Configuration 类的 AnnotationMetadata（注解元数据），
-	 * 选择并返回应该导入的类名称。
-	 * 
-	 * @return 返回类名的数组，如果没有则返回空数组。
-	 */
-	String[] selectImports(AnnotationMetadata importingClassMetadata);
+    /**
+     * 根据导入的 @Configuration 类的 AnnotationMetadata（注解元数据），
+     * 选择并返回应该导入的类名称。
+     * 
+     * @return 返回类名的数组，如果没有则返回空数组。
+     */
+    String[] selectImports(AnnotationMetadata importingClassMetadata);
 
-	/**
-	 * 返回一个用于从导入的候选类中排除类的断言函数，
-	 * 该函数会递归地应用于通过此选择器的导入项找到的所有类。
-	 * 
-	 * 如果对于给定的完全限定类名，该断言函数返回 true，
-	 * 则该类将不被视为被导入的配置类，从而跳过类文件加载和元数据检查。
-	 * 
-	 * @return 返回一个用于完全限定的候选类名的筛选断言函数，该函数适用于递归导入的配置类。
-	 * 如果没有筛选断言函数，则返回 null。
-	 * @since 5.2.4
-	 */
-	@Nullable
-	default Predicate<String> getExclusionFilter() {
-		return null;
-	}
+    /**
+     * 返回一个用于从导入的候选类中排除类的断言函数，
+     * 该函数会递归地应用于通过此选择器的导入项找到的所有类。
+     * 
+     * 如果对于给定的完全限定类名，该断言函数返回 true，
+     * 则该类将不被视为被导入的配置类，从而跳过类文件加载和元数据检查。
+     * 
+     * @return 返回一个用于完全限定的候选类名的筛选断言函数，该函数适用于递归导入的配置类。
+     * 如果没有筛选断言函数，则返回 null。
+     * @since 5.2.4
+     */
+    @Nullable
+    default Predicate<String> getExclusionFilter() {
+        return null;
+    }
 
 }
 ```
@@ -107,8 +107,8 @@ import org.springframework.core.Ordered;
  * 如果需要自定义的 @EnableAutoConfiguration 变体，也可以通过继承这个类来实现。
  */
 public class AutoConfigurationImportSelector implements DeferredImportSelector, BeanClassLoaderAware,
-		ResourceLoaderAware, BeanFactoryAware, EnvironmentAware, Ordered {
-	// 其他省略
+        ResourceLoaderAware, BeanFactoryAware, EnvironmentAware, Ordered {
+    // 其他省略
 }
 ```
 
@@ -134,68 +134,68 @@ public class AutoConfigurationImportSelector implements DeferredImportSelector, 
  */
 public interface DeferredImportSelector extends ImportSelector {
 
-	/**
-	 * 返回一个特定的导入组。
-	 * 默认实现会在不需要分组的情况下返回 null。
-	 * 
-	 * @return 导入组的类，如果没有则返回 null。
-	 * @since 5.0
-	 */
-	@Nullable
-	default Class<? extends Group> getImportGroup() {
-		return null;
-	}
+    /**
+     * 返回一个特定的导入组。
+     * 默认实现会在不需要分组的情况下返回 null。
+     * 
+     * @return 导入组的类，如果没有则返回 null。
+     * @since 5.0
+     */
+    @Nullable
+    default Class<? extends Group> getImportGroup() {
+        return null;
+    }
 
 
-	/**
-	 * 用于将来自不同导入选择器的结果进行分组的接口。
-	 * 
-	 * @since 5.0
-	 */
-	interface Group {
+    /**
+     * 用于将来自不同导入选择器的结果进行分组的接口。
+     * 
+     * @since 5.0
+     */
+    interface Group {
 
-		/**
-		 * 使用指定的 DeferredImportSelector 处理导入的 @Configuration 类的 AnnotationMetadata。
-		 */
-		void process(AnnotationMetadata metadata, DeferredImportSelector selector);
+        /**
+         * 使用指定的 DeferredImportSelector 处理导入的 @Configuration 类的 AnnotationMetadata。
+         */
+        void process(AnnotationMetadata metadata, DeferredImportSelector selector);
 
-		/**
-		 * 返回此组应该导入的类的条目
-		 */
-		Iterable<Entry> selectImports();
+        /**
+         * 返回此组应该导入的类的条目
+         */
+        Iterable<Entry> selectImports();
 
 
-		/**
-		 * 一个条目，包含导入的配置类的 AnnotationMetadata 和要导入的类名。
-		 */
-		class Entry {
+        /**
+         * 一个条目，包含导入的配置类的 AnnotationMetadata 和要导入的类名。
+         */
+        class Entry {
 
-			private final AnnotationMetadata metadata;
+            private final AnnotationMetadata metadata;
 
-			private final String importClassName;
+            private final String importClassName;
 
-			public Entry(AnnotationMetadata metadata, String importClassName) {
-				this.metadata = metadata;
-				this.importClassName = importClassName;
-			}
+            public Entry(AnnotationMetadata metadata, String importClassName) {
+                this.metadata = metadata;
+                this.importClassName = importClassName;
+            }
 
-			/**
-			 * 返回导入的配置类的 AnnotationMetadata【注解元数据】
-			 */
-			public AnnotationMetadata getMetadata() {
-				return this.metadata;
-			}
+            /**
+             * 返回导入的配置类的 AnnotationMetadata【注解元数据】
+             */
+            public AnnotationMetadata getMetadata() {
+                return this.metadata;
+            }
 
-			/**
-			 * 返回要导入的类的完全限定名称。
-			 */
-			public String getImportClassName() {
-				return this.importClassName;
-			}
+            /**
+             * 返回要导入的类的完全限定名称。
+             */
+            public String getImportClassName() {
+                return this.importClassName;
+            }
 
-			// 省略。。。
-		}
-	}
+            // 省略。。。
+        }
+    }
 
 }
 
@@ -226,47 +226,47 @@ public interface DeferredImportSelector extends ImportSelector {
 下面我们来看看 `selectImports` 方法的源码，如下所示：
 
 ```java
-	@Override
-	public String[] selectImports(AnnotationMetadata annotationMetadata) {
-		// 检查自动配置功能是否开启，默认为开启
-		if (!isEnabled(annotationMetadata)) {
-			return NO_IMPORTS;
-		}
-		// 封装将被引入的自动配置信息
-		AutoConfigurationEntry autoConfigurationEntry = getAutoConfigurationEntry(annotationMetadata);
-		// 返回符合条件的配置类的全限定名数组
-		return StringUtils.toStringArray(autoConfigurationEntry.getConfigurations());
-	}
-	
-	/**
-	 * 根据导入@Configuration类的AnnotationMetadata返回AutoConfigurationImportSelector.AutoConfigurationEntry。
-	 * @param 配置类的注解元数据。
-	 * @return 应该导入的自动配置。
-	 */
-	protected AutoConfigurationEntry getAutoConfigurationEntry(AnnotationMetadata annotationMetadata) {
-		if (!isEnabled(annotationMetadata)) {
-			return EMPTY_ENTRY;
-		}
-		// 从AnnotationMetadata返回适当的AnnotationAttributes。默认情况下，此方法将返回getAnnotationClass()的属性。
-		AnnotationAttributes attributes = getAttributes(annotationMetadata);
-		// 通过 SpringFactoriesLoader 类提供的方法加载类路径中META-INF目录下的
-		// spring.factories文件中针对 EnableAutoConfiguration 的注解配置类
-		List<String> configurations = getCandidateConfigurations(annotationMetadata, attributes);
-		// 对获得的注解配置类集合进行去重处理，防止多个项目引入同样的配置类
-		configurations = removeDuplicates(configurations);
-		// 获得注解中被 exclude 或 excludeName 所排除的类的集合
-		Set<String> exclusions = getExclusions(annotationMetadata, attributes);
-		// 检查被排除类是否可实例化，是否被自动注册配置所使用，不符合条件则抛出异常
-		checkExcludedClasses(configurations, exclusions);
-		// 从自动配置类集合中去除被排除的类
-		configurations.removeAll(exclusions);
-		// 检查配置类的注解是否符合 spring.factories 文件中 AutoConfigurationImportFilter 指定的注解检查条件
-		configurations = getConfigurationClassFilter().filter(configurations);
-		// 将筛选完成的配置类和排除的配置类构建为事件类，并传入监听器。监听器的配置在于 spring.factories 文件中，通过 AutoConfigurationImportListener 指定
-		fireAutoConfigurationImportEvents(configurations, exclusions);
-		// 创建并返回一个条目，其中包含了筛选完成的配置类和排除的配置
-		return new AutoConfigurationEntry(configurations, exclusions);
-	}
+    @Override
+    public String[] selectImports(AnnotationMetadata annotationMetadata) {
+        // 检查自动配置功能是否开启，默认为开启
+        if (!isEnabled(annotationMetadata)) {
+            return NO_IMPORTS;
+        }
+        // 封装将被引入的自动配置信息
+        AutoConfigurationEntry autoConfigurationEntry = getAutoConfigurationEntry(annotationMetadata);
+        // 返回符合条件的配置类的全限定名数组
+        return StringUtils.toStringArray(autoConfigurationEntry.getConfigurations());
+    }
+    
+    /**
+     * 根据导入@Configuration类的AnnotationMetadata返回AutoConfigurationImportSelector.AutoConfigurationEntry。
+     * @param 配置类的注解元数据。
+     * @return 应该导入的自动配置。
+     */
+    protected AutoConfigurationEntry getAutoConfigurationEntry(AnnotationMetadata annotationMetadata) {
+        if (!isEnabled(annotationMetadata)) {
+            return EMPTY_ENTRY;
+        }
+        // 从AnnotationMetadata返回适当的AnnotationAttributes。默认情况下，此方法将返回getAnnotationClass()的属性。
+        AnnotationAttributes attributes = getAttributes(annotationMetadata);
+        // 通过 SpringFactoriesLoader 类提供的方法加载类路径中META-INF目录下的
+        // spring.factories文件中针对 EnableAutoConfiguration 的注解配置类
+        List<String> configurations = getCandidateConfigurations(annotationMetadata, attributes);
+        // 对获得的注解配置类集合进行去重处理，防止多个项目引入同样的配置类
+        configurations = removeDuplicates(configurations);
+        // 获得注解中被 exclude 或 excludeName 所排除的类的集合
+        Set<String> exclusions = getExclusions(annotationMetadata, attributes);
+        // 检查被排除类是否可实例化，是否被自动注册配置所使用，不符合条件则抛出异常
+        checkExcludedClasses(configurations, exclusions);
+        // 从自动配置类集合中去除被排除的类
+        configurations.removeAll(exclusions);
+        // 检查配置类的注解是否符合 spring.factories 文件中 AutoConfigurationImportFilter 指定的注解检查条件
+        configurations = getConfigurationClassFilter().filter(configurations);
+        // 将筛选完成的配置类和排除的配置类构建为事件类，并传入监听器。监听器的配置在于 spring.factories 文件中，通过 AutoConfigurationImportListener 指定
+        fireAutoConfigurationImportEvents(configurations, exclusions);
+        // 创建并返回一个条目，其中包含了筛选完成的配置类和排除的配置
+        return new AutoConfigurationEntry(configurations, exclusions);
+    }
 ```
 
 

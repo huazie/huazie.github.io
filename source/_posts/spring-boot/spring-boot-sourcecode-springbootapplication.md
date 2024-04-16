@@ -89,78 +89,78 @@ public class DemoApplication {
 @SpringBootConfiguration
 @EnableAutoConfiguration
 @ComponentScan(excludeFilters = { 
-		@Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),
-		@Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) })
+        @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),
+        @Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) })
 public @interface SpringBootApplication {
 
-	/**
-	 * 排除特定的自动配置类，使它们永远不会被应用
-	 * @return 要排除（禁用）的类
-	 */
-	@AliasFor(annotation = EnableAutoConfiguration.class)
-	Class<?>[] exclude() default {};
+    /**
+     * 排除特定的自动配置类，使它们永远不会被应用
+     * @return 要排除（禁用）的类
+     */
+    @AliasFor(annotation = EnableAutoConfiguration.class)
+    Class<?>[] exclude() default {};
 
-	/**
-	 * 排除特定的自动配置类名称，以确保它们永远不会被应用
-	 * @return 要排除的自动配置类名称
-	 * @since 1.3.0
-	 */
-	@AliasFor(annotation = EnableAutoConfiguration.class)
-	String[] excludeName() default {};
+    /**
+     * 排除特定的自动配置类名称，以确保它们永远不会被应用
+     * @return 要排除的自动配置类名称
+     * @since 1.3.0
+     */
+    @AliasFor(annotation = EnableAutoConfiguration.class)
+    String[] excludeName() default {};
 
-	/**
-	 * 用于扫描带注解组件的基础包。使用 {@link #scanBasePackageClasses} 可以使用类型安全的方式替代基于字符串的包名。
-	 * <p>
-	 * 注意：该设置仅对 {@code @ComponentScan} 注解有效，不影响 {@code @Entity} 扫描或 Spring Data 的 {@link Repository} 扫描。
-	 * 对于这些情况，你应该添加 {@link org.springframework.boot.autoconfigure.domain.EntityScan @EntityScan} 和
-	 * {@code @Enable...Repositories} 注解。
-	 * @return 要进行扫描的基础包
-	 * @since 1.3.0
-	 */
-	@AliasFor(annotation = ComponentScan.class, attribute = "basePackages")
-	String[] scanBasePackages() default {};
+    /**
+     * 用于扫描带注解组件的基础包。使用 {@link #scanBasePackageClasses} 可以使用类型安全的方式替代基于字符串的包名。
+     * <p>
+     * 注意：该设置仅对 {@code @ComponentScan} 注解有效，不影响 {@code @Entity} 扫描或 Spring Data 的 {@link Repository} 扫描。
+     * 对于这些情况，你应该添加 {@link org.springframework.boot.autoconfigure.domain.EntityScan @EntityScan} 和
+     * {@code @Enable...Repositories} 注解。
+     * @return 要进行扫描的基础包
+     * @since 1.3.0
+     */
+    @AliasFor(annotation = ComponentScan.class, attribute = "basePackages")
+    String[] scanBasePackages() default {};
 
-	/**
-	 * 用于指定要扫描带注解组件的包的类型安全方式。将扫描指定类所在的包。
-	 * <p>
-	 * 考虑在每个包中创建一个特殊的空类或接口，只用于作为此属性引用的标记类。
-	 * <p>
-	 * 注意：该设置仅对 {@code @ComponentScan} 注解有效，不影响 {@code @Entity} 扫描或 Spring Data 的 {@link Repository} 扫描。
-	 * 对于这些情况，你应该添加 {@link org.springframework.boot.autoconfigure.domain.EntityScan @EntityScan} 和
-	 * {@code @Enable...Repositories} 注解。
-	 * @return 要进行扫描的基础包
-	 * @since 1.3.0
-	 */
-	@AliasFor(annotation = ComponentScan.class, attribute = "basePackageClasses")
-	Class<?>[] scanBasePackageClasses() default {};
+    /**
+     * 用于指定要扫描带注解组件的包的类型安全方式。将扫描指定类所在的包。
+     * <p>
+     * 考虑在每个包中创建一个特殊的空类或接口，只用于作为此属性引用的标记类。
+     * <p>
+     * 注意：该设置仅对 {@code @ComponentScan} 注解有效，不影响 {@code @Entity} 扫描或 Spring Data 的 {@link Repository} 扫描。
+     * 对于这些情况，你应该添加 {@link org.springframework.boot.autoconfigure.domain.EntityScan @EntityScan} 和
+     * {@code @Enable...Repositories} 注解。
+     * @return 要进行扫描的基础包
+     * @since 1.3.0
+     */
+    @AliasFor(annotation = ComponentScan.class, attribute = "basePackageClasses")
+    Class<?>[] scanBasePackageClasses() default {};
 
-	/**
-	 * 用于在 Spring 容器中为检测到的组件命名的 {@link BeanNameGenerator} 类。
-	 * <p>
-	 * {@link BeanNameGenerator} 接口本身的默认值表示应该使用处理此 {@code @SpringBootApplication} 注解的扫描器的继承的 bean 名称生成器，
-	 * 例如默认的 {@link AnnotationBeanNameGenerator} 或在引导时提供给应用程序上下文的任何自定义实例。
-	 * @return 要使用的 {@link BeanNameGenerator}
-	 * @see SpringApplication#setBeanNameGenerator(BeanNameGenerator)
-	 * @since 2.3.0
-	 */
-	@AliasFor(annotation = ComponentScan.class, attribute = "nameGenerator")
-	Class<? extends BeanNameGenerator> nameGenerator() default BeanNameGenerator.class;
+    /**
+     * 用于在 Spring 容器中为检测到的组件命名的 {@link BeanNameGenerator} 类。
+     * <p>
+     * {@link BeanNameGenerator} 接口本身的默认值表示应该使用处理此 {@code @SpringBootApplication} 注解的扫描器的继承的 bean 名称生成器，
+     * 例如默认的 {@link AnnotationBeanNameGenerator} 或在引导时提供给应用程序上下文的任何自定义实例。
+     * @return 要使用的 {@link BeanNameGenerator}
+     * @see SpringApplication#setBeanNameGenerator(BeanNameGenerator)
+     * @since 2.3.0
+     */
+    @AliasFor(annotation = ComponentScan.class, attribute = "nameGenerator")
+    Class<? extends BeanNameGenerator> nameGenerator() default BeanNameGenerator.class;
 
-	/**
-	 * 指定是否应代理 {@link Bean @Bean} 方法以强制执行 bean 的生命周期行为，例如，即使在用户代码中直接调用 {@code @Bean} 方法，
-	 * 也能返回共享的单例 bean 实例。此功能需要方法拦截，通过运行时生成的 CGLIB 子类来实现，其中包括一些限制，例如配置类及其方法不允许声明为 {@code final}。
-	 * <p>
-	 * 默认值为 {@code true}，允许在配置类内部进行 'inter-bean references'，同时允许从另一个配置类中调用此配置的 {@code @Bean} 方法。
-	 * 如果每个特定配置的 {@code @Bean} 方法都是自包含的并且设计为容器使用的普通工厂方法，则可以将此标志切换为 {@code false}，
-	 * 以避免 CGLIB 子类处理。
-	 * <p>
-	 * 关闭 bean 方法拦截将实际上像在非 {@code @Configuration} 类上声明的那样单独处理 {@code @Bean} 方法，也就是 "@Bean Lite Mode"
-	 * （参见 {@link Bean @Bean 的文档}）。因此，在行为上等同于删除 {@code @Configuration} 注解。
-	 * @since 2.2
-	 * @return 是否代理 {@code @Bean} 方法
-	 */
-	@AliasFor(annotation = Configuration.class)
-	boolean proxyBeanMethods() default true;
+    /**
+     * 指定是否应代理 {@link Bean @Bean} 方法以强制执行 bean 的生命周期行为，例如，即使在用户代码中直接调用 {@code @Bean} 方法，
+     * 也能返回共享的单例 bean 实例。此功能需要方法拦截，通过运行时生成的 CGLIB 子类来实现，其中包括一些限制，例如配置类及其方法不允许声明为 {@code final}。
+     * <p>
+     * 默认值为 {@code true}，允许在配置类内部进行 'inter-bean references'，同时允许从另一个配置类中调用此配置的 {@code @Bean} 方法。
+     * 如果每个特定配置的 {@code @Bean} 方法都是自包含的并且设计为容器使用的普通工厂方法，则可以将此标志切换为 {@code false}，
+     * 以避免 CGLIB 子类处理。
+     * <p>
+     * 关闭 bean 方法拦截将实际上像在非 {@code @Configuration} 类上声明的那样单独处理 {@code @Bean} 方法，也就是 "@Bean Lite Mode"
+     * （参见 {@link Bean @Bean 的文档}）。因此，在行为上等同于删除 {@code @Configuration} 注解。
+     * @since 2.2
+     * @return 是否代理 {@code @Bean} 方法
+     */
+    @AliasFor(annotation = Configuration.class)
+    boolean proxyBeanMethods() default true;
 
 }
 ```

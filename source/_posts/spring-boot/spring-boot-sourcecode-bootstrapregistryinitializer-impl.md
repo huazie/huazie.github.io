@@ -218,9 +218,9 @@ public class DemoBootstrapContextClosedListener implements ApplicationListener<B
 
 ```java
 public interface Ordered {
-  int HIGHEST_PRECEDENCE = Integer.MIN_VALUE;
-  int LOWEST_PRECEDENCE = Integer.MAX_VALUE;
-  int getOrder();
+    int HIGHEST_PRECEDENCE = Integer.MIN_VALUE;
+    int LOWEST_PRECEDENCE = Integer.MAX_VALUE;
+    int getOrder();
 }
 ```
 `Ordered` 接口定义了两个常量和一个方法：

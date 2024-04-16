@@ -22,46 +22,46 @@ tags:
 在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：
 
 <table>
-	<tr>
-		<td rowspan="8" align="left" > 
-			<a href="/categories/开发框架-Spring-Boot/">Spring Boot 源码学习</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left"> 
-			<a href="/2023/02/19/spring-boot/spring-boot-project-introduction/">Spring Boot 项目介绍</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left"> 
-			<a href="/2023/07/13/spring-boot/spring-boot-core-operating-principle/">Spring Boot 核心运行原理介绍</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left"> 
-			<a href="/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/">【Spring Boot 源码学习】@SpringBootApplication 注解</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left"> 
-			<a href="/2023/07/22/spring-boot/spring-boot-sourcecode-enableautoconfiguration/">【Spring Boot 源码学习】@EnableAutoConfiguration 注解</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left"> 
-			<a href="/2023/07/30/spring-boot/spring-boot-sourcecode-autoconfigurationimportselector/">【Spring Boot 源码学习】走近 AutoConfigurationImportSelector</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left" > 
-			<a href="/2023/08/06/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-1/">【Spring Boot 源码学习】自动装配流程源码解析（上）</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left" > 
-			<a href="/2023/08/21/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-2/">【Spring Boot 源码学习】自动装配流程源码解析（下）</a> 
-		</td>
-	</tr>
+    <tr>
+        <td rowspan="8" align="left" > 
+            <a href="/categories/开发框架-Spring-Boot/">Spring Boot 源码学习</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/02/19/spring-boot/spring-boot-project-introduction/">Spring Boot 项目介绍</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/07/13/spring-boot/spring-boot-core-operating-principle/">Spring Boot 核心运行原理介绍</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/">【Spring Boot 源码学习】@SpringBootApplication 注解</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/07/22/spring-boot/spring-boot-sourcecode-enableautoconfiguration/">【Spring Boot 源码学习】@EnableAutoConfiguration 注解</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/07/30/spring-boot/spring-boot-sourcecode-autoconfigurationimportselector/">【Spring Boot 源码学习】走近 AutoConfigurationImportSelector</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left" > 
+            <a href="/2023/08/06/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-1/">【Spring Boot 源码学习】自动装配流程源码解析（上）</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left" > 
+            <a href="/2023/08/21/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-2/">【Spring Boot 源码学习】自动装配流程源码解析（下）</a> 
+        </td>
+    </tr>
 </table>
 
 # 主要内容
@@ -70,8 +70,8 @@ tags:
 ```java
 @FunctionalInterface
 public interface AutoConfigurationImportFilter {
-	// 自动配置组件的过滤匹配
-	boolean[] match(String[] autoConfigurationClasses, AutoConfigurationMetadata autoConfigurationMetadata);
+    // 自动配置组件的过滤匹配
+    boolean[] match(String[] autoConfigurationClasses, AutoConfigurationMetadata autoConfigurationMetadata);
 }
 ```
 
@@ -89,21 +89,21 @@ public interface AutoConfigurationImportFilter {
 ```java
 @Override
 public boolean[] match(String[] autoConfigurationClasses, AutoConfigurationMetadata autoConfigurationMetadata) {
-	ConditionEvaluationReport report = ConditionEvaluationReport.find(this.beanFactory);
-	// 调用 由子类实现的 getOutcomes 方法，完成实际的过滤匹配操作
-	ConditionOutcome[] outcomes = getOutcomes(autoConfigurationClasses, autoConfigurationMetadata);
-	boolean[] match = new boolean[outcomes.length];
-	// 将 getOutcomes 方法返回结果转换成布尔数组
-	for (int i = 0; i < outcomes.length; i++) {
-		match[i] = (outcomes[i] == null || outcomes[i].isMatch());
-		if (!match[i] && outcomes[i] != null) {
-			logOutcome(autoConfigurationClasses[i], outcomes[i]);
-			if (report != null) {
-				report.recordConditionEvaluation(autoConfigurationClasses[i], this, outcomes[i]);
-			}
-		}
-	}
-	return match;
+    ConditionEvaluationReport report = ConditionEvaluationReport.find(this.beanFactory);
+    // 调用 由子类实现的 getOutcomes 方法，完成实际的过滤匹配操作
+    ConditionOutcome[] outcomes = getOutcomes(autoConfigurationClasses, autoConfigurationMetadata);
+    boolean[] match = new boolean[outcomes.length];
+    // 将 getOutcomes 方法返回结果转换成布尔数组
+    for (int i = 0; i < outcomes.length; i++) {
+        match[i] = (outcomes[i] == null || outcomes[i].isMatch());
+        if (!match[i] && outcomes[i] != null) {
+            logOutcome(autoConfigurationClasses[i], outcomes[i]);
+            if (report != null) {
+                report.recordConditionEvaluation(autoConfigurationClasses[i], this, outcomes[i]);
+            }
+        }
+    }
+    return match;
 }
 ```
 
@@ -129,27 +129,27 @@ match[i] = (outcomes[i] == null || outcomes[i].isMatch());
 ```java
 protected enum ClassNameFilter {
 
-	PRESENT {
+    PRESENT {
 
-		@Override
-		public boolean matches(String className, ClassLoader classLoader) {
-			return isPresent(className, classLoader);
-		}
+        @Override
+        public boolean matches(String className, ClassLoader classLoader) {
+            return isPresent(className, classLoader);
+        }
 
-	},
+    },
 
-	MISSING {
+    MISSING {
 
-		@Override
-		public boolean matches(String className, ClassLoader classLoader) {
-			return !isPresent(className, classLoader);
-		}
+        @Override
+        public boolean matches(String className, ClassLoader classLoader) {
+            return !isPresent(className, classLoader);
+        }
 
-	};
+    };
 
-	abstract boolean matches(String className, ClassLoader classLoader);
+    abstract boolean matches(String className, ClassLoader classLoader);
 
-	// ....
+    // ....
 
 }
 ```
@@ -162,23 +162,23 @@ protected enum ClassNameFilter {
 
 ```java
 static boolean isPresent(String className, ClassLoader classLoader) {
-	if (classLoader == null) {
-		classLoader = ClassUtils.getDefaultClassLoader();
-	}
-	try {
-		resolve(className, classLoader);
-		return true;
-	}
-	catch (Throwable ex) {
-		return false;
-	}
+    if (classLoader == null) {
+        classLoader = ClassUtils.getDefaultClassLoader();
+    }
+    try {
+        resolve(className, classLoader);
+        return true;
+    }
+    catch (Throwable ex) {
+        return false;
+    }
 }
 
 protected static Class<?> resolve(String className, ClassLoader classLoader) throws ClassNotFoundException {
-	if (classLoader != null) {
-		return Class.forName(className, false, classLoader);
-	}
-	return Class.forName(className);
+    if (classLoader != null) {
+        return Class.forName(className, false, classLoader);
+    }
+    return Class.forName(className);
 }
 ```
 
@@ -199,16 +199,16 @@ protected static Class<?> resolve(String className, ClassLoader classLoader) thr
 继续翻看 `FilteringSpringBootCondition` 源码，还有一个 `filter` 方法需要重点介绍下：
 ```java
 protected final List<String> filter(Collection<String> classNames, ClassNameFilter classNameFilter, ClassLoader classLoader) {
-	if (CollectionUtils.isEmpty(classNames)) {
-		return Collections.emptyList();
-	}
-	List<String> matches = new ArrayList<>(classNames.size());
-	for (String candidate : classNames) {
-		if (classNameFilter.matches(candidate, classLoader)) {
-			matches.add(candidate);-
-		}
-	}
-	return matches;
+    if (CollectionUtils.isEmpty(classNames)) {
+        return Collections.emptyList();
+    }
+    List<String> matches = new ArrayList<>(classNames.size());
+    for (String candidate : classNames) {
+        if (classNameFilter.matches(candidate, classLoader)) {
+            matches.add(candidate);-
+        }
+    }
+    return matches;
 }
 ```
 

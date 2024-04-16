@@ -184,12 +184,12 @@ tags:
 public class ConfigurationWarningsApplicationContextInitializer
     implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
-  @Override
-  public void initialize(ConfigurableApplicationContext context) {
-    context.addBeanFactoryPostProcessor(new ConfigurationWarningsPostProcessor(getChecks()));
-  }
+    @Override
+    public void initialize(ConfigurableApplicationContext context) {
+        context.addBeanFactoryPostProcessor(new ConfigurationWarningsPostProcessor(getChecks()));
+    }
 
-  // 省略其他。。。
+    // 省略其他。。。
 }
 ```
 
@@ -201,7 +201,7 @@ public class ConfigurationWarningsApplicationContextInitializer
 
 ```java
 protected Check[] getChecks() {
-  return new Check[] { new ComponentScanPackageCheck() };
+    return new Check[] { new ComponentScanPackageCheck() };
 }
 ```
 
@@ -256,12 +256,12 @@ applicationContext.getBeanFactory().registerSingleton(ContextId.class.getName(),
 ```java
 public class RSocketPortInfoApplicationContextInitializer
     implements ApplicationContextInitializer<ConfigurableApplicationContext> {
-  @Override
-  public void initialize(ConfigurableApplicationContext applicationContext) {
-    applicationContext.addApplicationListener(new Listener(applicationContext));
-  }
-  
-  // 省略。。。
+    @Override
+    public void initialize(ConfigurableApplicationContext applicationContext) {
+        applicationContext.addApplicationListener(new Listener(applicationContext));
+    }
+    
+    // 省略。。。
 }
 ```
 

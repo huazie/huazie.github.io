@@ -3,14 +3,14 @@ title: 【Spring Boot 源码学习】初识 SpringApplication
 date: 2023-11-12 23:10:08
 updated: 2024-01-27 13:06:31
 categories:
-  - 开发框架-Spring Boot
+    - 开发框架-Spring Boot
 tags:
-  - Spring Boot
-  - SpringApplication
-  - WebApplicationType
-  - BootstrapRegistryInitializer
-  - ApplicationContextInitializer
-  - ApplicationListener
+    - Spring Boot
+    - SpringApplication
+    - WebApplicationType
+    - BootstrapRegistryInitializer
+    - ApplicationContextInitializer
+    - ApplicationListener
 ---
 
 [《Spring Boot 源码学习系列》](/categories/开发框架-Spring-Boot/)
@@ -20,93 +20,93 @@ tags:
 # 引言
 往期的博文，**Huazie** 围绕 **Spring Boot** 的核心功能，带大家从总整体上了解 **Spring Boot** 自动配置的原理以及自动配置核心组件的运作过程。这些内容大家需要重点关注，只有了解这些基础的组件和功能，我们在后续集成其他三方类库的 **Starters** 时，才能够更加清晰地了解它们都运用了自动配置的哪些功能。
 
-在学习上述 **Spring Boot** 核心功能的过程中，相信大家可能都会尝试启动自己新建的  **Spring Boot** 的项目，并 **Debug** 看看具体的执行过程。本篇开始就将从 **Spring Boot** 的启动类 `SpringApplication` 上入手，带领大家了解 **Spring Boot** 启动过程中所涉及到的源码和知识点。
+在学习上述 **Spring Boot** 核心功能的过程中，相信大家可能都会尝试启动自己新建的    **Spring Boot** 的项目，并 **Debug** 看看具体的执行过程。本篇开始就将从 **Spring Boot** 的启动类 `SpringApplication` 上入手，带领大家了解 **Spring Boot** 启动过程中所涉及到的源码和知识点。
 
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 # 往期内容
 在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：
 
 <table>
-  <tr>
-    <td rowspan="16" align="left" > 
-      <a href="/categories/开发框架-Spring-Boot/">Spring Boot 源码学习</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/02/19/spring-boot/spring-boot-project-introduction/">Spring Boot 项目介绍</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/13/spring-boot/spring-boot-core-operating-principle/">Spring Boot 核心运行原理介绍</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/">【Spring Boot 源码学习】@SpringBootApplication 注解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/22/spring-boot/spring-boot-sourcecode-enableautoconfiguration/">【Spring Boot 源码学习】@EnableAutoConfiguration 注解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/30/spring-boot/spring-boot-sourcecode-autoconfigurationimportselector/">【Spring Boot 源码学习】走近 AutoConfigurationImportSelector</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/08/06/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-1/">【Spring Boot 源码学习】自动装配流程源码解析（上）</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/08/21/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-2/">【Spring Boot 源码学习】自动装配流程源码解析（下）</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/09/08/spring-boot/spring-boot-sourcecode-filteringspringbootcondition/">【Spring Boot 源码学习】深入 FilteringSpringBootCondition</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/09/11/spring-boot/spring-boot-sourcecode-onclasscondition/">【Spring Boot 源码学习】OnClassCondition 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/09/21/spring-boot/spring-boot-sourcecode-onbeancondition/">【Spring Boot 源码学习】OnBeanCondition 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/06/spring-boot/spring-boot-sourcecode-onwebapplicationcondition/">【Spring Boot 源码学习】OnWebApplicationCondition 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/15/spring-boot/spring-boot-sourcecode-conditional/">【Spring Boot 源码学习】@Conditional 条件注解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/22/spring-boot/spring-boot-sourcecode-httpencodingautoconfiguration/">【Spring Boot 源码学习】HttpEncodingAutoConfiguration 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/29/spring-boot/spring-boot-sourcecode-redisautoconfiguration/">【Spring Boot 源码学习】RedisAutoConfiguration 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/11/05/spring-boot/spring-boot-sourcecode-jedisconnectionconfiguration/">【Spring Boot 源码学习】JedisConnectionConfiguration 详解</a> 
-    </td>
-  </tr>
+    <tr>
+        <td rowspan="16" align="left" > 
+            <a href="/categories/开发框架-Spring-Boot/">Spring Boot 源码学习</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/02/19/spring-boot/spring-boot-project-introduction/">Spring Boot 项目介绍</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/07/13/spring-boot/spring-boot-core-operating-principle/">Spring Boot 核心运行原理介绍</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/">【Spring Boot 源码学习】@SpringBootApplication 注解</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/07/22/spring-boot/spring-boot-sourcecode-enableautoconfiguration/">【Spring Boot 源码学习】@EnableAutoConfiguration 注解</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/07/30/spring-boot/spring-boot-sourcecode-autoconfigurationimportselector/">【Spring Boot 源码学习】走近 AutoConfigurationImportSelector</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left" > 
+            <a href="/2023/08/06/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-1/">【Spring Boot 源码学习】自动装配流程源码解析（上）</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left" > 
+            <a href="/2023/08/21/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-2/">【Spring Boot 源码学习】自动装配流程源码解析（下）</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left" > 
+            <a href="/2023/09/08/spring-boot/spring-boot-sourcecode-filteringspringbootcondition/">【Spring Boot 源码学习】深入 FilteringSpringBootCondition</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left" > 
+            <a href="/2023/09/11/spring-boot/spring-boot-sourcecode-onclasscondition/">【Spring Boot 源码学习】OnClassCondition 详解</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left" > 
+            <a href="/2023/09/21/spring-boot/spring-boot-sourcecode-onbeancondition/">【Spring Boot 源码学习】OnBeanCondition 详解</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left" > 
+            <a href="/2023/10/06/spring-boot/spring-boot-sourcecode-onwebapplicationcondition/">【Spring Boot 源码学习】OnWebApplicationCondition 详解</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left" > 
+            <a href="/2023/10/15/spring-boot/spring-boot-sourcecode-conditional/">【Spring Boot 源码学习】@Conditional 条件注解</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left" > 
+            <a href="/2023/10/22/spring-boot/spring-boot-sourcecode-httpencodingautoconfiguration/">【Spring Boot 源码学习】HttpEncodingAutoConfiguration 详解</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left" > 
+            <a href="/2023/10/29/spring-boot/spring-boot-sourcecode-redisautoconfiguration/">【Spring Boot 源码学习】RedisAutoConfiguration 详解</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left" > 
+            <a href="/2023/11/05/spring-boot/spring-boot-sourcecode-jedisconnectionconfiguration/">【Spring Boot 源码学习】JedisConnectionConfiguration 详解</a> 
+        </td>
+    </tr>
 </table>
 
 # 主要内容
@@ -125,11 +125,11 @@ tags:
 
 ```java
 public static ConfigurableApplicationContext run(Class<?> primarySource, String... args) {
-  return run(new Class<?>[] { primarySource }, args);
+    return run(new Class<?>[] { primarySource }, args);
 }
 
 public static ConfigurableApplicationContext run(Class<?>[] primarySources, String[] args) {
-  return new SpringApplication(primarySources).run(args);
+    return new SpringApplication(primarySources).run(args);
 }
 ```
 
@@ -154,27 +154,27 @@ public class DemoApplication {
 上面已经看到我们在实例化 `SpringApplication` 了，废话不多说，直接翻看其源码【Spring Boot 2.7.9】：
 
 ```java
-  public SpringApplication(Class<?>... primarySources) {
-    this(null, primarySources);
-  }
+    public SpringApplication(Class<?>... primarySources) {
+        this(null, primarySources);
+    }
 
-  @SuppressWarnings({ "unchecked", "rawtypes" })
-  public SpringApplication(ResourceLoader resourceLoader, Class<?>... primarySources) {
-    this.resourceLoader = resourceLoader;
-    Assert.notNull(primarySources, "PrimarySources must not be null");
-    this.primarySources = new LinkedHashSet<>(Arrays.asList(primarySources));
-    // 推断web应用类型
-    this.webApplicationType = WebApplicationType.deduceFromClasspath();
-    // 加载并初始化 BootstrapRegistryInitializer及其实现类
-    this.bootstrapRegistryInitializers = new ArrayList<>(
-        getSpringFactoriesInstances(BootstrapRegistryInitializer.class));
-    // 加载并初始化 ApplicationContextInitializer及其实现类
-    setInitializers((Collection) getSpringFactoriesInstances(ApplicationContextInitializer.class));
-    // 加载并初始化ApplicationListener及其实现类
-    setListeners((Collection) getSpringFactoriesInstances(ApplicationListener.class));
-    // 推断入口类
-    this.mainApplicationClass = deduceMainApplicationClass();
-  }
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public SpringApplication(ResourceLoader resourceLoader, Class<?>... primarySources) {
+        this.resourceLoader = resourceLoader;
+        Assert.notNull(primarySources, "PrimarySources must not be null");
+        this.primarySources = new LinkedHashSet<>(Arrays.asList(primarySources));
+        // 推断web应用类型
+        this.webApplicationType = WebApplicationType.deduceFromClasspath();
+        // 加载并初始化 BootstrapRegistryInitializer及其实现类
+        this.bootstrapRegistryInitializers = new ArrayList<>(
+                getSpringFactoriesInstances(BootstrapRegistryInitializer.class));
+        // 加载并初始化 ApplicationContextInitializer及其实现类
+        setInitializers((Collection) getSpringFactoriesInstances(ApplicationContextInitializer.class));
+        // 加载并初始化ApplicationListener及其实现类
+        setListeners((Collection) getSpringFactoriesInstances(ApplicationListener.class));
+        // 推断入口类
+        this.mainApplicationClass = deduceMainApplicationClass();
+    }
 ```
 
 由上可知，`SpringApplication` 提供了两个构造方法，而其核心的逻辑都在第二个构造方法中实现。
@@ -184,7 +184,7 @@ public class DemoApplication {
 我们从上述源码可知，`SpringApplication` 的第二个构造方法有两个参数，分别是：
 
 - `ResourceLoader resourceLoader` ：`ResourceLoader` 为资源加载的接口，它用于在**Spring Boot** 启动时打印对应的 **banner** 信息，默认采用的就是 `DefaultResourceLoader`。实操过程中，如果未按照 **Spring Boot** 的 “约定” 将 **banner** 的内容放置于 `classpath` 下，或者文件名不是 `banner.*` 格式，默认资源加载器是无法加载到对应的 **banner** 信息的，此时则可通过 `ResourceLoader` 来指定需要加载的文件路径【这个后面我们专门来实操一下，敬请期待】。
-- `Class<?>... primarySources` ：主要的 **bean** 来源，该参数为可变参数，默认我们会传入 **Spring Boot** 的入口类【即 `main` 方法所在的类】，如上面我们的 `DemoApplication`  。如果作为项目的引导类，该类需要满足一个条件，就是被注解 `@EnableAutoConfiguration` 或其组合注解标注。在前面的《[【Spring Boot 源码学习】@SpringBootApplication 注解](/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/)》博文中，我们已经知道 `@SpringBootApplication` 注解中包含了 `@EnableAutoConfiguration` 注解，因此被 `@SpringBootApplication` 注解标注的类也可作为参数传入。当然，`primarySources` 也可传入其他普通类，但只有传入被`@EnableAutoConfiguration` 标注的类才能够开启 **Spring Boot** 的自动配置。
+- `Class<?>... primarySources` ：主要的 **bean** 来源，该参数为可变参数，默认我们会传入 **Spring Boot** 的入口类【即 `main` 方法所在的类】，如上面我们的 `DemoApplication`    。如果作为项目的引导类，该类需要满足一个条件，就是被注解 `@EnableAutoConfiguration` 或其组合注解标注。在前面的《[【Spring Boot 源码学习】@SpringBootApplication 注解](/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/)》博文中，我们已经知道 `@SpringBootApplication` 注解中包含了 `@EnableAutoConfiguration` 注解，因此被 `@SpringBootApplication` 注解标注的类也可作为参数传入。当然，`primarySources` 也可传入其他普通类，但只有传入被`@EnableAutoConfiguration` 标注的类才能够开启 **Spring Boot** 的自动配置。
 
 有些朋友，可能对 `primarySources` 这个可变参数的描述有点疑惑，下面我们就用实例来演示以其他引导类为入口类进行 **Spring Boot** 项目启动：
 
@@ -212,7 +212,7 @@ public class DemoApplication {
 
 ```java
 public void addPrimarySources(Collection<Class<?>> additionalPrimarySources) {
-  this.primarySources.addAll(additionalPrimarySources);
+    this.primarySources.addAll(additionalPrimarySources);
 }
 ```
 
@@ -240,34 +240,34 @@ this.webApplicationType = WebApplicationType.deduceFromClasspath();
 
 ```java
 public enum WebApplicationType {
-  // 非Web应用类型
-  NONE,
-  // 基于Servlet的Web应用类型
-  SERVLET,
-  // 基于reactive的Web应用类型
-  REACTIVE;
+    // 非Web应用类型
+    NONE,
+    // 基于Servlet的Web应用类型
+    SERVLET,
+    // 基于reactive的Web应用类型
+    REACTIVE;
 
-  private static final String[] SERVLET_INDICATOR_CLASSES = { "javax.servlet.Servlet",
-      "org.springframework.web.context.ConfigurableWebApplicationContext" };
+    private static final String[] SERVLET_INDICATOR_CLASSES = { "javax.servlet.Servlet",
+            "org.springframework.web.context.ConfigurableWebApplicationContext" };
 
-  private static final String WEBMVC_INDICATOR_CLASS = "org.springframework.web.servlet.DispatcherServlet";
+    private static final String WEBMVC_INDICATOR_CLASS = "org.springframework.web.servlet.DispatcherServlet";
 
-  private static final String WEBFLUX_INDICATOR_CLASS = "org.springframework.web.reactive.DispatcherHandler";
+    private static final String WEBFLUX_INDICATOR_CLASS = "org.springframework.web.reactive.DispatcherHandler";
 
-  private static final String JERSEY_INDICATOR_CLASS = "org.glassfish.jersey.servlet.ServletContainer";
+    private static final String JERSEY_INDICATOR_CLASS = "org.glassfish.jersey.servlet.ServletContainer";
 
-  static WebApplicationType deduceFromClasspath() {
-    if (ClassUtils.isPresent(WEBFLUX_INDICATOR_CLASS, null) && !ClassUtils.isPresent(WEBMVC_INDICATOR_CLASS, null)
-        && !ClassUtils.isPresent(JERSEY_INDICATOR_CLASS, null)) {
-      return WebApplicationType.REACTIVE;
+    static WebApplicationType deduceFromClasspath() {
+        if (ClassUtils.isPresent(WEBFLUX_INDICATOR_CLASS, null) && !ClassUtils.isPresent(WEBMVC_INDICATOR_CLASS, null)
+                && !ClassUtils.isPresent(JERSEY_INDICATOR_CLASS, null)) {
+            return WebApplicationType.REACTIVE;
+        }
+        for (String className : SERVLET_INDICATOR_CLASSES) {
+            if (!ClassUtils.isPresent(className, null)) {
+                return WebApplicationType.NONE;
+            }
+        }
+        return WebApplicationType.SERVLET;
     }
-    for (String className : SERVLET_INDICATOR_CLASSES) {
-      if (!ClassUtils.isPresent(className, null)) {
-        return WebApplicationType.NONE;
-      }
-    }
-    return WebApplicationType.SERVLET;
-  }
 }
 ```
 
@@ -275,9 +275,9 @@ public enum WebApplicationType {
 - **枚举类型** ：非 **Web** 应用、基于 **Servlet** 的 **Web** 应用和基于 **reactive** 的 **Web** 应用。
 - **用于下面推断的常量**
 - **推断类型的方法 deduceFromClasspath** ： 
-  - 当 `DispatcherHandler` 存在，并且 `DispatcherServlet` 和 `ServletContainer` 都不存在，则返回类型为 `WebApplicationType.REACTIVE`。
-  - 当 `Servlet` 或 `ConfigurableWebApplicationContext` 任何一个不存在时，则说明当前应用为非 **Web** 应用，返回 `WebApplicationType.NONE`。
-  - 当应用不为 **reactive Web** 应用，并且 `Servlet` 和`ConfigurableWebApplicationContext` 都存在的情况下，则返回 `WebApplicationType.SERVLET`。
+    - 当 `DispatcherHandler` 存在，并且 `DispatcherServlet` 和 `ServletContainer` 都不存在，则返回类型为 `WebApplicationType.REACTIVE`。
+    - 当 `Servlet` 或 `ConfigurableWebApplicationContext` 任何一个不存在时，则说明当前应用为非 **Web** 应用，返回 `WebApplicationType.NONE`。
+    - 当应用不为 **reactive Web** 应用，并且 `Servlet` 和`ConfigurableWebApplicationContext` 都存在的情况下，则返回 `WebApplicationType.SERVLET`。
 
 在上述的 `deduceFromClasspath` 方法中，我们可以看到，在判断的过程中使用到了 `ClassUtils` 的 `isPresent` 方法。该工具类方法就是通过反射创建指定的类，根据在创建过程中是否抛出异常来判断该类是否存在。
 
@@ -329,17 +329,17 @@ setListeners((Collection) getSpringFactoriesInstances(ApplicationListener.class)
 
 ```java
 private Class<?> deduceMainApplicationClass() {
-  try {
-    StackTraceElement[] stackTrace = new RuntimeException().getStackTrace();
-    for (StackTraceElement stackTraceElement : stackTrace) {
-      if ("main".equals(stackTraceElement.getMethodName())) {
-        return Class.forName(stackTraceElement.getClassName());
-      }
+    try {
+        StackTraceElement[] stackTrace = new RuntimeException().getStackTrace();
+        for (StackTraceElement stackTraceElement : stackTrace) {
+            if ("main".equals(stackTraceElement.getMethodName())) {
+                return Class.forName(stackTraceElement.getClassName());
+            }
+        }
+    } catch (ClassNotFoundException ex) {
+        // 这里捕获异常，并继续执行后续逻辑
     }
-  } catch (ClassNotFoundException ex) {
-    // 这里捕获异常，并继续执行后续逻辑
-  }
-  return null;
+    return null;
 }
 ```
 

@@ -188,8 +188,8 @@ public class DemoApplication {
 
 ```java
 public void setApplicationContextFactory(ApplicationContextFactory applicationContextFactory) {
-  this.applicationContextFactory = (applicationContextFactory != null) ? applicationContextFactory
-      : ApplicationContextFactory.DEFAULT;
+    this.applicationContextFactory = (applicationContextFactory != null) ? applicationContextFactory
+        : ApplicationContextFactory.DEFAULT;
 }
 ```
 
@@ -207,8 +207,8 @@ public void setApplicationContextFactory(ApplicationContextFactory applicationCo
 
 ```java
 public void addBootstrapRegistryInitializer(BootstrapRegistryInitializer bootstrapRegistryInitializer) {
-  Assert.notNull(bootstrapRegistryInitializer, "BootstrapRegistryInitializer must not be null");
-  this.bootstrapRegistryInitializers.addAll(Arrays.asList(bootstrapRegistryInitializer));
+    Assert.notNull(bootstrapRegistryInitializer, "BootstrapRegistryInitializer must not be null");
+    this.bootstrapRegistryInitializers.addAll(Arrays.asList(bootstrapRegistryInitializer));
 }
 ```
 
@@ -225,7 +225,7 @@ public void addBootstrapRegistryInitializer(BootstrapRegistryInitializer bootstr
 private List<ApplicationContextInitializer<?>> initializers;
 
 public void setInitializers(Collection<? extends ApplicationContextInitializer<?>> initializers) {
-  this.initializers = new ArrayList<>(initializers);
+    this.initializers = new ArrayList<>(initializers);
 }
 ```
 
@@ -233,7 +233,7 @@ public void setInitializers(Collection<? extends ApplicationContextInitializer<?
 
 ```java
 public void addInitializers(ApplicationContextInitializer<?>... initializers) {
-  this.initializers.addAll(Arrays.asList(initializers));
+    this.initializers.addAll(Arrays.asList(initializers));
 }
 ```
 
@@ -247,7 +247,7 @@ public void addInitializers(ApplicationContextInitializer<?>... initializers) {
 private List<ApplicationListener<?>> listeners;
 
 public void setListeners(Collection<? extends ApplicationListener<?>> listeners) {
-  this.listeners = new ArrayList<>(listeners);
+    this.listeners = new ArrayList<>(listeners);
 }
 ```
 
@@ -255,7 +255,7 @@ public void setListeners(Collection<? extends ApplicationListener<?>> listeners)
 
 ```java
 public void addListeners(ApplicationListener<?>... listeners) {
-  this.listeners.addAll(Arrays.asList(listeners));
+    this.listeners.addAll(Arrays.asList(listeners));
 }
 ```
 
@@ -267,8 +267,8 @@ public void addListeners(ApplicationListener<?>... listeners) {
 
 ```java
 public void setWebApplicationType(WebApplicationType webApplicationType) {
-  Assert.notNull(webApplicationType, "WebApplicationType must not be null");
-  this.webApplicationType = webApplicationType;
+    Assert.notNull(webApplicationType, "WebApplicationType must not be null");
+    this.webApplicationType = webApplicationType;
 }
 ```
 
@@ -278,7 +278,7 @@ public void setWebApplicationType(WebApplicationType webApplicationType) {
 
 ```java
 public void setAllowBeanDefinitionOverriding(boolean allowBeanDefinitionOverriding) {
-  this.allowBeanDefinitionOverriding = allowBeanDefinitionOverriding;
+    this.allowBeanDefinitionOverriding = allowBeanDefinitionOverriding;
 }
 ```
 
@@ -291,7 +291,7 @@ public void setAllowBeanDefinitionOverriding(boolean allowBeanDefinitionOverridi
 
 ```java
 public void setAllowCircularReferences(boolean allowCircularReferences) {
-  this.allowCircularReferences = allowCircularReferences;
+    this.allowCircularReferences = allowCircularReferences;
 }
 ```
 
@@ -303,7 +303,7 @@ public void setAllowCircularReferences(boolean allowCircularReferences) {
 
 ```java
 public void setLazyInitialization(boolean lazyInitialization) {
-  this.lazyInitialization = lazyInitialization;
+    this.lazyInitialization = lazyInitialization;
 }
 ```
 
@@ -315,7 +315,7 @@ public void setLazyInitialization(boolean lazyInitialization) {
 
 ```java
 public void setHeadless(boolean headless) {
-  this.headless = headless;
+    this.headless = headless;
 }
 ```
 
@@ -326,7 +326,7 @@ public void setHeadless(boolean headless) {
 
 ```java
 public void setRegisterShutdownHook(boolean registerShutdownHook) {
-  this.registerShutdownHook = registerShutdownHook;
+    this.registerShutdownHook = registerShutdownHook;
 }
 ```
 
@@ -336,7 +336,7 @@ public void setRegisterShutdownHook(boolean registerShutdownHook) {
 
 ```java
 public void setLogStartupInfo(boolean logStartupInfo) {
-  this.logStartupInfo = logStartupInfo;
+    this.logStartupInfo = logStartupInfo;
 }
 ```
 
@@ -347,7 +347,7 @@ public void setLogStartupInfo(boolean logStartupInfo) {
 
 ```java
 public void setAddCommandLineProperties(boolean addCommandLineProperties) {
-  this.addCommandLineProperties = addCommandLineProperties;
+    this.addCommandLineProperties = addCommandLineProperties;
 }
 ```
 
@@ -358,7 +358,7 @@ public void setAddCommandLineProperties(boolean addCommandLineProperties) {
 
 ```java
 public void setAddConversionService(boolean addConversionService) {
-  this.addConversionService = addConversionService;
+    this.addConversionService = addConversionService;
 }
 ```
 设置是否应将 `ApplicationConversionService` 添加到应用程序上下文的环境中。
@@ -369,14 +369,14 @@ public void setAddConversionService(boolean addConversionService) {
 
 ```java
 public void setDefaultProperties(Map<String, Object> defaultProperties) {
-  this.defaultProperties = defaultProperties;
+    this.defaultProperties = defaultProperties;
 }
 
 public void setDefaultProperties(Properties defaultProperties) {
-  this.defaultProperties = new HashMap<>();
-  for (Object key : Collections.list(defaultProperties.propertyNames())) {
-    this.defaultProperties.put((String) key, defaultProperties.get(key));
-  }
+    this.defaultProperties = new HashMap<>();
+    for (Object key : Collections.list(defaultProperties.propertyNames())) {
+      this.defaultProperties.put((String) key, defaultProperties.get(key));
+    }
 }
 ```
 
@@ -387,7 +387,7 @@ public void setDefaultProperties(Properties defaultProperties) {
 
 ```java
 public void setAdditionalProfiles(String... profiles) {
-  this.additionalProfiles = Collections.unmodifiableSet(new LinkedHashSet<>(Arrays.asList(profiles)));
+    this.additionalProfiles = Collections.unmodifiableSet(new LinkedHashSet<>(Arrays.asList(profiles)));
 }
 ```
 
@@ -398,7 +398,7 @@ public void setAdditionalProfiles(String... profiles) {
 
 ```java
 public void setBeanNameGenerator(BeanNameGenerator beanNameGenerator) {
-  this.beanNameGenerator = beanNameGenerator;
+    this.beanNameGenerator = beanNameGenerator;
 }
 ```
 
@@ -409,8 +409,8 @@ public void setBeanNameGenerator(BeanNameGenerator beanNameGenerator) {
 
 ```java
 public void setEnvironment(ConfigurableEnvironment environment) {
-  this.isCustomEnvironment = true;
-  this.environment = environment;
+    this.isCustomEnvironment = true;
+    this.environment = environment;
 }
 ```
 
@@ -420,8 +420,8 @@ public void setEnvironment(ConfigurableEnvironment environment) {
 
 ```java
 public void setResourceLoader(ResourceLoader resourceLoader) {
-  Assert.notNull(resourceLoader, "ResourceLoader must not be null");
-  this.resourceLoader = resourceLoader;
+    Assert.notNull(resourceLoader, "ResourceLoader must not be null");
+    this.resourceLoader = resourceLoader;
 }
 ```
 
@@ -431,7 +431,7 @@ public void setResourceLoader(ResourceLoader resourceLoader) {
 
 ```java
 public void setEnvironmentPrefix(String environmentPrefix) {
-  this.environmentPrefix = environmentPrefix;
+    this.environmentPrefix = environmentPrefix;
 }
 ```
 
@@ -442,7 +442,7 @@ public void setEnvironmentPrefix(String environmentPrefix) {
 
 ```java
 public void setApplicationStartup(ApplicationStartup applicationStartup) {
-  this.applicationStartup = (applicationStartup != null) ? applicationStartup : ApplicationStartup.DEFAULT;
+    this.applicationStartup = (applicationStartup != null) ? applicationStartup : ApplicationStartup.DEFAULT;
 }
 ```
 
@@ -464,8 +464,8 @@ public void setApplicationStartup(ApplicationStartup applicationStartup) {
 private Set<String> sources = new LinkedHashSet<>();
 
 public void setSources(Set<String> sources) {
-  Assert.notNull(sources, "Sources must not be null");
-  this.sources = new LinkedHashSet<>(sources);
+    Assert.notNull(sources, "Sources must not be null");
+    this.sources = new LinkedHashSet<>(sources);
 }
 ```
 

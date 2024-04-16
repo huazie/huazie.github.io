@@ -89,23 +89,23 @@ tags:
 @Import(AutoConfigurationImportSelector.class)
 public @interface EnableAutoConfiguration {
 
-	/**
-	 * 可以用于覆盖自动配置是否启用的环境属性
-	 */
-	String ENABLED_OVERRIDE_PROPERTY = "spring.boot.enableautoconfiguration";
+    /**
+     * 可以用于覆盖自动配置是否启用的环境属性
+     */
+    String ENABLED_OVERRIDE_PROPERTY = "spring.boot.enableautoconfiguration";
 
-	/**
-	 * 排除特定的自动配置类，以使它们永远不会应用
-	 * @return 要排除的类
-	 */
-	Class<?>[] exclude() default {};
+    /**
+     * 排除特定的自动配置类，以使它们永远不会应用
+     * @return 要排除的类
+     */
+    Class<?>[] exclude() default {};
 
-	/**
-	 * 排除特定的自动配置类名，以使它们永远不会应用
-	 * @return 要排除的类名
-	 * @since 1.3.0
-	 */
-	String[] excludeName() default {};
+    /**
+     * 排除特定的自动配置类名，以使它们永远不会应用
+     * @return 要排除的类名
+     * @since 1.3.0
+     */
+    String[] excludeName() default {};
 
 }
 ```
@@ -180,10 +180,10 @@ public class DemoConfiguration {
 @Documented
 public @interface Import {
 
-	/**
-	 * @Configuration、ImportSelector、ImportBeanDefinitionRegistrar 或常规组件类可以用来进行导入。
-	 */
-	Class<?>[] value();
+    /**
+     * @Configuration、ImportSelector、ImportBeanDefinitionRegistrar 或常规组件类可以用来进行导入。
+     */
+    Class<?>[] value();
 
 }
 ```
@@ -214,21 +214,21 @@ public @interface Import {
 @Import(AutoConfigurationPackages.Registrar.class)
 public @interface AutoConfigurationPackage {
 
-	/**
-	 * 应该注册到 AutoConfigurationPackages 的基础包。
-	 * 使用 basePackageClasses 作为基于类型安全的替代方法，而不是基于字符串的包名。
-	 * 
-	 * @since 2.3.0
-	 */
-	String[] basePackages() default {};
+    /**
+     * 应该注册到 AutoConfigurationPackages 的基础包。
+     * 使用 basePackageClasses 作为基于类型安全的替代方法，而不是基于字符串的包名。
+     * 
+     * @since 2.3.0
+     */
+    String[] basePackages() default {};
 
-	/**
-	 * @AutoConfigurationPackage 提供了一种类型安全的替代方案，用于指定要注册到 AutoConfigurationPackages 的包。
-	 * 考虑在每个包中创建一个特殊的无操作标记类或接口，除了被此属性引用外，不具备任何其他功能。
-	 * 
-	 * @since 2.3.0
-	 */
-	Class<?>[] basePackageClasses() default {};
+    /**
+     * @AutoConfigurationPackage 提供了一种类型安全的替代方案，用于指定要注册到 AutoConfigurationPackages 的包。
+     * 考虑在每个包中创建一个特殊的无操作标记类或接口，除了被此属性引用外，不具备任何其他功能。
+     * 
+     * @since 2.3.0
+     */
+    Class<?>[] basePackageClasses() default {};
 
 }
 ```

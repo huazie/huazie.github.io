@@ -113,13 +113,13 @@ tags:
 ```java
 // 线程安全的 Redis 连接工厂
 public interface RedisConnectionFactory extends PersistenceExceptionTranslator {
-  RedisConnection getConnection();
+    RedisConnection getConnection();
 
-  RedisClusterConnection getClusterConnection();
+    RedisClusterConnection getClusterConnection();
 
-  boolean getConvertPipelineAndTxResults();
+    boolean getConvertPipelineAndTxResults();
 
-  RedisSentinelConnection getSentinelConnection();
+    RedisSentinelConnection getSentinelConnection();
 }
 ```
 
@@ -139,22 +139,22 @@ public interface RedisConnectionFactory extends PersistenceExceptionTranslator {
 - **管理连接池** ：它内部维护了一个连接池，用于管理和复用 **Jedis** 连接。当需要创建一个新的 **Jedis** 连接时，首先会检查连接池中是否有可用的连接，如果有则直接使用，否则创建一个新的连接。这样可以提高性能，减少频繁创建和关闭连接带来的开销。
 
   ```java
-  protected Jedis fetchJedisConnector() {
-    try {
+    protected Jedis fetchJedisConnector() {
+        try {
 
-      if (getUsePool() && pool != null) {
-        return pool.getResource();
-      }
+            if (getUsePool() && pool != null) {
+                return pool.getResource();
+            }
 
-      Jedis jedis = createJedis();
-      // force initialization (see Jedis issue #82)
-      jedis.connect();
+            Jedis jedis = createJedis();
+            // force initialization (see Jedis issue #82)
+            jedis.connect();
 
-      return jedis;
-    } catch (Exception ex) {
-      throw new RedisConnectionFailureException("Cannot get Jedis connection", ex);
+            return jedis;
+        } catch (Exception ex) {
+            throw new RedisConnectionFailureException("Cannot get Jedis connection", ex);
+        }
     }
-  }
   ```
 - **配置连接参数** ：允许用户自定义连接参数，例如 **超时时间**、**最大连接数**等。这些参数可以在创建连接时通过构造函数传入，也可以在创建连接后，通过 `JedisPoolConfig` 或者下面的三种连接类型的配置类进行修改。
 
@@ -236,51 +236,51 @@ public class RedisConfig {
 
 ```java
 abstract class RedisConnectionConfiguration {
-  private static final boolean COMMONS_POOL2_AVAILABLE = ClassUtils.isPresent("org.apache.commons.pool2.ObjectPool",
-      RedisConnectionConfiguration.class.getClassLoader());
-  // 。。。
-
-  protected final RedisStandaloneConfiguration getStandaloneConfig() {
+    private static final boolean COMMONS_POOL2_AVAILABLE = ClassUtils.isPresent("org.apache.commons.pool2.ObjectPool",
+            RedisConnectionConfiguration.class.getClassLoader());
     // 。。。
-  }
 
-  protected final RedisSentinelConfiguration getSentinelConfig() {
-    // 。。。
-  }
+    protected final RedisStandaloneConfiguration getStandaloneConfig() {
+        // 。。。
+    }
 
-  protected final RedisClusterConfiguration getClusterConfiguration() {
-    // 。。。
-  }
+    protected final RedisSentinelConfiguration getSentinelConfig() {
+        // 。。。
+    }
 
-  protected final RedisProperties getProperties() {
-    // 。。。
-  }
+    protected final RedisClusterConfiguration getClusterConfiguration() {
+        // 。。。
+    }
 
-  protected boolean isPoolEnabled(Pool pool) {
-    Boolean enabled = pool.getEnabled();
-    return (enabled != null) ? enabled : COMMONS_POOL2_AVAILABLE;
-  }
+    protected final RedisProperties getProperties() {
+        // 。。。
+    }
 
-  private List<RedisNode> createSentinels(RedisProperties.Sentinel sentinel) {
-    // 。。。
-  }
+    protected boolean isPoolEnabled(Pool pool) {
+        Boolean enabled = pool.getEnabled();
+        return (enabled != null) ? enabled : COMMONS_POOL2_AVAILABLE;
+    }
 
-  protected ConnectionInfo parseUrl(String url) {
-    // 。。。
-  }
+    private List<RedisNode> createSentinels(RedisProperties.Sentinel sentinel) {
+        // 。。。
+    }
 
-  static class ConnectionInfo {
+    protected ConnectionInfo parseUrl(String url) {
+        // 。。。
+    }
 
-    private final URI uri;
+    static class ConnectionInfo {
 
-    private final boolean useSsl;
+        private final URI uri;
 
-    private final String username;
+        private final boolean useSsl;
 
-    private final String password;
+        private final String username;
 
-    // 。。。
-  }
+        private final String password;
+
+        // 。。。
+    }
 }
 ```
 
@@ -319,15 +319,15 @@ org.springframework.boot.autoconfigure.data.redis.JedisConnectionConfiguration.C
 @ConditionalOnProperty(name = "spring.redis.client-type", havingValue = "jedis", matchIfMissing = true)
 class JedisConnectionConfiguration extends RedisConnectionConfiguration {
 
-  // 。。。
+    // 。。。
 
-  @Bean
-  JedisConnectionFactory redisConnectionFactory(
-      ObjectProvider<JedisClientConfigurationBuilderCustomizer> builderCustomizers) {
-    return createJedisConnectionFactory(builderCustomizers);
-  }
+    @Bean
+    JedisConnectionFactory redisConnectionFactory(
+            ObjectProvider<JedisClientConfigurationBuilderCustomizer> builderCustomizers) {
+        return createJedisConnectionFactory(builderCustomizers);
+    }
 
-  // 。。。
+    // 。。。
 }
 ```
 
@@ -351,15 +351,15 @@ class JedisConnectionConfiguration extends RedisConnectionConfiguration {
 
 ```java
 private JedisConnectionFactory createJedisConnectionFactory(
-      ObjectProvider<JedisClientConfigurationBuilderCustomizer> builderCustomizers) {
-  JedisClientConfiguration clientConfiguration = getJedisClientConfiguration(builderCustomizers);
-  if (getSentinelConfig() != null) {
-    return new JedisConnectionFactory(getSentinelConfig(), clientConfiguration);
-  }
-  if (getClusterConfiguration() != null) {
-    return new JedisConnectionFactory(getClusterConfiguration(), clientConfiguration);
-  }
-  return new JedisConnectionFactory(getStandaloneConfig(), clientConfiguration);
+    ObjectProvider<JedisClientConfigurationBuilderCustomizer> builderCustomizers) {
+    JedisClientConfiguration clientConfiguration = getJedisClientConfiguration(builderCustomizers);
+    if (getSentinelConfig() != null) {
+        return new JedisConnectionFactory(getSentinelConfig(), clientConfiguration);
+    }
+    if (getClusterConfiguration() != null) {
+        return new JedisConnectionFactory(getClusterConfiguration(), clientConfiguration);
+    }
+    return new JedisConnectionFactory(getStandaloneConfig(), clientConfiguration);
 }
 ```
 我们详细来分析一下上述代码：
@@ -369,17 +369,17 @@ private JedisConnectionFactory createJedisConnectionFactory(
 
     ```java
     private JedisClientConfiguration getJedisClientConfiguration(
-      ObjectProvider<JedisClientConfigurationBuilderCustomizer> builderCustomizers) {
-      JedisClientConfigurationBuilder builder = applyProperties(JedisClientConfiguration.builder());
-      RedisProperties.Pool pool = getProperties().getJedis().getPool();
-      if (isPoolEnabled(pool)) {
-        applyPooling(pool, builder);
-      }
-      if (StringUtils.hasText(getProperties().getUrl())) {
-        customizeConfigurationFromUrl(builder);
-      }
-      builderCustomizers.orderedStream().forEach((customizer) -> customizer.customize(builder));
-      return builder.build();
+        ObjectProvider<JedisClientConfigurationBuilderCustomizer> builderCustomizers) {
+        JedisClientConfigurationBuilder builder = applyProperties(JedisClientConfiguration.builder());
+        RedisProperties.Pool pool = getProperties().getJedis().getPool();
+        if (isPoolEnabled(pool)) {
+            applyPooling(pool, builder);
+        }
+        if (StringUtils.hasText(getProperties().getUrl())) {
+            customizeConfigurationFromUrl(builder);
+        }
+        builderCustomizers.orderedStream().forEach((customizer) -> customizer.customize(builder));
+        return builder.build();
     }
     ```
     - 首先，调用 `applyProperties` 方法，获取一个 `JedisClientConfigurationBuilder`  对象，用于构建 `JedisClientConfiguration` 对象。
@@ -387,12 +387,12 @@ private JedisConnectionFactory createJedisConnectionFactory(
 
       ```java
       private JedisClientConfigurationBuilder applyProperties(JedisClientConfigurationBuilder builder) {
-        PropertyMapper map = PropertyMapper.get().alwaysApplyingWhenNonNull();
-        map.from(getProperties().isSsl()).whenTrue().toCall(builder::useSsl);
-        map.from(getProperties().getTimeout()).to(builder::readTimeout);
-        map.from(getProperties().getConnectTimeout()).to(builder::connectTimeout);
-        map.from(getProperties().getClientName()).whenHasText().to(builder::clientName);
-        return builder;
+          PropertyMapper map = PropertyMapper.get().alwaysApplyingWhenNonNull();
+          map.from(getProperties().isSsl()).whenTrue().toCall(builder::useSsl);
+          map.from(getProperties().getTimeout()).to(builder::readTimeout);
+          map.from(getProperties().getConnectTimeout()).to(builder::connectTimeout);
+          map.from(getProperties().getClientName()).whenHasText().to(builder::clientName);
+          return builder;
       }
       ```
       该方法的主要目的是根据属性配置来定制 `builder` 对象。
@@ -423,21 +423,21 @@ private JedisConnectionFactory createJedisConnectionFactory(
         ```java
         private void applyPooling(RedisProperties.Pool pool,
             JedisClientConfiguration.JedisClientConfigurationBuilder builder) {
-          builder.usePooling().poolConfig(jedisPoolConfig(pool));
+            builder.usePooling().poolConfig(jedisPoolConfig(pool));
         }
       
         private JedisPoolConfig jedisPoolConfig(RedisProperties.Pool pool) {
-          JedisPoolConfig config = new JedisPoolConfig();
-          config.setMaxTotal(pool.getMaxActive());
-          config.setMaxIdle(pool.getMaxIdle());
-          config.setMinIdle(pool.getMinIdle());
-          if (pool.getTimeBetweenEvictionRuns() != null) {
-            config.setTimeBetweenEvictionRuns(pool.getTimeBetweenEvictionRuns());
-          }
-          if (pool.getMaxWait() != null) {
-            config.setMaxWait(pool.getMaxWait());
-          }
-          return config;
+            JedisPoolConfig config = new JedisPoolConfig();
+            config.setMaxTotal(pool.getMaxActive());
+            config.setMaxIdle(pool.getMaxIdle());
+            config.setMinIdle(pool.getMinIdle());
+            if (pool.getTimeBetweenEvictionRuns() != null) {
+                config.setTimeBetweenEvictionRuns(pool.getTimeBetweenEvictionRuns());
+            }
+            if (pool.getMaxWait() != null) {
+                config.setMaxWait(pool.getMaxWait());
+            }
+            return config;
         }
         ```
         - `usePooling()`  : 启用连接池功能
@@ -447,10 +447,10 @@ private JedisConnectionFactory createJedisConnectionFactory(
       - 如果包含非空的文本内容 ，则调用 customizeConfigurationFromUrl 方法：
         ```java
         private void customizeConfigurationFromUrl(JedisClientConfiguration.JedisClientConfigurationBuilder builder) {
-          ConnectionInfo connectionInfo = parseUrl(getProperties().getUrl());
-          if (connectionInfo.isUseSsl()) {
-            builder.useSsl();
-          }
+            ConnectionInfo connectionInfo = parseUrl(getProperties().getUrl());
+            if (connectionInfo.isUseSsl()) {
+                builder.useSsl();
+            }
         }
         ```
         - 首先，调用 `parseUrl` 方法来解析 `URL`，并将结果存储在 `connectionInfo` 变量中。

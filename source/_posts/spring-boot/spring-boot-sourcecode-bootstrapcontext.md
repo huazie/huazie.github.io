@@ -156,11 +156,11 @@ tags:
 
 ```java
 public interface BootstrapContext {
-  <T> T get(Class<T> type) throws IllegalStateException;
-  <T> T getOrElse(Class<T> type, T other);
-  <T> T getOrElseSupply(Class<T> type, Supplier<T> other);
-  <T, X extends Throwable> T getOrElseThrow(Class<T> type, Supplier<? extends X> exceptionSupplier) throws X;
-  <T> boolean isRegistered(Class<T> type);
+    <T> T get(Class<T> type) throws IllegalStateException;
+    <T> T getOrElse(Class<T> type, T other);
+    <T> T getOrElseSupply(Class<T> type, Supplier<T> other);
+    <T, X extends Throwable> T getOrElseThrow(Class<T> type, Supplier<? extends X> exceptionSupplier) throws X;
+    <T> boolean isRegistered(Class<T> type);
 }
 ```
 
@@ -238,19 +238,19 @@ public interface ConfigurableBootstrapContext extends BootstrapRegistry, Bootstr
 ```java
 public class DefaultBootstrapContext implements ConfigurableBootstrapContext {
 
-  private final Map<Class<?>, InstanceSupplier<?>> instanceSuppliers = new HashMap<>();
+    private final Map<Class<?>, InstanceSupplier<?>> instanceSuppliers = new HashMap<>();
 
-  private final Map<Class<?>, Object> instances = new HashMap<>();
+    private final Map<Class<?>, Object> instances = new HashMap<>();
 
-  private final ApplicationEventMulticaster events = new SimpleApplicationEventMulticaster();
+    private final ApplicationEventMulticaster events = new SimpleApplicationEventMulticaster();
 
-  // 实现 BootstrapRegistry 接口中的方法
+    // 实现 BootstrapRegistry 接口中的方法
 
-  // 实现 BootstrapContext 接口中的方法
+    // 实现 BootstrapContext 接口中的方法
 
-  public void close(ConfigurableApplicationContext applicationContext) {
-    this.events.multicastEvent(new BootstrapContextClosedEvent(this, applicationContext));
-  }
+    public void close(ConfigurableApplicationContext applicationContext) {
+        this.events.multicastEvent(new BootstrapContextClosedEvent(this, applicationContext));
+    }
 }
 ```
 
@@ -268,47 +268,47 @@ public class DefaultBootstrapContext implements ConfigurableBootstrapContext {
 在 [《BootstrapRegistry 详解》](/2024/01/31/spring-boot/spring-boot-sourcecode-bootstrapregistry/)中，我们已经了解相关的 5 个方法，下面直接看 `DefaultBootstrapContext` 中的实现： 
 
 ```java
-  @Override
-  public <T> void register(Class<T> type, InstanceSupplier<T> instanceSupplier) {
-    register(type, instanceSupplier, true);
-  }
-
-  @Override
-  public <T> void registerIfAbsent(Class<T> type, InstanceSupplier<T> instanceSupplier) {
-    register(type, instanceSupplier, false);
-  }
-
-  private <T> void register(Class<T> type, InstanceSupplier<T> instanceSupplier, boolean replaceExisting) {
-    Assert.notNull(type, "Type must not be null");
-    Assert.notNull(instanceSupplier, "InstanceSupplier must not be null");
-    synchronized (this.instanceSuppliers) {
-      boolean alreadyRegistered = this.instanceSuppliers.containsKey(type);
-      if (replaceExisting || !alreadyRegistered) {
-        Assert.state(!this.instances.containsKey(type), () -> type.getName() + " has already been created");
-        this.instanceSuppliers.put(type, instanceSupplier);
-      }
+    @Override
+    public <T> void register(Class<T> type, InstanceSupplier<T> instanceSupplier) {
+        register(type, instanceSupplier, true);
     }
-  }
 
-  @Override
-  public <T> boolean isRegistered(Class<T> type) {
-    synchronized (this.instanceSuppliers) {
-      return this.instanceSuppliers.containsKey(type);
+    @Override
+    public <T> void registerIfAbsent(Class<T> type, InstanceSupplier<T> instanceSupplier) {
+        register(type, instanceSupplier, false);
     }
-  }
 
-  @Override
-  @SuppressWarnings("unchecked")
-  public <T> InstanceSupplier<T> getRegisteredInstanceSupplier(Class<T> type) {
-    synchronized (this.instanceSuppliers) {
-      return (InstanceSupplier<T>) this.instanceSuppliers.get(type);
+    private <T> void register(Class<T> type, InstanceSupplier<T> instanceSupplier, boolean replaceExisting) {
+        Assert.notNull(type, "Type must not be null");
+        Assert.notNull(instanceSupplier, "InstanceSupplier must not be null");
+        synchronized (this.instanceSuppliers) {
+            boolean alreadyRegistered = this.instanceSuppliers.containsKey(type);
+            if (replaceExisting || !alreadyRegistered) {
+                Assert.state(!this.instances.containsKey(type), () -> type.getName() + " has already been created");
+                this.instanceSuppliers.put(type, instanceSupplier);
+            }
+        }
     }
-  }
 
-  @Override
-  public void addCloseListener(ApplicationListener<BootstrapContextClosedEvent> listener) {
-    this.events.addApplicationListener(listener);
-  }
+    @Override
+    public <T> boolean isRegistered(Class<T> type) {
+        synchronized (this.instanceSuppliers) {
+            return this.instanceSuppliers.containsKey(type);
+        }
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T> InstanceSupplier<T> getRegisteredInstanceSupplier(Class<T> type) {
+        synchronized (this.instanceSuppliers) {
+            return (InstanceSupplier<T>) this.instanceSuppliers.get(type);
+        }
+    }
+
+    @Override
+    public void addCloseListener(ApplicationListener<BootstrapContextClosedEvent> listener) {
+        this.events.addApplicationListener(listener);
+    }
 ```
 
 翻看上述源码，我们可以看到除了 `addCloseListener` 方法，其他方法中都使用 `synchronized` 关键字了，而这里同步的对象就是上面提到的 `instanceSuppliers`。因为 `instanceSuppliers` 是 `HashMap`，它并不是线程安全的，为了防止多个线程同时修改 `instanceSuppliers` 对象，导致数据不一致的问题，这里就需要对该对象进行同步，保证在同一时刻只有一个线程可以访问该代码块。
@@ -327,39 +327,39 @@ public class DefaultBootstrapContext implements ConfigurableBootstrapContext {
 ### 3.3.3 实现 BootstrapContext 接口中的方法
 
 ```java
-  @Override
-  public <T> T get(Class<T> type) throws IllegalStateException {
-    return getOrElseThrow(type, () -> new IllegalStateException(type.getName() + " has not been registered"));
-  }
-
-  @Override
-  public <T> T getOrElse(Class<T> type, T other) {
-    return getOrElseSupply(type, () -> other);
-  }
-
-  @Override
-  public <T> T getOrElseSupply(Class<T> type, Supplier<T> other) {
-    synchronized (this.instanceSuppliers) {
-      InstanceSupplier<?> instanceSupplier = this.instanceSuppliers.get(type);
-      return (instanceSupplier != null) ? getInstance(type, instanceSupplier) : other.get();
+    @Override
+    public <T> T get(Class<T> type) throws IllegalStateException {
+        return getOrElseThrow(type, () -> new IllegalStateException(type.getName() + " has not been registered"));
     }
-  }
 
-  @Override
-  public <T, X extends Throwable> T getOrElseThrow(Class<T> type, Supplier<? extends X> exceptionSupplier) throws X {
-    synchronized (this.instanceSuppliers) {
-      InstanceSupplier<?> instanceSupplier = this.instanceSuppliers.get(type);
-      if (instanceSupplier == null) {
-        throw exceptionSupplier.get();
-      }
-      return getInstance(type, instanceSupplier);
+    @Override
+    public <T> T getOrElse(Class<T> type, T other) {
+        return getOrElseSupply(type, () -> other);
     }
-  }
 
-  @SuppressWarnings("unchecked")
-  private <T> T getInstance(Class<T> type, InstanceSupplier<?> instanceSupplier) {
-    // 省略 。。。
-  }
+    @Override
+    public <T> T getOrElseSupply(Class<T> type, Supplier<T> other) {
+        synchronized (this.instanceSuppliers) {
+            InstanceSupplier<?> instanceSupplier = this.instanceSuppliers.get(type);
+            return (instanceSupplier != null) ? getInstance(type, instanceSupplier) : other.get();
+        }
+    }
+
+    @Override
+    public <T, X extends Throwable> T getOrElseThrow(Class<T> type, Supplier<? extends X> exceptionSupplier) throws X {
+        synchronized (this.instanceSuppliers) {
+            InstanceSupplier<?> instanceSupplier = this.instanceSuppliers.get(type);
+            if (instanceSupplier == null) {
+              throw exceptionSupplier.get();
+            }
+            return getInstance(type, instanceSupplier);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T> T getInstance(Class<T> type, InstanceSupplier<?> instanceSupplier) {
+        // 省略 。。。
+    }
   
 ```
 
@@ -374,14 +374,14 @@ public class DefaultBootstrapContext implements ConfigurableBootstrapContext {
 很显然，上述方法最终都需要使用 `getInstance` 方法，从供应者中获取对应类型的实例对象。我们来看看相关的源码：
 
 ```java
-  T instance = (T) this.instances.get(type);
-  if (instance == null) {
-    instance = (T) instanceSupplier.get(this);
-    if (instanceSupplier.getScope() == Scope.SINGLETON) {
-      this.instances.put(type, instance);
+    T instance = (T) this.instances.get(type);
+    if (instance == null) {
+        instance = (T) instanceSupplier.get(this);
+        if (instanceSupplier.getScope() == Scope.SINGLETON) {
+            this.instances.put(type, instance);
+        }
     }
-  }
-  return instance;
+    return instance;
 ```
 
 简单总结如下：

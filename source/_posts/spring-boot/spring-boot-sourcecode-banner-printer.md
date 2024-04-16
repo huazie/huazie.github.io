@@ -130,7 +130,7 @@ tags:
 
 ```java
 if (this.bannerMode == Banner.Mode.OFF) {
-  return null;
+    return null;
 }
 ```
 
@@ -142,7 +142,7 @@ if (this.bannerMode == Banner.Mode.OFF) {
 
 ```java
 public void setBannerMode(Banner.Mode bannerMode) {
-  this.bannerMode = bannerMode;
+    this.bannerMode = bannerMode;
 }
 ```
 
@@ -256,10 +256,10 @@ banners.addIfNotNull(getTextBanner(environment));
 
 ```java
 if (banners.hasAtLeastOneBanner()) {
-  return banners;
+    return banners;
 }
 if (this.fallbackBanner != null) {
-  return this.fallbackBanner;
+    return this.fallbackBanner;
 }
 return DEFAULT_BANNER;
 ```
@@ -281,10 +281,10 @@ private static final Banner DEFAULT_BANNER = new SpringBootBanner();
 
 ```java
 try {
-  logger.info(createStringFromBanner(banner, environment, sourceClass));
+    logger.info(createStringFromBanner(banner, environment, sourceClass));
 }
 catch (UnsupportedEncodingException ex) {
-  logger.warn("Failed to create String for banner", ex);
+    logger.warn("Failed to create String for banner", ex);
 }
 ```
 

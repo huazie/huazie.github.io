@@ -88,27 +88,27 @@ tags:
 @Order(Ordered.LOWEST_PRECEDENCE)
 class OnBeanCondition extends FilteringSpringBootCondition implements ConfigurationCondition {
 
-  // ...
+    // ...
 
-  @Override
-  protected final ConditionOutcome[] getOutcomes(String[] autoConfigurationClasses,
-      AutoConfigurationMetadata autoConfigurationMetadata) {
-    ConditionOutcome[] outcomes = new ConditionOutcome[autoConfigurationClasses.length];
-    for (int i = 0; i < outcomes.length; i++) {
-      String autoConfigurationClass = autoConfigurationClasses[i];
-      if (autoConfigurationClass != null) {
-        Set<String> onBeanTypes = autoConfigurationMetadata.getSet(autoConfigurationClass, "ConditionalOnBean");
-        outcomes[i] = getOutcome(onBeanTypes, ConditionalOnBean.class);
-        if (outcomes[i] == null) {
-          Set<String> onSingleCandidateTypes = autoConfigurationMetadata.getSet(autoConfigurationClass,
-              "ConditionalOnSingleCandidate");
-          outcomes[i] = getOutcome(onSingleCandidateTypes, ConditionalOnSingleCandidate.class);
+    @Override
+    protected final ConditionOutcome[] getOutcomes(String[] autoConfigurationClasses,
+        AutoConfigurationMetadata autoConfigurationMetadata) {
+        ConditionOutcome[] outcomes = new ConditionOutcome[autoConfigurationClasses.length];
+        for (int i = 0; i < outcomes.length; i++) {
+            String autoConfigurationClass = autoConfigurationClasses[i];
+            if (autoConfigurationClass != null) {
+                Set<String> onBeanTypes = autoConfigurationMetadata.getSet(autoConfigurationClass, "ConditionalOnBean");
+                outcomes[i] = getOutcome(onBeanTypes, ConditionalOnBean.class);
+                if (outcomes[i] == null) {
+                    Set<String> onSingleCandidateTypes = autoConfigurationMetadata.getSet(autoConfigurationClass,
+                        "ConditionalOnSingleCandidate");
+                    outcomes[i] = getOutcome(onSingleCandidateTypes, ConditionalOnSingleCandidate.class);
+                }
+            }
         }
-      }
+        return outcomes;
     }
-    return outcomes;
-  }
-  // ...
+    // ...
 }
 ```
 
@@ -130,14 +130,14 @@ class OnBeanCondition extends FilteringSpringBootCondition implements Configurat
 
 ```java
 private ConditionOutcome getOutcome(Set<String> requiredBeanTypes, Class<? extends Annotation> annotation) {
-  List<String> missing = filter(requiredBeanTypes, ClassNameFilter.MISSING, getBeanClassLoader());
-  if (!missing.isEmpty()) {
-    ConditionMessage message = ConditionMessage.forCondition(annotation)
-      .didNotFind("required type", "required types")
-      .items(Style.QUOTE, missing);
-    return ConditionOutcome.noMatch(message);
-  }
-  return null;
+    List<String> missing = filter(requiredBeanTypes, ClassNameFilter.MISSING, getBeanClassLoader());
+    if (!missing.isEmpty()) {
+        ConditionMessage message = ConditionMessage.forCondition(annotation)
+          .didNotFind("required type", "required types")
+          .items(Style.QUOTE, missing);
+        return ConditionOutcome.noMatch(message);
+    }
+    return null;
 }
 ```
 
@@ -157,12 +157,12 @@ private ConditionOutcome getOutcome(Set<String> requiredBeanTypes, Class<? exten
 ```java
 @Override
 public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
-  ConditionMessage matchMessage = ConditionMessage.empty();
-  MergedAnnotations annotations = metadata.getAnnotations();
-  // ConditionalOnBean 注解处理
-  // ConditionalOnSingleCandidate 注解处理
-  // ConditionalOnMissingBean 注解处理
-  return ConditionOutcome.match(matchMessage);
+    ConditionMessage matchMessage = ConditionMessage.empty();
+    MergedAnnotations annotations = metadata.getAnnotations();
+    // ConditionalOnBean 注解处理
+    // ConditionalOnSingleCandidate 注解处理
+    // ConditionalOnMissingBean 注解处理
+    return ConditionOutcome.match(matchMessage);
 }
 ```
 
@@ -170,17 +170,17 @@ public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeM
 我们来看看 `ConditionalOnBean` 注解处理逻辑的源码：
 
 ```java
-  if (annotations.isPresent(ConditionalOnBean.class)) {
-    Spec<ConditionalOnBean> spec = new Spec<>(context, metadata, annotations, ConditionalOnBean.class);
-    MatchResult matchResult = getMatchingBeans(context, spec);
-    if (!matchResult.isAllMatched()) {
-      String reason = createOnBeanNoMatchReason(matchResult);
-      return ConditionOutcome.noMatch(spec.message().because(reason));
+    if (annotations.isPresent(ConditionalOnBean.class)) {
+        Spec<ConditionalOnBean> spec = new Spec<>(context, metadata, annotations, ConditionalOnBean.class);
+        MatchResult matchResult = getMatchingBeans(context, spec);
+        if (!matchResult.isAllMatched()) {
+            String reason = createOnBeanNoMatchReason(matchResult);
+            return ConditionOutcome.noMatch(spec.message().because(reason));
+        }
+        matchMessage = spec.message(matchMessage)
+          .found("bean", "beans")
+          .items(Style.QUOTE, matchResult.getNamesOfAllMatches());
     }
-    matchMessage = spec.message(matchMessage)
-      .found("bean", "beans")
-      .items(Style.QUOTE, matchResult.getNamesOfAllMatches());
-  }
 ```
 
 针对上述代码，且听分析如下：
@@ -199,32 +199,29 @@ public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeM
 我们继续查看 `ConditionalOnSingleCandidate` 注解处理逻辑的源码：
 
 ```java
-  if (metadata.isAnnotated(ConditionalOnSingleCandidate.class.getName())) {
-    Spec<ConditionalOnSingleCandidate> spec = new SingleCandidateSpec(context, metadata, annotations);
-    MatchResult matchResult = getMatchingBeans(context, spec);
-    if (!matchResult.isAllMatched()) {
-      return ConditionOutcome.noMatch(spec.message().didNotFind("any beans").atAll());
+    if (metadata.isAnnotated(ConditionalOnSingleCandidate.class.getName())) {
+        Spec<ConditionalOnSingleCandidate> spec = new SingleCandidateSpec(context, metadata, annotations);
+        MatchResult matchResult = getMatchingBeans(context, spec);
+        if (!matchResult.isAllMatched()) {
+            return ConditionOutcome.noMatch(spec.message().didNotFind("any beans").atAll());
+        }
+        Set<String> allBeans = matchResult.getNamesOfAllMatches();
+        if (allBeans.size() == 1) {
+            matchMessage = spec.message(matchMessage).found("a single bean").items(Style.QUOTE, allBeans);
+        } else {
+            List<String> primaryBeans = getPrimaryBeans(context.getBeanFactory(), allBeans,
+                spec.getStrategy() == SearchStrategy.ALL);
+            if (primaryBeans.isEmpty()) {
+                return ConditionOutcome.noMatch(spec.message().didNotFind("a primary bean from beans").items(Style.QUOTE, allBeans));
+            }
+            if (primaryBeans.size() > 1) {
+                return ConditionOutcome.noMatch(spec.message().found("multiple primary beans").items(Style.QUOTE, primaryBeans));
+            }
+            matchMessage = spec.message(matchMessage)
+                .found("a single primary bean '" + primaryBeans.get(0) + "' from beans")
+                .items(Style.QUOTE, allBeans);
+        }
     }
-    Set<String> allBeans = matchResult.getNamesOfAllMatches();
-    if (allBeans.size() == 1) {
-      matchMessage = spec.message(matchMessage).found("a single bean").items(Style.QUOTE, allBeans);
-    }
-    else {
-      List<String> primaryBeans = getPrimaryBeans(context.getBeanFactory(), allBeans,
-          spec.getStrategy() == SearchStrategy.ALL);
-      if (primaryBeans.isEmpty()) {
-        return ConditionOutcome
-          .noMatch(spec.message().didNotFind("a primary bean from beans").items(Style.QUOTE, allBeans));
-      }
-      if (primaryBeans.size() > 1) {
-        return ConditionOutcome
-          .noMatch(spec.message().found("multiple primary beans").items(Style.QUOTE, primaryBeans));
-      }
-      matchMessage = spec.message(matchMessage)
-        .found("a single primary bean '" + primaryBeans.get(0) + "' from beans")
-        .items(Style.QUOTE, allBeans);
-    }
-  }
 ```
 
 同样针对上述代码，跟着 **Huazie** 来一步步分析下：
@@ -244,16 +241,16 @@ public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeM
 我们继续查看 `ConditionalOnMissingBean` 注解处理逻辑的源码：
 
 ```java
-  if (metadata.isAnnotated(ConditionalOnMissingBean.class.getName())) {
-    Spec<ConditionalOnMissingBean> spec = new Spec<>(context, metadata, annotations,
-        ConditionalOnMissingBean.class);
-    MatchResult matchResult = getMatchingBeans(context, spec);
-    if (matchResult.isAnyMatched()) {
-      String reason = createOnMissingBeanNoMatchReason(matchResult);
-      return ConditionOutcome.noMatch(spec.message().because(reason));
+    if (metadata.isAnnotated(ConditionalOnMissingBean.class.getName())) {
+        Spec<ConditionalOnMissingBean> spec = new Spec<>(context, metadata, annotations,
+            ConditionalOnMissingBean.class);
+        MatchResult matchResult = getMatchingBeans(context, spec);
+        if (matchResult.isAnyMatched()) {
+            String reason = createOnMissingBeanNoMatchReason(matchResult);
+            return ConditionOutcome.noMatch(spec.message().because(reason));
+        }
+        matchMessage = spec.message(matchMessage).didNotFind("any beans").atAll();
     }
-    matchMessage = spec.message(matchMessage).didNotFind("any beans").atAll();
-  }
 ```
 
 经过上述两种处理逻辑的分析，相信大家应该可以看懂第三种处理逻辑的分析：
@@ -282,8 +279,8 @@ protected final MatchResult getMatchingBeans(ConditionContext context, Spec<?> s
 继续看 `getMatchingBeans` 方法内部逻辑：
 
 ```java
-  ClassLoader classLoader = context.getClassLoader();
-  ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
+    ClassLoader classLoader = context.getClassLoader();
+    ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
 ```
 这里从上下文【`context`】中获取 `ClassLoader` 和 `ConfigurableListableBeanFactory` ；
 
@@ -293,55 +290,54 @@ protected final MatchResult getMatchingBeans(ConditionContext context, Spec<?> s
 
 
 ```java
-  boolean considerHierarchy = spec.getStrategy() != SearchStrategy.CURRENT;
+    boolean considerHierarchy = spec.getStrategy() != SearchStrategy.CURRENT;
 ```
 这里根据 `Spec` 对象的 `SearchStrategy` 属性来确定是否考虑 `bean` 的层次结构。如果 `SearchStrategy` 是 `CURRENT`，则不考虑层次结构【即 `considerHierarchy 为 false`】；否则，考虑层次结构【即 `considerHierarchy 为 true`】。
 
 
 ```java
-  Set<Class<?>> parameterizedContainers = spec.getParameterizedContainers();
+    Set<Class<?>> parameterizedContainers = spec.getParameterizedContainers();
 ```
 这里获取 `Spec` 对象的 `parameterizedContainers` 属性，这是一个包含参数化容器类型的集合
 
 ```java
-  if (spec.getStrategy() == SearchStrategy.ANCESTORS) {
-    BeanFactory parent = beanFactory.getParentBeanFactory();
-    Assert.isInstanceOf(ConfigurableListableBeanFactory.class, parent,
-        "Unable to use SearchStrategy.ANCESTORS");
-    beanFactory = (ConfigurableListableBeanFactory) parent;
-  }
+    if (spec.getStrategy() == SearchStrategy.ANCESTORS) {
+        BeanFactory parent = beanFactory.getParentBeanFactory();
+        Assert.isInstanceOf(ConfigurableListableBeanFactory.class, parent,
+            "Unable to use SearchStrategy.ANCESTORS");
+        beanFactory = (ConfigurableListableBeanFactory) parent;
+    }
 ```
 如果 `Spec` 对象的 `SearchStrategy` 属性是 `SearchStrategy.ANCESTORS`，则调用 `getParentBeanFactory` 方法获取其父工厂，并将其转换为 `ConfigurableListableBeanFactory` 类型。
 
 ```java
-  MatchResult result = new MatchResult();
+    MatchResult result = new MatchResult();
 ```
 新建一个 `MatchResult` 对象，用于存储匹配结果；
 
 ```java
-  Set<String> beansIgnoredByType = getNamesOfBeansIgnoredByType(classLoader, beanFactory, considerHierarchy,
-        spec.getIgnoredTypes(), parameterizedContainers);
+    Set<String> beansIgnoredByType = getNamesOfBeansIgnoredByType(classLoader, beanFactory, considerHierarchy,
+          spec.getIgnoredTypes(), parameterizedContainers);
 ```
 调用 `getNamesOfBeansIgnoredByType` 方法，获取被忽略类型的 `bean` 名称集合 `beansIgnoredByType` ；
 
 ```java
-  for (String type : spec.getTypes()) {
-    Collection<String> typeMatches = getBeanNamesForType(classLoader, considerHierarchy, beanFactory, type,
-        parameterizedContainers);
-    Iterator<String> iterator = typeMatches.iterator();
-    while (iterator.hasNext()) {
-      String match = iterator.next();
-      if (beansIgnoredByType.contains(match) || ScopedProxyUtils.isScopedTarget(match)) {
-        iterator.remove();
-      }
+    for (String type : spec.getTypes()) {
+        Collection<String> typeMatches = getBeanNamesForType(classLoader, considerHierarchy, beanFactory, type,
+            parameterizedContainers);
+        Iterator<String> iterator = typeMatches.iterator();
+        while (iterator.hasNext()) {
+            String match = iterator.next();
+            if (beansIgnoredByType.contains(match) || ScopedProxyUtils.isScopedTarget(match)) {
+              iterator.remove();
+            }
+        }
+        if (typeMatches.isEmpty()) {
+            result.recordUnmatchedType(type);
+        } else {
+            result.recordMatchedType(type, typeMatches);
+        }
     }
-    if (typeMatches.isEmpty()) {
-      result.recordUnmatchedType(type);
-    }
-    else {
-      result.recordMatchedType(type, typeMatches);
-    }
-  }
 ```
 遍历 `Spec` 对象的 `types` 属性，它是一个 `Set<String>` 集合
 - 首先，针对每个类型 `type`，调用 `getBeanNamesForType` 方法获取匹配的 `bean` 名称集合 `typeMatches` 。
@@ -349,17 +345,15 @@ protected final MatchResult getMatchingBeans(ConditionContext context, Spec<?> s
 - 最后，如果 `typeMatches` 集合为空，则记录未匹配的类型；否则，记录匹配的类型。
 
 ```java
-  for (String annotation : spec.getAnnotations()) {
-    Set<String> annotationMatches = getBeanNamesForAnnotation(classLoader, beanFactory, annotation,
-        considerHierarchy);
-    annotationMatches.removeAll(beansIgnoredByType);
-    if (annotationMatches.isEmpty()) {
-      result.recordUnmatchedAnnotation(annotation);
+    for (String annotation : spec.getAnnotations()) {
+        Set<String> annotationMatches = getBeanNamesForAnnotation(classLoader, beanFactory, annotation, considerHierarchy);
+        annotationMatches.removeAll(beansIgnoredByType);
+        if (annotationMatches.isEmpty()) {
+            result.recordUnmatchedAnnotation(annotation);
+        } else {
+            result.recordMatchedAnnotation(annotation, annotationMatches);
+        }
     }
-    else {
-      result.recordMatchedAnnotation(annotation, annotationMatches);
-    }
-  }
 ```
 遍历 `Spec` 对象的 `annotations` 属性：
 - 首先，针对每个注解 `annotation`，调用 `getBeanNamesForAnnotation` 方法获取匹配的 `bean` 名称集合 `annotationMatches` 。
@@ -368,14 +362,13 @@ protected final MatchResult getMatchingBeans(ConditionContext context, Spec<?> s
 
 
 ```java
-  for (String beanName : spec.getNames()) {
-    if (!beansIgnoredByType.contains(beanName) && containsBean(beanFactory, beanName, considerHierarchy)) {
-      result.recordMatchedName(beanName);
+    for (String beanName : spec.getNames()) {
+        if (!beansIgnoredByType.contains(beanName) && containsBean(beanFactory, beanName, considerHierarchy)) {
+            result.recordMatchedName(beanName);
+        } else {
+            result.recordUnmatchedName(beanName);
+        }
     }
-    else {
-      result.recordUnmatchedName(beanName);
-    }
-  }
 ```
 
 遍历 `Spec` 对象的 `names` 属性，对于每个 `bean` 名称，如果它不在被忽略类型的集合中，并且它在 `bean` 工厂中存在，就记录匹配的名称；否则，记录未匹配的名称。

@@ -24,71 +24,71 @@ tags:
 在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：
 
 <table>
-	<tr>
-		<td rowspan="13" align="left"> 
-			<a href="/categories/开发框架-Spring-Boot/">Spring Boot 源码学习</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left"> 
-			<a href="/2023/02/19/spring-boot/spring-boot-project-introduction/">Spring Boot 项目介绍</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left"> 
-			<a href="/2023/07/13/spring-boot/spring-boot-core-operating-principle/">Spring Boot 核心运行原理介绍</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left"> 
-			<a href="/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/">【Spring Boot 源码学习】@SpringBootApplication 注解</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left"> 
-			<a href="/2023/07/22/spring-boot/spring-boot-sourcecode-enableautoconfiguration/">【Spring Boot 源码学习】@EnableAutoConfiguration 注解</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left"> 
-			<a href="/2023/07/30/spring-boot/spring-boot-sourcecode-autoconfigurationimportselector/">【Spring Boot 源码学习】走近 AutoConfigurationImportSelector</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left" > 
-			<a href="/2023/08/06/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-1/">【Spring Boot 源码学习】自动装配流程源码解析（上）</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left" > 
-			<a href="/2023/08/21/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-2/">【Spring Boot 源码学习】自动装配流程源码解析（下）</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left" > 
-			<a href="/2023/09/08/spring-boot/spring-boot-sourcecode-filteringspringbootcondition/">【Spring Boot 源码学习】深入 FilteringSpringBootCondition</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left" > 
-			<a href="/2023/09/11/spring-boot/spring-boot-sourcecode-onclasscondition/">【Spring Boot 源码学习】OnClassCondition 详解</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left" > 
-			<a href="/2023/09/21/spring-boot/spring-boot-sourcecode-onbeancondition/">【Spring Boot 源码学习】OnBeanCondition 详解</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left" > 
-			<a href="/2023/10/06/spring-boot/spring-boot-sourcecode-onwebapplicationcondition/">【Spring Boot 源码学习】OnWebApplicationCondition 详解</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left" > 
-			<a href="/2023/10/15/spring-boot/spring-boot-sourcecode-conditional/">【Spring Boot 源码学习】@Conditional 条件注解</a> 
-		</td>
-	</tr>
+    <tr>
+        <td rowspan="13" align="left"> 
+            <a href="/categories/开发框架-Spring-Boot/">Spring Boot 源码学习</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/02/19/spring-boot/spring-boot-project-introduction/">Spring Boot 项目介绍</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/07/13/spring-boot/spring-boot-core-operating-principle/">Spring Boot 核心运行原理介绍</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/">【Spring Boot 源码学习】@SpringBootApplication 注解</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/07/22/spring-boot/spring-boot-sourcecode-enableautoconfiguration/">【Spring Boot 源码学习】@EnableAutoConfiguration 注解</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/07/30/spring-boot/spring-boot-sourcecode-autoconfigurationimportselector/">【Spring Boot 源码学习】走近 AutoConfigurationImportSelector</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left" > 
+            <a href="/2023/08/06/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-1/">【Spring Boot 源码学习】自动装配流程源码解析（上）</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left" > 
+            <a href="/2023/08/21/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-2/">【Spring Boot 源码学习】自动装配流程源码解析（下）</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left" > 
+            <a href="/2023/09/08/spring-boot/spring-boot-sourcecode-filteringspringbootcondition/">【Spring Boot 源码学习】深入 FilteringSpringBootCondition</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left" > 
+            <a href="/2023/09/11/spring-boot/spring-boot-sourcecode-onclasscondition/">【Spring Boot 源码学习】OnClassCondition 详解</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left" > 
+            <a href="/2023/09/21/spring-boot/spring-boot-sourcecode-onbeancondition/">【Spring Boot 源码学习】OnBeanCondition 详解</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left" > 
+            <a href="/2023/10/06/spring-boot/spring-boot-sourcecode-onwebapplicationcondition/">【Spring Boot 源码学习】OnWebApplicationCondition 详解</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left" > 
+            <a href="/2023/10/15/spring-boot/spring-boot-sourcecode-conditional/">【Spring Boot 源码学习】@Conditional 条件注解</a> 
+        </td>
+    </tr>
 </table>
 
 
@@ -100,19 +100,19 @@ tags:
 在 `web.xml` 中的配置示例如下：
 
 ```java
-	<filter>  
-	    <filter-name>encodingFilter</filter-name>  
-	    <filter-class>org.springframework.web.filter.CharacterEncodingFilter
-	    </filter-class>  
-	    <init-param>  
-	         <param-name>encoding</param-name>  
-	         <param-value>UTF-8</param-value>  
-	    </init-param>  
-	    <init-param>  
-	         <param-name>forceEncoding</param-name>  
-	         <param-value>true</param-value>  
-	    </init-param>  
-	</filter>
+    <filter>  
+        <filter-name>encodingFilter</filter-name>  
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter
+        </filter-class>  
+        <init-param>  
+             <param-name>encoding</param-name>  
+             <param-value>UTF-8</param-value>  
+        </init-param>  
+        <init-param>  
+             <param-name>forceEncoding</param-name>  
+             <param-value>true</param-value>  
+        </init-param>  
+    </filter>
 ```
 
 
@@ -161,24 +161,24 @@ org.springframework.boot.autoconfigure.web.servlet.HttpEncodingAutoConfiguration
 @ConditionalOnProperty(prefix = "server.servlet.encoding", value = "enabled", matchIfMissing = true)
 public class HttpEncodingAutoConfiguration {
 
-	private final Encoding properties;
+    private final Encoding properties;
 
-	public HttpEncodingAutoConfiguration(ServerProperties properties) {
-		this.properties = properties.getServlet().getEncoding();
-	}
+    public HttpEncodingAutoConfiguration(ServerProperties properties) {
+        this.properties = properties.getServlet().getEncoding();
+    }
 
-	@Bean
-	@ConditionalOnMissingBean
-	public CharacterEncodingFilter characterEncodingFilter() {
-		//  。。。
-	}
+    @Bean
+    @ConditionalOnMissingBean
+    public CharacterEncodingFilter characterEncodingFilter() {
+        //  。。。
+    }
 
-	@Bean
-	public LocaleCharsetMappingsCustomizer localeCharsetMappingsCustomizer() {
-		// 。。。
-	}
-	
-	// ...
+    @Bean
+    public LocaleCharsetMappingsCustomizer localeCharsetMappingsCustomizer() {
+        // 。。。
+    }
+    
+    // ...
 }
 ```
 
@@ -200,37 +200,37 @@ public class HttpEncodingAutoConfiguration {
 ```java
 @ConfigurationProperties(prefix = "server", ignoreUnknownFields = true)
 public class ServerProperties {
-	// 。。。
-	private final Servlet servlet = new Servlet();
-	// 。。。
-	public static class Servlet {
-		// 。。。
-		@NestedConfigurationProperty
-		private final Encoding encoding = new Encoding();
-		// 。。。
-	}
-	// 。。。
+    // 。。。
+    private final Servlet servlet = new Servlet();
+    // 。。。
+    public static class Servlet {
+        // 。。。
+        @NestedConfigurationProperty
+        private final Encoding encoding = new Encoding();
+        // 。。。
+    }
+    // 。。。
 }
 
 public class Encoding {
-	// 默认的HTTP编码，用于Servlet应用程序。
-	public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
+    // 默认的HTTP编码，用于Servlet应用程序。
+    public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 
-	// HTTP请求和响应的字符集。如果未显式设置，将添加到"Content-Type"头中
-	private Charset charset = DEFAULT_CHARSET;
+    // HTTP请求和响应的字符集。如果未显式设置，将添加到"Content-Type"头中
+    private Charset charset = DEFAULT_CHARSET;
 
-	// 是否强制在HTTP请求和响应上使用配置的字符集的标志
-	private Boolean force;
+    // 是否强制在HTTP请求和响应上使用配置的字符集的标志
+    private Boolean force;
 
-	// 是否强制在HTTP请求上使用配置的字符集的标志。当"force"未指定时，默认为true。
-	private Boolean forceRequest;
+    // 是否强制在HTTP请求上使用配置的字符集的标志。当"force"未指定时，默认为true。
+    private Boolean forceRequest;
 
-	// 是否强制在HTTP响应上使用配置的字符集的标志。
-	private Boolean forceResponse;
+    // 是否强制在HTTP响应上使用配置的字符集的标志。
+    private Boolean forceResponse;
 
-	// 将区域设置映射到字符集以进行响应编码的映射。
-	private Map<Locale, Charset> mapping;
-	// 。。。
+    // 将区域设置映射到字符集以进行响应编码的映射。
+    private Map<Locale, Charset> mapping;
+    // 。。。
 }
 ```
 
@@ -251,11 +251,11 @@ server.servlet.encoding.charset=UTF-8
 
 ```java
 public CharacterEncodingFilter characterEncodingFilter() {
-	CharacterEncodingFilter filter = new OrderedCharacterEncodingFilter();
-	filter.setEncoding(this.properties.getCharset().name());
-	filter.setForceRequestEncoding(this.properties.shouldForce(Encoding.Type.REQUEST));
-	filter.setForceResponseEncoding(this.properties.shouldForce(Encoding.Type.RESPONSE));
-	return filter;
+    CharacterEncodingFilter filter = new OrderedCharacterEncodingFilter();
+    filter.setEncoding(this.properties.getCharset().name());
+    filter.setForceRequestEncoding(this.properties.shouldForce(Encoding.Type.REQUEST));
+    filter.setForceResponseEncoding(this.properties.shouldForce(Encoding.Type.RESPONSE));
+    return filter;
 }
 ```
 上述逻辑很好理解：
@@ -263,56 +263,56 @@ public CharacterEncodingFilter characterEncodingFilter() {
 - 然后，设置 `filter` 的 `encoding` 属性，即编码属性。其中 `this.properties.getCharset().name()` 就是上述 `application.properties` 中的 `server.servlet.encoding.charset=UTF-8`；如果没有配置，则默认是 **UTF-8**【可查看上述 `Encoding` 类】。
 - 接着，设置 `filter` 的 `forceRequestEncoding` 和 `forceResponseEncoding` 属性。我们来直接查 `Encoding` 类的 `shouldForce` 即可：
 
-	```java
-	public boolean shouldForce(Type type) {
-		// Http请求，则取 server.servlet.encoding.force-request 配置
-		// Http响应，则取 server.servlet.encoding.force-response 配置
-		Boolean force = (type != Type.REQUEST) ? this.forceResponse : this.forceRequest;
-		// 如果上述配置都没有
-		if (force == null) {
-			// 取 server.servlet.encoding.force 配置
-			force = this.force;
-		}
-		if (force == null) {
-			// 当 server.servlet.encoding.force 配置也未指定时，
-			// 默认 强制在HTTP请求上使用配置的字符集。
-			force = (type == Type.REQUEST);
-		}
-		return force;
-	}
-	```
+    ```java
+    public boolean shouldForce(Type type) {
+        // Http请求，则取 server.servlet.encoding.force-request 配置
+        // Http响应，则取 server.servlet.encoding.force-response 配置
+        Boolean force = (type != Type.REQUEST) ? this.forceResponse : this.forceRequest;
+        // 如果上述配置都没有
+        if (force == null) {
+            // 取 server.servlet.encoding.force 配置
+            force = this.force;
+        }
+        if (force == null) {
+            // 当 server.servlet.encoding.force 配置也未指定时，
+            // 默认 强制在HTTP请求上使用配置的字符集。
+            force = (type == Type.REQUEST);
+        }
+        return force;
+    }
+    ```
 
 ### 2.4 localeCharsetMappingsCustomizer 方法
 
 话不多说，直接来看相关的源码【**Spring Boot 2.7.9**】
 
 ```java
-	@Bean
-	public LocaleCharsetMappingsCustomizer localeCharsetMappingsCustomizer() {
-		return new LocaleCharsetMappingsCustomizer(this.properties);
-	}
+    @Bean
+    public LocaleCharsetMappingsCustomizer localeCharsetMappingsCustomizer() {
+        return new LocaleCharsetMappingsCustomizer(this.properties);
+    }
 
-	static class LocaleCharsetMappingsCustomizer
-			implements WebServerFactoryCustomizer<ConfigurableServletWebServerFactory>, Ordered {
+    static class LocaleCharsetMappingsCustomizer
+            implements WebServerFactoryCustomizer<ConfigurableServletWebServerFactory>, Ordered {
 
-		private final Encoding properties;
+        private final Encoding properties;
 
-		LocaleCharsetMappingsCustomizer(Encoding properties) {
-			this.properties = properties;
-		}
+        LocaleCharsetMappingsCustomizer(Encoding properties) {
+            this.properties = properties;
+        }
 
-		@Override
-		public void customize(ConfigurableServletWebServerFactory factory) {
-			if (this.properties.getMapping() != null) {
-				factory.setLocaleCharsetMappings(this.properties.getMapping());
-			}
-		}
+        @Override
+        public void customize(ConfigurableServletWebServerFactory factory) {
+            if (this.properties.getMapping() != null) {
+                factory.setLocaleCharsetMappings(this.properties.getMapping());
+            }
+        }
 
-		@Override
-		public int getOrder() {
-			return 0;
-		}
-	}
+        @Override
+        public int getOrder() {
+            return 0;
+        }
+    }
 ```
 
 上述 `LocaleCharsetMappingsCustomizer` 静态内部类实现了 `WebServerFactoryCustomizer` 接口，该接口是用于自定义 **Web** 服务器工厂的策略接口。此接口类型的任何 **bean** 都将在服务器本身启动之前获得与服务器工厂的回调，从而我们可以设置端口、地址、错误页面等。

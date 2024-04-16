@@ -90,22 +90,22 @@ tags:
 @Order(Ordered.HIGHEST_PRECEDENCE + 20)
 class OnWebApplicationCondition extends FilteringSpringBootCondition {
 
-  // ...
+    // ...
 
-  @Override
-  protected ConditionOutcome[] getOutcomes(String[] autoConfigurationClasses,
-      AutoConfigurationMetadata autoConfigurationMetadata) {
-    ConditionOutcome[] outcomes = new ConditionOutcome[autoConfigurationClasses.length];
-    for (int i = 0; i < outcomes.length; i++) {
-      String autoConfigurationClass = autoConfigurationClasses[i];
-      if (autoConfigurationClass != null) {
-        outcomes[i] = getOutcome(
-            autoConfigurationMetadata.get(autoConfigurationClass, "ConditionalOnWebApplication"));
-      }
+    @Override
+    protected ConditionOutcome[] getOutcomes(String[] autoConfigurationClasses,
+        AutoConfigurationMetadata autoConfigurationMetadata) {
+        ConditionOutcome[] outcomes = new ConditionOutcome[autoConfigurationClasses.length];
+        for (int i = 0; i < outcomes.length; i++) {
+            String autoConfigurationClass = autoConfigurationClasses[i];
+            if (autoConfigurationClass != null) {
+                outcomes[i] = getOutcome(
+                    autoConfigurationMetadata.get(autoConfigurationClass, "ConditionalOnWebApplication"));
+            }
+        }
+        return outcomes;
     }
-    return outcomes;
-  }
-  // ...
+    // ...
 }
 ```
 
@@ -135,15 +135,15 @@ class OnWebApplicationCondition extends FilteringSpringBootCondition {
 ```java
 @Override
 public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
-  boolean required = metadata.isAnnotated(ConditionalOnWebApplication.class.getName());
-  ConditionOutcome outcome = isWebApplication(context, metadata, required);
-  if (required && !outcome.isMatch()) {
-    return ConditionOutcome.noMatch(outcome.getConditionMessage());
-  }
-  if (!required && outcome.isMatch()) {
-    return ConditionOutcome.noMatch(outcome.getConditionMessage());
-  }
-  return ConditionOutcome.match(outcome.getConditionMessage());
+    boolean required = metadata.isAnnotated(ConditionalOnWebApplication.class.getName());
+    ConditionOutcome outcome = isWebApplication(context, metadata, required);
+    if (required && !outcome.isMatch()) {
+        return ConditionOutcome.noMatch(outcome.getConditionMessage());
+    }
+    if (!required && outcome.isMatch()) {
+        return ConditionOutcome.noMatch(outcome.getConditionMessage());
+    }
+    return ConditionOutcome.match(outcome.getConditionMessage());
 }
 ```
 
@@ -162,14 +162,14 @@ public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeM
 ```java
 private ConditionOutcome isWebApplication(ConditionContext context, AnnotatedTypeMetadata metadata,
       boolean required) {
-  switch (deduceType(metadata)) {
-    case SERVLET:
-      return isServletWebApplication(context);
-    case REACTIVE:
-      return isReactiveWebApplication(context);
-    default:
-      return isAnyWebApplication(context, required);
-  }
+    switch (deduceType(metadata)) {
+        case SERVLET:
+            return isServletWebApplication(context);
+        case REACTIVE:
+            return isReactiveWebApplication(context);
+        default:
+            return isAnyWebApplication(context, required);
+    }
 }
 ```
 
@@ -178,11 +178,11 @@ private ConditionOutcome isWebApplication(ConditionContext context, AnnotatedTyp
 
   ```java
   private Type deduceType(AnnotatedTypeMetadata metadata) {
-    Map<String, Object> attributes = metadata.getAnnotationAttributes(ConditionalOnWebApplication.class.getName());
-    if (attributes != null) {
-      return (Type) attributes.get("type");
-    }
-    return Type.ANY;
+      Map<String, Object> attributes = metadata.getAnnotationAttributes(ConditionalOnWebApplication.class.getName());
+      if (attributes != null) {
+          return (Type) attributes.get("type");
+      }
+      return Type.ANY;
   }
   ```
 - 如果是 `Type.SERVLET`，则调用 `isServletWebApplication` 方法返回条件匹配结果。
@@ -197,23 +197,23 @@ private ConditionOutcome isWebApplication(ConditionContext context, AnnotatedTyp
 
 ```java
 private ConditionOutcome isServletWebApplication(ConditionContext context) {
-  ConditionMessage.Builder message = ConditionMessage.forCondition("");
-  if (!ClassNameFilter.isPresent(SERVLET_WEB_APPLICATION_CLASS, context.getClassLoader())) {
-    return ConditionOutcome.noMatch(message.didNotFind("servlet web application classes").atAll());
-  }
-  if (context.getBeanFactory() != null) {
-    String[] scopes = context.getBeanFactory().getRegisteredScopeNames();
-    if (ObjectUtils.containsElement(scopes, "session")) {
-      return ConditionOutcome.match(message.foundExactly("'session' scope"));
+    ConditionMessage.Builder message = ConditionMessage.forCondition("");
+    if (!ClassNameFilter.isPresent(SERVLET_WEB_APPLICATION_CLASS, context.getClassLoader())) {
+        return ConditionOutcome.noMatch(message.didNotFind("servlet web application classes").atAll());
     }
-  }
-  if (context.getEnvironment() instanceof ConfigurableWebEnvironment) {
-    return ConditionOutcome.match(message.foundExactly("ConfigurableWebEnvironment"));
-  }
-  if (context.getResourceLoader() instanceof WebApplicationContext) {
-    return ConditionOutcome.match(message.foundExactly("WebApplicationContext"));
-  }
-  return ConditionOutcome.noMatch(message.because("not a servlet web application"));
+    if (context.getBeanFactory() != null) {
+        String[] scopes = context.getBeanFactory().getRegisteredScopeNames();
+        if (ObjectUtils.containsElement(scopes, "session")) {
+          return ConditionOutcome.match(message.foundExactly("'session' scope"));
+        }
+    }
+    if (context.getEnvironment() instanceof ConfigurableWebEnvironment) {
+        return ConditionOutcome.match(message.foundExactly("ConfigurableWebEnvironment"));
+    }
+    if (context.getResourceLoader() instanceof WebApplicationContext) {
+        return ConditionOutcome.match(message.foundExactly("WebApplicationContext"));
+    }
+    return ConditionOutcome.noMatch(message.because("not a servlet web application"));
 }
 ```
 
@@ -232,17 +232,17 @@ private ConditionOutcome isServletWebApplication(ConditionContext context) {
 
 ```java
 private ConditionOutcome isReactiveWebApplication(ConditionContext context) {
-  ConditionMessage.Builder message = ConditionMessage.forCondition("");
-  if (!ClassNameFilter.isPresent(REACTIVE_WEB_APPLICATION_CLASS, context.getClassLoader())) {
-    return ConditionOutcome.noMatch(message.didNotFind("reactive web application classes").atAll());
-  }
-  if (context.getEnvironment() instanceof ConfigurableReactiveWebEnvironment) {
-    return ConditionOutcome.match(message.foundExactly("ConfigurableReactiveWebEnvironment"));
-  }
-  if (context.getResourceLoader() instanceof ReactiveWebApplicationContext) {
-    return ConditionOutcome.match(message.foundExactly("ReactiveWebApplicationContext"));
-  }
-  return ConditionOutcome.noMatch(message.because("not a reactive web application"));
+    ConditionMessage.Builder message = ConditionMessage.forCondition("");
+    if (!ClassNameFilter.isPresent(REACTIVE_WEB_APPLICATION_CLASS, context.getClassLoader())) {
+        return ConditionOutcome.noMatch(message.didNotFind("reactive web application classes").atAll());
+    }
+    if (context.getEnvironment() instanceof ConfigurableReactiveWebEnvironment) {
+        return ConditionOutcome.match(message.foundExactly("ConfigurableReactiveWebEnvironment"));
+    }
+    if (context.getResourceLoader() instanceof ReactiveWebApplicationContext) {
+        return ConditionOutcome.match(message.foundExactly("ReactiveWebApplicationContext"));
+    }
+    return ConditionOutcome.noMatch(message.because("not a reactive web application"));
 }
 ```
 通过上述 `isServletWebApplication` 方法中的分析，我们可以很快总结下： 
@@ -257,18 +257,18 @@ private ConditionOutcome isReactiveWebApplication(ConditionContext context) {
 
 ```java
 private ConditionOutcome isAnyWebApplication(ConditionContext context, boolean required) {
-  ConditionMessage.Builder message = ConditionMessage.forCondition(ConditionalOnWebApplication.class,
-      required ? "(required)" : "");
-  ConditionOutcome servletOutcome = isServletWebApplication(context);
-  if (servletOutcome.isMatch() && required) {
-    return new ConditionOutcome(servletOutcome.isMatch(), message.because(servletOutcome.getMessage()));
-  }
-  ConditionOutcome reactiveOutcome = isReactiveWebApplication(context);
-  if (reactiveOutcome.isMatch() && required) {
-    return new ConditionOutcome(reactiveOutcome.isMatch(), message.because(reactiveOutcome.getMessage()));
-  }
-  return new ConditionOutcome(servletOutcome.isMatch() || reactiveOutcome.isMatch(),
-      message.because(servletOutcome.getMessage()).append("and").append(reactiveOutcome.getMessage()));
+    ConditionMessage.Builder message = ConditionMessage.forCondition(ConditionalOnWebApplication.class,
+        required ? "(required)" : "");
+    ConditionOutcome servletOutcome = isServletWebApplication(context);
+    if (servletOutcome.isMatch() && required) {
+        return new ConditionOutcome(servletOutcome.isMatch(), message.because(servletOutcome.getMessage()));
+    }
+    ConditionOutcome reactiveOutcome = isReactiveWebApplication(context);
+    if (reactiveOutcome.isMatch() && required) {
+        return new ConditionOutcome(reactiveOutcome.isMatch(), message.because(reactiveOutcome.getMessage()));
+    }
+    return new ConditionOutcome(servletOutcome.isMatch() || reactiveOutcome.isMatch(),
+        message.because(servletOutcome.getMessage()).append("and").append(reactiveOutcome.getMessage()));
 }
 ```
 这里就更简单了，总结如下：

@@ -185,19 +185,19 @@ tags:
 class SharedMetadataReaderFactoryContextInitializer
     implements ApplicationContextInitializer<ConfigurableApplicationContext>, Ordered {
     
-  // 其他省略。。。
-  
-  @Override
-  public void initialize(ConfigurableApplicationContext applicationContext) {
-    BeanFactoryPostProcessor postProcessor = new CachingMetadataReaderFactoryPostProcessor(applicationContext);
-    applicationContext.addBeanFactoryPostProcessor(postProcessor);
-  }
-  
-  @Override
-  public int getOrder() {
-    return 0;
-  }
-  // 其他省略。。。
+    // 其他省略。。。
+    
+    @Override
+    public void initialize(ConfigurableApplicationContext applicationContext) {
+        BeanFactoryPostProcessor postProcessor = new CachingMetadataReaderFactoryPostProcessor(applicationContext);
+        applicationContext.addBeanFactoryPostProcessor(postProcessor);
+    }
+    
+    @Override
+    public int getOrder() {
+        return 0;
+    }
+    // 其他省略。。。
 }
 ```
 从上述源码中，我们可以看出 `SharedMetadataReaderFactoryContextInitializer` 实现了 `ApplicationContextInitializer<ConfigurableApplicationContext>` 和 `Ordered` 接口：
@@ -226,12 +226,12 @@ class SharedMetadataReaderFactoryContextInitializer
 
 ```java
 private void register(BeanDefinitionRegistry registry) {
-  if (!registry.containsBeanDefinition(BEAN_NAME)) {
-    BeanDefinition definition = BeanDefinitionBuilder
-      .rootBeanDefinition(SharedMetadataReaderFactoryBean.class, SharedMetadataReaderFactoryBean::new)
-      .getBeanDefinition();
-    registry.registerBeanDefinition(BEAN_NAME, definition);
-  }
+    if (!registry.containsBeanDefinition(BEAN_NAME)) {
+        BeanDefinition definition = BeanDefinitionBuilder
+            .rootBeanDefinition(SharedMetadataReaderFactoryBean.class, SharedMetadataReaderFactoryBean::new)
+            .getBeanDefinition();
+        registry.registerBeanDefinition(BEAN_NAME, definition);
+    }
 }
 ```
 其中 `BEAN_NAME` 如下截图所示：
@@ -304,7 +304,7 @@ T getObject() throws Exception;
 Class<?> getObjectType();
 
 default boolean isSingleton() {
-  return true;
+    return true;
 }
 ```
 

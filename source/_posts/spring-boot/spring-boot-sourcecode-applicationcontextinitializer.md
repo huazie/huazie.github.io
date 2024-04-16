@@ -136,7 +136,7 @@ tags:
 ```java
 @FunctionalInterface
 public interface ApplicationContextInitializer<C extends ConfigurableApplicationContext> {
-  void initialize(C applicationContext);
+    void initialize(C applicationContext);
 }
 ```
 

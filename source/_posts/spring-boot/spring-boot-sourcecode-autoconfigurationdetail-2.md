@@ -23,41 +23,41 @@ tags:
 在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：
 
 <table>
-	<tr>
-		<td rowspan="7" align="left"> 
-			<a href="/categories/开发框架-Spring-Boot/">Spring Boot 源码学习</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left"> 
-			<a href="/2023/02/19/spring-boot/spring-boot-project-introduction/">Spring Boot 项目介绍</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left"> 
-			<a href="/2023/07/13/spring-boot/spring-boot-core-operating-principle/">Spring Boot 核心运行原理介绍</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left"> 
-			<a href="/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/">【Spring Boot 源码学习】@SpringBootApplication 注解</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left"> 
-			<a href="/2023/07/22/spring-boot/spring-boot-sourcecode-enableautoconfiguration/">【Spring Boot 源码学习】@EnableAutoConfiguration 注解</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left"> 
-			<a href="/2023/07/30/spring-boot/spring-boot-sourcecode-autoconfigurationimportselector/">【Spring Boot 源码学习】走近 AutoConfigurationImportSelector</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left" > 
-			<a href="/2023/08/06/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-1/">【Spring Boot 源码学习】自动装配流程源码解析（上）</a> 
-		</td>
-	</tr>
+    <tr>
+        <td rowspan="7" align="left"> 
+            <a href="/categories/开发框架-Spring-Boot/">Spring Boot 源码学习</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/02/19/spring-boot/spring-boot-project-introduction/">Spring Boot 项目介绍</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/07/13/spring-boot/spring-boot-core-operating-principle/">Spring Boot 核心运行原理介绍</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/">【Spring Boot 源码学习】@SpringBootApplication 注解</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/07/22/spring-boot/spring-boot-sourcecode-enableautoconfiguration/">【Spring Boot 源码学习】@EnableAutoConfiguration 注解</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/07/30/spring-boot/spring-boot-sourcecode-autoconfigurationimportselector/">【Spring Boot 源码学习】走近 AutoConfigurationImportSelector</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left" > 
+            <a href="/2023/08/06/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-1/">【Spring Boot 源码学习】自动装配流程源码解析（上）</a> 
+        </td>
+    </tr>
 </table>
 
 # 主要内容
@@ -72,29 +72,29 @@ tags:
 Set<String> exclusions = getExclusions(annotationMetadata, attributes);
 
 protected Set<String> getExclusions(AnnotationMetadata metadata, AnnotationAttributes attributes) {
-	Set<String> excluded = new LinkedHashSet<>();
-	// 获取 exclude 属性 配置的 待排除的自动配置组件
-	excluded.addAll(asList(attributes, "exclude"));
-	// 获取 excludeName 属性 配置的 待排除的自动配置组件
-	excluded.addAll(asList(attributes, "excludeName"));
-	// 获取 Spring Boot 配置文件中 配置的 待排除的自动配置组件
-	excluded.addAll(getExcludeAutoConfigurationsProperty());
-	return excluded;
+    Set<String> excluded = new LinkedHashSet<>();
+    // 获取 exclude 属性 配置的 待排除的自动配置组件
+    excluded.addAll(asList(attributes, "exclude"));
+    // 获取 excludeName 属性 配置的 待排除的自动配置组件
+    excluded.addAll(asList(attributes, "excludeName"));
+    // 获取 Spring Boot 配置文件中 配置的 待排除的自动配置组件
+    excluded.addAll(getExcludeAutoConfigurationsProperty());
+    return excluded;
 }
 
 protected List<String> getExcludeAutoConfigurationsProperty() {
-	Environment environment = getEnvironment();
-	if (environment == null) {
-		return Collections.emptyList();
-	}
-	if (environment instanceof ConfigurableEnvironment) {
-		Binder binder = Binder.get(environment);
-		return binder.bind(PROPERTY_NAME_AUTOCONFIGURE_EXCLUDE, String[].class)
-			.map(Arrays::asList)
-			.orElse(Collections.emptyList());
-	}
-	String[] excludes = environment.getProperty(PROPERTY_NAME_AUTOCONFIGURE_EXCLUDE, String[].class);
-	return (excludes != null) ? Arrays.asList(excludes) : Collections.emptyList();
+    Environment environment = getEnvironment();
+    if (environment == null) {
+        return Collections.emptyList();
+    }
+    if (environment instanceof ConfigurableEnvironment) {
+        Binder binder = Binder.get(environment);
+        return binder.bind(PROPERTY_NAME_AUTOCONFIGURE_EXCLUDE, String[].class)
+            .map(Arrays::asList)
+            .orElse(Collections.emptyList());
+    }
+    String[] excludes = environment.getProperty(PROPERTY_NAME_AUTOCONFIGURE_EXCLUDE, String[].class);
+    return (excludes != null) ? Arrays.asList(excludes) : Collections.emptyList();
 }
 ```
 
@@ -117,29 +117,29 @@ protected List<String> getExcludeAutoConfigurationsProperty() {
 checkExcludedClasses(configurations, exclusions);
 
 private void checkExcludedClasses(List<String> configurations, Set<String> exclusions) {
-	List<String> invalidExcludes = new ArrayList<>(exclusions.size());
-	for (String exclusion : exclusions) {
-		// 如果待排除的自动配置类存在且可以加载
-		// 并且已去重过的自动配置组件中不存在该待排除的自动配置类
-		if (ClassUtils.isPresent(exclusion, getClass().getClassLoader()) && !configurations.contains(exclusion)) {
-			// 添加到非法的排除列表中
-			invalidExcludes.add(exclusion);
-		}
-	}
-	// 如果存在非法的排除项，则抛出相应的异常信息
-	if (!invalidExcludes.isEmpty()) {
-		handleInvalidExcludes(invalidExcludes);
-	}
+    List<String> invalidExcludes = new ArrayList<>(exclusions.size());
+    for (String exclusion : exclusions) {
+        // 如果待排除的自动配置类存在且可以加载
+        // 并且已去重过的自动配置组件中不存在该待排除的自动配置类
+        if (ClassUtils.isPresent(exclusion, getClass().getClassLoader()) && !configurations.contains(exclusion)) {
+            // 添加到非法的排除列表中
+            invalidExcludes.add(exclusion);
+        }
+    }
+    // 如果存在非法的排除项，则抛出相应的异常信息
+    if (!invalidExcludes.isEmpty()) {
+        handleInvalidExcludes(invalidExcludes);
+    }
 }
 
 protected void handleInvalidExcludes(List<String> invalidExcludes) {
-	StringBuilder message = new StringBuilder();
-	for (String exclude : invalidExcludes) {
-		message.append("\t- ").append(exclude).append(String.format("%n"));
-	}
-	throw new IllegalStateException(String.format(
-			"The following classes could not be excluded because they are not auto-configuration classes:%n%s",
-			message));
+    StringBuilder message = new StringBuilder();
+    for (String exclude : invalidExcludes) {
+        message.append("\t- ").append(exclude).append(String.format("%n"));
+    }
+    throw new IllegalStateException(String.format(
+            "The following classes could not be excluded because they are not auto-configuration classes:%n%s",
+            message));
 }
 ```
 
@@ -175,14 +175,14 @@ configurations = getConfigurationClassFilter().filter(configurations);
 
 ```java
 private ConfigurationClassFilter getConfigurationClassFilter() {
-	if (this.configurationClassFilter == null) {
-		List<AutoConfigurationImportFilter> filters = getAutoConfigurationImportFilters();
-		for (AutoConfigurationImportFilter filter : filters) {
-			invokeAwareMethods(filter);
-		}
-		this.configurationClassFilter = new ConfigurationClassFilter(this.beanClassLoader, filters);
-	}
-	return this.configurationClassFilter;
+    if (this.configurationClassFilter == null) {
+        List<AutoConfigurationImportFilter> filters = getAutoConfigurationImportFilters();
+        for (AutoConfigurationImportFilter filter : filters) {
+            invokeAwareMethods(filter);
+        }
+        this.configurationClassFilter = new ConfigurationClassFilter(this.beanClassLoader, filters);
+    }
+    return this.configurationClassFilter;
 }
 ```
 `getConfigurationClassFilter` 方法返回一个 `ConfigurationClassFilter` 实例，用来过滤掉不必要的配置类。
@@ -191,7 +191,7 @@ private ConfigurationClassFilter getConfigurationClassFilter() {
 
 ```java 
 protected List<AutoConfigurationImportFilter> getAutoConfigurationImportFilters() {
-	return SpringFactoriesLoader.loadFactories(AutoConfigurationImportFilter.class, this.beanClassLoader);
+    return SpringFactoriesLoader.loadFactories(AutoConfigurationImportFilter.class, this.beanClassLoader);
 }
 ```
 它通过 `SpringFactoriesLoader` 类的 `loadFactories` 方法来获取 `META-INF/spring.factories` 中配置 `key` 为 `AutoConfigurationImportFilter` 的 `Filters` 列表；
@@ -216,20 +216,20 @@ org.springframework.boot.autoconfigure.condition.OnWebApplicationCondition
 
 ```java
 private void invokeAwareMethods(Object instance) {
-	if (instance instanceof Aware) {
-		if (instance instanceof BeanClassLoaderAware) {
-			((BeanClassLoaderAware) instance).setBeanClassLoader(this.beanClassLoader);
-		}
-		if (instance instanceof BeanFactoryAware) {
-			((BeanFactoryAware) instance).setBeanFactory(this.beanFactory);
-		}
-		if (instance instanceof EnvironmentAware) {
-			((EnvironmentAware) instance).setEnvironment(this.environment);
-		}
-		if (instance instanceof ResourceLoaderAware) {
-			((ResourceLoaderAware) instance).setResourceLoader(this.resourceLoader);
-		}
-	}
+    if (instance instanceof Aware) {
+        if (instance instanceof BeanClassLoaderAware) {
+            ((BeanClassLoaderAware) instance).setBeanClassLoader(this.beanClassLoader);
+        }
+        if (instance instanceof BeanFactoryAware) {
+            ((BeanFactoryAware) instance).setBeanFactory(this.beanFactory);
+        }
+        if (instance instanceof EnvironmentAware) {
+            ((EnvironmentAware) instance).setEnvironment(this.environment);
+        }
+        if (instance instanceof ResourceLoaderAware) {
+            ((ResourceLoaderAware) instance).setResourceLoader(this.resourceLoader);
+        }
+    }
 }
 ```
 这里先判断传入的 `instance` 对象是否是 `Aware` 接口？
@@ -265,39 +265,39 @@ this.autoConfigurationMetadata = AutoConfigurationMetadataLoader.loadMetadata(cl
 
 ```java
 List<String> filter(List<String> configurations) {
-	long startTime = System.nanoTime();
-	String[] candidates = StringUtils.toStringArray(configurations);
-	boolean skipped = false;
-	// 具体的过滤匹配操作
-	for (AutoConfigurationImportFilter filter : this.filters) {
-		boolean[] match = filter.match(candidates, this.autoConfigurationMetadata);
-		for (int i = 0; i < match.length; i++) {
-			if (!match[i]) {
-				// 不符合过滤匹配要求，则清空当前的自动配置组件
-				candidates[i] = null;
-				skipped = true;
-			}
-		}
-	}
-	// 如果匹配完了，都无需跳过，直接返回当前配置即可
-	if (!skipped) {
-		return configurations;
-	}
-	// 有一个不满足过滤匹配要求，都重新处理并返回符合要求的自动配置组件
-	List<String> result = new ArrayList<>(candidates.length);
-	for (String candidate : candidates) {
-		// 如果当前自动配置组件不满足过滤匹配要求，则上面会被清空
-		// 因此这里只需判断即可获取符合要求的自动配置组件
-		if (candidate != null) {
-			result.add(candidate);
-		}
-	}
-	if (logger.isTraceEnabled()) {
-		int numberFiltered = configurations.size() - result.size();
-		logger.trace("Filtered " + numberFiltered + " auto configuration class in "
-				+ TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startTime) + " ms");
-	}
-	return result;
+    long startTime = System.nanoTime();
+    String[] candidates = StringUtils.toStringArray(configurations);
+    boolean skipped = false;
+    // 具体的过滤匹配操作
+    for (AutoConfigurationImportFilter filter : this.filters) {
+        boolean[] match = filter.match(candidates, this.autoConfigurationMetadata);
+        for (int i = 0; i < match.length; i++) {
+            if (!match[i]) {
+                // 不符合过滤匹配要求，则清空当前的自动配置组件
+                candidates[i] = null;
+                skipped = true;
+            }
+        }
+    }
+    // 如果匹配完了，都无需跳过，直接返回当前配置即可
+    if (!skipped) {
+        return configurations;
+    }
+    // 有一个不满足过滤匹配要求，都重新处理并返回符合要求的自动配置组件
+    List<String> result = new ArrayList<>(candidates.length);
+    for (String candidate : candidates) {
+        // 如果当前自动配置组件不满足过滤匹配要求，则上面会被清空
+        // 因此这里只需判断即可获取符合要求的自动配置组件
+        if (candidate != null) {
+            result.add(candidate);
+        }
+    }
+    if (logger.isTraceEnabled()) {
+        int numberFiltered = configurations.size() - result.size();
+        logger.trace("Filtered " + numberFiltered + " auto configuration class in "
+                + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startTime) + " ms");
+    }
+    return result;
 }
 ```
 
@@ -312,7 +312,7 @@ boolean[] match = filter.match(candidates, this.autoConfigurationMetadata);
 ```java
 @FunctionalInterface
 public interface AutoConfigurationImportFilter {
-	boolean[] match(String[] autoConfigurationClasses, AutoConfigurationMetadata autoConfigurationMetadata);
+    boolean[] match(String[] autoConfigurationClasses, AutoConfigurationMetadata autoConfigurationMetadata);
 }
 ```
 
@@ -332,33 +332,33 @@ public interface AutoConfigurationImportFilter {
 
 ```java
 abstract class FilteringSpringBootCondition extends SpringBootCondition
-		implements AutoConfigurationImportFilter, BeanFactoryAware, BeanClassLoaderAware {
+        implements AutoConfigurationImportFilter, BeanFactoryAware, BeanClassLoaderAware {
 
-	// 其他代码省略
+    // 其他代码省略
 
-	@Override
-	public boolean[] match(String[] autoConfigurationClasses, AutoConfigurationMetadata autoConfigurationMetadata) {
-		ConditionEvaluationReport report = ConditionEvaluationReport.find(this.beanFactory);
-		// 调用 由子类实现的 getOutcomes 方法，完成实际的过滤匹配操作
-		ConditionOutcome[] outcomes = getOutcomes(autoConfigurationClasses, autoConfigurationMetadata);
-		boolean[] match = new boolean[outcomes.length];
-		// 将 getOutcomes 方法返回结果转换成布尔数组
-		for (int i = 0; i < outcomes.length; i++) {
-			match[i] = (outcomes[i] == null || outcomes[i].isMatch());
-			if (!match[i] && outcomes[i] != null) {
-				logOutcome(autoConfigurationClasses[i], outcomes[i]);
-				if (report != null) {
-					report.recordConditionEvaluation(autoConfigurationClasses[i], this, outcomes[i]);
-				}
-			}
-		}
-		return match;
-	}
+    @Override
+    public boolean[] match(String[] autoConfigurationClasses, AutoConfigurationMetadata autoConfigurationMetadata) {
+        ConditionEvaluationReport report = ConditionEvaluationReport.find(this.beanFactory);
+        // 调用 由子类实现的 getOutcomes 方法，完成实际的过滤匹配操作
+        ConditionOutcome[] outcomes = getOutcomes(autoConfigurationClasses, autoConfigurationMetadata);
+        boolean[] match = new boolean[outcomes.length];
+        // 将 getOutcomes 方法返回结果转换成布尔数组
+        for (int i = 0; i < outcomes.length; i++) {
+            match[i] = (outcomes[i] == null || outcomes[i].isMatch());
+            if (!match[i] && outcomes[i] != null) {
+                logOutcome(autoConfigurationClasses[i], outcomes[i]);
+                if (report != null) {
+                    report.recordConditionEvaluation(autoConfigurationClasses[i], this, outcomes[i]);
+                }
+            }
+        }
+        return match;
+    }
 
-	protected abstract ConditionOutcome[] getOutcomes(String[] autoConfigurationClasses,
-			AutoConfigurationMetadata autoConfigurationMetadata);
+    protected abstract ConditionOutcome[] getOutcomes(String[] autoConfigurationClasses,
+            AutoConfigurationMetadata autoConfigurationMetadata);
 
-	// 其他代码省略
+    // 其他代码省略
 }
 ```
 
@@ -377,14 +377,14 @@ fireAutoConfigurationImportEvents(configurations, exclusions);
 
 ```java
 private void fireAutoConfigurationImportEvents(List<String> configurations, Set<String> exclusions) {
-	List<AutoConfigurationImportListener> listeners = getAutoConfigurationImportListeners();
-	if (!listeners.isEmpty()) {
-		AutoConfigurationImportEvent event = new AutoConfigurationImportEvent(this, configurations, exclusions);
-		for (AutoConfigurationImportListener listener : listeners) {
-			invokeAwareMethods(listener);
-			listener.onAutoConfigurationImportEvent(event);
-		}
-	}
+    List<AutoConfigurationImportListener> listeners = getAutoConfigurationImportListeners();
+    if (!listeners.isEmpty()) {
+        AutoConfigurationImportEvent event = new AutoConfigurationImportEvent(this, configurations, exclusions);
+        for (AutoConfigurationImportListener listener : listeners) {
+            invokeAwareMethods(listener);
+            listener.onAutoConfigurationImportEvent(event);
+        }
+    }
 }
 ```
 
@@ -392,7 +392,7 @@ private void fireAutoConfigurationImportEvents(List<String> configurations, Set<
 
 ```java
 protected List<AutoConfigurationImportListener> getAutoConfigurationImportListeners() {
-	return SpringFactoriesLoader.loadFactories(AutoConfigurationImportListener.class, this.beanClassLoader);
+    return SpringFactoriesLoader.loadFactories(AutoConfigurationImportListener.class, this.beanClassLoader);
 }
 ```
 

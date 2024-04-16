@@ -144,13 +144,13 @@ tags:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:p="http://www.springframework.org/schema/p"
-  xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-  <bean id="jedisConnFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" p:use-pool="true"/>
-  <!-- redis 模板定义 -->
-  <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" p:connection-factory-ref="jedisConnFactory"/>
+    <bean id="jedisConnFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" p:use-pool="true"/>
+    <!-- redis 模板定义 -->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" p:connection-factory-ref="jedisConnFactory"/>
 
 </beans>
 ```
@@ -209,13 +209,13 @@ redisTemplate.delete("key");
 
 ```java
 public class Example {  
-  // inject the template as ListOperations
-  @Resource(name="redisTemplate")
-  private ListOperations<String, String> listOps;
-  
-  public void addLink(String userId, URL url) {
-    listOps.leftPush(userId, url.toExternalForm());
-  }
+    // inject the template as ListOperations
+    @Resource(name="redisTemplate")
+    private ListOperations<String, String> listOps;
+    
+    public void addLink(String userId, URL url) {
+        listOps.leftPush(userId, url.toExternalForm());
+    }
 }
 ```
 
@@ -266,19 +266,19 @@ org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration.Conditi
 @Import({ LettuceConnectionConfiguration.class, JedisConnectionConfiguration.class })
 public class RedisAutoConfiguration {
 
-  @Bean
-  @ConditionalOnMissingBean(name = "redisTemplate")
-  @ConditionalOnSingleCandidate(RedisConnectionFactory.class)
-  public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-    // 。。。
-  }
+    @Bean
+    @ConditionalOnMissingBean(name = "redisTemplate")
+    @ConditionalOnSingleCandidate(RedisConnectionFactory.class)
+    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        // 。。。
+    }
 
-  @Bean
-  @ConditionalOnMissingBean
-  @ConditionalOnSingleCandidate(RedisConnectionFactory.class)
-  public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
-    // 。。。
-  }
+    @Bean
+    @ConditionalOnMissingBean
+    @ConditionalOnSingleCandidate(RedisConnectionFactory.class)
+    public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        // 。。。
+    }
 
 }
 ```
@@ -303,49 +303,49 @@ public class RedisAutoConfiguration {
 @ConfigurationProperties(prefix = "spring.redis")
 public class RedisProperties {
 
-  // 。。。
-
-  // Redis 服务器主机地址.
-  private String host = "localhost";
-  
-  // 。。。
-
-  // Redis 服务器的端口
-  private int port = 6379;
-
-  private Sentinel sentinel;
-
-  private Cluster cluster;
-
-  private final Jedis jedis = new Jedis();
-
-  private final Lettuce lettuce = new Lettuce();
-
-  // Redis 连接池配置
-  public static class Pool {
     // 。。。
-  }
-  // Redis 集群配置
-  public static class Cluster {
-    // 。。。
-  }
-  // Redis 哨兵配置
-  public static class Sentinel {
-    // 。。。
-  }
-  // Jedis 客户端配置
-  public static class Jedis {
 
-    // Jedis 连接池配置
-    private final Pool pool = new Pool();
-  }
-  // Lettuce 客户端配置
-  public static class Lettuce {
-    // Lettuce 连接池配置
-    private final Pool pool = new Pool();
+    // Redis 服务器主机地址.
+    private String host = "localhost";
+    
+    // 。。。
 
-    private final Cluster cluster = new Cluster();
-  }
+    // Redis 服务器的端口
+    private int port = 6379;
+
+    private Sentinel sentinel;
+
+    private Cluster cluster;
+
+    private final Jedis jedis = new Jedis();
+
+    private final Lettuce lettuce = new Lettuce();
+
+    // Redis 连接池配置
+    public static class Pool {
+        // 。。。
+    }
+    // Redis 集群配置
+    public static class Cluster {
+        // 。。。
+    }
+    // Redis 哨兵配置
+    public static class Sentinel {
+        // 。。。
+    }
+    // Jedis 客户端配置
+    public static class Jedis {
+
+        // Jedis 连接池配置
+        private final Pool pool = new Pool();
+    }
+    // Lettuce 客户端配置
+    public static class Lettuce {
+        // Lettuce 连接池配置
+        private final Pool pool = new Pool();
+
+        private final Cluster cluster = new Cluster();
+    }
 }
 ```
 
@@ -378,9 +378,9 @@ spring.redis.sentinel.nodes=192.168.1.1:26379,192.168.1.2:26379,192.168.1.3:2637
 @ConditionalOnMissingBean(name = "redisTemplate")
 @ConditionalOnSingleCandidate(RedisConnectionFactory.class)
 public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-  RedisTemplate<Object, Object> template = new RedisTemplate<>();
-  template.setConnectionFactory(redisConnectionFactory);
-  return template;
+    RedisTemplate<Object, Object> template = new RedisTemplate<>();
+    template.setConnectionFactory(redisConnectionFactory);
+    return template;
 }
 ```
 
@@ -396,7 +396,7 @@ public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisC
 @ConditionalOnMissingBean
 @ConditionalOnSingleCandidate(RedisConnectionFactory.class)
 public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
-  return new StringRedisTemplate(redisConnectionFactory);
+    return new StringRedisTemplate(redisConnectionFactory);
 }
 ```
 

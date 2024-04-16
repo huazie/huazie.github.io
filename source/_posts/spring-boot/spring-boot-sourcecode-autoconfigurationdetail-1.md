@@ -20,36 +20,36 @@ tags:
 在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：
 
 <table>
-	<tr>
-		<td rowspan="6" align="left"> 
-			<a href="/categories/开发框架-Spring-Boot/">Spring Boot 源码学习</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left"> 
-			<a href="/2023/02/19/spring-boot/spring-boot-project-introduction/">Spring Boot 项目介绍</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left"> 
-			<a href="/2023/07/13/spring-boot/spring-boot-core-operating-principle/">Spring Boot 核心运行原理介绍</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left"> 
-			<a href="/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/">【Spring Boot 源码学习】@SpringBootApplication 注解</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left"> 
-			<a href="/2023/07/22/spring-boot/spring-boot-sourcecode-enableautoconfiguration/">【Spring Boot 源码学习】@EnableAutoConfiguration 注解</a> 
-		</td>
-	</tr>
-	<tr>
-		<td align="left"> 
-			<a href="/2023/07/30/spring-boot/spring-boot-sourcecode-autoconfigurationimportselector/">【Spring Boot 源码学习】走近 AutoConfigurationImportSelector</a> 
-		</td>
-	</tr>
+    <tr>
+        <td rowspan="6" align="left"> 
+            <a href="/categories/开发框架-Spring-Boot/">Spring Boot 源码学习</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/02/19/spring-boot/spring-boot-project-introduction/">Spring Boot 项目介绍</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/07/13/spring-boot/spring-boot-core-operating-principle/">Spring Boot 核心运行原理介绍</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/">【Spring Boot 源码学习】@SpringBootApplication 注解</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/07/22/spring-boot/spring-boot-sourcecode-enableautoconfiguration/">【Spring Boot 源码学习】@EnableAutoConfiguration 注解</a> 
+        </td>
+    </tr>
+    <tr>
+        <td align="left"> 
+            <a href="/2023/07/30/spring-boot/spring-boot-sourcecode-autoconfigurationimportselector/">【Spring Boot 源码学习】走近 AutoConfigurationImportSelector</a> 
+        </td>
+    </tr>
 </table>
 
 # 主要内容
@@ -60,26 +60,26 @@ tags:
 ```java
 @Override
 public String[] selectImports(AnnotationMetadata annotationMetadata) {
-	if (!isEnabled(annotationMetadata)) {
-		return NO_IMPORTS;
-	}
-	AutoConfigurationEntry autoConfigurationEntry = getAutoConfigurationEntry(annotationMetadata);
-	return StringUtils.toStringArray(autoConfigurationEntry.getConfigurations());
+    if (!isEnabled(annotationMetadata)) {
+        return NO_IMPORTS;
+    }
+    AutoConfigurationEntry autoConfigurationEntry = getAutoConfigurationEntry(annotationMetadata);
+    return StringUtils.toStringArray(autoConfigurationEntry.getConfigurations());
 }
 
 protected AutoConfigurationEntry getAutoConfigurationEntry(AnnotationMetadata annotationMetadata) {
-	if (!isEnabled(annotationMetadata)) {
-		return EMPTY_ENTRY;
-	}
-	AnnotationAttributes attributes = getAttributes(annotationMetadata);
-	List<String> configurations = getCandidateConfigurations(annotationMetadata, attributes);
-	configurations = removeDuplicates(configurations);
-	Set<String> exclusions = getExclusions(annotationMetadata, attributes);
-	checkExcludedClasses(configurations, exclusions);
-	configurations.removeAll(exclusions);
-	configurations = getConfigurationClassFilter().filter(configurations);
-	fireAutoConfigurationImportEvents(configurations, exclusions);
-	return new AutoConfigurationEntry(configurations, exclusions);
+    if (!isEnabled(annotationMetadata)) {
+        return EMPTY_ENTRY;
+    }
+    AnnotationAttributes attributes = getAttributes(annotationMetadata);
+    List<String> configurations = getCandidateConfigurations(annotationMetadata, attributes);
+    configurations = removeDuplicates(configurations);
+    Set<String> exclusions = getExclusions(annotationMetadata, attributes);
+    checkExcludedClasses(configurations, exclusions);
+    configurations.removeAll(exclusions);
+    configurations = getConfigurationClassFilter().filter(configurations);
+    fireAutoConfigurationImportEvents(configurations, exclusions);
+    return new AutoConfigurationEntry(configurations, exclusions);
 }
 ```
 
@@ -90,10 +90,10 @@ protected AutoConfigurationEntry getAutoConfigurationEntry(AnnotationMetadata an
 ```java
 @Override
 public String[] selectImports(AnnotationMetadata annotationMetadata) {
-	if (!isEnabled(annotationMetadata)) {
-      	return NO_IMPORTS;
-   	}
-	// ...省略
+    if (!isEnabled(annotationMetadata)) {
+          return NO_IMPORTS;
+       }
+    // ...省略
 }
 ```
 
@@ -103,10 +103,10 @@ public String[] selectImports(AnnotationMetadata annotationMetadata) {
 
 ```java
 protected boolean isEnabled(AnnotationMetadata metadata) {
-	if (getClass() == AutoConfigurationImportSelector.class) {
-		return getEnvironment().getProperty(EnableAutoConfiguration.ENABLED_OVERRIDE_PROPERTY, Boolean.class, true);
-	}
-	return true;
+    if (getClass() == AutoConfigurationImportSelector.class) {
+        return getEnvironment().getProperty(EnableAutoConfiguration.ENABLED_OVERRIDE_PROPERTY, Boolean.class, true);
+    }
+    return true;
 }
 ```
 
@@ -140,11 +140,11 @@ AnnotationAttributes attributes = getAttributes(annotationMetadata);
 
 // 从 AnnotationMetadata 返回适当的 AnnotationAttributes。默认情况下，此方法将返回 getAnnotationClass() 的属性。
 protected AnnotationAttributes getAttributes(AnnotationMetadata metadata) {
-	String name = getAnnotationClass().getName();
-	AnnotationAttributes attributes = AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(name, true));
-	Assert.notNull(attributes, () -> "No auto-configuration attributes found. Is " + metadata.getClassName()
-			+ " annotated with " + ClassUtils.getShortName(name) + "?");
-	return attributes;
+    String name = getAnnotationClass().getName();
+    AnnotationAttributes attributes = AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(name, true));
+    Assert.notNull(attributes, () -> "No auto-configuration attributes found. Is " + metadata.getClassName()
+            + " annotated with " + ClassUtils.getShortName(name) + "?");
+    return attributes;
 }
 ```
 
@@ -164,13 +164,13 @@ List<String> configurations = getCandidateConfigurations(annotationMetadata, att
 
 ```java
 protected List<String> getCandidateConfigurations(AnnotationMetadata metadata, AnnotationAttributes attributes) {
-	List<String> configurations = new ArrayList<>(
-			SpringFactoriesLoader.loadFactoryNames(getSpringFactoriesLoaderFactoryClass(), getBeanClassLoader()));
-	ImportCandidates.load(AutoConfiguration.class, getBeanClassLoader()).forEach(configurations::add);
-	Assert.notEmpty(configurations,
-			"No auto configuration classes found in META-INF/spring.factories nor in META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports. If you "
-					+ "are using a custom packaging, make sure that file is correct.");
-	return configurations;
+    List<String> configurations = new ArrayList<>(
+            SpringFactoriesLoader.loadFactoryNames(getSpringFactoriesLoaderFactoryClass(), getBeanClassLoader()));
+    ImportCandidates.load(AutoConfiguration.class, getBeanClassLoader()).forEach(configurations::add);
+    Assert.notEmpty(configurations,
+            "No auto configuration classes found in META-INF/spring.factories nor in META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports. If you "
+                    + "are using a custom packaging, make sure that file is correct.");
+    return configurations;
 }
 ```
 
@@ -178,7 +178,7 @@ protected List<String> getCandidateConfigurations(AnnotationMetadata metadata, A
 
 ```java
 protected Class<?> getSpringFactoriesLoaderFactoryClass() {
-	return EnableAutoConfiguration.class;
+    return EnableAutoConfiguration.class;
 }
 ```
 
@@ -219,8 +219,8 @@ configurations = removeDuplicates(configurations);
 
 // 利用 Set 集合数据不可重复的特点，来实现去重处理
 protected final <T> List<T> removeDuplicates(List<T> list) {
-	return new ArrayList<>(new LinkedHashSet<>(list));
-}	
+    return new ArrayList<>(new LinkedHashSet<>(list));
+}    
 ```
 
 # 总结
