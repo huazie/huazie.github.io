@@ -501,7 +501,7 @@ public class FleaRedisClient implements RedisClient {
      * <p> 内部建造者类 </p>
      */
     static class Builder {
-       	// 省略。。。。。。
+        // 省略。。。。。。
     }
 }
 
@@ -953,20 +953,20 @@ public class RedisSpringCacheManager extends AbstractSpringCacheManager {
 ```
 ## 4.5 spring 配置
 ```xml
-	<!--
-	    配置缓存管理RedisSpringCacheManager
-	    配置缓存时间 configMap (key缓存对象名称 value缓存过期时间)
-	-->
-	<bean id="redisSpringCacheManager" class="com.huazie.frame.cache.redis.RedisSpringCacheManager">
-	    <property name="configMap">
-	        <map>
-	            <entry key="fleaparadetail" value="86400"/>
-	        </map>
-	    </property>
-	</bean>
-	
-	<!-- 开启缓存 -->
-	<cache:annotation-driven cache-manager="redisSpringCacheManager" proxy-target-class="true"/>
+    <!--
+        配置缓存管理RedisSpringCacheManager
+        配置缓存时间 configMap (key缓存对象名称 value缓存过期时间)
+    -->
+    <bean id="redisSpringCacheManager" class="com.huazie.frame.cache.redis.RedisSpringCacheManager">
+        <property name="configMap">
+            <map>
+                <entry key="fleaparadetail" value="86400"/>
+            </map>
+        </property>
+    </bean>
+    
+    <!-- 开启缓存 -->
+    <cache:annotation-driven cache-manager="redisSpringCacheManager" proxy-target-class="true"/>
 ```
 ## 4.6 缓存自测
 ```java
@@ -978,7 +978,7 @@ public class RedisSpringCacheManager extends AbstractSpringCacheManager {
         LOGGER.debug("ApplicationContext={}", applicationContext);
     }
 
-	@Test
+    @Test
     public void testRedisSpringCache() {
         try {
             AbstractSpringCacheManager manager = (RedisSpringCacheManager) applicationContext.getBean("redisSpringCacheManager");

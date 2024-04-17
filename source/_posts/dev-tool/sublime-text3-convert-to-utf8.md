@@ -73,9 +73,9 @@ tags:
 
 int main() 
 {
-	printf("hello world!\n");
-	printf("[C]作者: Huazie");
-	return 0;
+    printf("hello world!\n");
+    printf("[C]作者: Huazie");
+    return 0;
 }
 ```
 

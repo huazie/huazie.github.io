@@ -99,7 +99,7 @@ tags:
     "file_regex": "^(.*)\\(([0-9]+),([0-9]+)\\) (Error|Fatal): (.*)$",
     "working_dir": "${file_path}",
     "selector": "source.c",
-	"encoding": "cp936",
+    "encoding": "cp936",
     "variants": [
     {
         "name": "Run",
@@ -156,9 +156,9 @@ tags:
 
 int main() 
 {
-	printf("hello world!\n");
-	printf("[C]Author: Huazie");
-	return 0;
+    printf("hello world!\n");
+    printf("[C]Author: Huazie");
+    return 0;
 }
 
 ```
@@ -170,9 +170,9 @@ using namespace std;
 
 int main()
 {
-   cout << "Hello World" << endl;
-   cout << "[C++]Author: Huazie";
-   return 0;
+    cout << "Hello World" << endl;
+    cout << "[C++]Author: Huazie";
+    return 0;
 }
 ```
 

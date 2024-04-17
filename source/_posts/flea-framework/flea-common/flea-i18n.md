@@ -30,7 +30,7 @@ tags:
 # 1. 依赖
 
 ```xml
-	<!-- FLEA COMMON-->
+    <!-- FLEA COMMON-->
     <dependency>
         <groupId>com.huazie.fleaframework</groupId>
         <artifactId>flea-common</artifactId>
@@ -47,7 +47,7 @@ tags:
 
 ```xml
 <flea-config>
-	<!-- flea-common -->
+    <!-- flea-common -->
     <config-items key="flea-i18n-config" desc="Flea国际化相关配置">
         <config-item key="error" desc="error国际化资源特殊配置，指定路径和文件前缀，逗号分隔">flea/i18n,flea_i18n</config-item>
     </config-items>
@@ -333,25 +333,25 @@ public class FleaI18nConfig {
 [FleaI18nHelper](https://github.com/Huazie/flea-framework/blob/dev/flea-common/src/main/java/com/huazie/fleaframework/common/i18n/FleaI18nHelper.java) 封装了 I18N 资源数据获取的静态方法，主要包含如下4种：
 
 ```java
-	public static String i18n(String key, String resName, Locale locale) {
+    public static String i18n(String key, String resName, Locale locale) {
         return FleaI18nConfig.getConfig().getI18NDataValue(key, resName, locale);
     }
 
-	public static String i18n(String key, String[] values, String resName, Locale locale) {
+    public static String i18n(String key, String[] values, String resName, Locale locale) {
         return FleaI18nConfig.getConfig().getI18NDataValue(key, values, resName, locale);
     }
 
-	// 实际在调用该方法之前，可以通过 FleaFrameManager.getManager().setLocale(Locale) 设置当前线程的国际化标识。
-	public static String i18n(String key, String resName) {
+    // 实际在调用该方法之前，可以通过 FleaFrameManager.getManager().setLocale(Locale) 设置当前线程的国际化标识。
+    public static String i18n(String key, String resName) {
         return i18n(key, resName, FleaFrameManager.getManager().getLocale());
     }
 
-	// 实际在调用该方法之前，可以通过 FleaFrameManager.getManager().setLocale(Locale) 设置当前线程的国际化标识。
-	public static String i18n(String key, String[] values, String resName) {
+    // 实际在调用该方法之前，可以通过 FleaFrameManager.getManager().setLocale(Locale) 设置当前线程的国际化标识。
+    public static String i18n(String key, String[] values, String resName) {
         return i18n(key, values, resName, FleaFrameManager.getManager().getLocale());
     }
 
-	// 其他是对具体资源的封装，如错误码资源error、授权资源auth 和 公共信息资源common
+    // 其他是对具体资源的封装，如错误码资源error、授权资源auth 和 公共信息资源common
 ```
 
 ## 2.4 定义Flea I18N资源枚举 
@@ -420,7 +420,7 @@ public enum FleaI18nResEnum {
 ## 3.1 匹配指定语言
 
 ```java
-	@Test
+    @Test
     public void fleaI18nHelperTest1() {
         String value = FleaI18nHelper.i18n("ERROR0000000001", "error", Locale.US);
         LOGGER.debug("Value = {}", value);
@@ -434,7 +434,7 @@ public enum FleaI18nResEnum {
 ## 3.2 匹配本地语言
 
 ```java
-	@Test
+    @Test
     public void fleaI18nHelperTest() {
         String value = FleaI18nHelper.i18n("ERROR0000000001", "error", Locale.FRANCE);
         LOGGER.debug("Value = {}", value);
@@ -451,7 +451,7 @@ public enum FleaI18nResEnum {
 ![](flea-i18n-config-file1.png)
 
 ```java
-	@Test
+    @Test
     public void fleaI18nHelperTest() {
         String value = FleaI18nHelper.i18n("ERROR0000000001", "error", Locale.FRANCE);
         LOGGER.debug("Value = {}", value);
@@ -468,7 +468,7 @@ public enum FleaI18nResEnum {
 ![](flea-i18n-config-file2.png)
 
 ```java
-	@Test
+    @Test
     public void fleaI18nHelperTest() {
         String value = FleaI18nHelper.i18n("ERROR0000000001", "error", Locale.FRANCE);
         LOGGER.debug("Value = {}", value);

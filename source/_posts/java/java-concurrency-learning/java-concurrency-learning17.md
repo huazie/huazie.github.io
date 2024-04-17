@@ -35,7 +35,7 @@ tags:
 如下给出 `ThreadPoolExecutor` 中定义的通用的构造函数：
 
 ```java
-	public ThreadPoolExecutor(int corePoolSize,
+    public ThreadPoolExecutor(int corePoolSize,
                               int maximumPoolSize,
                               long keepAliveTime,
                               TimeUnit unit,
@@ -322,11 +322,11 @@ public class MyAppThread extends Thread {
 下面来看一下具体的示例：
 
 ```java
-	ExecutorService exec = Executors.newCachedThreadPool();
-	if (exec instanceof ThreadPoolExecutor)
-		((ThreadPoolExecutor) exec).setCorePoolSize(10);
-	else
-		throw new AssertionError("Oops, bad assumption");
+    ExecutorService exec = Executors.newCachedThreadPool();
+    if (exec instanceof ThreadPoolExecutor)
+        ((ThreadPoolExecutor) exec).setCorePoolSize(10);
+    else
+        throw new AssertionError("Oops, bad assumption");
 ```
 
 在 `Executors` 中包含一个 `unconfigurableExecutorService` 工厂方法，该方法对一个现有的 `ExecutorService` 进行包装，使其只暴露出 `ExecutorService` 的方法，因此不能对它进行配置。

@@ -605,10 +605,10 @@ public class RedisClusterSpringCacheManager extends AbstractSpringCacheManager {
 ## 4.5 spring 配置
 
 ```xml
-	<!--
+    <!--
         配置缓存管理 redisClusterSpringCacheManager
         配置缓存时间 configMap (key缓存对象名称 value缓存过期时间)
-	-->
+    -->
     <bean id="redisClusterSpringCacheManager" class="com.huazie.fleaframework.cache.redis.manager.RedisClusterSpringCacheManager">
         <property name="configMap">
             <map>
@@ -617,15 +617,15 @@ public class RedisClusterSpringCacheManager extends AbstractSpringCacheManager {
         </property>
     </bean>
 
-	<!-- 开启缓存 -->
-	<cache:annotation-driven cache-manager="redisClusterSpringCacheManager" proxy-target-class="true"/>
+    <!-- 开启缓存 -->
+    <cache:annotation-driven cache-manager="redisClusterSpringCacheManager" proxy-target-class="true"/>
     
 ```
 
 ## 4.6 缓存自测
 
 ```java
-	private ApplicationContext applicationContext;
+    private ApplicationContext applicationContext;
 
     @Before
     public void init() {

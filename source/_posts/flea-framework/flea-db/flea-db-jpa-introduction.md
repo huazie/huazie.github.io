@@ -44,9 +44,9 @@ tags:
 [FleaJPAQuery](https://github.com/Huazie/flea-framework/blob/dev/flea-db/flea-db-jpa/src/main/java/com/huazie/fleaframework/db/jpa/common/FleaJPAQuery.java) 用于实现 `JPA` 标准化方式的数据库查询操作，可以自行组装查询条件。下面对一些关键点进行讲解，且听我细细道来 (这一版并发环境下 可能存在问题，后面我会专门写一篇博文讲解 Flea JPA查询对象的问题，其中引入了对象池的概念 )。
 
  - 获取FleaJPAQuery实例，并初始化内部成员变量
-	```java
+    ```java
         private static volatile FleaJPAQuery query;
-	    
+        
         private EntityManager entityManager; // JPA中用于增删改查的持久化接口
         private Class sourceClazz; // 实体类类对象
         private Class resultClazz; // 操作结果类类对象
@@ -97,95 +97,95 @@ tags:
             criteriaBuilder = entityManager.getCriteriaBuilder();
             // 通过标准化生成器 获取 标准化查询对象
             if (ObjectUtils.isEmpty(resultClazz)) {
-        	    // 行记录查询结果
+                // 行记录查询结果
                 criteriaQuery = criteriaBuilder.createQuery(sourceClazz);
             } else {
-        	    // 单个查询结果
+                // 单个查询结果
                 criteriaQuery = criteriaBuilder.createQuery(resultClazz);
             }
             // 通过标准化查询对象，获取根SQL表达式对象
             root = criteriaQuery.from(sourceClazz);
             predicates = new ArrayList<Predicate>();
         }
-	```
+    ```
  - 拼接查询条件，添加排序和分组
- 	```java
- 		// 等于条件 (单个属性列)
- 		public void equal(String attrName, Object value) throws DaoException;
- 		// 等于条件 (多个属性列)
- 		public void equal(Map<String, Object> paramMap) throws DaoException;
- 		// 不等于条件 (单个属性列)
- 		public void notEqual(String attrName, Object value) throws DaoException;
- 		// 等于条件 (多个属性列)
- 		public void notEqual(Map<String, Object> paramMap) throws DaoException;
- 		// is null 条件，某属性值为空
- 		public void isNull(String attrName) throws DaoException;
- 		// is not null 条件，某属性值为非空
- 		public void isNotNull(String attrName) throws DaoException;
- 		// in 条件， attrName属性的值在value集合中
- 		public void in(String attrName, Collection value) throws DaoException;
- 		//  not in 条件，attrName属性的值不在value集合中
- 		public void notIn(String attrName, Collection value) throws DaoException;
- 		// like 条件， 模糊匹配
- 		public void like(String attrName, String value) throws DaoException;
- 		// 小于等于条件
- 		public void le(String attrName, Number value) throws DaoException;
- 		// 小于条件
- 		public void lt(String attrName, Number value) throws DaoException;
- 		// 大于等于条件
- 		public void ge(String attrName, Number value) throws DaoException;
- 		// 大于条件
- 		public void gt(String attrName, Number value) throws DaoException;
- 		// between and 条件, 时间区间查询
- 		public void between(String attrName, Date startTime, Date endTime) throws DaoException;
- 		// 大于某个日期值条件
- 		public void greaterThan(String attrName, Date value) throws DaoException;
- 		// 大于等于某个日期值条件
- 		public void greaterThanOrEqualTo(String attrName, Date value) throws DaoException;
- 		// 小于某个日期值条件
- 		public void lessThan(String attrName, Date value) throws DaoException;
- 		// 小于等于某个日期值条件
- 		public void lessThanOrEqualTo(String attrName, Date value) throws DaoException;
- 		// 统计数目，在getSingleResult调用之前使用
- 		public void count();
- 		// 统计数目(带distinct参数)，在getSingleResult调用之前使用
- 		public void countDistinct();
- 		// 设置查询某属性的最大值，在getSingleResult调用之前使用
- 		public void max(String attrName) throws DaoException;
- 		// 设置查询某属性的最小值，在getSingleResult调用之前使用
- 		public void min(String attrName) throws DaoException;
- 		// 设置查询某属性的平均值，在getSingleResult调用之前使用
- 		public void avg(String attrName) throws DaoException;
- 		// 设置查询某属性的值的总和，在getSingleResult调用之前使用
- 		public void sum(String attrName) throws DaoException;
- 		// 设置查询某属性的值的总和(Long)，在getSingleResult调用之前使用
- 		public void sumAsLong(String attrName) throws DaoException;
- 		// 设置查询某属性的值的总和(Double)，在getSingleResult调用之前使用
- 		public void sumAsDouble(String attrName) throws DaoException;
- 		// 去重某一列
- 		public void distinct(String attrName) throws DaoException;
- 		// 添加order by子句
- 		public void addOrderby(String attrName, String orderBy) throws DaoException;
- 		// 添加group by子句
- 		public void addGroupBy(String attrName) throws DaoException;
- 	```
+    ```java
+        // 等于条件 (单个属性列)
+        public void equal(String attrName, Object value) throws DaoException;
+        // 等于条件 (多个属性列)
+        public void equal(Map<String, Object> paramMap) throws DaoException;
+        // 不等于条件 (单个属性列)
+        public void notEqual(String attrName, Object value) throws DaoException;
+        // 等于条件 (多个属性列)
+        public void notEqual(Map<String, Object> paramMap) throws DaoException;
+        // is null 条件，某属性值为空
+        public void isNull(String attrName) throws DaoException;
+        // is not null 条件，某属性值为非空
+        public void isNotNull(String attrName) throws DaoException;
+        // in 条件， attrName属性的值在value集合中
+        public void in(String attrName, Collection value) throws DaoException;
+        //  not in 条件，attrName属性的值不在value集合中
+        public void notIn(String attrName, Collection value) throws DaoException;
+        // like 条件， 模糊匹配
+        public void like(String attrName, String value) throws DaoException;
+        // 小于等于条件
+        public void le(String attrName, Number value) throws DaoException;
+        // 小于条件
+        public void lt(String attrName, Number value) throws DaoException;
+        // 大于等于条件
+        public void ge(String attrName, Number value) throws DaoException;
+        // 大于条件
+        public void gt(String attrName, Number value) throws DaoException;
+        // between and 条件, 时间区间查询
+        public void between(String attrName, Date startTime, Date endTime) throws DaoException;
+        // 大于某个日期值条件
+        public void greaterThan(String attrName, Date value) throws DaoException;
+        // 大于等于某个日期值条件
+        public void greaterThanOrEqualTo(String attrName, Date value) throws DaoException;
+        // 小于某个日期值条件
+        public void lessThan(String attrName, Date value) throws DaoException;
+        // 小于等于某个日期值条件
+        public void lessThanOrEqualTo(String attrName, Date value) throws DaoException;
+        // 统计数目，在getSingleResult调用之前使用
+        public void count();
+        // 统计数目(带distinct参数)，在getSingleResult调用之前使用
+        public void countDistinct();
+        // 设置查询某属性的最大值，在getSingleResult调用之前使用
+        public void max(String attrName) throws DaoException;
+        // 设置查询某属性的最小值，在getSingleResult调用之前使用
+        public void min(String attrName) throws DaoException;
+        // 设置查询某属性的平均值，在getSingleResult调用之前使用
+        public void avg(String attrName) throws DaoException;
+        // 设置查询某属性的值的总和，在getSingleResult调用之前使用
+        public void sum(String attrName) throws DaoException;
+        // 设置查询某属性的值的总和(Long)，在getSingleResult调用之前使用
+        public void sumAsLong(String attrName) throws DaoException;
+        // 设置查询某属性的值的总和(Double)，在getSingleResult调用之前使用
+        public void sumAsDouble(String attrName) throws DaoException;
+        // 去重某一列
+        public void distinct(String attrName) throws DaoException;
+        // 添加order by子句
+        public void addOrderby(String attrName, String orderBy) throws DaoException;
+        // 添加group by子句
+        public void addGroupBy(String attrName) throws DaoException;
+    ```
 
  - 获取查询结果（记录行 或 单个结果）
    ```java
-	// 获取查询的记录行结果集合
-	public List getResultList() throws DaoException;
-	// 获取查询的记录行结果集合（设置查询范围）
-	public List getResultList(int start, int max) throws DaoException;
-	// 获取查询的单个属性列结果集合
-	// 需要先调用 distinct，否则默认返回行记录结果集合
-	public List getSingleResultList() throws DaoException;
-	// 获取查询的单个属性列结果集合（设置查询范围，可用于分页）
-	// 需要先调用 distinct，否则默认返回行记录结果集合
-	public List getSingleResultList(int start, int max) throws DaoException;
-	// 获取查询的单个结果
-	// 需要提前调用 (count, countDistinct, max, min, avg, sum, sumAsLong, sumAsDouble)
-	public Object getSingleResult() throws DaoException;
- 	```
+    // 获取查询的记录行结果集合
+    public List getResultList() throws DaoException;
+    // 获取查询的记录行结果集合（设置查询范围）
+    public List getResultList(int start, int max) throws DaoException;
+    // 获取查询的单个属性列结果集合
+    // 需要先调用 distinct，否则默认返回行记录结果集合
+    public List getSingleResultList() throws DaoException;
+    // 获取查询的单个属性列结果集合（设置查询范围，可用于分页）
+    // 需要先调用 distinct，否则默认返回行记录结果集合
+    public List getSingleResultList(int start, int max) throws DaoException;
+    // 获取查询的单个结果
+    // 需要提前调用 (count, countDistinct, max, min, avg, sum, sumAsLong, sumAsDouble)
+    public Object getSingleResult() throws DaoException;
+    ```
 ## 3.2 数据处理的基本接口
 [IFleaJPABaseDataHandler](https://github.com/Huazie/flea-frame/blob/dev/flea-frame-db/src/main/java/com/huazie/frame/db/jpa/common/IFleaJPABaseDataHandler.java) 为基本的数据操作接口，其中包含了查询，（批量）添加，（批量）更新，删除等操作。
 ## 3.3 抽象Flea JPA DAO层接口
@@ -206,12 +206,12 @@ public interface IAbstractFleaJPADAO<T> extends IFleaJPABaseDataHandler<T> {
 [AbstractFleaJPADAOImpl](https://github.com/Huazie/flea-framework/blob/dev/flea-db/flea-db-jpa/src/main/java/com/huazie/fleaframework/db/jpa/dao/impl/AbstractFleaJPADAOImpl.java) 中实现上述3中查询、（批量）添加、（批量）更新、删除的接口的具体逻辑。
 
  - 该类实现上述抽象Flea JPA DAO层接口，同样有类型T，由子类指定其操作的实体类。
-	```java
-	public abstract class AbstractFleaJPADAOImpl<T> implements IAbstractFleaJPADAO<T> 
-	```
+    ```java
+    public abstract class AbstractFleaJPADAOImpl<T> implements IAbstractFleaJPADAO<T> 
+    ```
  - 无参构造方法，用于获取子类指定的实体类类对象。
 
-	```java
+    ```java
     /**
      * <p> 获取T类型的Class对象 </p>
      *
@@ -231,11 +231,11 @@ public interface IAbstractFleaJPADAO<T> extends IFleaJPABaseDataHandler<T> {
             LOGGER.debug("ClassName={}", clazz.getName());
         }
     }
-	```
+    ```
  - 实现接口方法，可参见上述类源码
  - 持久化接口获取，由子类实现（可参考下面的持久化单元DAO层实现）
- 	
-	```java
+    
+    ```java
     /**
      * 获取实体管理器
      *
@@ -274,11 +274,11 @@ public interface IAbstractFleaJPADAO<T> extends IFleaJPABaseDataHandler<T> {
         entityManager = LibTableSplitHelper.findTableSplitHandle().handle(entityManager, entity, flag);
         return entityManager;
     }
-	```
+    ```
 
  - Flea JPA查询对象获取
  
-	```java
+    ```java
     /**
      * <p> 获取指定的查询对象 </p>
      *
@@ -312,7 +312,7 @@ public interface IAbstractFleaJPADAO<T> extends IFleaJPABaseDataHandler<T> {
         query.init(getEntityManager(), entityClass, result);
         return query;
     }
-	```
+    ```
 ## 3.5 定义抽象Flea JPA SV层接口
 
 [IAbstractFleaJPASV](https://github.com/Huazie/flea-framework/blob/dev/flea-db/flea-db-jpa/src/main/java/com/huazie/fleaframework/db/jpa/service/interfaces/IAbstractFleaJPASV.java) 抽象Flea JPA SV层接口，继承 `IFleaJPABaseDataHandler` 接口，包含了通用的增删改查接口。
@@ -338,7 +338,7 @@ public interface IAbstractFleaJPASV<T> extends IFleaJPABaseDataHandler<T> {
     }
 
     // ... 其他接口实现已省略
-	
+    
     /**
      * <p> 获取Flea JPA DAO层实现 </p>
      *
@@ -373,7 +373,7 @@ public class FleaAuthDAOImpl<T> extends AbstractFleaJPADAOImpl<T> {
     public boolean remove(long entityId) throws Exception {
         return super.remove(entityId);
     }
-	
+    
     // 其余代码省略。。。
 
     @Override
@@ -387,7 +387,7 @@ public class FleaAuthDAOImpl<T> extends AbstractFleaJPADAOImpl<T> {
 
  - 持久化单元配置  **fleaauth-persistence.xml**
 
-	```xml
+    ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
@@ -407,7 +407,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/x
         </properties>
     </persistence-unit>
 </persistence>
-	```
+    ```
 
  - Spring配置
  
@@ -455,7 +455,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/x
     </bean>
 
     <tx:annotation-driven transaction-manager="fleaAuthTransactionManager"/>
-	```
+    ```
 
 # 总结
 至此，相关JPA使用已封装完毕，下一篇博文将介绍 [《JPA接入》](/2019/09/12/flea-framework/flea-db/flea-db-jpa-integration/) ，敬请期待。

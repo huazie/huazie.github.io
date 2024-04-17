@@ -145,25 +145,25 @@ tags:
 
 ```bash
 {
-	"cmd": ["javac",  "$file_name"], 
+    "cmd": ["javac",  "$file_name"], 
     "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$", 
     "working_dir": "${file_path}",
     "selector": "source.java",
     "variants": [
-	    {
-	        "name": "Run",
-	        "shell": true,
-	        "windows": {
-	            "shell_cmd" : "start cmd /c \"java ${file_base_name} & echo. & pause\""
-	        }
-	    },
-	    {
-	        "name": "Build and Run",
-	        "shell": true,
-	        "windows": {
-	            "shell_cmd": "javac \"${file_name}\" && start cmd /c \"java ${file_base_name} & echo. & pause\""
-	        }
-	    }
+        {
+            "name": "Run",
+            "shell": true,
+            "windows": {
+                "shell_cmd" : "start cmd /c \"java ${file_base_name} & echo. & pause\""
+            }
+        },
+        {
+            "name": "Build and Run",
+            "shell": true,
+            "windows": {
+                "shell_cmd": "javac \"${file_name}\" && start cmd /c \"java ${file_base_name} & echo. & pause\""
+            }
+        }
     ]
 }
 ```
@@ -178,9 +178,9 @@ tags:
 ```java
 public class HelloWorld {
     public static void main(String[] args) {
-    	String name = "Huazie";
-       	System.out.println("Hello World!");
-       	System.out.println("Author:" + name);
+        String name = "Huazie";
+        System.out.println("Hello World!");
+        System.out.println("Author:" + name);
     }
 }
 ```

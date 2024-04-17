@@ -144,11 +144,11 @@ volatile boolean asleep;
 下面展示发布一个对象的代码示例：
 
 ```java
-	public static Set<Secret> knownSecrets;
-	
-	public void initialize() {
-	    knownSecrets = new HashSet<Secret>();
-	}
+    public static Set<Secret> knownSecrets;
+    
+    public void initialize() {
+        knownSecrets = new HashSet<Secret>();
+    }
 ```
 上述代码中，在 **initialize** 方法中示例化一个新的 **HashSet** 对象，并将对象的引用保存到 **knownSecrets** 中以发布该对象。如果将一个 **Secret** 对象添加到集合 **knownSecrets** 中，那么同样会发布这个 **Secret** 对象，因为任何代码都可以遍历这个集合，并获得对这个新 **Secret** 对象的引用。
 

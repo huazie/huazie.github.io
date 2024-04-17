@@ -25,9 +25,9 @@ tags:
 ```xml
 <!-- Memcached相关 -->
 <dependency>
-	<groupId>com.whalin</groupId>
-	<artifactId>Memcached-Java-Client</artifactId>
-	<version>3.0.2</version>
+    <groupId>com.whalin</groupId>
+    <artifactId>Memcached-Java-Client</artifactId>
+    <version>3.0.2</version>
 </dependency>
 ```
 [spring-context-4.3.18.RELEASE.jar](https://mvnrepository.com/artifact/org.springframework/spring-context/4.3.18.RELEASE)

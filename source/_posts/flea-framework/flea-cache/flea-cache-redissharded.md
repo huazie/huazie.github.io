@@ -57,8 +57,8 @@ tags:
 ## 3.3 定义Redis客户端接口类 
 [RedisClient](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/RedisClient.java) , 注意该版，相比《[flea-frame-cache使用之Redis接入【旧】](/2019/08/19/flea-framework/flea-cache/flea-frame-cache-redis/)》博文中，废弃如下与 **ShardedJedis** 有关的方法：
 ```java
-	ShardedJedisPool getJedisPool();
-	
+    ShardedJedisPool getJedisPool();
+    
     void setShardedJedis(ShardedJedis shardedJedis);
     
     ShardedJedis getShardedJedis();
@@ -294,7 +294,7 @@ public class FleaRedisShardedClient extends FleaRedisClient {
      * <p> 内部建造者类 </p>
      */
     public static class Builder {
-		// 省略。。。。。。
+        // 省略。。。。。。
     }
 }
 
@@ -866,7 +866,7 @@ public class RedisShardedSpringCacheManager extends AbstractSpringCacheManager {
 ## 4.5 spring 配置
 
 ```xml
-	<!--
+    <!--
         配置缓存管理 redisShardedSpringCacheManager
         配置缓存时间 configMap (key缓存对象名称 value缓存过期时间)
     -->
@@ -878,13 +878,13 @@ public class RedisShardedSpringCacheManager extends AbstractSpringCacheManager {
         </property>
     </bean>
 
-	<!-- 开启缓存 -->
-	<cache:annotation-driven cache-manager="redisShardedSpringCacheManager" proxy-target-class="true"/>
+    <!-- 开启缓存 -->
+    <cache:annotation-driven cache-manager="redisShardedSpringCacheManager" proxy-target-class="true"/>
 ```
 ## 4.6 缓存自测
 
 ```java
-	private ApplicationContext applicationContext;
+    private ApplicationContext applicationContext;
 
     @Before
     public void init() {
@@ -892,7 +892,7 @@ public class RedisShardedSpringCacheManager extends AbstractSpringCacheManager {
         LOGGER.debug("ApplicationContext={}", applicationContext);
     }
 
-	@Test
+    @Test
     public void testRedisShardedSpringCache() {
         try {
             // 分片模式下Spring缓存管理类
