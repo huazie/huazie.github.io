@@ -27,7 +27,7 @@ tags:
 最简单实现页面渲染器功能就是对 **HTML** 文档进行串行处理。首先绘制文本元素，同时为图像预留出矩形的占位空间，在处理完第一遍文本后，程序再开始下载图像，并将它们绘制到相应的占位空间中。
 
 ```java
-public class SingleThreadRenderer (    
+public class SingleThreadRenderer {  
     void renderPage (CharSequence source){
         renderText(source);
         List<ImageData> imageData = new ArrayList<>();
@@ -327,21 +327,21 @@ public class TravelWebSite {
 
     private final ExecutorService executor = Executors.newCachedThreadPool();
 
-    public List<TravelQuote> getRankedTravelQuotes(TravelInfo travelInfo, 
-                                                   Set<TravelCompany> companies, 
-                                                   Comparator<TravelQuote> ranking, 
+    public List<TravelQuote> getRankedTravelQuotes(TravelInfo travelInfo,
+                                                   Set<TravelCompany> companies,
+                                                   Comparator<TravelQuote> ranking,
                                                    long time, TimeUnit unit) throws InterruptedException {
         List<QuoteTask> tasks = new ArrayList<>();
-        
+
         for (TravelCompany company : companies) 
             tasks.add(new QuoteTask(company, travelInfo));
-        
+
         List<Future<TravelQuote>> futures = executor.invokeAll(tasks, time, unit);
-        
+
         List<TravelQuote> quotes = new ArrayList<>(tasks.size());
 
         Iterator<QuoteTask> taskIterator = tasks.iterator();
-        
+
         for (Future<TravelQuote> future : futures) {
             QuoteTask task = taskIterator.next();
             try {
