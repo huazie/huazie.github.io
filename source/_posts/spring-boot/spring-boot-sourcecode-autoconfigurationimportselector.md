@@ -207,8 +207,6 @@ public interface DeferredImportSelector extends ImportSelector {
 
 - **延迟导入**：`DeferredImportSelector` 具有延迟导入的能力，可以在所有的 `@Configuration` 类都被处理完毕之后再进行选择和导入。这样可以在整个配置加载过程完成后再根据某些条件或规则来决定要导入哪些类，从而实现更加动态和灵活的自动配置机制。
 
-- **筛选导入**：`DeferredImportSelector` 提供了一个用于筛选候选类名的断言函数，可以根据一定的条件来排除某些类的导入。这样可以对自动配置的候选类进行进一步的过滤和控制，使得只有符合特定条件的类才会被真正导入。
-
 - **自定义扩展**：通过实现 `DeferredImportSelector` 接口，开发人员可以更方便地扩展和定制自动配置逻辑。可以根据实际需求重写相应方法，实现自定义的自动配置规则和行为。
 
 上述源码注释中，也说明了 `DeferredImportSelector` 的加载顺序可以通过 `@Order` 注解 或 实现 `Ordered` 接口来指定。它还可以提供一个导入组，实现在不同的选择器之间提供额外的排序和过滤逻辑，从而实现自定义 `Configuration` 的加载顺序。
