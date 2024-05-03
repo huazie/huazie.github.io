@@ -14,6 +14,9 @@ tags:
 
 [《Spring Boot 源码学习系列》](/categories/开发框架-Spring-Boot/)
 
+![](/images/spring-boot-logo.png)
+
+
 # 引言
 上篇博文，笔者带大家了解了自动装配流程中有关自动配置加载的流程；
 
