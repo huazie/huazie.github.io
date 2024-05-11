@@ -14,7 +14,7 @@ tags:
 ![](/images/spring-boot-logo.png)
 
 # 引言
-前面的博文，Huazie 带大家从 `Spring Boot` 源码深入了解了自动配置类的读取和筛选的过程，然后又详解了**OnClassCondition**、 **OnBeanCondition**、**OnWebApplicationCondition** 这三个自动配置过滤匹配子类实现。
+前面的博文，**Huazie** 带大家从 `Spring Boot` 源码深入了解了自动配置类的读取和筛选的过程，然后又详解了**OnClassCondition**、 **OnBeanCondition**、**OnWebApplicationCondition** 这三个自动配置过滤匹配子类实现。
 
 在上述的博文中，我们其实已经初步涉及到了像 `@ConditionalOnClass`、`@ConditionalOnBean`、`@ConditionalOnWebApplication` 这样的条件注解，并且这些条件注解里面，我们都能看到 `@Conditional` 注解。
 

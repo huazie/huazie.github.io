@@ -194,6 +194,8 @@ public class HttpEncodingAutoConfiguration {
 - `@ConditionalOnMissingBean` ：只有在当前 **Spring** 容器中不存在指定类型的 **Bean** 时，才会执行被注解的方法。这样可以用于确保在需要的时候才创建某个 **Bean**，避免重复创建。
 
 
+#### 2.2.2 ServerProperties
+
 其中 `ServerProperties` 类的属性值对应着 `application.yml` 或 `application.properties` 中的配置，通过注解`@ConfigurationProperties(prefix = "server", ignoreUnknownFields = true)` 实现的属性注入。
 
 有关属性注入的内容后续笔者会另外介绍，我们先来看看`ServerProperties` 类相关的部分源码 和 对应的配置参数：

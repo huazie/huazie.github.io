@@ -222,6 +222,7 @@ public class Example {
 当然 **Spring Data Redis** 肯定不止上述这些，有需要深入了解的读者们，请看如下：
 
 > **参考：** [Spring Data Redis 官方文档](https://spring.io/projects/spring-data-redis)
+
 ## 2. RedisAutoConfiguration
 
 
@@ -232,7 +233,7 @@ public class Example {
 > **注意：** 以下涉及 **Spring Boot** 源码 均来自版本 `2.7.9`，其他版本有所出入，可自行查看源码。
 
 ### 2.1 加载自动配置组件
-从之前的[《【Spring Boot 源码学习】自动装配流程源码解析（上）》](/2023/08/06/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-1/)中，我们知道 Spring Boot 内部针对自动配置类，会读取如下两个配置文件：
+从之前的[《【Spring Boot 源码学习】自动装配流程源码解析（上）》](/2023/08/06/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-1/)中，我们知道 **Spring Boot** 内部针对自动配置类，会读取如下两个配置文件：
 
 - `META-INF/spring.factories`
 - `META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports`
@@ -294,6 +295,7 @@ public class RedisAutoConfiguration {
 - `@ConditionalOnMissingBean` ：只有在当前 **Spring** 容器中不存在指定类型的 **Bean** 时，才会执行被注解的方法。这样可以用于确保在需要的时候才创建某个 **Bean**，避免重复创建。
 - `@ConditionalOnSingleCandidate`：只有在当前上下文中存在且只有一个指定类型的 **bean** 候选者时，才会创建这个 **bean**。
 
+#### 2.2.2 RedisProperties
 
 其中 `RedisProperties` 类的属性值对应着 `application.yml` 或 `application.properties` 中的配置，通过注解`@ConfigurationProperties(prefix = "spring.redis")` 实现的属性注入。
 
