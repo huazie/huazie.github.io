@@ -18,6 +18,11 @@ tags:
 
 # 引言
 上篇博文带大家从 `Spring Boot` 源码深入详解了 **OnClassCondition**，那本篇也同样从源码入手，带大家深入了解 **OnBeanCondition** 的过滤匹配实现。
+
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 # 往期内容
 在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：
 
@@ -79,7 +84,6 @@ tags:
 
 话不多说，马上进入正题，我们开始本篇的内容，重点详解 `OnBeanCondition` 的实现。
 
-[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 ## 1. getOutcomes 方法
 
 `OnBeanCondition` 同样也是 `FilteringSpringBootCondition` 的子类，我们依旧是从 `getOutcomes` 方法源码来分析【**Spring Boot 2.7.9**】：

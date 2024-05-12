@@ -18,6 +18,8 @@ tags:
 # 引言
 书接上篇，我们了解了如何通过同步来避免多个线程在同一时刻访问相同的数据，而本篇将介绍如何共享和发布对象，从而使它们能够安全地由多个线程同时访问。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 1. 可见性

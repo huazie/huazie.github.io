@@ -17,6 +17,8 @@ tags:
 
 在 [《Sublime Text 3配置C/C++开发环境》](/2023/12/15/dev-tool/sublime-text3-c-cplus/) 博文中，**Huazie** 带大家利用 **Sublime Text 3** 配置了 **C/C++** 开发环境，相信大家都已经开始使用 **Sublime Text 3** 运行 **C/C++** 了，但是慢慢地使用过程中，大家可能发现，如果输出内容包含中文，打印出来的信息确是乱码的，如下图所示：
 
+<!-- more -->
+
 ![](chinese-garbled-code.png)
 
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)

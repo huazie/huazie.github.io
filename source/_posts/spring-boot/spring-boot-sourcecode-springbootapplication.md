@@ -17,9 +17,14 @@ tags:
 # 引言
 在 Huazie 前面的博文 [《Spring Boot 核心运行原理介绍》](/2023/07/13/spring-boot/spring-boot-core-operating-principle/)中，我们初步了解了 `Spring Boot` 核心运行原理，知道了 `@EnableAutoConfiguration` 是用来开启自动配置的注解。但创建过 Spring Boot 项目的读者肯定会说，我们并没有直接看到这个注解，实际上前面我也提到，它是由组合注解 `@SpringBootApplication` 引入的。
 
+<!-- more -->
+
 至于  `@EnableAutoConfiguration` 的讲解，我将放到后面再深入源码了解，本篇先介绍 组合注解 `@SpringBootApplication`。
 
 好了，废话不多说，看下面介绍：
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 # 主要内容
 ## 1. 创建 Spring Boot 项目
 

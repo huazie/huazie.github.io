@@ -18,8 +18,11 @@ tags:
 # 1. 参考
 [flea-cache使用之Redis集群模式接入 源代码](https://github.com/Huazie/flea-framework/tree/dev/flea-cache)
 
+<!-- more -->
+
 ![](flea-cache-rediscluster.png)
 
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 2. 依赖
 [jedis-3.0.1.jar](https://mvnrepository.com/artifact/redis.clients/jedis/3.0.1)

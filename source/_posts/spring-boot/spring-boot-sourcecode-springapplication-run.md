@@ -20,6 +20,8 @@ tags:
 
 本篇博文将围绕 `SpringApplication` 的  `run` 方法展开，带大家一起从源码分析 **Spring Boot** 的运行流程。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 二、往期内容

@@ -17,6 +17,10 @@ tags:
 # 引言
 本文采用 EclipseLink的JPA实现，相关JPA接入使用请移步我的[另外几篇博文](/categories/开发框架-Flea/flea-db/)。
 
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 首先还是讨论一下，实现JPA分表的增删改查操作，我们需要做什么：
 - 分表规则定义（即从主表到分表的转换实现）
 - 分表操作实现（即EntityManager根据分表规则操作具体分表）

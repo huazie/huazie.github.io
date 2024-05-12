@@ -19,6 +19,10 @@ tags:
 [flea-frame-db使用之基于EntityManager实现JPA分表的数据库操作【旧】](/2019/10/09/flea-framework/flea-db/flea-frame-db-jpa-entitymanager-split-table/)
 [flea-frame-db使用之基于FleaJPAQuery实现JPA分表查询【旧】](/2019/10/02/flea-framework/flea-db/flea-frame-db-jpa-fleajpaquery-split-table/)
 
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 这两篇都与分表相关，之所以被弃用，是因为在并发场景中这一版的分表存在问题。虽然并发场景有问题，但与之相关的分表配置、分表实现也确实为本篇的分库分表提供了一些基础能力，这些不能被忽视，将会在本篇中一一介绍。
 
 经过重构之后，目前 **flea-db** 模块的结构如下图所示：

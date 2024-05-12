@@ -23,6 +23,8 @@ tags:
 书接前文[《SpringApplication 的 run 方法核心流程介绍》](/2024/04/12/spring-boot/spring-boot-sourcecode-springapplication-run-listener/)，**Huazie** 围绕 `SpringApplication` 的  `run` 方法，带大家一起初步了解了 **Spring Boot** 的核心运行流程。其中有关运行流程监听器的内容出现最多，但还未细讲。那么本篇就深入了解下 `SpringApplication` 的 `run` 方法监听器。
 
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 

@@ -26,6 +26,8 @@ tags:
 
 那本篇 **Huazie** 就带大家一起分析 **Spring Boot** 中预置的应用上下文初始化器实现【即 `ApplicationContextInitializer` 接口实现类】的源码，了解在 **Spring** 容器刷新之前初始化应用程序上下文的一些具体操作。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 # 二、往期内容
 在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：

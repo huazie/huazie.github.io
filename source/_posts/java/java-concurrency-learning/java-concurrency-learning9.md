@@ -18,6 +18,8 @@ tags:
 
 本篇我们将逐步构建一个高效且可伸缩的缓存，用于改进一个高计算开销的函数。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 主要内容

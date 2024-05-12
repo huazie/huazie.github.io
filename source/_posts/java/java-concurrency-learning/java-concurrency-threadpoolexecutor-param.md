@@ -22,6 +22,10 @@ tags:
 
 本篇就将详细介绍线程池 `ThreadPoolExecutor` 中的各种配置参数。
 
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 # 二、主要内容
 > **注意：** 以下涉及代码，均来自 **JDK 1.8**，其他版本如有出入，请自行查看
 

@@ -19,6 +19,8 @@ tags:
 ## 1.1 什么是 JMS ？
 **Java** 消息服务【**Java Message Service**】，又简称 **JMS**，它是 **Java** 平台上有关面向消息中间件(**MOM**)的技术规范。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 ## 1.2 JMS 规范

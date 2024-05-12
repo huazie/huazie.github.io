@@ -17,7 +17,11 @@ tags:
 ![](/images/jpa-logo.png)
 
 # 引言
-接入JPA框架之前，有必要了解一下JPA的主键生成策略
+接入JPA框架之前，有必要了解一下JPA的主键生成策略。
+
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 1.  依赖
 ```xml

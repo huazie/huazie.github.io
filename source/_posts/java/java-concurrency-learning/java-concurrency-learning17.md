@@ -20,6 +20,8 @@ tags:
 
 上篇分析了在使用任务执行框架时需要注意的各种情况，并简单介绍了如何正确调整线程池大小。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 本篇将继续介绍对线程池进行配置与调优的一些方法，详细如下：

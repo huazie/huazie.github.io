@@ -18,6 +18,8 @@ tags:
 
 不过有关内容尚未详细介绍，本篇就带大家深入分析下 `ApplicationArguments` 接口及其默认实现。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 二、主要内容

@@ -19,6 +19,8 @@ tags:
 # 一、引言
 **C/C++** 的开发工具有很多，相信大家多多少少都有所了解，比如 **Visual C++**、**Codeblocks**、**VSCode**、**Dev C++** 等等；本篇 **Huazie** 介绍一个比较轻量级的开发环境 **Sublime Text 3**，并用它来配置 **C/C++** 开发环境。
 
+<!-- more -->
+
 # 二、主要内容
 ## 2.1 初识 Sublime Text 3 
 

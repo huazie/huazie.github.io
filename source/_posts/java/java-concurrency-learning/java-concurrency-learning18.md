@@ -18,6 +18,10 @@ tags:
 
 还记得我们在[《Java并发编程学习11-任务执行演示》](/2022/10/15/java/java-concurrency-learning/java-concurrency-learning11/)中，对页面绘制程序进行一系列改进，这些改进大大地提供了页面绘制的并行性。
 
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 **我们简单回顾下相关的改进过程：**
 
 - 第一次新增时，页面绘制程序完全是串行执行；

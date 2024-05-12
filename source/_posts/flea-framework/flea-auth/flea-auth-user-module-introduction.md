@@ -17,6 +17,10 @@ tags:
 # 引言
 本篇主要介绍笔者 **授权模块**【flea-auth】下的用户子模块。
 
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 # 1. 总览
 |  表名                    				   |  中文描述                        |
 |:------------------------------------- |:------------------------------   |  

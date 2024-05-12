@@ -19,6 +19,8 @@ tags:
 
 本篇就以 **Spring Boot** 内置的 `http` 编码功能为例，来带大家分析一下 `HttpEncodingAutoConfiguration` 的整个自动配置的过程。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 # 往期内容
 在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：

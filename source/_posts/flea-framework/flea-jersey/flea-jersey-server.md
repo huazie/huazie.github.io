@@ -18,6 +18,10 @@ tags:
 # 引言
 本篇介绍 **flea-jersey**模块下的**flea-jersey-server** 子模块，该模块封装了通用的POST、PUT、DELETE 和 GET资源。
 
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 # 1. 服务端依赖
 项目地址可至GitHub 查看 [flea-jersey-server](https://github.com/Huazie/flea-framework/tree/dev/flea-jersey/flea-jersey-server)
 ```xml

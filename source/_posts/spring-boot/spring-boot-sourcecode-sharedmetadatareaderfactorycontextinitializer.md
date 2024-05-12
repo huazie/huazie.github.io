@@ -26,6 +26,8 @@ tags:
 当然其中有些实现源码比较复杂，还没有深入分析。那本篇就来对其中的 
 `SharedMetadataReaderFactoryContextInitializer` 【即 **共享 `MetadataReaderFactory` 上下文初始化器**】详细分析下。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 二、往期内容

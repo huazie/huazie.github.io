@@ -17,7 +17,11 @@ tags:
 # 引言
 相关文档可参考 [Flea RESTful接口规范.docx](https://github.com/Huazie/flea-framework/blob/dev/flea-jersey/Flea%20RESTful%E6%8E%A5%E5%8F%A3%E8%A7%84%E8%8C%83.docx) ，点击 **View raw** 即可下载
 
+<!-- more -->
+
 ![](flea-jersey-docx.png)
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 1. 总体概述
 **Flea RESTful 接口**，即遵守REST式风格的接口，基于Jersey开发，遵循JAX-RS规范。接入 **Flea RESTful 接口** 的应用提供 **RESTful Web Services**（REST式的Web服务，它是一种遵守REST式风格的Web服务）。REST式的Web服务是一种ROA（Resource-Oriented Architecture, 面向资源的架构）的应用。其主要特点是方法信息存在于HTTP的方法中（比如**GET**、**PUT**、**POST**、**DELETE**），作用域存在于URI中。

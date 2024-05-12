@@ -18,6 +18,10 @@ tags:
 # 1. 参考
 [flea-db使用之封装JPA操作数据库 源代码](https://github.com/Huazie/flea-framework/tree/dev/flea-db)
 
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 # 2. 依赖
 [mysql-connector-java-5.1.25.jar](https://mvnrepository.com/artifact/mysql/mysql-connector-java/5.1.25)
 

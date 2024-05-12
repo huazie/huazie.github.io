@@ -19,6 +19,8 @@ tags:
 # 引言
 《任务取消》由于篇幅较多，拆分了两篇来介绍各种实现取消和中断的机制，以及如何编写任务和服务，使它们能对取消请求做出响应。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 ## 1. 任务限时运行

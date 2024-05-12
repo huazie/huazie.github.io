@@ -20,6 +20,8 @@ tags:
 # 引言
 上篇我们初步了解了线程相关的知识，这篇我们深入了解下线程安全性的相关问题。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 1. 什么是线程安全性？

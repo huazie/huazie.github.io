@@ -18,6 +18,11 @@ tags:
 前两篇博文笔者带大家从源码深入了解了 **Spring Boot** 的自动装配流程，其中自动配置过滤的实现由于篇幅限制，还未深入分析。
 
 那么从本篇开始，Huazie 就带大家走近 `AutoConfigurationImportFilter`，一起从源码解析 `FilteringSpringBootCondition`、`OnBeanCondition`、`OnClassCondition`、`OnWebApplicationCondition` 的实现。
+
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 # 往期内容
 在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：
 

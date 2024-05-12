@@ -22,6 +22,10 @@ tags:
 # 引言
 本篇将要介绍笔者 `Flea` 框架下的授权模块（[flea-auth](https://github.com/Huazie/flea-framework/tree/dev/flea-auth) ），该模块以 **RBAC** 为基础拓展而来。
 
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 # 1. 什么是 RBAC？
 **RBAC**（Role-Based Access Control），基于角色的访问控制。其基本思想是，在用户与权限之间新增一个角色的概念。每一种角色关联单个或多个权限。只需要给用户分配适当的角色，该用户就拥有其关联角色下的所有权限。
 

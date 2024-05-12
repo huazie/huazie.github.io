@@ -17,6 +17,8 @@ tags:
 # 引言
 上篇博文，**Huazie** 带大家从源码角度分析了 **Spring Boot** 内置的 `http` 编码功能，进一步熟悉了自动配置的装配流程。本篇趁热打铁，继续带大家分析 **Spring Boot** 内置的有关 **Redis** 的自动配置类【`RedisAutoConfiguration`】。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 # 往期内容
 在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：

@@ -18,6 +18,10 @@ tags:
 
 本节内容需要了解JPA封装内容，请参见笔者上篇博文[《JPA封装介绍》](/2019/09/06/flea-framework/flea-db/flea-db-jpa-introduction/)。
 
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 # 1. 准备工作
 为了演示JPA接入，需要先准备如下：
 1. MySQL数据库 (客户端可以使用 navicat for mysql)

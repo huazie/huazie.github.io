@@ -20,6 +20,11 @@ tags:
 
 # 引言
 本篇将要演示 `SQL` 模板的使用，目前包含 `INSERT` 模板、`SELECT` 模板、`UPDATE` 模板、`DELETE`模板。
+
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 # 1. 准备工作
 为了演示SQL模板接入（参考 [JPA接入](/2019/09/12/flea-framework/flea-db/flea-db-jpa-integration/) 中的准备工作），需要如下准备：
 

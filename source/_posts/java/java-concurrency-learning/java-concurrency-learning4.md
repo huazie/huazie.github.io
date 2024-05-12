@@ -18,6 +18,8 @@ tags:
 # 1. 线程封闭
 线程封闭（Thread Confinement）是实现线程安全性的最简单方式之一。当某个对象封闭在一个线程中时，这种用法将自动实现线程安全性，即使被封闭的对象本身不是线程安全的。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 在Java中使用线程封闭技术有：**Swing** 和 JDBC 的 **Connection** 对象。

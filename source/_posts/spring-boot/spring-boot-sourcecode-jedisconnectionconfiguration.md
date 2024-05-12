@@ -20,6 +20,8 @@ tags:
 # 一、引言
 上篇博文，**Huazie** 带大家从源码角度分析了 **Spring Boot** 内置的有关 **Redis** 的自动配置类【`RedisAutoConfiguration`】，其中有关 `LettuceConnectionConfiguration` 和 `JedisConnectionConfiguration` 这两个用于配置 **Redis** 连接的具体实现还未介绍。本篇就以我们常用的 **Jedis** 实现 为例，带大家详细分析一下 `JedisConnectionConfiguration` 配置类。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 # 二、往期内容
 在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：

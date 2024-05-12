@@ -18,6 +18,8 @@ tags:
 # 引言
 上篇博文，**Huazie** 带大家了解了完整的 **Banner** 信息打印流程。相信大家都跃跃一试了，那么本篇就以这些基础的知识，来自定义 **Banner** 信息打印。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 # 往期内容
 在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：

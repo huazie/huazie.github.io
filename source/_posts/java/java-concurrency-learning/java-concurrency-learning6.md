@@ -20,6 +20,8 @@ tags:
 
 本篇开始将要介绍 **Java** 平台类库下的一些最常用的 **并发基础构建模块**，以及使用这些模块来构造并发应用程序时的一些常用模式。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 同步容器类

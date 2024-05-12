@@ -24,6 +24,11 @@ tags:
     </dependency>
 ```
 使用 **GenericObjectPool**，有必要了解一下 **GenericObjectPoolConfig**，下面将说明一下其配置参数。
+
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 # 2. 父类BaseObjectPoolConfig配置参数
 ```java
 /**

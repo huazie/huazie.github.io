@@ -18,7 +18,10 @@ tags:
 ![](/images/go-logo.png)
 
 # 引言
-上一篇博文介绍了 `Go` 语言的[《基本流程控制》](/2016/07/18/go/go-learning/go-learning15/)，本篇我们介绍 `Go` 语言的特殊流程控制
+上一篇博文介绍了 `Go` 语言的[《基本流程控制》](/2016/07/18/go/go-learning/go-learning15/)，本篇我们介绍 `Go` 语言的特殊流程控制。
+
+<!-- more -->
+
 # 主要内容
 
 ## 1. defer语句

@@ -18,8 +18,11 @@ tags:
 # 1. 参考
 [flea-frame-cache使用之Redis接入 源代码v1.0.0](https://github.com/Huazie/flea-frame/releases/tag/v1.0.0)
 
+<!-- more -->
+
 ![](flea-frame-cache-redis.png)
 
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 2. 依赖
 [jedis-3.0.1.jar](https://mvnrepository.com/artifact/redis.clients/jedis/3.0.1)

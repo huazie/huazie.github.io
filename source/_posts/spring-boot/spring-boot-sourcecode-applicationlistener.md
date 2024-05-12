@@ -20,6 +20,8 @@ tags:
 
 那本篇博文就主要围绕 **2.5** 的内容展开，详细分析一下 `ApplicationListener ` 的加载和处理应用程序事件的逻辑。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 往期内容

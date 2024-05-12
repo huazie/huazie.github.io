@@ -18,6 +18,10 @@ tags:
 # 引言
 本篇介绍 **flea-jersey** 模块下的 **flea-jersey-client** 子模块，该模块提供对 **flea-jersey-server** 子模块封装的 `POST`、`PUT`、`DELETE` 和 `GET`资源的调用。
 
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 # 1. 客户端依赖
 项目地址可至GitHub 查看 [flea-jersey-client](https://github.com/Huazie/flea-framework/tree/dev/flea-jersey/flea-jersey-client)
 ```xml

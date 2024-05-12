@@ -17,6 +17,9 @@ tags:
 
 在Go语言中，字典类型的元素值的迭代顺序是不确定的。想要实现有固定顺序的Map就需要让自定义的 **OrderedMap** 实现 **sort.Interface** 接口类型。该接口类型中的方法 **Len** 、**Less** 和 **Swap** 的含义分别是获取元素的数量、比较相邻元素的大小以及交换它们的位置。
 
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 主要内容
 ## 1. 定义 OrderedMap

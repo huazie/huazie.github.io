@@ -19,6 +19,8 @@ tags:
 # 引言
 本篇介绍 `Go` 语言的基础入门知识，如下贴出了 `Go` 语言相关的网站，方便大家学习
 
+<!-- more -->
+
 Go语言官方网站（[http://golang.org](http://golang.org)）
 代码包文档网站（[http://godoc.org](http://godoc.org)）
 Go语言中文网（[http://studygolang.com](http://studygolang.com)）

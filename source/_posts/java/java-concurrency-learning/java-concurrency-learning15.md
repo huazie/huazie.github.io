@@ -20,6 +20,8 @@ tags:
 # 引言
 《任务关闭》由于篇幅较多，拆分了两篇来介绍各种任务和服务的关闭机制，以及如何编写任务和服务，使它们能够优雅地处理关闭。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 主要内容

@@ -20,6 +20,8 @@ tags:
 
 `Go` 语言环境搭建可参考笔者的另一篇博文 [Go语言学习1-基础入门](/2016/06/27/go/go-learning1/)。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 2. IDEA配置Go语言开发环境

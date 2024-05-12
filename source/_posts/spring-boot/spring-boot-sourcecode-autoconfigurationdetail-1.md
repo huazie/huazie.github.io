@@ -16,6 +16,11 @@ tags:
 
 # 引言
 上篇博文，笔者带大家从整体上了解了[AutoConfigurationImportSelector](/2023/07/30/spring-boot/spring-boot-sourcecode-autoconfigurationimportselector/) 自动装配逻辑的核心功能及流程，由于篇幅有限，更加细化的功能及流程详解还没有介绍。本篇开始将从其源码入手，重点解析细化后的自动装配流程源码。
+
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 # 往期内容
 在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：
 

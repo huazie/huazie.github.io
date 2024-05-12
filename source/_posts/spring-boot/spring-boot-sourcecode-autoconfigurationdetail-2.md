@@ -22,6 +22,10 @@ tags:
 
 本篇将介绍自动装配流程剩余的内容，包含了自动配置组件的排除和过滤、触发自动配置事件。
 
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 # 往期内容
 在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：
 

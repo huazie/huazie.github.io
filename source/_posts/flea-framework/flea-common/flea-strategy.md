@@ -19,6 +19,10 @@ tags:
 # 1. 概述
 策略模式（**Strategy Pattern**）作为一种软件设计模式，用来实现对象的某个行为，该行为在不同的场景中拥有不同的实现逻辑。它定义了一组算法，同时将这些算法封装起来，并使它们之间可以互换。
 
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 常用的策略模式有如下三个角色：
 
 - **抽象策略角色 --- Strategy**

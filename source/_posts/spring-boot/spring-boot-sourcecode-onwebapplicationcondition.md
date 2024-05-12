@@ -16,6 +16,11 @@ tags:
 
 # 引言
 上篇博文带大家从 `Spring Boot` 源码深入详解了 **OnBeanCondition**，那本篇也同样从源码入手，带大家深入了解 **OnWebApplicationCondition** 的过滤匹配实现。
+
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 # 往期内容
 在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：
 
@@ -81,7 +86,6 @@ tags:
 # 主要内容
 本篇我们重点详解 `OnWebApplicationCondition` 的实现，参见如下：
 
-[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 ## 1. getOutcomes 方法
 
 鉴于前面博文的了解，我们知道 `OnWebApplicationCondition` 也是 `FilteringSpringBootCondition` 的子类，所以这里同样也是从 `getOutcomes` 方法源码来分析【**Spring Boot 2.7.9**】：

@@ -17,6 +17,10 @@ tags:
 # 引言
 本文采用 **EclipseLink** 的 **JPA** 实现，相关 **FleaJPAQuery** 的接入使用请移步我的 [另外几篇博文](/categories/开发框架-Flea/flea-db/)。
 
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 首先讨论一下，为了实现 **JPA** 分表查询，我们需要做哪些事情：
 
  - 分表规则定义（即从主表到分表的转换实现）

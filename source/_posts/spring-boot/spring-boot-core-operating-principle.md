@@ -18,9 +18,13 @@ tags:
 
 还记得，笔者在前面的博文[《Spring Boot 项目介绍》](/2023/02/19/spring-boot/spring-boot-project-introduction/)中提到了，Spring Boot 最核心的功能就是自动配置，该功能的实现是基于 “约定由于配置” 的原则。
 
+<!-- more -->
+
 那很多读者就要问了，`Spring Boot` 它是如何来约定的呢？又是如何实现自动配置功能的呢？
 
 从本篇开始，笔者将带领大家通过学习 `Spring Boot` 源码，来了解它核心的运行原理。后续的内容将会涉及自动配置的运作原理、核心功能模块、核心注解等等。
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 整体介绍
 

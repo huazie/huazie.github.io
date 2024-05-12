@@ -28,6 +28,8 @@ tags:
 
 如上两个队列的操作不会阻塞，如果队列为空，那么获取元素的操作将返回空值。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 阻塞队列 **BlockingQueue** 扩展了 **Queue**，增加了可阻塞的 **put** 和 **take** 方法，以及支持定时的 **offer** 和 **poll** 方法。如果队列已经满了，那么 **put** 方法将阻塞直到有空间可用；如果队列为空，那么 **take** 方法将会阻塞直到有元素可用。队列可以是有界的也可以是无界的，无界队列永远都不会充满，因此无界队列上的 **put** 方法也永远不会阻塞。

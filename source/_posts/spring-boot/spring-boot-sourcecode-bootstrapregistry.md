@@ -17,6 +17,8 @@ tags:
 # 一、引言
 前面的博文[《BootstrapRegistryInitializer 详解》](/2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/)，Huazie 带大家一起详细分析了 **Spring Boot** 启动时加载并初始化 `BootstrapRegistryInitializer` 及其相关的类的逻辑。其中有个 `BootstrapRegistry` 接口只是简单提及，本篇就详细分析一下 `BootstrapRegistry` 接口，这对于我们后续理解 《`BootstrapRegistry` 初始化器实现》的内容至关重要。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 # 二、往期内容
 在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：

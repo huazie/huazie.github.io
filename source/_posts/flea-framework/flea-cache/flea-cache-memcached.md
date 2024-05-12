@@ -17,8 +17,11 @@ tags:
 # 1. 参考
 [flea-cache使用之Memcached接入 源代码](https://github.com/Huazie/flea-framework/tree/dev/flea-cache)
 
+<!-- more -->
+
 ![](flea-cache-memcached.png)
 
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 2. 依赖
 [Memcached-Java-Client-3.0.2.jar](https://mvnrepository.com/artifact/com.whalin/Memcached-Java-Client)

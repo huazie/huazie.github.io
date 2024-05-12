@@ -18,6 +18,10 @@ tags:
 # 引言
 本文将要介绍 **flea-jersey** 提供的文件上传功能。
 
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 文件上传功能，需要引入 **Flea RESTful** 接口服务端和客户端依赖，详细如下所示：
 
 # 1. 客户端依赖

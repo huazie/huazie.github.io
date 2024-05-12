@@ -17,6 +17,11 @@ tags:
 
 # 引言
 本篇将要演示 FleaJDBCHelper 的使用，该工具类封装了基本的JDBC增删改查的操作，只需简单几步即可实现数据库操作。
+
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 # 1. 准备工作
 为了演示JDBC接入（参考 [JPA接入](/2019/09/12/flea-framework/flea-db/flea-db-jpa-integration/) 中的准备工作），需要如下准备：
 

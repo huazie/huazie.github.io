@@ -19,6 +19,10 @@ tags:
 
 在Go语言中有作为 **Hash Table** 实现的字典（**Map**）类型，但标准数据类型中并没有集合（Set）这种数据类型。
 
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 比较 **Set** 和 **Map** 的主要特性，有类似特性如下：
 
  - 它们中的元素都是不可重复的。

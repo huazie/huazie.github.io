@@ -20,6 +20,8 @@ tags:
 书接前文[《BootstrapRegistry 详解》](/2024/01/31/spring-boot/spring-boot-sourcecode-bootstrapregistry/)，在介绍 `BootstrapRegistry`  的内部类 `InstanceSupplier` 的 `get` 方法时，看到了它的唯一参数 `BootstrapContext` 接口【即引导上下文】。而这个接口及其默认实现就是本篇要重点介绍的对象，且听我娓娓道来。
 
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 # 二、往期内容
 在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：

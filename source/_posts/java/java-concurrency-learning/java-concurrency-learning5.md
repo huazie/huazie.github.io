@@ -19,6 +19,8 @@ tags:
 # 引言
 前面的博文，我们已经了解了关于线程安全和同步的一些基础知识。本篇博文将介绍一些线程安全的组合模式，来帮助我们确保使用这些模式开发的程序是线程安全的。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 1. 设计线程安全的类

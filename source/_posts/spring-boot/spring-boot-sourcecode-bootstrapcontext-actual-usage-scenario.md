@@ -18,6 +18,8 @@ tags:
 # 一、引言
 上一篇博文[《BootstrapRegistry 初始化器实现》](/2024/03/02/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer-impl/)，**Huazie** 向大家介绍了如何自定义 `BootstrapRegistryInitializer` 接口实现，并以此来执行自定义的初始化操作【如注册自定义的 **Bean**、添加 **BootstrapContext** 关闭监听器】。其中涉及到了 `BootstrapContext` 的部分使用场景，那本篇就向大家演示下 **Spring Boot** 启动过程中如何使用引用上下文 `BootstrapContext` 及其默认实现 。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 # 二、往期内容
 在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：

@@ -18,6 +18,8 @@ tags:
 # 一、引言
 前面的博文，**Huazie** 带大家从 **Spring Boot** 的启动类 `SpringApplication` 上入手，了解了 `SpringApplication` 的实例化过程。这实例化构造过程中包含了各种初始化的操作，都是 **Spring Boot** 默认配置的。如果我们需要定制化配置，`SpringApplication` 也提供了相关的入口，且看下面的介绍。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 # 二、往期内容
 在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：

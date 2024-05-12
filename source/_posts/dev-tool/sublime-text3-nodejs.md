@@ -20,6 +20,8 @@ tags:
 
 **Node.js** 是基于 **Chrome JavaScript** 运行时建立的一个平台，它简单理解就是运行在服务端的 **JavaScript**。它的开发环境有很多，比如 **VS Code**、**Atom** 等等，相信大家多多少少都有接触过；而本篇 **Huazie** 将要介绍一个比较轻量级的开发工具 **Sublime Text 3**，并用它来配置 **Node.js** 的开发环境。
 
+<!-- more -->
+
 # 二、主要内容
 ## 2.1 初识 Sublime Text 3 
 

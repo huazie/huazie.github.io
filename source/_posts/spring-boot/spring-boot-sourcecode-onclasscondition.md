@@ -17,6 +17,11 @@ tags:
 
 # 引言
 上篇博文带大家从源码深入了自动配置过滤匹配父类 **FilteringSpringBootCondition**，那么笔者接下来的博文将要介绍它的三个子类 `OnClassCondition`、`OnBeanCondition` 和 `OnWebApplicationCondition` 的实现。
+
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 # 往期内容
 在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：
 
@@ -71,8 +76,6 @@ tags:
 
 # 主要内容
 话不多说，我们开始本篇的内容，重点详解 `OnClassCondition` 的实现。
-
-[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 ## 1. getOutcomes 方法
 

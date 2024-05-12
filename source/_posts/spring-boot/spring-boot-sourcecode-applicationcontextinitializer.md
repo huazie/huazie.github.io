@@ -16,6 +16,9 @@ tags:
 # 一、引言
 
 书接前文[《初识 SpringApplication》](/2023/11/12/spring-boot/spring-boot-sourcecode-springapplication/)，我们从 **Spring Boot** 的启动类 `SpringApplication` 上入手，了解了 `SpringApplication` 实例化过程。其中，[《BootstrapRegistryInitializer 详解》](/2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/)  博文中，Huazie 已经带大家详细分析了 `BootstrapRegistryInitializer` 的加载和初始化过程，如下还有 **2.4** 和 **2.5** 这两处还未详细分析：
+
+<!-- more -->
+
 ![](/images/springboot/loader.png)
 
 那本篇博文就主要围绕 **2.4** 的内容展开，详细分析一下`ApplicationContextInitializer` 加载和初始化逻辑。

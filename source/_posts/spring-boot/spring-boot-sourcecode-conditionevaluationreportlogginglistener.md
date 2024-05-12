@@ -21,6 +21,8 @@ tags:
 
 那么本篇就来详细分析一下 `ConditionEvaluationReportLoggingListener` 【即 `ConditionEvaluationReport` 日志记录上下文初始化器】。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 二、往期内容

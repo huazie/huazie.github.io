@@ -17,6 +17,8 @@ tags:
 # 一、引言
 **Python** 是一种简洁但功能强大的面向对象编程语言。它的常用开发工具有很多，相信大家多多少少都有所了解，比如 **PyCharm**、**Visual Studio Code**、**IDLE** 等等；本篇 **Huazie** 介绍一个比较轻量级的开发环境 **Sublime Text 3**，并用它来配置 **Python** 开发环境。
 
+<!-- more -->
+
 # 二、主要内容
 ## 2.1 初识 Sublime Text 3 
 

@@ -19,6 +19,9 @@ tags:
 # 一、引言
 **Huazie** 的 **flea-framework** 框架下的 **flea-cache**，我们已经介绍了有关 **Memcached 接入** 和 **Redis 接入**；那么本篇我们将要介绍如何 **整合接入 Memcached 和 Redis**。
 
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 二、往期文章
 

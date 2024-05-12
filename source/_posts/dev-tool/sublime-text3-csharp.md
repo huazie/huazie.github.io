@@ -18,6 +18,8 @@ tags:
 # 一、引言
 **C#** 是一种面向对象的编程语言，由微软公司开发。它的常用开发工具，相信大家多多少少都有所了解，比如 **Visual Studio**、**Visual Studio Code**；本篇 **Huazie** 介绍一个比较轻量级的开发环境 **Sublime Text 3**，并用它来配置 **C#** 开发环境。
 
+<!-- more -->
+
 # 二、主要内容
 ## 2.1 初识 Sublime Text 3 
 

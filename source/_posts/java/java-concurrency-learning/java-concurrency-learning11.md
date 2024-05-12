@@ -20,6 +20,8 @@ tags:
 
 以下的示例是要实现浏览器程序中的页面渲染功能：将 HTML 页面绘制到图像缓存中【为了简便，假设 HTML 页面只包含标签文本、预定义大小的图片和URL】。
 
+<!-- more -->
+
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 1. 串行的页面渲染器

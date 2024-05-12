@@ -19,6 +19,11 @@ tags:
 
 # 引言
 本篇介绍JPA规范下的主键生成器表，相关主键生成策略可查看 [JPA主键生成策略介绍](/2019/09/03/flea-framework/flea-db/flea-db-jpa-generatedvalue/)。
+
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 # 1. 主键生成器表
 **MySQL** 下的 **flea_id_generator** 表结构：
 

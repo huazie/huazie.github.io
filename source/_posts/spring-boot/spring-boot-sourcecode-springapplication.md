@@ -20,6 +20,8 @@ tags:
 # 引言
 往期的博文，**Huazie** 围绕 **Spring Boot** 的核心功能，带大家从总整体上了解 **Spring Boot** 自动配置的原理以及自动配置核心组件的运作过程。这些内容大家需要重点关注，只有了解这些基础的组件和功能，我们在后续集成其他三方类库的 **Starters** 时，才能够更加清晰地了解它们都运用了自动配置的哪些功能。
 
+<!-- more -->
+
 在学习上述 **Spring Boot** 核心功能的过程中，相信大家可能都会尝试启动自己新建的    **Spring Boot** 的项目，并 **Debug** 看看具体的执行过程。本篇开始就将从 **Spring Boot** 的启动类 `SpringApplication` 上入手，带领大家了解 **Spring Boot** 启动过程中所涉及到的源码和知识点。
 
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)

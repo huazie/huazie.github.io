@@ -20,6 +20,10 @@ tags:
 
 上篇博文我们了解了 [@EnableAutoConfiguration 注解](/2023/07/22/spring-boot/spring-boot-sourcecode-enableautoconfiguration/)，其中真正实现自动配置功能的核心实现者 `AutoConfigurationImportSelector` 还没有详细说明，本篇将从它的源码入手来重点介绍。
 
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 # 主要内容
 在介绍  `AutoConfigurationImportSelector` 之前，有必要了解下它所实现的 `ImportSelector` 接口 ，如下所示：
 ## 1. ImportSelector 接口

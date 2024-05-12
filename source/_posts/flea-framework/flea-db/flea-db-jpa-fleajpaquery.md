@@ -18,6 +18,11 @@ tags:
 
 # 引言
 书接上回JPA封装介绍博文，提到 **FleaJPAQuery** 在前一个版本（单例模式）下存在并发的问题，下面首先来分析一下，然后再介绍目前基于对象池的解决方案。
+
+<!-- more -->
+
+[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
+
 # 1. 问题分析
 1. 上个版本 **FleaJPAQuery** 使用单例模式获取，意味着在同一个服务器中DAO层获取的  **FleaJPAQuery** 有且仅有一个。如下所示：
 
