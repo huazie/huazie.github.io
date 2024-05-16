@@ -333,6 +333,14 @@ server.servlet.encoding.mapping=/en/**=UTF-8,/zh/**=GBK
 
 > **注意：** `server.servlet.encoding.mapping` 的配置优先级高于 `server.servlet.encoding.charset` 和 `server.servlet.encoding.force`。因此，如果同时存在多个配置项，`server.servlet.encoding.mapping` 会覆盖其他配置项。
 
+# 扩展内容
+有关编码配置的内容，有些读者可能有点疑惑，到底是 `spring.http.encoding` 还是 `server.servlet.encoding` 呢？
+
+**Huazie** 翻阅了 **Spring Boot 2.0.0** 开始的相关源码，发现：
+
+- `spring.http.encoding`：从 **Spring Boot 2.0.0** 开始到 **Spring Boot 2.2.9.RELEASE**
+- `server.servlet.encoding`：从 **Spring Boot 2.3.0.RELEASE** 开始
+
 # 总结
 本篇我们以 **Spring Boot** 内置的 `http` 编码功能为例来分析一下整个自动配置的过程，深入讲解了 `HttpEncodingAutoConfiguration` 配置类的相关内容。相信大家后续在看其他配置类，也能知其所以然了。
 
