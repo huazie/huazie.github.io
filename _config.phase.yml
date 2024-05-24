@@ -11,11 +11,11 @@ addtoany:
 
 facebook:
 twitter:
-github:
+github: huazie
 
 fancybox: true
 google_analytics:
-rss:
+rss: /atom.xml
 # Display a "Read More" link under each post's excerpt in /archives page
 #excerpt_link: 'Read More'
 
