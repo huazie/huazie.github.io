@@ -9,17 +9,32 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           # If your repository depends on submodule, please see: https://github.com/actions/checkout
           submodules: recursive
+      - name: Checkout Theme Diversity
+        uses: actions/checkout@v4
+        with:
+          repository: huazie/hexo-theme-diversity
+          path: themes/diversity
+      - name: Checkout Theme Phase
+        uses: actions/checkout@v4
+        with:
+          repository: hexojs/hexo-theme-phase
+          path: themes/phase
+      - name: Checkout Theme Light
+        uses: actions/checkout@v4
+        with:
+          repository: hexojs/hexo-theme-light
+          path: themes/light
       - name: Use Node.js 20.x
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
       - name: Cache NPM dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ runner.OS }}-npm-cache
@@ -27,6 +42,8 @@ jobs:
             ${{ runner.OS }}-npm-cache
       - name: Install Dependencies
         run: npm install
+      - name: Clean
+        run: npm run clean
       - name: Build
         run: npm run build
       - name: Upload Pages artifact

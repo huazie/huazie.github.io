@@ -145,7 +145,7 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 # 当前主题名称。值为false时禁用主题
-theme: landscape
+theme: diversity
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
