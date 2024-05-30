@@ -11,7 +11,7 @@ tags:
   - 自定义Banner接口实现
 ---
 
-[《Spring Boot 源码学习系列》](/categories/开发框架-Spring-Boot/)
+
 
 ![](/images/spring-boot-logo.png)
 

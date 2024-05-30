@@ -11,8 +11,6 @@ tags:
   - 通用策略模式
 ---
 
-[《开发框架-Flea》](/categories/开发框架-Flea/)
-
 ![](/images/flea-logo.png)
 
 

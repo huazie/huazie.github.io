@@ -10,7 +10,7 @@ tags:
   - HashSet
 ---
 
-[《开发语言-Go》](/categories/开发语言-Go/) [《Go语言实战》](/categories/开发语言-Go/Go语言实战/) 
+
 
 ![](/images/go-logo.png)
 

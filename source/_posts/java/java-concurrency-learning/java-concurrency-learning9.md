@@ -9,7 +9,7 @@ tags:
   - 并发基础演练
 ---
 
-[《开发语言-Java》](/categories/开发语言-Java/) [《Java并发编程》](/categories/开发语言-Java/Java并发编程/) 
+
 
 ![](/images/java-concurrency-logo.png)
 

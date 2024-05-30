@@ -12,8 +12,6 @@ tags:
   - 对象池
 ---
 
-[《开发框架-Flea》](/categories/开发框架-Flea/) [《flea-db》](/categories/开发框架-Flea/flea-db/)
-
 ![](/images/jpa-logo.png)
 
 # 引言

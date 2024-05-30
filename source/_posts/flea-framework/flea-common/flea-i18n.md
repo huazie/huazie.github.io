@@ -11,8 +11,6 @@ tags:
   - 本地国际化实现
 ---
 
-[《开发框架-Flea》](/categories/开发框架-Flea/)
-
 ![](/images/flea-logo.png)
 
 

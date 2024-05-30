@@ -11,8 +11,6 @@ tags:
   - Redis集群模式
 ---
 
-[《开发框架-Flea》](/categories/开发框架-Flea/)
-
 ![](/images/cache.png)
 
 # 1. 参考

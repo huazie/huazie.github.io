@@ -9,8 +9,6 @@ tags:
   - 中文乱码
 ---
 
-[《开发工具系列》](/categories/开发工具/)
-
 ![](/images/sublime-text3-logo.png)
 
 # 一、引言

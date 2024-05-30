@@ -9,7 +9,7 @@ tags:
   - 指针类型
 ---
 
-[《开发语言-Go》](/categories/开发语言-Go/) [《Go语言学习》](/categories/开发语言-Go/Go语言学习/) 
+
 
 ![](/images/go-logo.png)
 

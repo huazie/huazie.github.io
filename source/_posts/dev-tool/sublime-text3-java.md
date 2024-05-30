@@ -12,8 +12,6 @@ tags:
 ---
 
 
-[《开发工具系列》](/categories/开发工具/) [《开发语言-Java》](/categories/开发语言-Java/)
-
 ![](/images/java-logo.png)
 
 # 一、引言

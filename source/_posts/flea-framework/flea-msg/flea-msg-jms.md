@@ -13,8 +13,6 @@ tags:
   - 请求/应答模式
 ---
 
-[《开发框架-Flea》](/categories/开发框架-Flea/)
-
 # 1. JMS 基本概念
 ## 1.1 什么是 JMS ？
 **Java** 消息服务【**Java Message Service**】，又简称 **JMS**，它是 **Java** 平台上有关面向消息中间件(**MOM**)的技术规范。

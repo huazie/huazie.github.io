@@ -11,8 +11,6 @@ tags:
   - GenericObjectPool
 ---
 
-[《开发语言-Java》](/categories/开发语言-Java/) [《Java设计模式》](/categories/开发语言-Java/Java设计模式/) 
-
 ![](/images/java-design-patterns-logo.png)
 
 # 1. 依赖

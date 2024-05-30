@@ -12,8 +12,6 @@ tags:
   - 整合缓存接入
 ---
 
-[《开发框架-Flea》](/categories/开发框架-Flea/)
-
 ![](/images/cache.png)
 
 # 一、引言

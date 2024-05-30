@@ -11,8 +11,6 @@ tags:
   - 开发环境搭建
 ---
 
-[《开发工具系列》](/categories/开发工具/)  [《开发语言-Go》](/categories/开发语言-Go/)
-
 ![](/images/go-logo.png)
 
 # 1. Go语言环境搭建

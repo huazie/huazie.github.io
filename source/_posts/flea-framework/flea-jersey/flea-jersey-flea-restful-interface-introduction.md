@@ -10,8 +10,6 @@ tags:
   - Flea RESTful接口
 ---
 
-[《开发框架-Flea》](/categories/开发框架-Flea/)
-
 ![](/images/flea-logo.png)
 
 # 引言

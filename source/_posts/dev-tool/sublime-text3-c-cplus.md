@@ -11,8 +11,6 @@ tags:
   - 开发环境搭建
 ---
 
-[《开发工具系列》](/categories/开发工具/)
-
 ![](/images/cplus-logo.png)
 
 

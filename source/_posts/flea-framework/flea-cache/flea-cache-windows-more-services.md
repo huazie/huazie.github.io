@@ -10,8 +10,6 @@ tags:
   - Redis
 ---
 
-[《开发框架-Flea》](/categories/开发框架-Flea/)
-
 ![](/images/cache.png)
 
 # 引言

@@ -10,7 +10,7 @@ tags:
   - RedisTemplate
 ---
 
-[《Spring Boot 源码学习系列》](/categories/开发框架-Spring-Boot/)
+
 
 ![](/images/spring-boot-logo.png)
 
