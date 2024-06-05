@@ -15,7 +15,7 @@ tags:
 ![](/images/jpa-logo.png)
 
 # 引言
-接入JPA框架之前，有必要了解一下JPA的主键生成策略。
+接入JPA框架之前，我们有必要了解一下JPA的主键生成策略。
 
 <!-- more -->
 
@@ -60,107 +60,71 @@ public @interface GeneratedValue {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "FLEA_LOGIN_LOG_GENERATOR")
     @TableGenerator(
-        // 唯一的生成器名称，可以由一个或多个类引用以作为id值的生成器。
         name = "FLEA_LOGIN_LOG_GENERATOR",
-        // 【可选】存储生成的ID值的表的名称，默认为持久化提供程序选择的名称
         table = "flea_id_generator",
-        // 【可选】生成器表所属的数据库目录
         catalog = "",
-        // 【可选】生成器表所属的数据库结构
         schema = "",
-        // 【可选】表中主键列的名称，默认为持久化提供程序选择的名称
         pkColumnName = "id_generator_key",
-        // 【可选】存储最后生成的主键值的列的名称，默认为持久化提供程序选择的名称
         valueColumnName = "id_generator_value",
-        // 【可选】ID生成器表中的主键值模板，用于将该生成值集与其他可能存储在表中的值区分开
-        // 默认为持久化提供程序选择的值，用以存储在生成器表的主键列中
         pkColumnValue = "pk_flea_login_log_(CREATE_DATE)",
-        // 【可选】用于初始化存储最后生成的值的列的初始值，默认值为 0
         initialValue = 0,
-        // 【可选】从ID生成器表中分配ID号时增加的数量, 默认值为 50
         allocationSize = 1,
-        // 【可选】将在表上放置的其他唯一约束。仅当表生成有效时才使用它们。
-        // 除了主键约束之外，还应用了这些约束。默认为无其他约束
         uniqueConstraints = {},
-        // 【可选】表的索引。仅当表生成有效时才使用它们。
-        // 请注意，不必为主键指定索引，因为主键索引将自动创建。
         indexes = {}
     )
     @Column(name = "login_log_id", unique = true, nullable = false)
     private Long loginLogId; // 登录日志编号
 ```
 
+- `name` ：唯一的生成器名称，可以由一个或多个类引用以作为id值的生成器。
+- `table` ：【可选】存储生成的ID值的表的名称，默认为持久化提供程序选择的名称。
+- `catalog` ：【可选】生成器表所属的数据库目录。
+- `schema` ：【可选】生成器表所属的数据库结构。
+- `pkColumnName` ：【可选】表中主键列的名称，默认为持久化提供程序选择的名称。
+- `valueColumnName` ：【可选】存储最后生成的主键值的列的名称，默认为持久化提供程序选择的名称。
+- `pkColumnValue` ：【可选】ID生成器表中的主键值模板，用于将该生成值集与其他可能存储在表中的值区分开；默认为持久化提供程序选择的值，用以存储在生成器表的主键列中。
+- `initialValue` ：【可选】用于初始化存储最后生成的值的列的初始值，默认值为 0
+- `allocationSize` ：【可选】从ID生成器表中分配ID号时增加的数量, 默认值为 50
+- `uniqueConstraints` ：【可选】将在表上放置的其他唯一约束，仅当表生成有效时才使用它们；除了主键约束之外，还应用了这些约束；默认为无其他约束。
+- `indexes` ：【可选】表的索引，仅当表生成有效时才使用它们；请注意，不必为主键指定索引，因为主键索引将自动创建。
+
 ### 3.1.2 TableGenerator 注解源码
 
 ```java
-/**
- * 定义一个主键生成器，可以通过名称引用，当在 GeneratedValue注解中指定一个生成器元素时使用。
- * 表生成器可以在实体类或主键字段/属性上指定。生成器名称的作用范围是持久性单元全局的（跨所有生成器类型）。
- *
- */
 @Target({TYPE, METHOD, FIELD}) 
 @Retention(RUNTIME)
 public @interface TableGenerator {
-
-    /** 
-     * 必填项，表示唯一的生成器名称，可以被一个或多个类引用，用于生成id值。
-     */
     String name();
-
-    /** 
-     * 可选项，存储生成的id值的表的名称，默认为持久性提供程序选择的名称。
-     */
     String table() default "";
-
-    /** 
-     * 可选项，表所在的目录名称，默认为默认目录。
-     */
     String catalog() default "";
-
-    /** 
-     * 可选项，表所在的模式名称，默认为用户默认的模式。
-     */
     String schema() default "";
-
-    /** 
-     * 可选项，表中主键列的名称，默认为提供程序选择的名称。
-     */
     String pkColumnName() default "";
-
-    /** 
-     * 可选项，存储最后生成的值的列的名称，默认为提供程序选择的名称。
-     */
     String valueColumnName() default "";
-
-    /**
-     * 可选项，在生成器表中区分此生成的值集合与可能存储在表中的其他值集合的主键值。
-     * 默认为提供程序选择的值，以存储在生成器表的主键列中。
-     */
     String pkColumnValue() default "";
-
-    /** 
-     * 可选项，用于初始化存储最后生成的值的列的初始值。
-     */
     int initialValue() default 0;
-
-    /**
-     * 可选项，从生成器分配id号码时每次递增的数量。
-     */
     int allocationSize() default 50;
-
-    /**
-     * 可选项，要放置在表上的唯一约束条件。仅在表生成器生效时使用。这些约束条件适用于主键约束之外。
-     */
     UniqueConstraint[] uniqueConstraints() default {};
-
-    /**
-     * 可选项，表的索引。仅在表生成器生效时使用。请注意，对于主键，不必指定索引，因为主键索引将自动创建。
-     */
     Index[] indexes() default {};
 }
 ```
 
+`TableGenerator` 定义了一个主键生成器，可以通过名称引用，当在 `GeneratedValue` 注解中指定一个生成器元素时使用。 **表生成器** 可以在实体类或主键字段/属性上指定。生成器名称的作用范围是持久性单元全局的（跨所有生成器类型）。
+
+- `String name()` ：必填项，表示唯一的生成器名称，可以被一个或多个类引用，用于生成id值。
+- `String table()` ：可选项，存储生成的id值的表的名称，默认为持久性提供程序选择的名称。
+- `String catalog()` ：可选项，表所在的目录名称，默认为默认目录。
+- `String schema()` ：可选项，表所在的模式名称，默认为用户默认的模式。
+- `String pkColumnName()` ：可选项，表中主键列的名称，默认为提供程序选择的名称。
+- `String valueColumnName()` ：可选项，存储最后生成的值的列的名称，默认为提供程序选择的名称。
+- `String pkColumnValue()` ：可选项，在生成器表中区分此生成的值集合与可能存储在表中的其他值集合的主键值。默认为提供程序选择的值，以存储在生成器表的主键列中。
+- `int initialValue()` ：可选项，用于初始化存储最后生成的值的列的初始值。
+- `int allocationSize()` ：可选项，从生成器分配id号码时每次递增的数量。
+- `UniqueConstraint[] uniqueConstraints()` ：可选项，要放置在表上的唯一约束条件。仅在表生成器生效时使用。这些约束条件适用于主键约束之外。
+- `Index[] indexes()` ：可选项，表的索引。仅在表生成器生效时使用。请注意，对于主键，不必指定索引，因为主键索引将自动创建。
+
+
 ## 3.2 GenerationType.SEQUENCE
+
 **SEQUENCE** 指示持久化提供程序必须使用数据库序列为实体分配主键。该策略只适用于部分支持 **序列** 的数据库系统，比如 **Oracle**。
 
 ### 3.2.1 具体用法
@@ -169,67 +133,51 @@ public @interface TableGenerator {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="PARA_DETAIL_SEQ")
     @SequenceGenerator(
-        // 唯一的生成器名称，可以由一个或多个类引用以作为id值的生成器。
         name="PARA_DETAIL_SEQ", 
-        // 【可选】主键值对应的数据库序列对象的名称。默认为提供商选择的值。
         sequenceName="PARA_ID_SEQ",
-        // 【可选】生成器表所属的数据库目录
         catalog = "",
-        // 【可选】生成器表所属的数据库结构
         schema = "",
-        // 【可选】用于初始化存储最后生成的值的列的初始值，默认值为 0
         initialValue = 0,
-        // 【可选】从ID生成器表中分配ID号时增加的数量, 默认值为 50
         allocationSize = 1
     )
     @Column(name = "para_id", unique = true, nullable = false)
     public Long getParaId() { return paraId; }
 ```
+- `name` ：唯一的生成器名称，可以由一个或多个类引用以作为id值的生成器。
+- `sequenceName` ：【可选】主键值对应的数据库序列对象的名称。默认为提供商选择的值。
+- `catalog` ：【可选】生成器表所属的数据库目录
+- `schema` ：【可选】生成器表所属的数据库结构
+- `initialValue` ：【可选】用于初始化存储最后生成的值的列的初始值，默认值为 0
+- `allocationSize` ：【可选】从ID生成器表中分配ID号时增加的数量, 默认值为 50
+
 
 ### 3.2.2 SequenceGenerator 注解源码
 
 ```java
-/**
- * 定义一个主键生成器，可以通过名称引用，当在GeneratedValue 注解中指定一个生成器元素时。
- * 序列生成器可以在实体类或主键字段或属性上指定。生成器名称的范围是持久单元全局的（跨所有生成器类型）。
- */
 @Target({TYPE, METHOD, FIELD}) 
 @Retention(RUNTIME)
 public @interface SequenceGenerator {
-
-    /** 
-     *（必填） 可以被一个或多个类引用的唯一生成器名称，用于主键值的生成器。
-     */
     String name();
-
-    /**
-     *（可选）用于获取主键值的数据库序列对象的名称。默认为提供程序选择的值。
-     */
     String sequenceName() default "";
-
-    /**  
-     *（可选）序列生成器的目录。
-     */
     String catalog() default "";
-
-    /** 
-     *（可选）序列生成器的模式。
-     */
     String schema() default "";
-
-    /** 
-     *（可选）序列对象开始生成的值。
-     */
     int initialValue() default 1;
-
-    /**
-     *（可选）从序列分配序列号时要增加的数量。
-     */
     int allocationSize() default 50;
 }
 ```
+`SequenceGenerator` 同样定义了一个主键生成器，可以通过名称引用，当在 `GeneratedValue` 注解中指定一个生成器元素时。**序列生成器** 可以在实体类或主键字段或属性上指定。生成器名称的范围是持久单元全局的（跨所有生成器类型）。
+
+
+- `String name()` ：（必填） 可以被一个或多个类引用的唯一生成器名称，用于主键值的生成器。
+- `String sequenceName()` ：（可选）用于获取主键值的数据库序列对象的名称。默认为提供程序选择的值。
+- `String catalog()` ：（可选）序列生成器的目录。
+- `String schema()` ：（可选）序列生成器的模式。
+- `int initialValue()` ：（可选）序列对象开始生成的值。
+- `int allocationSize()` ：（可选）从序列分配序列号时要增加的数量。
+
 
 ## 3.3 GenerationType.IDENTITY
+
 **IDENTITY** 指示持久化提供程序必须使用数据库标识列为实体分配主键。该策略只适用于支持 **主键自增长** 的数据库系统，比如 MySQL。
 
 具体用法如下：
@@ -240,22 +188,29 @@ public @interface SequenceGenerator {
     @Column(name = "para_id", unique = true, nullable = false)
     private Long paraId;        // 参数编号
 ```
+
 ## 3.4 GenerationType.AUTO
+
 **AUTO** 指示持久化提供程序应为特定数据库选择适当的策略。 该生成策略可能期望数据库资源存在，或者可能尝试创建一个数据库资源。如果供应商不支持架构生成或无法在运行时创建架构资源，则供应商可能会提供有关如何创建此类资源的文档。
+
 ```java
     @Id
     @GeneratedValue
     @Column(name = "para_id", unique = true, nullable = false)
     private Long paraId;        // 参数编号
 ```
+
 # 4. 各数据库对比
-|                      | TABLE |  SEQUENCE|  IDENTITY | AUTO |
-|------------------|-----------|------------------|----------------|----------|
-| MySQL         |      √      |          ×         |       √          |     √     |
-| Oracle          |      √      |          √         |       ×          |     √     |
-| PostgreSQL |      √      |          √         |       √          |     √     |
-| SQL Server |      √      |          √         |       √          |     √     |
-| DB2             |       √     |          √         |       √          |     √     |
+
+支持对应主键生成策略类型的打 √ ，不支持的打 ×，如下所示：
+
+|            | TABLE | SEQUENCE | IDENTITY | AUTO |
+| ---------- | ----- | -------- | -------- | ---- |
+| MySQL      | √     | ×        | √        | √    |
+| Oracle     | √     | √        | ×        | √    |
+| PostgreSQL | √     | √        | √        | √    |
+| SQL Server | √     | √        | √        | √    |
+| DB2        | √     | √        | √        | √    |
 
 # 总结
 本篇我们介绍了 `JPA` 主键生成策略，下一篇基于 `GenerationType.TABLE` 的主键生成器表介绍，敬请期待！！！

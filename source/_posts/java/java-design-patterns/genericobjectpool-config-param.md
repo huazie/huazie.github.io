@@ -13,7 +13,14 @@ tags:
 
 ![](/images/java-design-patterns-logo.png)
 
-# 1. 依赖
+# 引言
+
+使用 **GenericObjectPool** 之前，我们有必要了解一下 **GenericObjectPoolConfig**，下面将详细说明一下其相关的配置参数。
+
+
+
+# 1. 对象池涉及依赖
+
 ```xml
     <dependency>
         <groupId>org.apache.commons</groupId>
@@ -21,22 +28,13 @@ tags:
         <version>2.4.3</version>
     </dependency>
 ```
-使用 **GenericObjectPool**，有必要了解一下 **GenericObjectPoolConfig**，下面将说明一下其配置参数。
 
-<!-- more -->
-
-[![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 2. 父类BaseObjectPoolConfig配置参数
+
+`BaseObjectPoolConfig` 提供了子类共享的通用属性的实现。将使用公共常量定义的默认值创建此类的新实例。 特别注意，该类不是线程安全的。
+
 ```java
-/**
- * Provides the implementation for the common attributes shared by the
- * sub-classes. New instances of this class will be created using the defaults
- * defined by the public constants.
- * <p>
- * This class is not thread-safe.
- *  * @since 2.0
- */
 public abstract class BaseObjectPoolConfig extends BaseObject implements Cloneable {
     private boolean lifo = DEFAULT_LIFO;
     
@@ -74,9 +72,11 @@ public abstract class BaseObjectPoolConfig extends BaseObject implements Cloneab
 }
 ```
 
+
 ## 2.1 lifo
- 提供了后进先出(`LIFO`)与先进先出(`FIFO`)两种行为模式的池；
- 默认 `DEFAULT_LIFO = true`， 当池中有空闲可用的对象时，调用`borrowObject` 方法会返回最近（后进）的实例。
+
+提供了后进先出(`LIFO`)与先进先出(`FIFO`)两种行为模式的池；
+默认 `DEFAULT_LIFO = true`， 当池中有空闲可用的对象时，调用`borrowObject` 方法会返回最近（后进）的实例。
 
 `org.apache.commons.pool2.impl.GenericObjectPool`
 
@@ -89,19 +89,23 @@ if (getLifo()) {
 ```
 
 ## 2.2 fairness
-当从池中获取资源或者将资源还回池中时,是否使用；`java.util.concurrent.locks.ReentrantLock.ReentrantLock` 的公平锁机制。
-默认 `DEFAULT_FAIRNESS = false` 
- 
+
+当从池中获取资源或者将资源还回池中时,是否使用`java.util.concurrent.locks.ReentrantLock.ReentrantLock` 的公平锁机制。
+默认 `DEFAULT_FAIRNESS = false`
+
 `org.apache.commons.pool2.impl.GenericObjectPool`
+
 ```java
     idleObjects = new LinkedBlockingDeque<PooledObject<T>>(config.getFairness());
 ```
 
 ## 2.3 maxWaitMillis
+
 当连接池资源用尽后，调用者获取连接时的最大等待时间（单位 ：毫秒）；
 默认值 `DEFAULT_MAX_WAIT_MILLIS = -1L`， 永不超时。
 
 `org.apache.commons.pool2.impl.GenericObjectPool`
+
 ```java
     @Override
     public T borrowObject() throws Exception {
@@ -110,10 +114,12 @@ if (getLifo()) {
 ```
 
 ## 2.4 minEvictableIdleTimeMillis
- 连接的最小空闲时间，达到此值后该空闲连接可能会被移除（还需看是否已达最大空闲连接数）；
+
+连接的最小空闲时间，达到此值后该空闲连接可能会被移除（还需看是否已达最大空闲连接数）；
 默认值 `DEFAULT_MIN_EVICTABLE_IDLE_TIME_MILLIS = 1000L * 60L * 30L`
 
 `org.apache.commons.pool2.impl.GenericObjectPool`
+
 ```java
     final EvictionConfig evictionConfig = new EvictionConfig(
                         getMinEvictableIdleTimeMillis(),
@@ -122,10 +128,12 @@ if (getLifo()) {
 ```
 
 ## 2.5 evictorShutdownTimeoutMillis
-关闭驱逐线程的超时时间； 
+
+关闭驱逐线程的超时时间；
 默认值 `DEFAULT_EVICTOR_SHUTDOWN_TIMEOUT_MILLIS = 10L * 1000L`
 
 `org.apache.commons.pool2.impl.BaseGenericObjectPool`
+
 ```java
     final void startEvictor(final long delay) {
         synchronized (evictionLock) {
@@ -143,18 +151,21 @@ if (getLifo()) {
 ```
 
 ## 2.6 softMinEvictableIdleTimeMillis
+
 连接空闲的最小时间，达到此值后空闲链接将会被移除，且保留 `minIdle` 个空闲连接数；
 默认值 `DEFAULT_SOFT_MIN_EVICTABLE_IDLE_TIME_MILLIS = -1`
 
 ## 2.7 numTestsPerEvictionRun
+
 检测空闲对象线程每次运行时检测的空闲对象的数量；
-- 如果 `numTestsPerEvictionRun>=0`, 则取 `numTestsPerEvictionRun` 和池内的连接数 的较小值 作为每次检测的连接数；
-- 如果 `numTestsPerEvictionRun<0`，则每次检查的连接数是检查时池内连接的总数除以这个值的绝对值再向上取整的结果；
+
+*   如果 `numTestsPerEvictionRun>=0`, 则取 `numTestsPerEvictionRun` 和池内的连接数 的较小值 作为每次检测的连接数；
+*   如果 `numTestsPerEvictionRun<0`，则每次检查的连接数是检查时池内连接的总数除以这个值的绝对值再向上取整的结果；
 
 默认值 `DEFAULT_NUM_TESTS_PER_EVICTION_RUN = 3`
- 
- `org.apache.commons.pool2.impl.GenericObjectPool`
- 
+
+`org.apache.commons.pool2.impl.GenericObjectPool`
+
 ```java
     private int getNumTests() {
         final int numTestsPerEvictionRun = getNumTestsPerEvictionRun();
@@ -165,7 +176,8 @@ if (getLifo()) {
     }
 ```
 
-## 2.8 evictionPolicyClassName 
+## 2.8 evictionPolicyClassName
+
 驱逐策略的类名；
 默认值 `DEFAULT_EVICTION_POLICY_CLASS_NAME = "org.apache.commons.pool2.impl.DefaultEvictionPolicy"`
 
@@ -199,11 +211,12 @@ if (getLifo()) {
 ```
 
 ## 2.9 testOnCreate
+
 在创建对象时检测对象是否有效(`true : 是`) , 配置 `true` 会降低性能；
 默认值 `DEFAULT_TEST_ON_CREATE = false`。
 
 `org.apache.commons.pool2.impl.GenericObjectPool##borrowObject(final long borrowMaxWaitMillis)`
-    
+
 ```java
     PooledObject<T> p = null;
     // ...省略
@@ -234,7 +247,8 @@ if (getLifo()) {
     }
 ```
 
-## 2.10 testOnBorrow 
+## 2.10 testOnBorrow
+
 在从对象池获取对象时是否检测对象有效(`true : 是)` , 配置 `true` 会降低性能；
 默认值 `DEFAULT_TEST_ON_BORROW = false`
 
@@ -246,12 +260,14 @@ if (getLifo()) {
         // ...省略
     }
 ```
+
 ## 2.11 testOnReturn
+
 在向对象池中归还对象时是否检测对象有效(`true : 是`) , 配置 `true` 会降低性能；
 默认值 `DEFAULT_TEST_ON_RETURN = false`
 
 `org.apache.commons.pool2.impl.GenericObjectPool##returnObject(final T obj)`
-    
+
 ```java
     if (getTestOnReturn()) {
         if (!factory.validateObject(p)) {
@@ -272,8 +288,9 @@ if (getLifo()) {
 ```
 
 ## 2.12 testWhileIdle
+
 在检测空闲对象线程检测到对象不需要移除时，是否检测对象的有效性。建议配置为 `true`，不影响性能，并且保证安全性；
-默认值 `DEFAULT_TEST_WHILE_IDLE = false` 
+默认值 `DEFAULT_TEST_WHILE_IDLE = false`
 
 `org.apache.commons.pool2.impl.GenericObjectPool##evict()`
 
@@ -306,12 +323,13 @@ if (getLifo()) {
     }
 ```
 
-## 2.13 timeBetweenEvictionRunsMillis 
+## 2.13 timeBetweenEvictionRunsMillis
+
 空闲连接检测的周期（单位毫秒）；如果为负值，表示不运行检测线程；
 默认值 `DEFAULT_TIME_BETWEEN_EVICTION_RUNS_MILLIS = -1L`
 
 `org.apache.commons.pool2.impl.GenericObjectPool`
-    
+
 ```java
     public GenericObjectPool(final PooledObjectFactory<T> factory, final GenericObjectPoolConfig config) {
            super(config, ONAME_BASE, config.getJmxNamePrefix());
@@ -329,12 +347,13 @@ if (getLifo()) {
     }
 ```
 
-## 2.14 blockWhenExhausted 
+## 2.14 blockWhenExhausted
+
 当对象池没有空闲对象时，新的获取对象的请求是否阻塞（`true` 阻塞，`maxWaitMillis` 才生效； `false` 连接池没有资源立马抛异常）
 默认值 `DEFAULT_BLOCK_WHEN_EXHAUSTED = true`
 
 `org.apache.commons.pool2.impl.GenericObjectPool##borrowObject(final long borrowMaxWaitMillis)`
-    
+
 ```java
     final boolean blockWhenExhausted = getBlockWhenExhausted();
     // ... 省略
@@ -354,12 +373,13 @@ if (getLifo()) {
     } 
 ```
 
-## 2.15 jmxEnabled 
-是否注册 `JMX` 
+## 2.15 jmxEnabled
+
+是否注册 `JMX`
 默认值 `DEFAULT_JMX_ENABLE = true`
 
 `org.apache.commons.pool2.impl.BaseGenericObjectPool`
-    
+
 ```java
     public BaseGenericObjectPool(final BaseObjectPoolConfig config, final String jmxNameBase, final String jmxNamePrefix) {
         if (config.getJmxEnabled()) {
@@ -384,11 +404,12 @@ if (getLifo()) {
 ```
 
 ## 2.16 jmxNamePrefix
+
 `JMX` 前缀
 默认值 `DEFAULT_JMX_NAME_PREFIX = "pool"`
 
 `org.apache.commons.pool2.impl.GenericObjectPool`
-    
+
 ```java
     // JMX specific attributes
     private static final String ONAME_BASE = "org.apache.commons.pool2:type=GenericObjectPool,name=";
@@ -400,7 +421,8 @@ if (getLifo()) {
     }
 ```
 
-## 2.17 jmxNameBase 
+## 2.17 jmxNameBase
+
 使用 `base + jmxNamePrefix + i` 来生成 `ObjectName`
 默认值 `DEFAULT_JMX_NAME_BASE = null`，`GenericObjectPool` 构造方法使用 `ONAME_BASE` 初始化。
 
@@ -451,15 +473,11 @@ if (getLifo()) {
 ```
 
 # 3. 子类GenericObjectPoolConfig配置参数
+
+`GenericObjectPoolConfig` 是一个简单的配置类，封装了用于 GenericObjectPool 的配置。注意，该类也不是线程安全的，它仅用于在创建池时提供属性。
+
 ```java
-/**
- * A simple "struct" encapsulating the configuration for a
- * {@link GenericObjectPool}.
- *  * <p>
- * This class is not thread-safe; it is only intended to be used to provide
- * attributes used when creating a pool.
- *  * @since 2.0
- */
+
 public class GenericObjectPoolConfig extends BaseObjectPoolConfig {
     
     private int maxTotal = DEFAULT_MAX_TOTAL;
@@ -469,9 +487,21 @@ public class GenericObjectPoolConfig extends BaseObjectPoolConfig {
     private int minIdle = DEFAULT_MIN_IDLE;
 }
 ```
+
+
 ## 3.1 maxTotal
+
 **最大连接数**，默认值 `DEFAULT_MAX_TOTAL = 8`
-## 3.2 maxIdle 
+
+## 3.2 maxIdle
+
 **最大空闲连接数**， 默认值 `DEFAULT_MAX_IDLE = 8`
+
 ## 3.3 minIdle
+
 **最小空闲连接数**， 默认值 `DEFAULT_MIN_IDLE = 0`
+
+
+# 总结
+
+了解这些配置参数对于正确设置和管理 `GenericObjectPool` 至关重要，本篇的介绍基于**commons-pool2-2.4.3**，其他版本可能有出入，请自行查看。
