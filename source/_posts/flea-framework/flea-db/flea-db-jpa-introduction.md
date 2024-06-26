@@ -13,201 +13,113 @@ tags:
 ![](/images/jpa-logo.png)
 
 
-# 1. 参考
-[flea-db使用之封装JPA操作数据库 源代码](https://github.com/Huazie/flea-framework/tree/dev/flea-db)
+# 引言
+**JPA（Java Persistence API）**,即 **Java** 持久层 **API**，它是 **Java** 平台上用于实现对象关系映射 **（Object-Relational Mapping，简称ORM）** 的规范。它定义了 **Java** 对象如何映射到关系型数据库中的表，并提供了一套标准的 **API** 来管理这些映射关系以及数据库中的持久化对象。
+
+为了方便开发人员后续快速接入 和 使用 JPA 操作数据库，本篇 **Huazie** 将向大家介绍笔者 **Flea** 框架下的 **flea-db** 模块封装JPA操作数据库的内容。
 
 <!-- more -->
 
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
+# 1. 参考
+[flea-db使用之封装JPA操作数据库 源代码](https://github.com/Huazie/flea-framework/tree/dev/flea-db)
+
 # 2. 依赖
-[mysql-connector-java-5.1.25.jar](https://mvnrepository.com/artifact/mysql/mysql-connector-java/5.1.25)
+
+**MySQL** 的 **JDBC** 驱动 [mysql-connector-java-5.1.25.jar](https://mvnrepository.com/artifact/mysql/mysql-connector-java/5.1.25)
 
 ```xml
-<!-- 数据库JDBC连接相关 （MySQL的JDBC驱动）-->
 <dependency>
     <groupId>mysql</groupId>
     <artifactId>mysql-connector-java</artifactId>
     <version>5.1.25</version>
 </dependency>
 ```
-[eclipselink-2.5.0.jar](https://mvnrepository.com/artifact/org.eclipse.persistence/eclipselink/2.5.0)
+
+**JPA** 实现 **EclipseLink** [eclipselink-2.5.0.jar](https://mvnrepository.com/artifact/org.eclipse.persistence/eclipselink/2.5.0)
 ```xml
-<!-- 数据库持久化相关 EclipseLink-->
 <dependency>
     <groupId>org.eclipse.persistence</groupId>
     <artifactId>eclipselink</artifactId>
     <version>2.5.0</version>
 </dependency>
 ```
+
 # 3. 内容讲解
-目前支持 JPA + MySQL模式，需要各位本地自行装下MySQL数据库。
+
+目前示例用的是 **JPA + MySQL** 模式，需要各位本地自行装下 **MySQL** 数据库。
+
 ## 3.1 Flea JPA查询对象
-[FleaJPAQuery](https://github.com/Huazie/flea-framework/blob/dev/flea-db/flea-db-jpa/src/main/java/com/huazie/fleaframework/db/jpa/common/FleaJPAQuery.java) 用于实现 `JPA` 标准化方式的数据库查询操作，可以自行组装查询条件。下面对一些关键点进行讲解，且听我细细道来 (这一版并发环境下 可能存在问题，后面我会专门写一篇博文讲解 Flea JPA查询对象的问题，其中引入了对象池的概念 )。
+[FleaJPAQuery](https://github.com/Huazie/flea-framework/blob/dev/flea-db/flea-db-jpa/src/main/java/com/huazie/fleaframework/db/jpa/common/FleaJPAQuery.java) 用于实现 **JPA** 标准化方式的数据库查询操作，可以自行组装查询条件。下面对一些关键点进行讲解，且听我细细道来 (这一版并发环境下 可能存在问题，后面我会专门写一篇博文讲解 Flea JPA查询对象的问题，其中引入了对象池的概念 )。
 
  - 获取FleaJPAQuery实例，并初始化内部成员变量
-    ```java
-        private static volatile FleaJPAQuery query;
-        
-        private EntityManager entityManager; // JPA中用于增删改查的持久化接口
-        private Class sourceClazz; // 实体类类对象
-        private Class resultClazz; // 操作结果类类对象
-        private Root root; // 根SQL表达式对象
-        private CriteriaBuilder criteriaBuilder; //标准化生成器
-        private CriteriaQuery criteriaQuery; // 标准化查询对象
-        private List<Predicate> predicates; // Where条件集合
-        private List<Order> orders; // 排序集合
-        private List<Expression> groups; // 分组集合
-
-        private FleaJPAQuery() {
-        }
-
-        /**
-         * <p> 获取Flea JPA查询对象 </p>
-         * （单例模式，本身没有问题，但是由于获取之后Flea JPA查询对象还要使用，
-         * 这在有点并发的环境下就存在问题了；后面我会单独写一篇博文讲解基于对象池
-         * 的多例模式，既保证并发下各个线程获取的Flea JPA查询对象之间互不影响，
-         * 同时也能保证尽可能少的新建Flea JPA查询对象） 
-         *
-         * @return Flea JPA查询对象
-         * @since 1.0.0
-         */
-        public static FleaJPAQuery getQuery() {
-            if (ObjectUtils.isEmpty(query)) {
-                synchronized (FleaJPAQuery.class) {
-                    if (ObjectUtils.isEmpty(query)) {
-                        uery = new FleaJPAQuery();
-                    }
-                }
-            }
-            return query;
-        }
-
-        /**
-         * <p> getQuery()之后，一定要调用该方法进行初始化 </p>
-         *
-         * @param entityManager JPA中用于增删改查的持久化接口
-         * @param sourceClazz   实体类类对象
-         * @param resultClazz   操作结果类类对象
-         * @since 1.0.0
-         */
-        public void init(EntityManager entityManager, Class sourceClazz, Class resultClazz) {
-            this.entityManager = entityManager;
-            this.sourceClazz = sourceClazz;
-            this.resultClazz = resultClazz;
-            // 从持久化接口中获取标准化生成器
-            criteriaBuilder = entityManager.getCriteriaBuilder();
-            // 通过标准化生成器 获取 标准化查询对象
-            if (ObjectUtils.isEmpty(resultClazz)) {
-                // 行记录查询结果
-                criteriaQuery = criteriaBuilder.createQuery(sourceClazz);
-            } else {
-                // 单个查询结果
-                criteriaQuery = criteriaBuilder.createQuery(resultClazz);
-            }
-            // 通过标准化查询对象，获取根SQL表达式对象
-            root = criteriaQuery.from(sourceClazz);
-            predicates = new ArrayList<Predicate>();
-        }
-    ```
+    - `EntityManager entityManager` ：**JPA** 中用于增删改查的持久化接口
+    - `Class sourceClazz` ： 实体类类对象
+    - `Class resultClazz` ： 操作结果类类对象
+    - `Root root` ： 根SQL表达式对象
+    - `CriteriaBuilder criteriaBuilder` ： 标准化生成器
+    - `CriteriaQuery criteriaQuery` ： 标准化查询对象
+    - `List<Predicate> predicates` ： Where条件集合
+    - `List<Order> orders` ： 排序集合
+    - `List<Expression> groups` ： 分组集合
+    - `getQuery()` ： 获取Flea JPA查询对象。**新版本已废弃**（单例模式，本身没有问题，但是由于获取之后 **Flea JPA** 查询对象还要使用，这在有点并发的环境下就存在问题了；后面我会单独写一篇博文讲解基于对象池的多例模式，既保证并发下各个线程获取的 **Flea JPA** 查询对象之间互不影响，同时也能保证尽可能少的新建 **Flea JPA** 查询对象）
+    - `init(EntityManager entityManager, Class sourceClazz, Class resultClazz)` ：获取 `FleaJPAQuery` 实例之后，一定要调用该方法进行初始化
+    - `initQueryEntity(Object entity)` ：初始化查询实体，主要用来构建查询条件值，以及分库分表
+    
  - 拼接查询条件，添加排序和分组
-    ```java
-        // 等于条件 (单个属性列)
-        public void equal(String attrName, Object value) throws DaoException;
-        // 等于条件 (多个属性列)
-        public void equal(Map<String, Object> paramMap) throws DaoException;
-        // 不等于条件 (单个属性列)
-        public void notEqual(String attrName, Object value) throws DaoException;
-        // 等于条件 (多个属性列)
-        public void notEqual(Map<String, Object> paramMap) throws DaoException;
-        // is null 条件，某属性值为空
-        public void isNull(String attrName) throws DaoException;
-        // is not null 条件，某属性值为非空
-        public void isNotNull(String attrName) throws DaoException;
-        // in 条件， attrName属性的值在value集合中
-        public void in(String attrName, Collection value) throws DaoException;
-        //  not in 条件，attrName属性的值不在value集合中
-        public void notIn(String attrName, Collection value) throws DaoException;
-        // like 条件， 模糊匹配
-        public void like(String attrName, String value) throws DaoException;
-        // 小于等于条件
-        public void le(String attrName, Number value) throws DaoException;
-        // 小于条件
-        public void lt(String attrName, Number value) throws DaoException;
-        // 大于等于条件
-        public void ge(String attrName, Number value) throws DaoException;
-        // 大于条件
-        public void gt(String attrName, Number value) throws DaoException;
-        // between and 条件, 时间区间查询
-        public void between(String attrName, Date startTime, Date endTime) throws DaoException;
-        // 大于某个日期值条件
-        public void greaterThan(String attrName, Date value) throws DaoException;
-        // 大于等于某个日期值条件
-        public void greaterThanOrEqualTo(String attrName, Date value) throws DaoException;
-        // 小于某个日期值条件
-        public void lessThan(String attrName, Date value) throws DaoException;
-        // 小于等于某个日期值条件
-        public void lessThanOrEqualTo(String attrName, Date value) throws DaoException;
-        // 统计数目，在getSingleResult调用之前使用
-        public void count();
-        // 统计数目(带distinct参数)，在getSingleResult调用之前使用
-        public void countDistinct();
-        // 设置查询某属性的最大值，在getSingleResult调用之前使用
-        public void max(String attrName) throws DaoException;
-        // 设置查询某属性的最小值，在getSingleResult调用之前使用
-        public void min(String attrName) throws DaoException;
-        // 设置查询某属性的平均值，在getSingleResult调用之前使用
-        public void avg(String attrName) throws DaoException;
-        // 设置查询某属性的值的总和，在getSingleResult调用之前使用
-        public void sum(String attrName) throws DaoException;
-        // 设置查询某属性的值的总和(Long)，在getSingleResult调用之前使用
-        public void sumAsLong(String attrName) throws DaoException;
-        // 设置查询某属性的值的总和(Double)，在getSingleResult调用之前使用
-        public void sumAsDouble(String attrName) throws DaoException;
-        // 去重某一列
-        public void distinct(String attrName) throws DaoException;
-        // 添加order by子句
-        public void addOrderby(String attrName, String orderBy) throws DaoException;
-        // 添加group by子句
-        public void addGroupBy(String attrName) throws DaoException;
-    ```
+    - `equal(String attrName, Object value)` ： 等于条件 (单个属性列)
+    - `equal(Map<String, Object> paramMap)` ： 等于条件 (多个属性列)
+    - `notEqual(String attrName, Object value)` ： 不等于条件 (单个属性列)
+    - `notEqual(Map<String, Object> paramMap)` ： 不等于条件 (多个属性列)
+    - `isNull(String attrName)` ： `is null` 条件，某属性值为空
+    - `isNotNull(String attrName)` ： `is not null` 条件，某属性值为非空
+    - `in(String attrName, Collection value)` ： `in` 条件， `attrName` 属性的值在 `value` 集合中
+    - `notIn(String attrName, Collection value)` ： `not in` 条件，`attrName` 属性的值不在 `value` 集合中
+    - `like(String attrName, String value)` ： `like` 条件， 模糊匹配
+    - `le(String attrName, Number value)` ： 小于等于条件
+    - `lt(String attrName, Number value)` ： 小于条件
+    - `ge(String attrName, Number value)` ： 大于等于条件
+    - `gt(String attrName, Number value)` ： 大于条件
+    - `between(String attrName, Date startTime, Date endTime)` ： `between and` 条件, 时间区间查询
+    - `greaterThan(String attrName, Date value)` ： 大于某个日期值条件
+    - `greaterThanOrEqualTo(String attrName, Date value)` ： 大于等于某个日期值条件
+    - `lessThan(String attrName, Date value)` ： 小于某个日期值条件
+    - `lessThanOrEqualTo(String attrName, Date value)` ： 小于等于某个日期值条件
+    - `count()` ： 统计数目，在 `getSingleResult` 调用之前使用
+    - `countDistinct()` ： 统计数目(带 `distinct` 参数)，在 `getSingleResult` 调用之前使用
+    - `max(String attrName)` ： 设置查询某属性的最大值，在 `getSingleResult` 调用之前使用
+    - `min(String attrName)` ： 设置查询某属性的最小值，在 `getSingleResult` 调用之前使用
+    - `avg(String attrName)` ： 设置查询某属性的平均值，在 `getSingleResult` 调用之前使用
+    - `sum(String attrName)` ： 设置查询某属性的值的总和，在 `getSingleResult` 调用之前使用
+    - `sumAsLong(String attrName)` ： 设置查询某属性的值的总和(Long)，在 `getSingleResult` 调用之前使用
+    - `sumAsDouble(String attrName)` ： 设置查询某属性的值的总和(Double)，在 `getSingleResult` 调用之前使用
+    - `distinct(String attrName)` ： 去重某一列
+    - `addOrderby(String attrName, String orderBy)` ： 添加 `order by` 子句
+    - `addGroupBy(String attrName)` ： 添加 `group by` 子句
 
- - 获取查询结果（记录行 或 单个结果）
-   ```java
-    // 获取查询的记录行结果集合
-    public List getResultList() throws DaoException;
-    // 获取查询的记录行结果集合（设置查询范围）
-    public List getResultList(int start, int max) throws DaoException;
-    // 获取查询的单个属性列结果集合
-    // 需要先调用 distinct，否则默认返回行记录结果集合
-    public List getSingleResultList() throws DaoException;
-    // 获取查询的单个属性列结果集合（设置查询范围，可用于分页）
-    // 需要先调用 distinct，否则默认返回行记录结果集合
-    public List getSingleResultList(int start, int max) throws DaoException;
-    // 获取查询的单个结果
-    // 需要提前调用 (count, countDistinct, max, min, avg, sum, sumAsLong, sumAsDouble)
-    public Object getSingleResult() throws DaoException;
-    ```
+- 获取查询结果（记录行 或 单个结果）
+    - `getResultList()` ： 获取查询的记录行结果集合
+    - `getResultList(int start, int max)` ： 获取查询的记录行结果集合（设置查询范围）
+    - `getSingleResultList()` ： 获取查询的单个属性列结果集合。需要先调用 `distinct`，否则默认返回行记录结果集合
+    - `getSingleResultList(int start, int max)` ： 获取查询的单个属性列结果集合（设置查询范围，可用于分页）。需要先调用 `distinct`，否则默认返回行记录结果集合。
+    - `getSingleResult()` ： 获取查询的单个结果。需要提前调用 (`count, countDistinct, max, min, avg, sum, sumAsLong, sumAsDouble`)
+
 ## 3.2 数据处理的基本接口
 [IFleaJPABaseDataHandler](https://github.com/Huazie/flea-frame/blob/dev/flea-frame-db/src/main/java/com/huazie/frame/db/jpa/common/IFleaJPABaseDataHandler.java) 为基本的数据操作接口，其中包含了查询，（批量）添加，（批量）更新，删除等操作。
+
 ## 3.3 抽象Flea JPA DAO层接口
 [IAbstractFleaJPADAO](https://github.com/Huazie/flea-framework/blob/dev/flea-db/flea-db-jpa/src/main/java/com/huazie/fleaframework/db/jpa/dao/interfaces/IAbstractFleaJPADAO.java) 实现了基本的查询、（批量）添加、（批量）更新、删除接口
 ```java
-/**
- * <p> 抽象Flea JPA DAO层接口，实现基本的查询、（批量）添加、（批量）更新、删除接口 </p>
- *
- * @author huazie
- * @version 1.0.0
- * @since 1.0.0
- */
 public interface IAbstractFleaJPADAO<T> extends IFleaJPABaseDataHandler<T> {
 
 }
 ```
+
 ## 3.4 抽象Flea JPA DAO层实现
 [AbstractFleaJPADAOImpl](https://github.com/Huazie/flea-framework/blob/dev/flea-db/flea-db-jpa/src/main/java/com/huazie/fleaframework/db/jpa/dao/impl/AbstractFleaJPADAOImpl.java) 中实现上述3中查询、（批量）添加、（批量）更新、删除的接口的具体逻辑。
 
- - 该类实现上述抽象Flea JPA DAO层接口，同样有类型T，由子类指定其操作的实体类。
+ - 该类实现上述抽象 **Flea JPA DAO** 层接口，同样有类型T，由子类指定其操作的实体类。
     ```java
     public abstract class AbstractFleaJPADAOImpl<T> implements IAbstractFleaJPADAO<T> 
     ```
@@ -235,37 +147,17 @@ public interface IAbstractFleaJPADAO<T> extends IFleaJPABaseDataHandler<T> {
     }
     ```
  - 实现接口方法，可参见上述类源码
- - 持久化接口获取，由子类实现（可参考下面的持久化单元DAO层实现）
-    
+ - 持久化接口获取，由子类实现（可参考下面的持久化单元 **DAO** 层实现）
+    - `getEntityManager()` ：获取实体管理器
+    - `getEntityManager(T entity)` ：获取实体管理器【`entity` 实体类对象实例】
+    - `getEntityManager(T entity, boolean flag)` ：获取实体管理器【`entity` 实体类对象实例，flag   获取实体管理器标识【`true`：`getFleaNextValue` 获取实体管理器， `false`: 其他场景获取实体管理器】】
     ```java
-    /**
-     * 获取实体管理器
-     *
-     * @return 实体管理器
-     * @since 1.0.0
-     */
     protected abstract EntityManager getEntityManager();
 
-    /**
-     * 获取实体管理器
-     *
-     * @param entity 实体类对象实例
-     * @return 实体管理器类
-     * @since 1.0.0
-     */
     public EntityManager getEntityManager(T entity) throws CommonException {
         return getEntityManager(entity, false);
     }
 
-    /**
-     * 获取实体管理器
-     *
-     * @param entity 实体类对象实例
-     * @param flag   获取实体管理器标识【true：getFleaNextValue获取实体管理器， false: 其他场景获取实体管理器】
-     * @return 实体管理器类
-     * @throws CommonException 通用异常
-     * @since 1.2.0
-     */
     private EntityManager getEntityManager(T entity, boolean flag) throws CommonException {
         EntityManager entityManager = getEntityManager();
 
@@ -278,15 +170,9 @@ public interface IAbstractFleaJPADAO<T> extends IFleaJPABaseDataHandler<T> {
     }
     ```
 
- - Flea JPA查询对象获取
+ - **Flea JPA** 查询对象获取【这里已经是使用 **Flea JPA** 查询对象池来获取 `FleaJPAQuery`】
  
     ```java
-    /**
-     * <p> 获取指定的查询对象 </p>
-     *
-     * @return 自定义Flea JPA查询对象
-     * @since 1.0.0
-     */
     protected FleaJPAQuery getQuery(Class result) {
         // 获取当前的持久化单元名
         String unitName = FleaEntityManager.getPersistenceUnitName(this.getClass().getSuperclass());
@@ -317,20 +203,14 @@ public interface IAbstractFleaJPADAO<T> extends IFleaJPABaseDataHandler<T> {
     ```
 ## 3.5 定义抽象Flea JPA SV层接口
 
-[IAbstractFleaJPASV](https://github.com/Huazie/flea-framework/blob/dev/flea-db/flea-db-jpa/src/main/java/com/huazie/fleaframework/db/jpa/service/interfaces/IAbstractFleaJPASV.java) 抽象Flea JPA SV层接口，继承 `IFleaJPABaseDataHandler` 接口，包含了通用的增删改查接口。
+[IAbstractFleaJPASV](https://github.com/Huazie/flea-framework/blob/dev/flea-db/flea-db-jpa/src/main/java/com/huazie/fleaframework/db/jpa/service/interfaces/IAbstractFleaJPASV.java) 抽象 **Flea JPA SV** 层接口，继承 `IFleaJPABaseDataHandler` 接口，包含了通用的增删改查接口。
 ```java
-/**
- * <p> 抽象Flea JPA SV层接口 </p>
- *
- * @author huazie
- * @version 1.0.0
- * @since 1.0.0
- */
 public interface IAbstractFleaJPASV<T> extends IFleaJPABaseDataHandler<T> {
 }
 ```
+
 ## 3.6 抽象Flea JPA SV层实现
-[AbstractFleaJPASVImpl](https://github.com/Huazie/flea-framework/blob/dev/flea-db/flea-db-jpa/src/main/java/com/huazie/fleaframework/db/jpa/service/impl/AbstractFleaJPASVImpl.java) 实现上述抽象Flea JPA SV层接口，相关代码也比较简单，具体接口实现内部调用抽象Flea JPA DAO层实现。
+[AbstractFleaJPASVImpl](https://github.com/Huazie/flea-framework/blob/dev/flea-db/flea-db-jpa/src/main/java/com/huazie/fleaframework/db/jpa/service/impl/AbstractFleaJPASVImpl.java) 实现上述抽象 **Flea JPA SV** 层接口，相关代码也比较简单，具体接口实现内部调用抽象 **Flea JPA DAO** 层实现。
 
 ```java
 
@@ -340,31 +220,20 @@ public interface IAbstractFleaJPASV<T> extends IFleaJPABaseDataHandler<T> {
     }
 
     // ... 其他接口实现已省略
-    
-    /**
-     * <p> 获取Flea JPA DAO层实现 </p>
-     *
-     * @return 抽象Flea JPA DAO层实现
-     * @since 1.0.0
-     */
+
     protected abstract IAbstractFleaJPADAO<T> getDAO();
 ```
 ## 3.7 持久化单元DAO层实现
-[FleaAuthDAOImpl](https://github.com/Huazie/flea-framework/blob/dev/flea-auth/src/main/java/com/huazie/fleaframework/auth/base/FleaAuthDAOImpl.java) 与持久化单元一一对应，如果新增一个持久化配置，即需要新增一个持久化单元DAO层实现，同时Spring配置中，需要加入对应的持久化单元事物管理者配置。
+[FleaAuthDAOImpl](https://github.com/Huazie/flea-framework/blob/dev/flea-auth/src/main/java/com/huazie/fleaframework/auth/base/FleaAuthDAOImpl.java) 与持久化单元一一对应，如果新增一个持久化配置，即需要新增一个持久化单元 **DAO** 层实现，同时 **Spring** 配置中，需要加入对应的持久化单元事务管理者配置。
 
 
- - 持久化单元名 ----- fleaauth
- - 持久化事物管理者 ----- fleaauthTransactionManager
- - 持久化接口对象 ----- entityManager （该类由注解定义，由Spring配置中的 持久化接口工厂 fleaAuthEntityManagerFactory 初始化，详细可见下面持久化单元相关配置）
+ - **持久化单元名** ----- `fleaauth`
+ - **持久化事务管理者** ----- `fleaauthTransactionManager`
+ - **持久化接口对象** ----- `entityManager` （该类由注解定义，由 **Spring** 配置中的 持久化接口工厂 `fleaAuthEntityManagerFactory` 初始化，详细可见下面持久化单元相关配置）
+
+**FleaAuth数据源DAO层父类**
 
 ```java
-/**
- * <p> FleaAuth数据源DAO层父类 </p>
- *
- * @author huazie
- * @version 1.0.0
- * @since 1.0.0
- */
 public class FleaAuthDAOImpl<T> extends AbstractFleaJPADAOImpl<T> {
 
     @PersistenceContext(unitName="fleaauth")
@@ -387,9 +256,11 @@ public class FleaAuthDAOImpl<T> extends AbstractFleaJPADAOImpl<T> {
 ```
 ## 3.8 配置介绍
 
- - 持久化单元配置  **fleaauth-persistence.xml**
+### 3.8.1 持久化单元配置  
 
-    ```xml
+**fleaauth-persistence.xml**
+
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
@@ -409,55 +280,58 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/x
         </properties>
     </persistence-unit>
 </persistence>
-    ```
+```
 
- - Spring配置
- 
-    ```xml
-    <!-- 持久化单元管理器 -->
-    <bean id="defaultPersistenceManager" class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
-        <property name="persistenceXmlLocations">
-            <!-- 可以配置多个持久单元 -->
-            <list>
-                <value>classpath:META-INF/fleaauth-persistence.xml</value>
-            </list>
-        </property>
-    </bean>
-    <!-- 持久化提供者 -->
-    <bean id="defaultPersistenceProvider" class="org.eclipse.persistence.jpa.PersistenceProvider"/>
-    <!-- 加载时织入器 -->
-    <bean id="defaultLoadTimeWeaver" class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
-    <!-- JPA厂商适配器，对外公开EclipseLink的持久性提供程序和EntityManager扩展接口  -->
-    <bean id="defaultVendorAdapter" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
-        <!-- 是否在控制台显示sql -->
-        <property name="showSql" value="true"/>
-    </bean>
-    <!-- JpaDialect EclipseLink持久化服务的实现-->
-    <bean id="defaultJpaDialect" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect"/>
+### 3.8.2 Spring配置
 
-    <!-- 以下部分 与指定持久化单元一一对应 -->
-    <!-- ################# -->
-    <!-- FleaAuth TransAction Manager JPA -->
-    <!-- ################# -->
-    <bean id="fleaAuthEntityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceUnitManager" ref="defaultPersistenceManager"/>
-        <property name="persistenceUnitName" value="fleaauth"/>
-        <property name="persistenceProvider" ref="defaultPersistenceProvider"/>
-        <property name="jpaVendorAdapter" ref="defaultVendorAdapter"/>
-        <property name="jpaDialect" ref="defaultJpaDialect"/>
-        <property name="jpaPropertyMap">
-            <map>
-                <entry key="eclipselink.weaving" value="false"/>
-            </map>
-        </property>
-    </bean>
+- `defaultPersistenceManager` ：持久化单元管理器
+- `defaultPersistenceProvider` ：持久化提供者
+- `defaultLoadTimeWeaver` ：加载时织入器
+- `defaultVendorAdapter` ：**JPA** 厂商适配器，对外公开 **EclipseLink** 的持久性提供程序和EntityManager扩展接口
+- `defaultJpaDialect` ：**JpaDialect EclipseLink** 持久化服务的实现
+- `fleaAuthEntityManagerFactory` ：**JPA** 实体管理器工厂类
+- `fleaAuthTransactionManager` ：**JPA** 事务管理器
 
-    <bean id="fleaAuthTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="fleaAuthEntityManagerFactory"/>
-    </bean>
+```xml
+<bean id="defaultPersistenceManager" class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
+    <property name="persistenceXmlLocations">
+        <!-- 可以配置多个持久单元 -->
+        <list>
+            <value>classpath:META-INF/fleaauth-persistence.xml</value>
+        </list>
+    </property>
+</bean>
+<bean id="defaultPersistenceProvider" class="org.eclipse.persistence.jpa.PersistenceProvider"/>
+<bean id="defaultLoadTimeWeaver" class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
+<bean id="defaultVendorAdapter" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
+    <!-- 是否在控制台显示sql -->
+    <property name="showSql" value="true"/>
+</bean>
+<bean id="defaultJpaDialect" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect"/>
 
-    <tx:annotation-driven transaction-manager="fleaAuthTransactionManager"/>
-    ```
+<!-- 以下部分 与指定持久化单元一一对应 -->
+<!-- ################# -->
+<!-- FleaAuth TransAction Manager JPA -->
+<!-- ################# -->
+<bean id="fleaAuthEntityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <property name="persistenceUnitManager" ref="defaultPersistenceManager"/>
+    <property name="persistenceUnitName" value="fleaauth"/>
+    <property name="persistenceProvider" ref="defaultPersistenceProvider"/>
+    <property name="jpaVendorAdapter" ref="defaultVendorAdapter"/>
+    <property name="jpaDialect" ref="defaultJpaDialect"/>
+    <property name="jpaPropertyMap">
+        <map>
+            <entry key="eclipselink.weaving" value="false"/>
+        </map>
+    </property>
+</bean>
+
+<bean id="fleaAuthTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+    <property name="entityManagerFactory" ref="fleaAuthEntityManagerFactory"/>
+</bean>
+
+<tx:annotation-driven transaction-manager="fleaAuthTransactionManager"/>
+```
 
 # 总结
-至此，相关JPA使用已封装完毕，下一篇博文将介绍 [《JPA接入》](/2019/09/12/flea-framework/flea-db/flea-db-jpa-integration/) ，敬请期待。
+至此，相关 **JPA** 使用已封装完毕，欢迎大家评论区讨论。下一篇博文将介绍 [《JPA接入》](/2019/09/12/flea-framework/flea-db/flea-db-jpa-integration/) ，向大家演示使用 **JPA** 封装代码来操作数据库，敬请期待！！！
