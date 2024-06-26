@@ -39,10 +39,10 @@ tags:
 |:---------------|:-----------------------------------------------------------|
 | 模板库名      |  用作模板的数据库名                                    |
 |模板库持久化单元名| 模板库下的持久化单元名，一般和模板库相同|
-|模板库事物名      | 模板库下的事物管理器名 ，分库配置中可查看 `<transaction>` 标签|
+|模板库事务名      | 模板库下的事务管理器名 ，分库配置中可查看 `<transaction>` 标签|
 | 分库名           | 以模板库名为基础，根据分库规则得到的数据库名 |
 |分库持久化单元名| 以模板库持久化单元名为基础，根据分库规则得到的持久化单元名，一般和分库名相同 |
-|分库事物名    | 以模板库事物名为基础，根据分库规则得到的事物名 |
+|分库事务名    | 以模板库事务名为基础，根据分库规则得到的事务名 |
 | 分库转换      | 以模板库名为基础，根据分库规则得到数据库名的过程|
 |分库序列键   | 分库规则中`<split>`标签中 seq 的值，组成分库名表达式的一部分；<br/>如果是分库分表，也对应着分表规则中`<split>`标签中 seq 的值 |
 |分库序列值   | 分库序列键对应的值，在分库转换中使用   |
@@ -65,9 +65,9 @@ tags:
             exp  : 分库名表达式 (模板库名)(分库序列键)
         -->
         <lib name="fleaorder" count="2" exp="(FLEA_LIB_NAME)(SEQ)" desc="flea订单库分库规则">
-            <!-- 分库事物配置
-                name : 模板事物名
-                exp  : 分库事物名表达式 (模板事物名)(分库序列键)
+            <!-- 分库事务配置
+                name : 模板事务名
+                exp  : 分库事务名表达式 (模板事务名)(分库序列键)
             -->
             <transaction name="fleaOrderTransactionManager" exp="(FLEA_TRANSACTION_NAME)(SEQ)"/>
             <splits>
@@ -244,22 +244,22 @@ tags:
 ```
 
 # 3. 实现讲解
-## 3.1 Flea自定义事物切面
-Flea自定义事物切面 [FleaTransactionalAspect](https://github.com/Huazie/flea-framework/blob/main/flea-db/flea-db-jpa/src/main/java/com/huazie/fleaframework/db/jpa/aspect/FleaTransactionalAspect.java)，拦截由自定义事物注解标记的 **Spring注入** 的方法，
-实现在方法调用之前开启事物，调用成功后提交事物，出现异常回滚事务。
+## 3.1 Flea自定义事务切面
+Flea自定义事务切面 [FleaTransactionalAspect](https://github.com/Huazie/flea-framework/blob/main/flea-db/flea-db-jpa/src/main/java/com/huazie/fleaframework/db/jpa/aspect/FleaTransactionalAspect.java)，拦截由自定义事务注解标记的 **Spring注入** 的方法，
+实现在方法调用之前开启事务，调用成功后提交事务，出现异常回滚事务。
 
-Flea自定义事物注解主要标记在两类方法上：
-- 一类方法是，**AbstractFleaJPADAOImpl** 的子类的增删改方法；这些方法一般在 某某数据源DAO层实现类 中，注解中需要指定事物名。
-- 另一类方法是，除了上一类方法的其他 **Spring注入** 的方法上；需要特别注意的是，自定义事物注解上不仅需要指定事物名、而且还需要指定持久化单元名；
+Flea自定义事务注解主要标记在两类方法上：
+- 一类方法是，**AbstractFleaJPADAOImpl** 的子类的增删改方法；这些方法一般在 某某数据源DAO层实现类 中，注解中需要指定事务名。
+- 另一类方法是，除了上一类方法的其他 **Spring注入** 的方法上；需要特别注意的是，自定义事务注解上不仅需要指定事务名、而且还需要指定持久化单元名；
 
 如果存在分库的场景，在调用之前，需要设置当前线程下的分库序列值。
 
 ```java
     // 设置当前线程下的分库序列值
     FleaLibUtil.setSplitLibSeqValue("SEQ", "123123123");
-    // 调用自定义事物注解标记的方法
+    // 调用自定义事务注解标记的方法
 ```
-下面我贴出Flea自定义事物切面的代码，如下：
+下面我贴出Flea自定义事务切面的代码，如下：
 
 ```java
 @Aspect
@@ -272,11 +272,11 @@ public class FleaTransactionalAspect {
     public Object invokeWithinTransaction(final ProceedingJoinPoint joinPoint) throws CommonException, FleaException, NoSuchMethodException {
         // 获取当前连接点上的方法
         Method method = FleaAspectUtils.getTargetMethod(joinPoint);
-        // 获取当前连接点方法上的自定义Flea事物注解上对应的事物名称
+        // 获取当前连接点方法上的自定义Flea事务注解上对应的事务名称
         String transactionName = FleaEntityManager.getTransactionName(method);
         // 获取连接点方法签名上的参数列表
         Object[] args = joinPoint.getArgs();
-        // 获取标记Flea事物注解的目标对象
+        // 获取标记Flea事务注解的目标对象
         Object tObj = joinPoint.getTarget();
 
         // 获取最后一个参数【实体对象】
@@ -288,7 +288,7 @@ public class FleaTransactionalAspect {
 
         EntityManager entityManager;
 
-        // 标记Flea事物注解的目标对象 为 AbstractFleaJPADAOImpl 的子类
+        // 标记Flea事务注解的目标对象 为 AbstractFleaJPADAOImpl 的子类
         if (ObjectUtils.isNotEmpty(fleaEntity) && tObj instanceof AbstractFleaJPADAOImpl) {
             // 获取实体管理器
             entityManager = (EntityManager) ReflectUtils.invoke(tObj, METHOD_NAME_GET_ENTITY_MANAGER, fleaEntity, Object.class);
@@ -304,7 +304,7 @@ public class FleaTransactionalAspect {
                 transactionName = splitLib.getSplitLibTxName();
             }
         } else {
-            // 获取当前连接点方法上的自定义Flea事物注解上对应的持久化单元名
+            // 获取当前连接点方法上的自定义Flea事务注解上对应的持久化单元名
             String unitName = FleaEntityManager.getUnitName(method);
             // 获取分库对象
             SplitLib splitLib = FleaSplitUtils.getSplitLib(unitName, FleaLibUtil.getSplitLibSeqValues());
@@ -316,11 +316,11 @@ public class FleaTransactionalAspect {
             entityManager = FleaEntityManager.getEntityManager(unitName, transactionName);
         }
 
-        // 根据事物名，获取配置的事物管理者
+        // 根据事务名，获取配置的事务管理者
         PlatformTransactionManager transactionManager = (PlatformTransactionManager) FleaApplicationContext.getBean(transactionName);
-        // 事物名【{0}】非法，请检查！
+        // 事务名【{0}】非法，请检查！
         ObjectUtils.checkEmpty(transactionManager, DaoException.class, "ERROR-DB-DAO0000000015", transactionName);
-        // 新建事物模板对象，用于处理事务生命周期和可能的异常
+        // 新建事务模板对象，用于处理事务生命周期和可能的异常
         FleaTransactionTemplate transactionTemplate = new FleaTransactionTemplate(transactionManager, entityManager);
         return transactionTemplate.execute(new TransactionCallback<Object>() {
             @Override
@@ -336,13 +336,13 @@ public class FleaTransactionalAspect {
     }
 }
 ```
-在上述代码中，事物名 和 实体管理器 的获取是重点，因Flea自定义事物注解标记在两类不同的方法上，这两者的获取也不一样。通过事物名可直接从Spring配置中获取定义的事物管理器，事物名对应着spring配置中 `transaction-manager` 对应的属性值，详见 2.4中  [fleaorder-spring.xml](https://github.com/Huazie/flea-db-test/blob/main/flea-config/src/main/resources/spring/db/jpa/fleaorder-spring.xml)   。
+在上述代码中，事务名 和 实体管理器 的获取是重点，因Flea自定义事务注解标记在两类不同的方法上，这两者的获取也不一样。通过事务名可直接从Spring配置中获取定义的事务管理器，事务名对应着spring配置中 `transaction-manager` 对应的属性值，详见 2.4中  [fleaorder-spring.xml](https://github.com/Huazie/flea-db-test/blob/main/flea-config/src/main/resources/spring/db/jpa/fleaorder-spring.xml)   。
 
-最后使用 Flea事物模板，来实现标记 `@FleaTransactional`的方法调用之前开启事物，调用成功后提交事物，出现异常回滚事物。
+最后使用 Flea事务模板，来实现标记 `@FleaTransactional`的方法调用之前开启事务，调用成功后提交事务，出现异常回滚事务。
 
 
-## 3.2 Flea事物模板
-Flea事物模板 [FleaTransactionTemplate](https://github.com/Huazie/flea-framework/blob/main/flea-db/flea-db-jpa/src/main/java/com/huazie/fleaframework/db/jpa/transaction/FleaTransactionTemplate.java)，参考 **Spring** 的 **TransactionTemplate**，它是简化程序化事务划分和事务异常处理的模板类。其核心方法是 `execute` , 参数是实现事物回调接口的事务代码。此模板收敛了处理事务生命周期和可能的异常的逻辑，因此事物回调接口的实现和调用代码都不需要显式处理事务。
+## 3.2 Flea事务模板
+Flea事务模板 [FleaTransactionTemplate](https://github.com/Huazie/flea-framework/blob/main/flea-db/flea-db-jpa/src/main/java/com/huazie/fleaframework/db/jpa/transaction/FleaTransactionTemplate.java)，参考 **Spring** 的 **TransactionTemplate**，它是简化程序化事务划分和事务异常处理的模板类。其核心方法是 `execute` , 参数是实现事务回调接口的事务代码。此模板收敛了处理事务生命周期和可能的异常的逻辑，因此事务回调接口的实现和调用代码都不需要显式处理事务。
 
 下面将贴出其核心方法 `execute`，如下：
 
@@ -352,7 +352,7 @@ Flea事物模板 [FleaTransactionTemplate](https://github.com/Huazie/flea-framew
         if (this.transactionManager instanceof CallbackPreferringPlatformTransactionManager) {
             return ((CallbackPreferringPlatformTransactionManager) this.transactionManager).execute(this, action);
         } else {
-            // 开启Flea自定义事物
+            // 开启Flea自定义事务
             TransactionStatus status = FleaJPASplitHelper.getHandler().getTransaction(this, transactionManager, entityManager);
             T result;
             try {
@@ -387,7 +387,7 @@ Flea事物模板 [FleaTransactionTemplate](https://github.com/Huazie/flea-framew
 ```
 
 ## 3.3 Flea实体管理器
-Flea 实体管理器工具类 [FleaEntityManager](https://github.com/Huazie/flea-framework/blob/main/flea-db/flea-db-jpa/src/main/java/com/huazie/fleaframework/db/jpa/persistence/FleaEntityManager.java)，提供了获取持久化上下文交互的实体管理器接口、持久化单元名、事物名、分表信息、各持久化上下文交互接口的静态方法【如： **getFleaNextValue**，**find**，**remove**，**merge**，**persist**，**flush**】。
+Flea 实体管理器工具类 [FleaEntityManager](https://github.com/Huazie/flea-framework/blob/main/flea-db/flea-db-jpa/src/main/java/com/huazie/fleaframework/db/jpa/persistence/FleaEntityManager.java)，提供了获取持久化上下文交互的实体管理器接口、持久化单元名、事务名、分表信息、各持久化上下文交互接口的静态方法【如： **getFleaNextValue**，**find**，**remove**，**merge**，**persist**，**flush**】。
 
 下面我们来看下整体的代码：
 
@@ -412,9 +412,9 @@ public class FleaEntityManager {
         if (!entityManagerMap.containsKey(unitName)) {
             synchronized (entityManagerMap) {
                 if (!entityManagerMap.containsKey(unitName)) {
-                    // 根据事物名，获取配置的事物管理者
+                    // 根据事务名，获取配置的事务管理者
                     JpaTransactionManager manger = (JpaTransactionManager) FleaApplicationContext.getBean(transactionName);
-                    // 事物名【{0}】非法，请检查！
+                    // 事务名【{0}】非法，请检查！
                     ObjectUtils.checkEmpty(manger, DaoException.class, "ERROR-DB-DAO0000000015", transactionName);
                     // 获取实体管理者工厂类
                     EntityManagerFactory entityManagerFactory = manger.getEntityManagerFactory();
@@ -437,7 +437,7 @@ public class FleaEntityManager {
     }
 
     /**
-     * 从指定类的第一个成员方法上，获取事物名。在 <b> flea-db </b> 模块中，
+     * 从指定类的第一个成员方法上，获取事务名。在 <b> flea-db </b> 模块中，
      * 该名称一般定义在 {@code AbstractFleaJPADAOImpl} 的子类的成员方法上，
      * 由注解 {@code Transactional}或{@code FleaTransactional} 进行标识。
      */
@@ -446,7 +446,7 @@ public class FleaEntityManager {
     }
 
     /**
-     * 从指定类的成员方法上，获取事物名。在 <b> flea-db </b> 模块中，
+     * 从指定类的成员方法上，获取事务名。在 <b> flea-db </b> 模块中，
      * 该名称一般定义在 {@code AbstractFleaJPADAOImpl} 的子类的成员方法上，
      * 由注解 {@code Transactional}或{@code FleaTransactional} 进行标识。
      */
@@ -456,7 +456,7 @@ public class FleaEntityManager {
 
     /**
      * 从指定类的成员方法上，获取持久化单元名。在 <b> flea-db </b> 模块中，
-     * 该名称定义在注解{@code FleaTransactional} 中，用于启动自定的事物。
+     * 该名称定义在注解{@code FleaTransactional} 中，用于启动自定的事务。
      */
     public static String getUnitName(Method method) {
         // 省略。。
@@ -598,7 +598,7 @@ public interface IFleaJPASplitHandler {
     EntityManager handle(EntityManager entityManager, Object entity, boolean flag) throws CommonException;
 
     /**
-     * 分表场景下，取事物管理器中的实体管理器工厂类，并将其作为键，
+     * 分表场景下，取事务管理器中的实体管理器工厂类，并将其作为键，
      * 绑定实体管理器对应的包装类资源到当前线程。以支持JPA的增删改操作。
      */
     TransactionStatus getTransaction(TransactionDefinition definition, PlatformTransactionManager transactionManager, EntityManager entityManager);
@@ -764,7 +764,7 @@ public abstract class FleaLibTableSplitHandler implements IFleaJPASplitHandler {
 
     @Override
     public TransactionStatus getTransaction(TransactionDefinition definition, PlatformTransactionManager transactionManager, EntityManager entityManager) {
-        // JPA事物管理器
+        // JPA事务管理器
         JpaTransactionManager jpaTransactionManager = (JpaTransactionManager) transactionManager;
         Object obj = TransactionSynchronizationManager.getResource(jpaTransactionManager.getEntityManagerFactory());
         if (ObjectUtils.isEmpty(obj)) {
@@ -775,7 +775,7 @@ public abstract class FleaLibTableSplitHandler implements IFleaJPASplitHandler {
             // 将实体管理器工厂类的实体管理器包装类资源绑定到当前线程
             TransactionSynchronizationManager.bindResource(jpaTransactionManager.getEntityManagerFactory(), entityManagerHolder);
         }
-        // 获取事物状态对象，并开启事物
+        // 获取事务状态对象，并开启事务
         return jpaTransactionManager.getTransaction(definition);
     }
 
@@ -1477,13 +1477,13 @@ public class OldOrderTest {
 
 }
 ```
-## 5.3 JPA事物演示
-首先我们先看下如何在 **除了数据源DAO层实现类之外** 的方法上使用自定的事物注解 `@FleaTransactional`，
+## 5.3 JPA事务演示
+首先我们先看下如何在 **除了数据源DAO层实现类之外** 的方法上使用自定的事务注解 `@FleaTransactional`，
 可至 **GitHub** 查看如下代码 ：
 ![](show-transaction.png)
 这里贴出关键使用代码如下：
 
-其中，**value** 的值为 **模板库事物名**，**unitName** 的值为 **模板库持久化单元名**【也为对应 **模板库名**】
+其中，**value** 的值为 **模板库事务名**，**unitName** 的值为 **模板库持久化单元名**【也为对应 **模板库名**】
 ```java
     @Override
     @FleaTransactional(value = "fleaOrderTransactionManager", unitName = "fleaorder")

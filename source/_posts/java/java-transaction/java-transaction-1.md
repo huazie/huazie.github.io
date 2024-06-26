@@ -11,13 +11,13 @@ tags:
   - Mybatis
   - Spring Data JPA
   - Spring JDBC
-  - 事物管理
+  - 事务管理
 ---
 
 ![](/images/java-logo.png)
 
 # 引言
-在 **Java** 语言相关的应用开发中，事务（**Transaction**）是其中一个核心概念，尤其是在涉及数据库操作时。理解并正确使用事务，可以确保应用系统数据的完整性和一致性。本文 **Huazie** 将带您从 **Java** 事务的基础概念出发，通过不同场景的事物管理实操，帮助您快速入门 **Java** 事务。
+在 **Java** 语言相关的应用开发中，事务（**Transaction**）是其中一个核心概念，尤其是在涉及数据库操作时。理解并正确使用事务，可以确保应用系统数据的完整性和一致性。本文 **Huazie** 将带您从 **Java** 事务的基础概念出发，通过不同场景的事务管理实操，帮助您快速入门 **Java** 事务。
 
 <!-- more -->
 
@@ -87,13 +87,13 @@ tags:
             // 提交事务
             conn.commit();
 
-            LOGGER.debug("提交事物");
+            LOGGER.debug("提交事务");
         } catch (SQLException e) {
             if (null != conn) {
                 try {
                     // 回滚事务
                     conn.rollback();
-                    LOGGER.debug("回滚事物");
+                    LOGGER.debug("回滚事务");
                 } catch (SQLException ex) {
                 }
             }
@@ -135,7 +135,7 @@ tags:
 
 **Spring** 提供了强大的声明式事务管理功能，我们可以将事务管理与业务逻辑分离，在不修改业务代码的情况下，为业务方法添加事务支持。
 
-**Spring** 事务管理的核心接口是 `PlatformTransactionManager`，它是所有事务管理器的抽象。**Spring** 提供了多种事务管理器的实现。我们可以通过配置来选择合适的事务管理器，以便于 **Spring** 结合 **JDBC**、**JPA**、**MyBatis（Mybatis Plus）** 等框架来管理事物。
+**Spring** 事务管理的核心接口是 `PlatformTransactionManager`，它是所有事务管理器的抽象。**Spring** 提供了多种事务管理器的实现。我们可以通过配置来选择合适的事务管理器，以便于 **Spring** 结合 **JDBC**、**JPA**、**MyBatis（Mybatis Plus）** 等框架来管理事务。
 
 ### 2.2.1 Spring + JDBC 
 
@@ -160,7 +160,7 @@ tags:
     </bean>
 ```
 
-配置事物管理器 `DataSourceTransactionManager`，如下：
+配置事务管理器 `DataSourceTransactionManager`，如下：
 
 ```xml
   <bean id="jdbcTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -176,7 +176,7 @@ tags:
 
 #### 2.2.1.2 添加业务代码并测试验证
 
-下面让我们添加业务代码，来演示下具体的事物管理，如下：
+下面让我们添加业务代码，来演示下具体的事务管理，如下：
 
 ```java
 import org.springframework.beans.factory.annotation.Autowired;
@@ -238,7 +238,7 @@ public class StudentSpringJDBCTest {
 
 **那这里是什么原因呢？** 
 
-这就要提到刚才抛出的异常了【即 `SQLException`】，Spring 事物管理能处理的异常一定要是`RuntimeException及其子类` 或者 `Error及其子类`，否则事物无法回滚。
+这就要提到刚才抛出的异常了【即 `SQLException`】，Spring 事务管理能处理的异常一定要是`RuntimeException及其子类` 或者 `Error及其子类`，否则事务无法回滚。
 
 可见如下截图【这块后续有时间展开讲解下】：
 
@@ -372,7 +372,7 @@ public class StudentSpringJDBCTest {
     </bean>
 ```
 
-配置 **JPA** 事物管理器 `JpaTransactionManager`，如下：
+配置 **JPA** 事务管理器 `JpaTransactionManager`，如下：
 
 ```xml
   <bean id="fleaJpaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
@@ -565,7 +565,7 @@ public class StudentSpringJPATest {
     </bean>
 ```
 
-配置事物管理器 `DataSourceTransactionManager`，如下：
+配置事务管理器 `DataSourceTransactionManager`，如下：
 
 ```xml
   <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -667,7 +667,7 @@ public class StudentServiceSpringTest {
 
 ![](result-spring-mybatisplus.png)
 
-从上述截图可见，自定义异常已经被抛出，并且数据库中也没有执行成功，说明事物已经回滚了。
+从上述截图可见，自定义异常已经被抛出，并且数据库中也没有执行成功，说明事务已经回滚了。
 
 现在将抛出异常的代码注释掉，再来运行看看，如下：
 
@@ -680,7 +680,7 @@ public class StudentServiceSpringTest {
 相关演示示例请查看 **GitHub** 上的 [flea-db-test](https://github.com/huazie/flea-db-test) 测试项目。
 # 总结
 
-本文 **Huazie** 从 **Java** 事物的基础概念出发，带大家通过不同的事物管理方式进行实践，进一步加深了对 **Java** 事物的理解。
+本文 **Huazie** 从 **Java** 事务的基础概念出发，带大家通过不同的事务管理方式进行实践，进一步加深了对 **Java** 事务的理解。
 
 
 
