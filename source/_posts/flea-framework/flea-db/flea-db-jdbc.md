@@ -21,7 +21,7 @@ tags:
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 1. 准备工作
-为了演示JDBC接入（参考 [JPA接入](/2019/09/12/flea-framework/flea-db/flea-db-jpa-integration/) 中的准备工作），需要如下准备：
+为了演示JDBC接入（参考 [JPA接入](../../../../../../2019/09/12/flea-framework/flea-db/flea-db-jpa-integration/) 中的准备工作），需要如下准备：
 
  1. MySQL数据库 (客户端可以使用 navicat for mysql)
  2. 新建测试数据库 fleajpatest
@@ -250,7 +250,7 @@ public class FleaJDBCConfig {
     // 省略一些close方法
 }
 ```
-上述 **init** 方法中，使用了 [FleaFrameManager.getManager().setDBConfigKey](https://github.com/Huazie/flea-framework/blob/dev/flea-common/src/main/java/com/huazie/fleaframework/common/FleaFrameManager.java)，这里是将 JDBC连接的数据库配置添加到了线程对象中 [ThreadLocal](/2021/04/12/java/java-concurrency-learning/java-concurrency-learning4/) 中，代码如下：
+上述 **init** 方法中，使用了 [FleaFrameManager.getManager().setDBConfigKey](https://github.com/Huazie/flea-framework/blob/dev/flea-common/src/main/java/com/huazie/fleaframework/common/FleaFrameManager.java)，这里是将 JDBC连接的数据库配置添加到了线程对象中 [ThreadLocal](../../../../../../2021/04/12/java/java-concurrency-learning/java-concurrency-learning4/) 中，代码如下：
 
 ```java
     // 当前线程采用JDBC连的数据库前缀配置

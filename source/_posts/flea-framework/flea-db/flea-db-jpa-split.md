@@ -14,8 +14,8 @@ tags:
 
 # 引言
 在开始本篇的讲解之前，我先来说下之前写过的两篇博文【现在已弃用】：
-[flea-frame-db使用之基于EntityManager实现JPA分表的数据库操作【旧】](/2019/10/09/flea-framework/flea-db/flea-frame-db-jpa-entitymanager-split-table/)
-[flea-frame-db使用之基于FleaJPAQuery实现JPA分表查询【旧】](/2019/10/02/flea-framework/flea-db/flea-frame-db-jpa-fleajpaquery-split-table/)
+[flea-frame-db使用之基于EntityManager实现JPA分表的数据库操作【旧】](../../../../../../2019/10/09/flea-framework/flea-db/flea-frame-db-jpa-entitymanager-split-table/)
+[flea-frame-db使用之基于FleaJPAQuery实现JPA分表查询【旧】](../../../../../../2019/10/02/flea-framework/flea-db/flea-frame-db-jpa-fleajpaquery-split-table/)
 
 <!-- more -->
 
@@ -1141,7 +1141,7 @@ public final class FleaEntityManagerImpl extends EntityManagerImpl {
 # 4. 接入讲解
 ## 4.1 数据库和表
 ### 4.1.1 模板库
-**flea_id_generator** 为主键生成器表，可查看笔者的这篇博文[《flea-db使用之主键生成器表介绍》](/2019/09/04/flea-framework/flea-db/flea-db-jpa-id-generator/)，不再赘述。
+**flea_id_generator** 为主键生成器表，可查看笔者的这篇博文[《flea-db使用之主键生成器表介绍》](../../../../../../2019/09/04/flea-framework/flea-db/flea-db-jpa-id-generator/)，不再赘述。
 
 ![](fleaorder.png)
 ### 4.1.2 分库1

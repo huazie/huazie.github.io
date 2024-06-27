@@ -17,7 +17,7 @@ tags:
 ![](/images/spring-boot-logo.png)
 
 # 一、引言
-书接前文[《BootstrapRegistry 详解》](/2024/01/31/spring-boot/spring-boot-sourcecode-bootstrapregistry/)，在介绍 `BootstrapRegistry`  的内部类 `InstanceSupplier` 的 `get` 方法时，看到了它的唯一参数 `BootstrapContext` 接口【即引导上下文】。而这个接口及其默认实现就是本篇要重点介绍的对象，且听我娓娓道来。
+书接前文[《BootstrapRegistry 详解》](../../../../../2024/01/31/spring-boot/spring-boot-sourcecode-bootstrapregistry/)，在介绍 `BootstrapRegistry`  的内部类 `InstanceSupplier` 的 `get` 方法时，看到了它的唯一参数 `BootstrapContext` 接口【即引导上下文】。而这个接口及其默认实现就是本篇要重点介绍的对象，且听我娓娓道来。
 
 
 <!-- more -->
@@ -232,7 +232,7 @@ public interface ConfigurableBootstrapContext extends BootstrapRegistry, Bootstr
 
 ## 3.3 DefaultBootstrapContext
 
-在 [《BootstrapRegistryInitializer 详解》](/2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/) 的 3.1 小节，我们提到了 `BootstrapRegistry` 的一个默认实现 `DefaultBootstrapContext` ，下面我们就来深入分析一下。
+在 [《BootstrapRegistryInitializer 详解》](../../../../../2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/) 的 3.1 小节，我们提到了 `BootstrapRegistry` 的一个默认实现 `DefaultBootstrapContext` ，下面我们就来深入分析一下。
 
 ### 3.3.1 源码初识
 话不多说，直接翻看对应的源码：
@@ -267,7 +267,7 @@ public class DefaultBootstrapContext implements ConfigurableBootstrapContext {
 > **注意：** `SimpleApplicationEventMulticaster` 会将所有的事件广播给所有已注册的监听器，而由监听器自行决定忽略它们不感兴趣的事件。监听器通常会在传入的事件对象上进行相应的 `instanceof` 检查。
 默认情况下，所有的监听器都在调用线程中被调用。这允许存在一个恶意的监听器阻塞整个应用程序的风险，但增加了最小的开销。如果指定了替代的任务执行器，可以让监听器在不同的线程中执行，例如来自一个线程池。
 ### 3.3.2 实现 BootstrapRegistry 接口中的方法
-在 [《BootstrapRegistry 详解》](/2024/01/31/spring-boot/spring-boot-sourcecode-bootstrapregistry/)中，我们已经了解相关的 5 个方法，下面直接看 `DefaultBootstrapContext` 中的实现： 
+在 [《BootstrapRegistry 详解》](../../../../../2024/01/31/spring-boot/spring-boot-sourcecode-bootstrapregistry/)中，我们已经了解相关的 5 个方法，下面直接看 `DefaultBootstrapContext` 中的实现： 
 
 ```java
     @Override

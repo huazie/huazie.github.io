@@ -16,7 +16,7 @@ tags:
 
 # 一、引言
 
-在前面的博文[《初识 SpringApplication》](/2023/11/12/spring-boot/spring-boot-sourcecode-springapplication/)中，**Huazie** 带大家一起分析了 `SpringApplication` 类实例化的逻辑。当 `SpringApplication` 对象被创建之后，我们就可以调用它的 `run` 方法来启动和运行 **Spring Boot** 项目。
+在前面的博文[《初识 SpringApplication》](../../../../../2023/11/12/spring-boot/spring-boot-sourcecode-springapplication/)中，**Huazie** 带大家一起分析了 `SpringApplication` 类实例化的逻辑。当 `SpringApplication` 对象被创建之后，我们就可以调用它的 `run` 方法来启动和运行 **Spring Boot** 项目。
 
 本篇博文将围绕 `SpringApplication` 的  `run` 方法展开，带大家一起从源码分析 **Spring Boot** 的运行流程。
 
@@ -198,14 +198,14 @@ DefaultBootstrapContext bootstrapContext = createBootstrapContext();
 
 ![](DefaultBootstrapContext.png)
 
-在[《BootstrapRegistryInitializer 详解》](/2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/)中，Huazie 带大家详细分析了加载并初始化 `BootstrapRegistryInitializer` 的逻辑。而这里的 `createBootstrapContext` 方法就是用于创建默认的引导上下文对象 `DefaultBootstrapContext`，并利用 `BootstrapRegistry` 初始化器初始化该引导上下文对象。
+在[《BootstrapRegistryInitializer 详解》](../../../../../2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/)中，Huazie 带大家详细分析了加载并初始化 `BootstrapRegistryInitializer` 的逻辑。而这里的 `createBootstrapContext` 方法就是用于创建默认的引导上下文对象 `DefaultBootstrapContext`，并利用 `BootstrapRegistry` 初始化器初始化该引导上下文对象。
 
 想深入了解的朋友们，可查看 **Huazie** 下面列出的博文：
 
-- [《BootstrapRegistry 详解》](/2024/01/31/spring-boot/spring-boot-sourcecode-bootstrapregistry/)
-- [《深入 BootstrapContext 及其默认实现》](/2024/02/25/spring-boot/spring-boot-sourcecode-bootstrapcontext/)
-- [《BootstrapRegistry 初始化器实现》](/2024/03/02/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer-impl/)
-- [《BootstrapContext的实际使用场景》](/2024/03/09/spring-boot/spring-boot-sourcecode-bootstrapcontext-actual-usage-scenario/)
+- [《BootstrapRegistry 详解》](../../../../../2024/01/31/spring-boot/spring-boot-sourcecode-bootstrapregistry/)
+- [《深入 BootstrapContext 及其默认实现》](../../../../../2024/02/25/spring-boot/spring-boot-sourcecode-bootstrapcontext/)
+- [《BootstrapRegistry 初始化器实现》](../../../../../2024/03/02/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer-impl/)
+- [《BootstrapContext的实际使用场景》](../../../../../2024/03/09/spring-boot/spring-boot-sourcecode-bootstrapcontext-actual-usage-scenario/)
 ## 3.3  系统属性【java.awt.headless】
 
 ```java
@@ -284,8 +284,8 @@ Banner printedBanner = printBanner(environment);
 
 想要深入了解 **Banner** 打印的读者们，请查看如下博文：
 
-- [《Banner 信息打印流程》](/2023/11/19/spring-boot/spring-boot-sourcecode-banner-printer/)
-- [《自定义 Banner 信息打印》](/2023/11/24/spring-boot/spring-boot-sourcecode-custom-banner-printer/)
+- [《Banner 信息打印流程》](../../../../../2023/11/19/spring-boot/spring-boot-sourcecode-banner-printer/)
+- [《自定义 Banner 信息打印》](../../../../../2023/11/24/spring-boot/spring-boot-sourcecode-custom-banner-printer/)
 
 ## 3.7 新建应用上下文
 
@@ -299,7 +299,7 @@ protected ConfigurableApplicationContext createApplicationContext() {
 
 上述 `createApplicationContext` 方法的功能是：根据给定的 **Web** 应用程序类型 `webApplicationType` 创建一个可配置的应用上下文对象 `ConfigurableApplicationContext` 。
 
-在[《初识 SpringApplication》](/2023/11/12/spring-boot/spring-boot-sourcecode-springapplication/)这篇博文的 **2.2 小节**【**Web 应用类型推断**】中，大家可以看到 **Web** 应用程序类型 `webApplicationType` 是如何获取的，这里不赘述了，感兴趣的可以自行查看。
+在[《初识 SpringApplication》](../../../../../2023/11/12/spring-boot/spring-boot-sourcecode-springapplication/)这篇博文的 **2.2 小节**【**Web 应用类型推断**】中，大家可以看到 **Web** 应用程序类型 `webApplicationType` 是如何获取的，这里不赘述了，感兴趣的可以自行查看。
 ## 3.8 准备和配置应用上下文
 ```java
 context.setApplicationStartup(this.applicationStartup);

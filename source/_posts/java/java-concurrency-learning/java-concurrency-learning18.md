@@ -16,7 +16,7 @@ tags:
 # 引言
 上篇介绍了 `ThreadPoolExecutor` 配置和扩展相关的信息，本篇开始将介绍递归算法的并行化。
 
-还记得我们在[《Java并发编程学习11-任务执行演示》](/2022/10/15/java/java-concurrency-learning/java-concurrency-learning11/)中，对页面绘制程序进行一系列改进，这些改进大大地提供了页面绘制的并行性。
+还记得我们在[《Java并发编程学习11-任务执行演示》](../../../../../../2022/10/15/java/java-concurrency-learning/java-concurrency-learning11/)中，对页面绘制程序进行一系列改进，这些改进大大地提供了页面绘制的并行性。
 
 <!-- more -->
 

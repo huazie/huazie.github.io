@@ -15,7 +15,7 @@ tags:
 ![](/images/spring-boot-logo.png)
 
 # 一、引言
-前面的博文[《BootstrapRegistryInitializer 详解》](/2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/)，Huazie 带大家一起详细分析了 **Spring Boot** 启动时加载并初始化 `BootstrapRegistryInitializer` 及其相关的类的逻辑。其中有个 `BootstrapRegistry` 接口只是简单提及，本篇就详细分析一下 `BootstrapRegistry` 接口，这对于我们后续理解 《`BootstrapRegistry` 初始化器实现》的内容至关重要。
+前面的博文[《BootstrapRegistryInitializer 详解》](../../../../../2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/)，Huazie 带大家一起详细分析了 **Spring Boot** 启动时加载并初始化 `BootstrapRegistryInitializer` 及其相关的类的逻辑。其中有个 `BootstrapRegistry` 接口只是简单提及，本篇就详细分析一下 `BootstrapRegistry` 接口，这对于我们后续理解 《`BootstrapRegistry` 初始化器实现》的内容至关重要。
 
 <!-- more -->
 
@@ -144,7 +144,7 @@ tags:
 # 三、主要内容
 > 注意： 以下涉及 **Spring Boot** 源码 均来自版本 **2.7.9**，其他版本有所出入，可自行查看源码。
 
-在 [《BootstrapRegistryInitializer 详解》](/2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/) 的 3.1 小节，我们对 `BootstrapRegistry` 进行了初步的介绍：它是一个用于存储和共享对象的注册表，这些对象在 `ApplicationContext` 准备好之前就可能已经被创建并需要被共享。
+在 [《BootstrapRegistryInitializer 详解》](../../../../../2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/) 的 3.1 小节，我们对 `BootstrapRegistry` 进行了初步的介绍：它是一个用于存储和共享对象的注册表，这些对象在 `ApplicationContext` 准备好之前就可能已经被创建并需要被共享。
 ## 3.1 源码初识
 首先让我们来看看 `BootstrapRegistry` 的源码：
 

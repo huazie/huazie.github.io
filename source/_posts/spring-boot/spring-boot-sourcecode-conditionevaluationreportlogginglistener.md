@@ -16,7 +16,7 @@ tags:
 ![](/images/spring-boot-logo.png)
 
 # 一、引言
-上篇博文[《共享 MetadataReaderFactory 上下文初始化器》](/2024/03/24/spring-boot/spring-boot-sourcecode-sharedmetadatareaderfactorycontextinitializer/)，**Huazie** 带大家详细分析了 
+上篇博文[《共享 MetadataReaderFactory 上下文初始化器》](../../../../../2024/03/24/spring-boot/spring-boot-sourcecode-sharedmetadatareaderfactorycontextinitializer/)，**Huazie** 带大家详细分析了 
 `SharedMetadataReaderFactoryContextInitializer` 。而在 **spring-boot-autoconfigure** 子模块中预置的上下文初始化器中，除了共享 `MetadataReaderFactory` 上下文初始化器，还有一个尚未分析。
 
 那么本篇就来详细分析一下 `ConditionEvaluationReportLoggingListener` 【即 `ConditionEvaluationReport` 日志记录上下文初始化器】。
@@ -219,7 +219,7 @@ public class ConditionEvaluationReportLoggingListener
     // 省略。。。
 }
 ```
-从上述源码中，我们可以看出 `ConditionEvaluationReportLoggingListener` 实现了 `ApplicationContextInitializer<ConfigurableApplicationContext>` 【即应用上下文初始化器接口】，有关 `ApplicationContextInitializer` 的详细介绍，请查看[《ApplicationContextInitializer 详解》](/2023/12/03/spring-boot/spring-boot-sourcecode-applicationcontextinitializer/)。
+从上述源码中，我们可以看出 `ConditionEvaluationReportLoggingListener` 实现了 `ApplicationContextInitializer<ConfigurableApplicationContext>` 【即应用上下文初始化器接口】，有关 `ApplicationContextInitializer` 的详细介绍，请查看[《ApplicationContextInitializer 详解》](../../../../../2023/12/03/spring-boot/spring-boot-sourcecode-applicationcontextinitializer/)。
 
 它有三个成员变量，分别是：
 

@@ -32,7 +32,7 @@ tags:
 ```
 
 # 2. 客户端接入步骤
-1. 客户端确定待调用的资源服务【参见 [Flea RESTful接口服务端接入](/2019/11/29/flea-framework/flea-jersey/flea-jersey-server/)】，并配置资源客户端表；
+1. 客户端确定待调用的资源服务【参见 [Flea RESTful接口服务端接入](../../../../../../2019/11/29/flea-framework/flea-jersey/flea-jersey-server/)】，并配置资源客户端表；
 2. 客户端定义业务入参和业务出参 **POJO** 类；
 3. 客户端使用 **FleaJerseyClient** 调用资源服务。
 

@@ -308,7 +308,7 @@ public @interface ConditionalOnWebApplication {
 
 通过查看 `@ConditionalOnWebApplication` 注解的源码，我们发现它的确组合了 `@Conditional` 注解，并且指定了对应的 **Condition** 为`OnWebApplicationCondition`。该类继承自 `SpringBootCondition` 并实现 `AutoConfigurationImportFilter` 接口。
 
-有关 `OnWebApplicationCondition` 类的详细介绍，请查看笔者的[《【Spring Boot 源码学习】OnWebApplicationCondition 详解》](/2023/10/06/spring-boot/spring-boot-sourcecode-onwebapplicationcondition/)，
+有关 `OnWebApplicationCondition` 类的详细介绍，请查看笔者的[《【Spring Boot 源码学习】OnWebApplicationCondition 详解》](../../../../../2023/10/06/spring-boot/spring-boot-sourcecode-onwebapplicationcondition/)，
 
 了解了条件类的相关内容后，我们可以用如下图来表示 `Condition` 接口相关功能及实现类：
 

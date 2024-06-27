@@ -14,7 +14,7 @@ tags:
 
 # 一、引言
 
-在 [《SpringApplication 的 run 方法核心流程介绍》](/2024/04/28/spring-boot/spring-boot-sourcecode-springapplication-run-listener/) 博文中，我们知道了 `ApplicationArguments` 是 **Spring Boot** 中用于获取 **应用程序启动参数** 的接口，其默认实现是 `DefaultApplicationArguments`。
+在 [《SpringApplication 的 run 方法核心流程介绍》](../../../../../2024/04/28/spring-boot/spring-boot-sourcecode-springapplication-run-listener/) 博文中，我们知道了 `ApplicationArguments` 是 **Spring Boot** 中用于获取 **应用程序启动参数** 的接口，其默认实现是 `DefaultApplicationArguments`。
 
 不过有关内容尚未详细介绍，本篇就带大家深入分析下 `ApplicationArguments` 接口及其默认实现。
 

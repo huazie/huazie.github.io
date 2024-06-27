@@ -14,7 +14,7 @@ tags:
 ![](/images/go-logo.png)
 
 # 引言
-上篇我们介绍了Go语言的[《切片类型》](/2016/07/03/go/go-learning/go-learning5/)，本篇我们了解一下Go语言的字典类型。主要如下：
+上篇我们介绍了Go语言的[《切片类型》](../../../../../../2016/07/03/go/go-learning/go-learning5/)，本篇我们了解一下Go语言的字典类型。主要如下：
 
 <!-- more -->
 

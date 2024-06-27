@@ -51,10 +51,10 @@ tags:
 ```
 # 3. 基础接入
 ## 3.1 定义Flea缓存接口 --- IFleaCache
-可参考笔者的这篇博文 [Memcached接入](/2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
+可参考笔者的这篇博文 [Memcached接入](../../../../../../2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
 
 ## 3.2 定义抽象Flea缓存类 --- AbstractFleaCache
-可参考笔者的这篇博文 [Memcached接入](/2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
+可参考笔者的这篇博文 [Memcached接入](../../../../../../2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
 ## 3.3 定义Redis客户端接口类 --- RedisClient
 ```java
 /**
@@ -706,7 +706,7 @@ public class RedisFleaCache extends AbstractFleaCache {
 }
 ```
 ## 3.8 定义抽象Flea缓存管理类 --- AbstractFleaCacheManager
-可参考笔者的这篇博文 [Memcached接入](/2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
+可参考笔者的这篇博文 [Memcached接入](../../../../../../2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
 ## 3.9 定义Redis Flea缓存管理类 --- RedisFleaCacheManager
 该类继承抽象Flea缓存管理类 **AbstractFleaCacheManager**，构造方法使用了**Redis** 客户端代理类 **RedisClientProxy** 获取Redis客户端 **RedisClient**，可在 **3.10** 查看。**newCache** 方法返回的是 **RedisFleaCache** 的实例对象，每一类 **Redis** 缓存数据都对应了一个  **RedisFleaCache** 的实例对象。
 ```java
@@ -868,7 +868,7 @@ public class RedisClientProxyInterceptor implements IFleaProxyInterceptor {
 ```
 哇，终于Redis接入差不多要完成了，下面一起开始启动单元测试吧
 ## 3.13 Redis接入自测 --- FleaCacheTest
-首先，这里需要按照 **Redis** 配置文件中的地址部署相应的 **Redis** 服务，可参考笔者的 [这篇博文](/2019/08/30/flea-framework/flea-cache/flea-cache-windows-more-services/)。
+首先，这里需要按照 **Redis** 配置文件中的地址部署相应的 **Redis** 服务，可参考笔者的 [这篇博文](../../../../../../2019/08/30/flea-framework/flea-cache/flea-cache-windows-more-services/)。
 ```java
     @Test
     public void testRedisFleaCache() {
@@ -889,7 +889,7 @@ public class RedisClientProxyInterceptor implements IFleaProxyInterceptor {
 ```
 # 4. 进阶接入
 ## 4.1 定义抽象Spring缓存 --- AbstractSpringCache
-可参考笔者的这篇博文 [Memcached接入](/2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
+可参考笔者的这篇博文 [Memcached接入](../../../../../../2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
 ## 4.2 定义Redis Spring缓存类 --- RedisSpringCache
 该类继承抽象 **Spring** 缓存 **AbstractSpringCache**，用于对接 **Spring**； 从构造方法可见，该类初始化还是使用 **RedisFleaCache**。
 ```java
@@ -924,7 +924,7 @@ public class RedisSpringCache extends AbstractSpringCache {
 }
 ```
 ## 4.3 定义抽象Spring缓存管理类 --- AbstractSpringCacheManager
-可参考笔者的这篇博文 [Memcached接入](/2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
+可参考笔者的这篇博文 [Memcached接入](../../../../../../2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
 ## 4.4 定义Redis Spring缓存管理类 --- RedisSpringCacheManager
 该类继承抽象 **Spring** 缓存管理类 **AbstractSpringCacheManager**，用于对接**Spring**; 基本实现同 **RedisFleaCacheManager**，唯一不同在于 **newCache** 的实现。
 ```java
@@ -1018,4 +1018,4 @@ public class RedisSpringCacheManager extends AbstractSpringCacheManager {
 好了, **Redis** 的接入工作已经全部完成了。到目前为止，不论是Memcached的接入还是 Redis的接入，都是单一的缓存接入，笔者后续将介绍如何整合Memcached和Redis接入，以应对日益复杂的业务需求。 敬请期待！！！
 
 # 更新
-这一版 **Redis接入** 已进行重构，可详见 [flea-cache使用之Redis分片模式接入](/2021/11/18/flea-framework/flea-cache/flea-cache-redissharded/)
+这一版 **Redis接入** 已进行重构，可详见 [flea-cache使用之Redis分片模式接入](../../../../../../2021/11/18/flea-framework/flea-cache/flea-cache-redissharded/)

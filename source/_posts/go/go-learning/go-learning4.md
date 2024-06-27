@@ -14,7 +14,7 @@ tags:
 ![](/images/go-logo.png)
 
 # 引言
-上篇我们了解 [Go语言的基本数据类型](/2016/07/01/go/go-learning/go-learning3/)，现在开始介绍数组类型。主要如下：
+上篇我们了解 [Go语言的基本数据类型](../../../../../../2016/07/01/go/go-learning/go-learning3/)，现在开始介绍数组类型。主要如下：
 
 <!-- more -->
 

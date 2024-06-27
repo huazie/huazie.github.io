@@ -3,7 +3,7 @@ title: Windows部署多个Memcached和Redis服务
 date: 2019-08-30 08:24:34
 updated: 2023-07-11 11:52:39
 categories:
-  - 开发框架-Flea
+  - [开发框架-Flea,flea-cache]
 tags:
   - Windows
   - Memcached

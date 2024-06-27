@@ -199,7 +199,7 @@ public class LogService {
 
 ## 2. 关闭 ExecutorService
 
-在前面的[《任务执行与Executor框架》](/2022/10/03/java/java-concurrency-learning/java-concurrency-learning10/)报文中，我们了解了 **ExecutorService** 提供了两种关闭方法：
+在前面的[《任务执行与Executor框架》](../../../../../../2022/10/03/java/java-concurrency-learning/java-concurrency-learning10/)报文中，我们了解了 **ExecutorService** 提供了两种关闭方法：
 
 1. 使用 **shutdown** 正常关闭
 2. 使用 **shutdownNow** 强行关闭

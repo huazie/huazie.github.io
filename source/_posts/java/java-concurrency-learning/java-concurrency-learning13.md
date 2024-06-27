@@ -70,7 +70,7 @@ public class TimeRunTest {
 
 读者可以自行调试下，虽然 **timeRun** 能实现限时执行的功能，但它是通过外部线程安排中断实现。
 
-在前面的 [《任务取消（上）》](/2022/11/11/java/java-concurrency-learning/java-concurrency-learning12/)中我们了解到，每个线程都有自己的中断策略，在中断线程之前，应该了解它的中断策略，否则就不应该中断该线程。
+在前面的 [《任务取消（上）》](../../../../../../2022/11/11/java/java-concurrency-learning/java-concurrency-learning12/)中我们了解到，每个线程都有自己的中断策略，在中断线程之前，应该了解它的中断策略，否则就不应该中断该线程。
 
 由于 **timeRun** 可以从任意一个线程中调用，因此它无法知道这个调用线程的中断策略。
 
@@ -186,9 +186,9 @@ public class TaskUtils {
 
 ## 2. 通过 Future 来实现取消
 
-在前面的[《同步工具类》](/2022/09/17/java/java-concurrency-learning/java-concurrency-learning8/)博文中，咱们已经初步了解 **Future**，它可以管理任务的生命周期、处理异常以及实现取消。
+在前面的[《同步工具类》](../../../../../../2022/09/17/java/java-concurrency-learning/java-concurrency-learning8/)博文中，咱们已经初步了解 **Future**，它可以管理任务的生命周期、处理异常以及实现取消。
 
-而在另一篇[《任务执行演示》](/2022/10/15/java/java-concurrency-learning/java-concurrency-learning11/)博文中，我们知道 `ExecutorService.submit` 将返回一个 **Future** 来描述任务。**Future** 拥有一个 **cancel** 方法，该方法带有一个 **boolean** 类型的参数 **mayInterruptIfRunning**，一个 **boolean** 类型的返回值。如果 **mayInterruptIfRunning** 为 **true** 并且任务当前正在某个线程中运行，那么这个线程能被中断。如果 **mayInterruptIfRunning** 为 **false**，则允许完成正在进行的任务，同时还未启动的任务也不再运行，这种方式适用于那些不处理中断的任务中。如果任务无法取消，则 **cancel** 方法返回 **false**，通常是因为任务已经正常完成；否则返回 **true**。
+而在另一篇[《任务执行演示》](../../../../../../2022/10/15/java/java-concurrency-learning/java-concurrency-learning11/)博文中，我们知道 `ExecutorService.submit` 将返回一个 **Future** 来描述任务。**Future** 拥有一个 **cancel** 方法，该方法带有一个 **boolean** 类型的参数 **mayInterruptIfRunning**，一个 **boolean** 类型的返回值。如果 **mayInterruptIfRunning** 为 **true** 并且任务当前正在某个线程中运行，那么这个线程能被中断。如果 **mayInterruptIfRunning** 为 **false**，则允许完成正在进行的任务，同时还未启动的任务也不再运行，这种方式适用于那些不处理中断的任务中。如果任务无法取消，则 **cancel** 方法返回 **false**，通常是因为任务已经正常完成；否则返回 **true**。
 
 前文中我们一直强调，除非知道线程的中断策略，否则就不要中断线程。
 

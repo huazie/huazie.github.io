@@ -15,7 +15,7 @@ tags:
 ![](/images/spring-boot-logo.png)
 
 # 引言
-上篇博文，笔者带大家从整体上了解了[AutoConfigurationImportSelector](/2023/07/30/spring-boot/spring-boot-sourcecode-autoconfigurationimportselector/) 自动装配逻辑的核心功能及流程，由于篇幅有限，更加细化的功能及流程详解还没有介绍。本篇开始将从其源码入手，重点解析细化后的自动装配流程源码。
+上篇博文，笔者带大家从整体上了解了[AutoConfigurationImportSelector](../../../../../2023/07/30/spring-boot/spring-boot-sourcecode-autoconfigurationimportselector/) 自动装配逻辑的核心功能及流程，由于篇幅有限，更加细化的功能及流程详解还没有介绍。本篇开始将从其源码入手，重点解析细化后的自动装配流程源码。
 
 <!-- more -->
 

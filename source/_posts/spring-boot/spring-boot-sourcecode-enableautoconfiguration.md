@@ -18,7 +18,7 @@ tags:
 
 # 引言
 
-在 **Huazie** 的上篇博文中，我们详细了解了关于 [@SpringBootApplication 注解](/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/)的一些内容，文章最后提到了 `@EnableAutoConfiguration` 注解，用来开启 `Spring Boot` 的自动配置功能，这将是本篇将要重点讲解的内容。
+在 **Huazie** 的上篇博文中，我们详细了解了关于 [@SpringBootApplication 注解](../../../../../2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/)的一些内容，文章最后提到了 `@EnableAutoConfiguration` 注解，用来开启 `Spring Boot` 的自动配置功能，这将是本篇将要重点讲解的内容。
 
 <!-- more -->
 

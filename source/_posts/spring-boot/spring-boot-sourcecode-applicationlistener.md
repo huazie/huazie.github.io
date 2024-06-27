@@ -15,7 +15,7 @@ tags:
 
 # 引言
 
-书接前文[《初识 SpringApplication》](/2023/11/12/spring-boot/spring-boot-sourcecode-springapplication/)，我们从 **Spring Boot** 的启动类 `SpringApplication` 上入手，了解了 `SpringApplication` 实例化过程。其中，[《BootstrapRegistryInitializer 详解》](/2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/)  和 [《ApplicationContextInitializer 详解》](/2023/12/03/spring-boot/spring-boot-sourcecode-applicationcontextinitializer/)博文中，Huazie 已经带大家详细分析了 `BootstrapRegistryInitializer` 和 `ApplicationContextInitializer`  的加载和初始化过程，如下还有 **2.5** 还未详细分析：
+书接前文[《初识 SpringApplication》](../../../../../2023/11/12/spring-boot/spring-boot-sourcecode-springapplication/)，我们从 **Spring Boot** 的启动类 `SpringApplication` 上入手，了解了 `SpringApplication` 实例化过程。其中，[《BootstrapRegistryInitializer 详解》](../../../../../2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/)  和 [《ApplicationContextInitializer 详解》](../../../../../2023/12/03/spring-boot/spring-boot-sourcecode-applicationcontextinitializer/)博文中，Huazie 已经带大家详细分析了 `BootstrapRegistryInitializer` 和 `ApplicationContextInitializer`  的加载和初始化过程，如下还有 **2.5** 还未详细分析：
 ![](/images/springboot/loader.png)
 
 那本篇博文就主要围绕 **2.5** 的内容展开，详细分析一下 `ApplicationListener ` 的加载和处理应用程序事件的逻辑。

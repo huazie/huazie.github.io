@@ -14,7 +14,7 @@ tags:
 ![](/images/go-logo.png)
 
 # 引言
-书接上篇，我们了解了Go语言的[《结构体类型》](/2016/07/07/go/go-learning/go-learning9/)，本篇介绍Go语言的指针类型。主要如下：
+书接上篇，我们了解了Go语言的[《结构体类型》](../../../../../../2016/07/07/go/go-learning/go-learning9/)，本篇介绍Go语言的指针类型。主要如下：
 
 <!-- more -->
 

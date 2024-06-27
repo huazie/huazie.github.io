@@ -334,4 +334,4 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/x
 ```
 
 # 总结
-至此，相关 **JPA** 使用已封装完毕，欢迎大家评论区讨论。下一篇博文将介绍 [《JPA接入》](/2019/09/12/flea-framework/flea-db/flea-db-jpa-integration/) ，向大家演示使用 **JPA** 封装代码来操作数据库，敬请期待！！！
+至此，相关 **JPA** 使用已封装完毕，欢迎大家评论区讨论。下一篇博文将介绍 [《JPA接入》](../../../../../../2019/09/12/flea-framework/flea-db/flea-db-jpa-integration/) ，向大家演示使用 **JPA** 封装代码来操作数据库，敬请期待！！！

@@ -128,7 +128,7 @@ class OnBeanCondition extends FilteringSpringBootCondition implements Configurat
   我们以 **MongoDatabaseFactoryConfiguration** 为例，可以看到如下配置：
   ![](MongoDatabaseFactoryConfiguration.png)
 
-> 有关 `AutoConfigurationMetadata` 接口的 `get(String className, String key)` 方法的逻辑，请查看 **Huazie** 的 上一篇博文[【Spring Boot 源码学习】OnClassCondition 详解](/2023/09/11/spring-boot/spring-boot-sourcecode-onclasscondition/)，这里不再赘述。
+> 有关 `AutoConfigurationMetadata` 接口的 `get(String className, String key)` 方法的逻辑，请查看 **Huazie** 的 上一篇博文[【Spring Boot 源码学习】OnClassCondition 详解](../../../../../2023/09/11/spring-boot/spring-boot-sourcecode-onclasscondition/)，这里不再赘述。
 
 下面我们继续查看 `getOutcome(Set<String> requiredBeanTypes, Class<? extends Annotation> annotation)` 方法的逻辑：
 
@@ -154,7 +154,7 @@ private ConditionOutcome getOutcome(Set<String> requiredBeanTypes, Class<? exten
 
 同 `OnClassCondition` 一样，`OnBeanCondition` 同样实现了 `FilteringSpringBootCondition` 的父类 `SpringBootCondition` 中的抽象方法 `getMatchOutcome` 方法。
 
-> 有关 `SpringBootCondition` 的介绍，这里不赘述了，请查看笔者的 [【Spring Boot 源码学习】OnClassCondition 详解](/2023/09/11/spring-boot/spring-boot-sourcecode-onclasscondition/)。
+> 有关 `SpringBootCondition` 的介绍，这里不赘述了，请查看笔者的 [【Spring Boot 源码学习】OnClassCondition 详解](../../../../../2023/09/11/spring-boot/spring-boot-sourcecode-onclasscondition/)。
 
 通过查看 `getMatchOutcome` 方法源码，可以看到针对 `ConditionalOnBean` 注解、`ConditionalOnSingleCandidate` 注解 和 `ConditionalOnMissingBean` 注解的三块处理逻辑，下面来一一讲解：
 

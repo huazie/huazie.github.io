@@ -223,7 +223,7 @@ Flea缓存定义文件（[flea-cache.xml](https://github.com/Huazie/flea-framewo
 ```
 
 ### 3.3 定义核心Flea缓存类
-[CoreFleaCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/core/impl/CoreFleaCache.java) 同样继承抽象Flea缓存 [AbstractFleaCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractFleaCache.java)，实现其定义的抽象方法；内部定义成员变量 **fleaCache** 用于指定具体的 **Flea** 缓存实现（这个具体的实现，可参考 [Memcached接入](/2019/08/18/flea-framework/flea-cache/flea-cache-memcached/) 和 [Redis分片模式接入](/2021/11/18/flea-framework/flea-cache/flea-cache-redissharded/)），实现的三个方法 **getNativeValue**，**putNativeValue**，**deleteNativeValue** 内部采用具体Flea缓存实现fleaCache相应的方法实现读缓存、写缓存，删缓存；从构造方法可见，**fleaCache** 通过 **FleaCacheFactory.getFleaCache(name)** ，从Flea缓存工厂中获取。
+[CoreFleaCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/core/impl/CoreFleaCache.java) 同样继承抽象Flea缓存 [AbstractFleaCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractFleaCache.java)，实现其定义的抽象方法；内部定义成员变量 **fleaCache** 用于指定具体的 **Flea** 缓存实现（这个具体的实现，可参考 [Memcached接入](../../../../../../2019/08/18/flea-framework/flea-cache/flea-cache-memcached/) 和 [Redis分片模式接入](../../../../../../2021/11/18/flea-framework/flea-cache/flea-cache-redissharded/)），实现的三个方法 **getNativeValue**，**putNativeValue**，**deleteNativeValue** 内部采用具体Flea缓存实现fleaCache相应的方法实现读缓存、写缓存，删缓存；从构造方法可见，**fleaCache** 通过 **FleaCacheFactory.getFleaCache(name)** ，从Flea缓存工厂中获取。
 
 ```java
 /**
@@ -561,7 +561,7 @@ public class CoreFleaCacheManager extends AbstractFleaCacheManager {
 ### 3.10 整合接入自测 
 单元测试类 [FleaCacheTest](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/test/java/com/huazie/fleaframework/cache/FleaCacheTest.java)
 
-首先，这里需要按照 Flea缓存配置文件 (**flea-cache-config.xml**) 中的缓存服务器 **cache-server** 中地址部署相应的 Memcached 和 Redis 服务，可参考笔者的 [这篇博文](/2019/08/30/flea-framework/flea-cache/flea-cache-windows-more-services/)。
+首先，这里需要按照 Flea缓存配置文件 (**flea-cache-config.xml**) 中的缓存服务器 **cache-server** 中地址部署相应的 Memcached 和 Redis 服务，可参考笔者的 [这篇博文](../../../../../../2019/08/30/flea-framework/flea-cache/flea-cache-windows-more-services/)。
 
 ```java
     @Test

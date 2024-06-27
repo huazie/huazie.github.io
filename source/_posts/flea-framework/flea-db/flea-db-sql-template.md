@@ -24,7 +24,7 @@ tags:
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
 # 1. 准备工作
-为了演示SQL模板接入（参考 [JPA接入](/2019/09/12/flea-framework/flea-db/flea-db-jpa-integration/) 中的准备工作），需要如下准备：
+为了演示SQL模板接入（参考 [JPA接入](../../../../../../2019/09/12/flea-framework/flea-db/flea-db-jpa-integration/) 中的准备工作），需要如下准备：
 
  1. MySQL数据库 (客户端可以使用 navicat for mysql)
  2. 新建测试数据库 **fleajpatest**

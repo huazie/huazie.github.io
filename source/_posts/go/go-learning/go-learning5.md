@@ -14,7 +14,7 @@ tags:
 ![](/images/go-logo.png)
 
 # 引言
-上篇我们介绍了 [Go语言的数组类型](/2016/07/02/go/go-learning/go-learning4/)，本篇将介绍Go语言的切片类型。主要如下：
+上篇我们介绍了 [Go语言的数组类型](../../../../../../2016/07/02/go/go-learning/go-learning4/)，本篇将介绍Go语言的切片类型。主要如下：
 
 <!-- more -->
 

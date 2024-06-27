@@ -47,7 +47,7 @@ public class SingleThreadRenderer {
 
 # 2. 携带结果的任务
 
-从[《任务执行和Executor框架》](/2022/10/03/java/java-concurrency-learning/java-concurrency-learning10/)的那篇博文中，我们知道 **Executor** 框架使用 **Runnable** 作为其基本的任务表示形式。但是 **Runnable** 也有自己的局限性，它不能 **返回一个值** 或 **抛出一个受检查的异常**。 
+从[《任务执行和Executor框架》](../../../../../../2022/10/03/java/java-concurrency-learning/java-concurrency-learning10/)的那篇博文中，我们知道 **Executor** 框架使用 **Runnable** 作为其基本的任务表示形式。但是 **Runnable** 也有自己的局限性，它不能 **返回一个值** 或 **抛出一个受检查的异常**。 
 
 实际上，许多任务都是存在延迟的计算，比如：
 
@@ -65,7 +65,7 @@ public interface Callable<V> {
 
 > 可以使用 `Callable<Void>` 来表示无返回值的任务。 
 
-从[《同步工具类》](/2022/09/17/java/java-concurrency-learning/java-concurrency-learning8/)的那篇博文中，我们知道 **Future** 表示一个任务的生命周期，它提供了相应的方法来判断是否已经完成或取消，以及获取任务的结果和取消任务等。在 **Future** 的规范中，任务的生命周期只能前进，不能后退，就像 **ExecutorService** 的生命周期一样。当某个任务完成后，它就永远停留在 “完成” 状态上。
+从[《同步工具类》](../../../../../../2022/09/17/java/java-concurrency-learning/java-concurrency-learning8/)的那篇博文中，我们知道 **Future** 表示一个任务的生命周期，它提供了相应的方法来判断是否已经完成或取消，以及获取任务的结果和取消任务等。在 **Future** 的规范中，任务的生命周期只能前进，不能后退，就像 **ExecutorService** 的生命周期一样。当某个任务完成后，它就永远停留在 “完成” 状态上。
 
 ```java
 public interface Future<V> {

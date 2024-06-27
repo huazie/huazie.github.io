@@ -82,7 +82,7 @@ tags:
 
 ## 1.2 管理队列任务
 
-在笔者的[《Java并发编程学习10-任务执行与Executor框架》](/2022/10/03/java/java-concurrency-learning/java-concurrency-learning10/)这篇博文中提到过，如果无限制地创建线程，那么不仅带来高的资源消耗，也增加了系统的不稳定性。
+在笔者的[《Java并发编程学习10-任务执行与Executor框架》](../../../../../../2022/10/03/java/java-concurrency-learning/java-concurrency-learning10/)这篇博文中提到过，如果无限制地创建线程，那么不仅带来高的资源消耗，也增加了系统的不稳定性。
 
 虽然通过采用固定大小的线程池可以解决上述问题，但在高负载情况下，应用程序仍可能耗尽资源，比如新请求的到达速率超过了线程池的处理速率。即使请求的平均到达速率很稳定，也仍然会出现请求突增的情况。我们知道，尽管队列有助于缓解任务的突增问题，但如果任务持续高速地到来，那么最后还是要抑制请求的到达率以避免耗尽内存。甚至在耗尽内存之前，响应性能也将随着任务队列的增长而变得越来越糟糕。
 
@@ -412,4 +412,4 @@ public class TimingThreadPool extends ThreadPoolExecutor {
 
 本篇介绍了 `ThreadPoolExecutor` 配置和扩展相关的信息，相关示例代码请访问 [GitHub：thread-pool-demo](https://github.com/Huazie/FleaJavaConcurrency/tree/main/thread-pool-demo) ； 
 
-下一篇《线程池的使用》最后一篇，将介绍递归算法的并行化改造，其中会对我们[《Java并发编程学习11-任务执行演示》](/2022/10/15/java/java-concurrency-learning/java-concurrency-learning11/)介绍的页面绘制程序进行一系列改进，敬请期待！！！
+下一篇《线程池的使用》最后一篇，将介绍递归算法的并行化改造，其中会对我们[《Java并发编程学习11-任务执行演示》](../../../../../../2022/10/15/java/java-concurrency-learning/java-concurrency-learning11/)介绍的页面绘制程序进行一系列改进，敬请期待！！！

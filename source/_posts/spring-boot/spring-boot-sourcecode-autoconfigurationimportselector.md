@@ -18,7 +18,7 @@ tags:
 
 # 引言
 
-上篇博文我们了解了 [@EnableAutoConfiguration 注解](/2023/07/22/spring-boot/spring-boot-sourcecode-enableautoconfiguration/)，其中真正实现自动配置功能的核心实现者 `AutoConfigurationImportSelector` 还没有详细说明，本篇将从它的源码入手来重点介绍。
+上篇博文我们了解了 [@EnableAutoConfiguration 注解](../../../../../2023/07/22/spring-boot/spring-boot-sourcecode-enableautoconfiguration/)，其中真正实现自动配置功能的核心实现者 `AutoConfigurationImportSelector` 还没有详细说明，本篇将从它的源码入手来重点介绍。
 
 <!-- more -->
 

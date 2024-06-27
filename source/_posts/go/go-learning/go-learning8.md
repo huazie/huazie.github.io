@@ -14,7 +14,7 @@ tags:
 ![](/images/go-logo.png)
 
 # 引言
-上篇我们了解了Go语言的[《函数类型》](/2016/07/05/go/go-learning/go-learning7/)，本篇主要了解接口类型。主要如下：
+上篇我们了解了Go语言的[《函数类型》](../../../../../../2016/07/05/go/go-learning/go-learning7/)，本篇主要了解接口类型。主要如下：
 
 <!-- more -->
 
@@ -106,7 +106,7 @@ func (self SortableStrings) Swap(i, j int) {
 }
 ```
 
-有了上面三个方法的声明，**SortableStrings**类型就已经是一个**sort.Interface**接口类型的实现了。使用 [**Go语言学习2-基本词法** ](/2016/06/27/go/go-learning/go-learning2/)中讲的**类型断言表达式验证**，编写代码如下：
+有了上面三个方法的声明，**SortableStrings**类型就已经是一个**sort.Interface**接口类型的实现了。使用 [**Go语言学习2-基本词法** ](../../../../../../2016/06/27/go/go-learning/go-learning2/)中讲的**类型断言表达式验证**，编写代码如下：
 
 ```go
 _, ok := interface{}(SortableStrings{}).(sort.Interface)

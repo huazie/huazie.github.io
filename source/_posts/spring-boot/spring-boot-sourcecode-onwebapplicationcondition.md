@@ -132,7 +132,7 @@ class OnWebApplicationCondition extends FilteringSpringBootCondition {
 
 同 `OnClassCondition` 一样，`OnWebApplicationCondition` 同样实现了 `FilteringSpringBootCondition` 的父类 `SpringBootCondition` 中的抽象方法 `getMatchOutcome` 方法。
 
-> 有关 `SpringBootCondition` 的介绍，这里不赘述了，请查看笔者的 [【Spring Boot 源码学习】OnClassCondition 详解](/2023/09/11/spring-boot/spring-boot-sourcecode-onclasscondition/)。
+> 有关 `SpringBootCondition` 的介绍，这里不赘述了，请查看笔者的 [【Spring Boot 源码学习】OnClassCondition 详解](../../../../../2023/09/11/spring-boot/spring-boot-sourcecode-onclasscondition/)。
 
 那么，我们进入 `getMatchOutcome` 方法中查看如下源码【**Spring Boot 2.7.9**】：
 

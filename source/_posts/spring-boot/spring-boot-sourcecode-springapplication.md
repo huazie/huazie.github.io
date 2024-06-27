@@ -115,7 +115,7 @@ tags:
 
 ## 1. Spring Boot 应用程序的启动 
 
-在 《[【Spring Boot 源码学习】@SpringBootApplication 注解](/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/)》这篇博文中，我们新建了一个基于 **Spring Boot** 的测试项目。
+在 《[【Spring Boot 源码学习】@SpringBootApplication 注解](../../../../../2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/)》这篇博文中，我们新建了一个基于 **Spring Boot** 的测试项目。
 
 ![](demoapplication.png)
 
@@ -186,7 +186,7 @@ public class DemoApplication {
 我们从上述源码可知，`SpringApplication` 的第二个构造方法有两个参数，分别是：
 
 - `ResourceLoader resourceLoader` ：`ResourceLoader` 为资源加载的接口，它用于在**Spring Boot** 启动时打印对应的 **banner** 信息，默认采用的就是 `DefaultResourceLoader`。实操过程中，如果未按照 **Spring Boot** 的 “约定” 将 **banner** 的内容放置于 `classpath` 下，或者文件名不是 `banner.*` 格式，默认资源加载器是无法加载到对应的 **banner** 信息的，此时则可通过 `ResourceLoader` 来指定需要加载的文件路径【这个后面我们专门来实操一下，敬请期待】。
-- `Class<?>... primarySources` ：主要的 **bean** 来源，该参数为可变参数，默认我们会传入 **Spring Boot** 的入口类【即 `main` 方法所在的类】，如上面我们的 `DemoApplication`    。如果作为项目的引导类，该类需要满足一个条件，就是被注解 `@EnableAutoConfiguration` 或其组合注解标注。在前面的《[【Spring Boot 源码学习】@SpringBootApplication 注解](/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/)》博文中，我们已经知道 `@SpringBootApplication` 注解中包含了 `@EnableAutoConfiguration` 注解，因此被 `@SpringBootApplication` 注解标注的类也可作为参数传入。当然，`primarySources` 也可传入其他普通类，但只有传入被`@EnableAutoConfiguration` 标注的类才能够开启 **Spring Boot** 的自动配置。
+- `Class<?>... primarySources` ：主要的 **bean** 来源，该参数为可变参数，默认我们会传入 **Spring Boot** 的入口类【即 `main` 方法所在的类】，如上面我们的 `DemoApplication`    。如果作为项目的引导类，该类需要满足一个条件，就是被注解 `@EnableAutoConfiguration` 或其组合注解标注。在前面的《[【Spring Boot 源码学习】@SpringBootApplication 注解](../../../../../2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/)》博文中，我们已经知道 `@SpringBootApplication` 注解中包含了 `@EnableAutoConfiguration` 注解，因此被 `@SpringBootApplication` 注解标注的类也可作为参数传入。当然，`primarySources` 也可传入其他普通类，但只有传入被`@EnableAutoConfiguration` 标注的类才能够开启 **Spring Boot** 的自动配置。
 
 有些朋友，可能对 `primarySources` 这个可变参数的描述有点疑惑，下面我们就用实例来演示以其他引导类为入口类进行 **Spring Boot** 项目启动：
 

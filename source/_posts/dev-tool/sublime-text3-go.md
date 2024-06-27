@@ -39,7 +39,7 @@ tags:
 # 2. Go语言环境搭建
 本篇博文是在读者Go自身环境已经搭好，Sublime Text 3也已装好的基础上所总结而来。
 
-Go语言环境搭建可参考笔者的另一篇博文 [Go语言学习1-基础入门](/2016/06/27/go-learning1)。
+Go语言环境搭建可参考笔者的另一篇博文 [Go语言学习1-基础入门](../../../../../2016/06/27/go/go-learning/go-learning1/)。
 
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 # 3. GoSublime安装和配置

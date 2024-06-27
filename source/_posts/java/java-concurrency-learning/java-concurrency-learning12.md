@@ -227,7 +227,7 @@ public class PrimeConsumerTest {
 
 想要实现这种功能，就不得不提到接下来要讲到的 **线程中断**。
 
-其实在笔者前面的[《阻塞队列》](/2022/09/13/java/java-concurrency-learning/java-concurrency-learning7/)博文中，曾简单介绍了阻塞方法与中断方法，大家可以快速去回顾一下。
+其实在笔者前面的[《阻塞队列》](../../../../../../2022/09/13/java/java-concurrency-learning/java-concurrency-learning7/)博文中，曾简单介绍了阻塞方法与中断方法，大家可以快速去回顾一下。
 
 说到线程中断，就不得不提到 **Thread** 类，下面简单介绍下：
 
@@ -243,7 +243,7 @@ public class PrimeConsumerTest {
 
 **注意：**
 - 调用 **interrupt** 方法并不意味着立即停止目标线程正在进行的工作，而只是传递了请求中断的消息。
-- 因为静态的 **interrupted** 方法会清除当前线程的中断状态。如果调用它时返回了 **true**，那么除非你想屏蔽这个中断，否则必须对它进行处理----可以抛出 **InterruptedException**，或者通过再次调用 **interrupt** 来恢复中断状态【可以结合[《阻塞队列》“阻塞方法与中断方法”](/2022/09/13/java/java-concurrency-learning/java-concurrency-learning7/) 那块的内容进行思考】。
+- 因为静态的 **interrupted** 方法会清除当前线程的中断状态。如果调用它时返回了 **true**，那么除非你想屏蔽这个中断，否则必须对它进行处理----可以抛出 **InterruptedException**，或者通过再次调用 **interrupt** 来恢复中断状态【可以结合[《阻塞队列》“阻塞方法与中断方法”](../../../../../../2022/09/13/java/java-concurrency-learning/java-concurrency-learning7/) 那块的内容进行思考】。
 
 当线程在非阻塞状态下中断时，它的中断状态将被设置，然后根据将被取消的操作来检查中断状态以判断发生了中断。如果不触发 **InterruptedException**，那么中断状态将一直保持，直到明确地清除中断状态。
 
@@ -360,7 +360,7 @@ public class PrimeConsumerNewTest {
 
 ## 4. 响应中断
 
-在笔者前面的[《阻塞队列》](/2022/09/13/java/java-concurrency-learning/java-concurrency-learning7/)博文中，当调用可中断的阻塞函数时，例如 **Thread.sleep** 或 **BlockingQueue.put** 等，有两种常见的方法可用于处理 **InterruptedException** ：传递 **InterruptedException** 和 恢复中断。
+在笔者前面的[《阻塞队列》](../../../../../../2022/09/13/java/java-concurrency-learning/java-concurrency-learning7/)博文中，当调用可中断的阻塞函数时，例如 **Thread.sleep** 或 **BlockingQueue.put** 等，有两种常见的方法可用于处理 **InterruptedException** ：传递 **InterruptedException** 和 恢复中断。
 
 不过需要注意的是，你不能在 **catch** 块中捕获到 **InterruptedException** 异常却不做任何处理，除非在你的代码中实现了线程的中断策略。
 

@@ -212,7 +212,7 @@ public class Memoizer<A, V> implements Computable<A, V> {
 
 ## 5. 因式分解Servlet应用结果缓存
 
-到目前为止，**Memoizer** 已经能够很好地满足高计算开销函数的要求。下面我们来为[《线程安全性》](/2021/03/01/java/java-concurrency-learning/java-concurrency-learning2/)的博文中提到的因式分解 **Servlet** 添加结果缓存，示例如下：
+到目前为止，**Memoizer** 已经能够很好地满足高计算开销函数的要求。下面我们来为[《线程安全性》](../../../../../../2021/03/01/java/java-concurrency-learning/java-concurrency-learning2/)的博文中提到的因式分解 **Servlet** 添加结果缓存，示例如下：
 
 ```java
 public class Factorizer extends HttpServlet {

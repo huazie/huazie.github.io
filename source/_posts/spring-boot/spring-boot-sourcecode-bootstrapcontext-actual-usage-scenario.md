@@ -16,7 +16,7 @@ tags:
 ![](/images/spring-boot-logo.png)
 
 # 一、引言
-上一篇博文[《BootstrapRegistry 初始化器实现》](/2024/03/02/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer-impl/)，**Huazie** 向大家介绍了如何自定义 `BootstrapRegistryInitializer` 接口实现，并以此来执行自定义的初始化操作【如注册自定义的 **Bean**、添加 **BootstrapContext** 关闭监听器】。其中涉及到了 `BootstrapContext` 的部分使用场景，那本篇就向大家演示下 **Spring Boot** 启动过程中如何使用引用上下文 `BootstrapContext` 及其默认实现 。
+上一篇博文[《BootstrapRegistry 初始化器实现》](../../../../../2024/03/02/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer-impl/)，**Huazie** 向大家介绍了如何自定义 `BootstrapRegistryInitializer` 接口实现，并以此来执行自定义的初始化操作【如注册自定义的 **Bean**、添加 **BootstrapContext** 关闭监听器】。其中涉及到了 `BootstrapContext` 的部分使用场景，那本篇就向大家演示下 **Spring Boot** 启动过程中如何使用引用上下文 `BootstrapContext` 及其默认实现 。
 
 <!-- more -->
 
@@ -160,12 +160,12 @@ tags:
 # 三、主要内容
 > **注意：** 以下涉及 **Spring Boot** 源码 均来自版本 **2.7.9**，其他版本有所出入，可自行查看源码。
 ## 3.1 BootstrapContext
-在 [《深入 BootstrapContext 及其默认实现》](/2024/02/25/spring-boot/spring-boot-sourcecode-bootstrapcontext/) 中，**Huazie** 详细介绍了引导上下文 `BootstrapContext` 及其默认实现 `DefaultBootstrapContext`，在继续下面的内容之前，有不知道的朋友们可以去回顾一下，这里不再赘述。
+在 [《深入 BootstrapContext 及其默认实现》](../../../../../2024/02/25/spring-boot/spring-boot-sourcecode-bootstrapcontext/) 中，**Huazie** 详细介绍了引导上下文 `BootstrapContext` 及其默认实现 `DefaultBootstrapContext`，在继续下面的内容之前，有不知道的朋友们可以去回顾一下，这里不再赘述。
 
 ## 3.2 BootstrapRegistry 初始化器实现
 在开始讲解 `BootstrapContext` 的实际使用场景之前，我们需要首先通过 **`BootstrapRegistry` 初始化器实现类** 注册自定义的对象，以便后续在实际的场景中通过 `BootstrapContext` 来获取。
 
-这块内容，有需要了解的朋友，请翻看 **Huazie** 的上一篇博文[《BootstrapRegistry 初始化器实现》](/2024/03/02/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer-impl/)，这里不再赘述。
+这块内容，有需要了解的朋友，请翻看 **Huazie** 的上一篇博文[《BootstrapRegistry 初始化器实现》](../../../../../2024/03/02/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer-impl/)，这里不再赘述。
 
 ## 3.3 BootstrapContext 的实际使用场景
 
@@ -215,8 +215,8 @@ public class DemoStartingListener implements ApplicationListener<ApplicationStar
 
 通过阅读相关的源码，可总结如下的两种方式：
 
--  在 `META-INF/spring.factories` 中添加 `org.springframework.context.ApplicationListener` 的配置。这种方式，我们从 [《ApplicationListener 详解》](/2023/12/10/spring-boot/spring-boot-sourcecode-applicationlistener/) 的 **3.2** 小节可见一斑。
-- 通过 `SpringApplication` 中的 `addListeners` 方法添加。这里其实在笔者的[《SpringApplication 的定制化介绍》](/2024/01/07/spring-boot/spring-boot-sourcecode-springapplication-customization/)中的 **1.7** 小节也提及过。
+-  在 `META-INF/spring.factories` 中添加 `org.springframework.context.ApplicationListener` 的配置。这种方式，我们从 [《ApplicationListener 详解》](../../../../../2023/12/10/spring-boot/spring-boot-sourcecode-applicationlistener/) 的 **3.2** 小节可见一斑。
+- 通过 `SpringApplication` 中的 `addListeners` 方法添加。这里其实在笔者的[《SpringApplication 的定制化介绍》](../../../../../2024/01/07/spring-boot/spring-boot-sourcecode-springapplication-customization/)中的 **1.7** 小节也提及过。
 
 有关监听器实现 `Ordered` 接口，这里再次提及下：**它可以用来确保多个监听同一事件的监听器可以按照我们预定的顺序执行。**
 ### 3.3.2 环境配置准备完成时
@@ -259,7 +259,7 @@ public class DemoEnvironmentPreparedListener implements ApplicationListener<Appl
 ![](close.png)
 ![](close1.png)
 
-从上述截图中，我们可以看出的确是在应用上下文准备完成后，调用了 `DefaultBootstrapContext` 的 `close` 方法，多播了 `BootstrapContextClosedEvent` 事件。我们如果想要监听这个事件，只需要实现对应的事件监听器，不过添加该监听器就不像 **3.3.1** 和 **3.3.2** 那样了。其实在 **3.2** 小节介绍的[《BootstrapRegistry 初始化器实现》](/2024/03/02/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer-impl/)中，我们已经介绍了如何添加 **`BootstrapContext` 关闭事件 监听器**，这里就不再赘述。
+从上述截图中，我们可以看出的确是在应用上下文准备完成后，调用了 `DefaultBootstrapContext` 的 `close` 方法，多播了 `BootstrapContextClosedEvent` 事件。我们如果想要监听这个事件，只需要实现对应的事件监听器，不过添加该监听器就不像 **3.3.1** 和 **3.3.2** 那样了。其实在 **3.2** 小节介绍的[《BootstrapRegistry 初始化器实现》](../../../../../2024/03/02/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer-impl/)中，我们已经介绍了如何添加 **`BootstrapContext` 关闭事件 监听器**，这里就不再赘述。
 
 ## 3.4 实际使用演示
 `BootstrapContext` 的实际使用场景已经在 **3.3** 中介绍，下面 Huazie 就带大家实操下。

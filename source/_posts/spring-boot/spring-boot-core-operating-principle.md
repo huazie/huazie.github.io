@@ -16,7 +16,7 @@ tags:
 
 # 引言
 
-还记得，笔者在前面的博文[《Spring Boot 项目介绍》](/2023/02/19/spring-boot/spring-boot-project-introduction/)中提到了，Spring Boot 最核心的功能就是自动配置，该功能的实现是基于 “约定由于配置” 的原则。
+还记得，笔者在前面的博文[《Spring Boot 项目介绍》](../../../../../2023/02/19/spring-boot/spring-boot-project-introduction/)中提到了，Spring Boot 最核心的功能就是自动配置，该功能的实现是基于 “约定由于配置” 的原则。
 
 <!-- more -->
 

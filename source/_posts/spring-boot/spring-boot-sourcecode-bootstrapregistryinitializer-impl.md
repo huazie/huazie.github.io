@@ -16,7 +16,7 @@ tags:
 ![](/images/spring-boot-logo.png)
 
 # 一、引言
-前面的博文[《BootstrapRegistryInitializer 详解》](/2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/)，Huazie 带大家一起详细分析了 **Spring Boot** 启动时加载并初始化 `BootstrapRegistryInitializer` 及其相关的类的逻辑。本篇就让我们自定义 `BootstrapRegistryInitializer` 接口实现，以此来执行自定义的初始化操作【如注册自定义的 **Bean**、添加 **BootstrapContext** 关闭监听器】。
+前面的博文[《BootstrapRegistryInitializer 详解》](../../../../../2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/)，Huazie 带大家一起详细分析了 **Spring Boot** 启动时加载并初始化 `BootstrapRegistryInitializer` 及其相关的类的逻辑。本篇就让我们自定义 `BootstrapRegistryInitializer` 接口实现，以此来执行自定义的初始化操作【如注册自定义的 **Bean**、添加 **BootstrapContext** 关闭监听器】。
 
 <!-- more -->
 
@@ -156,9 +156,9 @@ tags:
 # 三、主要内容
 > **注意：** 以下涉及 **Spring Boot** 源码 均来自版本 **2.7.9**，其他版本有所出入，可自行查看源码。
 ## 3.1 BootstrapRegistry
-在[《BootstrapRegistry 详解》](/2024/01/31/spring-boot/spring-boot-sourcecode-bootstrapregistry/) 中，**Huazie** 详细介绍了 `BootstrapRegistry` 的源码，这有助于下面介绍的 `BootstrapRegistry` 初始化器的实现逻辑，有不知道的朋友们直接查看即可，这里不再赘述。
+在[《BootstrapRegistry 详解》](../../../../../2024/01/31/spring-boot/spring-boot-sourcecode-bootstrapregistry/) 中，**Huazie** 详细介绍了 `BootstrapRegistry` 的源码，这有助于下面介绍的 `BootstrapRegistry` 初始化器的实现逻辑，有不知道的朋友们直接查看即可，这里不再赘述。
 ## 3.2 BootstrapRegistryInitializer
-在[《BootstrapRegistryInitializer 详解》](/2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/) 中，**Huazie** 详解分析了加载并初始化 `BootstrapRegistryInitializer` 的逻辑，这同样有助于
+在[《BootstrapRegistryInitializer 详解》](../../../../../2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/) 中，**Huazie** 详解分析了加载并初始化 `BootstrapRegistryInitializer` 的逻辑，这同样有助于
 理解下面将要讲解的内容，还不熟悉的朋友们赶紧花点时间了解下，这里不再赘述。
 ## 3.3 BootstrapRegistry 初始化器实现
 
@@ -175,7 +175,7 @@ public class DemoBootstrapper implements BootstrapRegistryInitializer {
 }
 ```
 
-在[《BootstrapRegistryInitializer 详解》](/2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/) 的 **3.2** 小节，**Huazie** 介绍了 `BootstrapRegistryInitializer` 的加载过程，上述我们自定义的 `DemoBootstrapper`  也会在 **Spring Boot** 启动引导阶段进行加载并初始化。
+在[《BootstrapRegistryInitializer 详解》](../../../../../2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/) 的 **3.2** 小节，**Huazie** 介绍了 `BootstrapRegistryInitializer` 的加载过程，上述我们自定义的 `DemoBootstrapper`  也会在 **Spring Boot** 启动引导阶段进行加载并初始化。
 
 上述定义中，我们只是展示了一个空实现的类，其中的 `initialize` 方法还未做处理。
 
@@ -252,12 +252,12 @@ private List<BootstrapRegistryInitializer> bootstrapRegistryInitializers;
 
 通过阅读 `SpringApplication` 的源码，可以总结如下的两种方式：
 
--  在 `META-INF/spring.factories` 中添加 `org.springframework.boot.BootstrapRegistryInitializer` 的配置。这种方式，我们从 [《BootstrapRegistryInitializer 详解》](/2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/) 的 **3.2** 小节可见一斑。
+-  在 `META-INF/spring.factories` 中添加 `org.springframework.boot.BootstrapRegistryInitializer` 的配置。这种方式，我们从 [《BootstrapRegistryInitializer 详解》](../../../../../2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/) 的 **3.2** 小节可见一斑。
   ```java
   org.springframework.boot.BootstrapRegistryInitializer=com.example.demo.DemoBootstrapper
   ```
 
-- 通过 `SpringApplication` 中的 `addBootstrapRegistryInitializer` 方法添加。其实这里在笔者的[《SpringApplication 的定制化介绍》](/2024/01/07/spring-boot/spring-boot-sourcecode-springapplication-customization/)中的 **1.5** 小节也提及过。
+- 通过 `SpringApplication` 中的 `addBootstrapRegistryInitializer` 方法添加。其实这里在笔者的[《SpringApplication 的定制化介绍》](../../../../../2024/01/07/spring-boot/spring-boot-sourcecode-springapplication-customization/)中的 **1.5** 小节也提及过。
   ```java
   SpringApplication springApplication = new SpringApplication(DemoApplication.class);
   springApplication.addBootstrapRegistryInitializer(new DemoBootstrapper());

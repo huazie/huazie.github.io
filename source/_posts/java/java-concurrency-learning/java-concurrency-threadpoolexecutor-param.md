@@ -16,7 +16,7 @@ tags:
 # 一、引言
 提到 **Java** 线程池，就不得不说 `ThreadPoolExecutor`，它是 **Java** 并发包 `java.util.concurrent` 中的一个类，提供一个高效、稳定、灵活的线程池实现，用于实现多线程并发执行任务，提高应用程序的执行效率。
 
-在[《任务执行与Executor框架》](/2022/10/03/java/java-concurrency-learning/java-concurrency-learning10/)中，**Huazie** 介绍了通过 `java.util.concurrent.Executors` 中的静态工厂方法来创建线程池，而这个线程池实现就是 `ThreadPoolExecutor` 。
+在[《任务执行与Executor框架》](../../../../../../2022/10/03/java/java-concurrency-learning/java-concurrency-learning10/)中，**Huazie** 介绍了通过 `java.util.concurrent.Executors` 中的静态工厂方法来创建线程池，而这个线程池实现就是 `ThreadPoolExecutor` 。
 
 `ThreadPoolExecutor` 提供了一系列参数和配置选项，开发人员可以根据应用的需求来定制线程池的行为。
 

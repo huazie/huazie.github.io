@@ -146,7 +146,7 @@ tags:
 所谓基础配置，即是可以直接通过 `set` 或 `add` 方法来进行参数的配置，这些 `set` 或 `add` 方法修改的配置都是 **Spring Boot** 预定义的一些参数，有些也可以在 **application.properties** 文件中进行配置。
 
 ### 1.1   设置关闭 Banner
-在笔者的[《Banner 信息打印流程》](/2023/11/19/spring-boot/spring-boot-sourcecode-banner-printer/) 中，第 2 小节就介绍了如何关闭 **Banner** 信息打印。
+在笔者的[《Banner 信息打印流程》](../../../../../2023/11/19/spring-boot/spring-boot-sourcecode-banner-printer/) 中，第 2 小节就介绍了如何关闭 **Banner** 信息打印。
 
 通过 `SpringApplication` 提供的 `setBannerMode` 方法，我们就可以在启动入口类中，这样来编写：
 
@@ -164,7 +164,7 @@ public class DemoApplication {
 
 ### 1.2 设置自定义 Banner 打印对象
 
-在笔者的[《自定义 Banner 信息打印》](/2023/11/24/spring-boot/spring-boot-sourcecode-custom-banner-printer/) 中，第 4 小节就介绍了如何自定义 **Banner** 接口实现。
+在笔者的[《自定义 Banner 信息打印》](../../../../../2023/11/24/spring-boot/spring-boot-sourcecode-custom-banner-printer/) 中，第 4 小节就介绍了如何自定义 **Banner** 接口实现。
 
 通过 `SpringApplication` 提供的 `setBanner` 方法，我们可以修改入口类，如下：
 
@@ -182,7 +182,7 @@ public class DemoApplication {
 
 ### 1.3 设置应用程序主入口类
 
-在笔者的[《初识 SpringApplication》](/2023/11/12/spring-boot/spring-boot-sourcecode-springapplication/) 中，2.6 小节介绍了 `SpringApplication` 实例化时，会自动推断应用入口类，最终会被赋值给 `SpringApplication` 的成员变量 `mainApplicationClass`。
+在笔者的[《初识 SpringApplication》](../../../../../2023/11/12/spring-boot/spring-boot-sourcecode-springapplication/) 中，2.6 小节介绍了 `SpringApplication` 实例化时，会自动推断应用入口类，最终会被赋值给 `SpringApplication` 的成员变量 `mainApplicationClass`。
 
 当然，通过 `SpringApplication` 提供的 `setMainApplicationClass` 方法，设置一个特定的主应用程序类，该类将用作日志源并获取版本信息。默认情况下，`SpringApplication` 实例化时，会自动推断主应用程序类。如果没有明确的应用程序类，我们可以设置为 **null**。
 
@@ -201,7 +201,7 @@ public void setApplicationContextFactory(ApplicationContextFactory applicationCo
 
 ### 1.5 添加 BootstrapRegistry 初始化器实现
 
-在 **Huazie** 的[《BootstrapRegistryInitializer 详解》](/2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/)中，介绍了 加载和初始化 `BootstrapRegistryInitializer` 的逻辑，有需要的小伙伴可以去瞅一眼。
+在 **Huazie** 的[《BootstrapRegistryInitializer 详解》](../../../../../2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/)中，介绍了 加载和初始化 `BootstrapRegistryInitializer` 的逻辑，有需要的小伙伴可以去瞅一眼。
 
 **那除了默认的加载过程，还有啥办法手动添加 `BootstrapRegistryInitializer` 呢？**
 
@@ -217,7 +217,7 @@ public void addBootstrapRegistryInitializer(BootstrapRegistryInitializer bootstr
 
 ### 1.6 设置或添加 ApplicationContext 初始化器实现
 
-在 **Huazie** 的[《ApplicationContextInitializer 详解》](/2023/12/03/spring-boot/spring-boot-sourcecode-applicationcontextinitializer/)中，介绍了加载和初始化 `ApplicationContextInitializer ` 的逻辑，大家可以自行去回顾下。
+在 **Huazie** 的[《ApplicationContextInitializer 详解》](../../../../../2023/12/03/spring-boot/spring-boot-sourcecode-applicationcontextinitializer/)中，介绍了加载和初始化 `ApplicationContextInitializer ` 的逻辑，大家可以自行去回顾下。
 
 **除了默认的加载过程，我们还可以通过 `SpringApplication` 自身进行设置或添加**
 
@@ -241,7 +241,7 @@ public void addInitializers(ApplicationContextInitializer<?>... initializers) {
 
 ### 1.7 设置 ApplicationListener 实现
 
-在 **Huazie** 的[《ApplicationListener 详解》](/2023/12/10/spring-boot/spring-boot-sourcecode-applicationlistener/)中，我们详细分析了 ApplicationListener 的加载和处理应用程序事件的逻辑，有需要可以去回顾下。
+在 **Huazie** 的[《ApplicationListener 详解》](../../../../../2023/12/10/spring-boot/spring-boot-sourcecode-applicationlistener/)中，我们详细分析了 ApplicationListener 的加载和处理应用程序事件的逻辑，有需要可以去回顾下。
 
 那除了默认的加载流程，我们还可以通过 `SpringApplication` 的 `setListeners` 方法，重新设置 `listeners`【**注意：** 调用 `setListeners` 方法后，`listeners` 之前的赋值都将丢失】。
 
@@ -263,7 +263,7 @@ public void addListeners(ApplicationListener<?>... listeners) {
 
 ### 1.8 设置要运行的Web应用程序的类型
 
-在 **Huazie** 的[《初识 SpringApplication》](/2023/11/12/spring-boot/spring-boot-sourcecode-springapplication/)中，2.2 小节分析了 `SpringApplication` 构造函数中默认的 **Web** 应用类型推断的逻辑。
+在 **Huazie** 的[《初识 SpringApplication》](../../../../../2023/11/12/spring-boot/spring-boot-sourcecode-springapplication/)中，2.2 小节分析了 `SpringApplication` 构造函数中默认的 **Web** 应用类型推断的逻辑。
 
 当然，我们也可以通过 `SpringApplication` 的 `setWebApplicationType` 方法，手动设置要运行的 **Web** 应用程序的类型。
 
@@ -456,7 +456,7 @@ public void setApplicationStartup(ApplicationStartup applicationStartup) {
 
 ### 2.1 通过 SpringApplication 构造方法参数
 
-在 Huazie 的[《初识 SpringApplication》](/2023/11/12/spring-boot/spring-boot-sourcecode-springapplication/)中的 2.1 小节就介绍了可以通过其构造参数 `primarySources` 来配置普通类或指定某个配置类，但这种方式有其局限性，它无法指定 **XML** 配置和基于 **package** 的配置。
+在 Huazie 的[《初识 SpringApplication》](../../../../../2023/11/12/spring-boot/spring-boot-sourcecode-springapplication/)中的 2.1 小节就介绍了可以通过其构造参数 `primarySources` 来配置普通类或指定某个配置类，但这种方式有其局限性，它无法指定 **XML** 配置和基于 **package** 的配置。
 
 ### 2.2 通过 setSources 方法
 

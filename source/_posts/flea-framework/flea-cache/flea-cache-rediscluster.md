@@ -52,10 +52,10 @@ tags:
 
 # 3. 基础接入
 ## 3.1 定义Flea缓存接口 
- [IFleaCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/IFleaCache.java) 可参考笔者的这篇博文 [Memcached接入](/2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
+ [IFleaCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/IFleaCache.java) 可参考笔者的这篇博文 [Memcached接入](../../../../../../2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
 
 ## 3.2 定义抽象Flea缓存类
-[AbstractFleaCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractFleaCache.java) 可参考笔者的这篇博文 [Memcached接入](/2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
+[AbstractFleaCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractFleaCache.java) 可参考笔者的这篇博文 [Memcached接入](../../../../../../2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
 
 ## 3.3 定义Redis客户端接口类 
 [RedisClient](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/RedisClient.java) 定义了 读、写、删除 Redis缓存的基本操作方法
@@ -359,10 +359,10 @@ redis.nullCacheExpiry=10
 ```
 
 ## 3.7 定义Redis Flea缓存类
-[RedisFleaCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/impl/RedisFleaCache.java) 可参考笔者的这篇博文 [Redis分片模式接入](/2021/11/18/flea-framework/flea-cache/flea-cache-redissharded/)，不再赘述。
+[RedisFleaCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/impl/RedisFleaCache.java) 可参考笔者的这篇博文 [Redis分片模式接入](../../../../../../2021/11/18/flea-framework/flea-cache/flea-cache-redissharded/)，不再赘述。
 
 ## 3.8 定义抽象Flea缓存管理类 
-[AbstractFleaCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractFleaCacheManager.java) 可参考笔者的这篇博文 [Memcached接入](/2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
+[AbstractFleaCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractFleaCacheManager.java) 可参考笔者的这篇博文 [Memcached接入](../../../../../../2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
 
 ## 3.9 定义Redis集群模式Flea缓存管理类
 [RedisClusterFleaCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/manager/RedisClusterFleaCacheManager.java)  继承抽象Flea缓存管理类 **AbstractFleaCacheManager**，构造方法使用了 **RedisClientFactory** 获取集群模式下默认连接池的Redis客户端 **RedisClient**，可在 **3.10** 查看。**newCache** 方法返回的是 **RedisFleaCache** 的实例对象，每一类 **Redis** 缓存数据都对应了一个  **RedisFleaCache** 的实例对象。
@@ -488,7 +488,7 @@ public class RedisClientFactory {
 在上面 的 `getInstance(String poolName, CacheModeEnum mode)` 方法中，使用了 **RedisClientStrategyContext** ，用于定义 **Redis** 客户端策略上下文。根据不同的缓存模式，就可以找到对应的 **Redis** 客户端策略。
 
 ## 3.11 定义Redis客户端策略上下文
-[RedisClientStrategyContext](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/common/RedisClientStrategyContext.java)  可参考笔者的这篇博文 [Redis分片模式接入](/2021/11/18/flea-framework/flea-cache/flea-cache-redissharded/)，不再赘述。
+[RedisClientStrategyContext](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/common/RedisClientStrategyContext.java)  可参考笔者的这篇博文 [Redis分片模式接入](../../../../../../2021/11/18/flea-framework/flea-cache/flea-cache-redissharded/)，不再赘述。
 
 ## 3.12 定义集群模式Redis客户端策略
  [RedisClusterClientStrategy](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/strategy/RedisClusterClientStrategy.java) 用于新建一个 `Flea Redis` 集群客户端。
@@ -549,13 +549,13 @@ public class RedisClusterClientStrategy implements IFleaStrategy<RedisClient, St
 
 # 4. 进阶接入
 ## 4.1 定义抽象Spring缓存 
-[AbstractSpringCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractSpringCache.java) 可参考笔者的这篇博文 [Memcached接入](/2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
+[AbstractSpringCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractSpringCache.java) 可参考笔者的这篇博文 [Memcached接入](../../../../../../2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
 
 ## 4.2 定义Redis Spring缓存类
- [RedisSpringCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/impl/RedisSpringCache.java) 可参考笔者的这篇博文 [Redis分片模式接入](/2021/11/18/flea-framework/flea-cache/flea-cache-redissharded/)，不再赘述。
+ [RedisSpringCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/impl/RedisSpringCache.java) 可参考笔者的这篇博文 [Redis分片模式接入](../../../../../../2021/11/18/flea-framework/flea-cache/flea-cache-redissharded/)，不再赘述。
 
 ## 4.3 定义抽象Spring缓存管理类
-[AbstractSpringCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractSpringCacheManager.java) 可参考笔者的这篇博文 [Memcached接入](/2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
+[AbstractSpringCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractSpringCacheManager.java) 可参考笔者的这篇博文 [Memcached接入](../../../../../../2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
 
 ## 4.4 定义Redis集群模式Spring缓存管理类
  [RedisClusterSpringCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/manager/RedisClusterSpringCacheManager.java) 继承抽象 **Spring** 缓存管理类 **AbstractSpringCacheManager**，用于对接**Spring**; 基本实现同 **RedisClusterFleaCacheManager**，唯一不同在于 **newCache** 的实现。
@@ -669,4 +669,4 @@ public class RedisClusterSpringCacheManager extends AbstractSpringCacheManager {
 ```
 
 # 结语
-哇哇哇，**Redis** 集群模式接入终于搞定。到目前为止，不论是Memcached的接入还是 Redis分片模式接入亦或是本篇，都是单一的缓存接入，笔者的 下一篇博文 将介绍如何 [整合Memcached和Redis接入](/2019/08/23/flea-framework/flea-cache/flea-cache-corecache/)，以应对日益复杂的业务需求。 敬请期待！！！
+哇哇哇，**Redis** 集群模式接入终于搞定。到目前为止，不论是Memcached的接入还是 Redis分片模式接入亦或是本篇，都是单一的缓存接入，笔者的 下一篇博文 将介绍如何 [整合Memcached和Redis接入](../../../../../../2019/08/23/flea-framework/flea-cache/flea-cache-corecache/)，以应对日益复杂的业务需求。 敬请期待！！！

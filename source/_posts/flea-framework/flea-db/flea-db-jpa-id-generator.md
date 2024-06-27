@@ -16,7 +16,7 @@ tags:
 ![](/images/jpa-logo.png)
 
 # 引言
-本篇介绍JPA规范下的主键生成器表，相关主键生成策略可查看 [JPA主键生成策略介绍](/2019/09/03/flea-framework/flea-db/flea-db-jpa-generatedvalue/)。
+本篇介绍JPA规范下的主键生成器表，相关主键生成策略可查看 [JPA主键生成策略介绍](../../../../../../2019/09/03/flea-framework/flea-db/flea-db-jpa-generatedvalue/)。
 
 <!-- more -->
 
@@ -42,7 +42,7 @@ INSERT INTO `flea_id_generator` VALUES ('pk_order', '0');
 ```
 
 # 2. 接入介绍
-在笔者的 [JPA主键生成策略介绍](/2019/09/03/flea-framework/flea-db/flea-db-jpa-generatedvalue/) 也已经介绍了 **JPA** 规范的 `@TableGenerator` 注解 的相关内容。
+在笔者的 [JPA主键生成策略介绍](../../../../../../2019/09/03/flea-framework/flea-db/flea-db-jpa-generatedvalue/) 也已经介绍了 **JPA** 规范的 `@TableGenerator` 注解 的相关内容。
 
 ## 2.1 通用场景
 

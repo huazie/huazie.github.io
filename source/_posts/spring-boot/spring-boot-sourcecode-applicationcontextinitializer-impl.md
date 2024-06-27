@@ -22,7 +22,7 @@ tags:
 ![](/images/spring-boot-logo.png)
 
 # 一、引言
-前面的博文[《ApplicationContextInitializer 详解》](/2023/12/03/spring-boot/spring-boot-sourcecode-applicationcontextinitializer/)，**Huazie** 带大家详细分析了 `ApplicationContextInitializer` 的加载和初始化的逻辑，不过有关 `ApplicationContextInitializer` 接口的实现尚未提及 。
+前面的博文[《ApplicationContextInitializer 详解》](../../../../../2023/12/03/spring-boot/spring-boot-sourcecode-applicationcontextinitializer/)，**Huazie** 带大家详细分析了 `ApplicationContextInitializer` 的加载和初始化的逻辑，不过有关 `ApplicationContextInitializer` 接口的实现尚未提及 。
 
 那本篇 **Huazie** 就带大家一起分析 **Spring Boot** 中预置的应用上下文初始化器实现【即 `ApplicationContextInitializer` 接口实现类】的源码，了解在 **Spring** 容器刷新之前初始化应用程序上下文的一些具体操作。
 
@@ -358,12 +358,12 @@ public class DemoApplicationContextInitializer implements ApplicationContextInit
 
 通过阅读 `SpringApplication` 的源码 和 本篇 **3.1.3** 小节的介绍，我们可以总结如下的三种方式：
 
--  在 `META-INF/spring.factories` 中添加 `org.springframework.context.ApplicationContextInitializer` 的配置。这种方式，我们从 [《ApplicationContextInitializer 详解》](/2023/12/03/spring-boot/spring-boot-sourcecode-applicationcontextinitializer/) 的 **3.2** 小节可见一斑。
+-  在 `META-INF/spring.factories` 中添加 `org.springframework.context.ApplicationContextInitializer` 的配置。这种方式，我们从 [《ApplicationContextInitializer 详解》](../../../../../2023/12/03/spring-boot/spring-boot-sourcecode-applicationcontextinitializer/) 的 **3.2** 小节可见一斑。
   ```bash
   org.springframework.context.ApplicationContextInitializer=com.example.demo.DemoApplicationContextInitializer
   ```
 
-- 通过 `SpringApplication` 中的 `addInitializers` 方法添加。其实这里在笔者的[《SpringApplication 的定制化介绍》](/2024/01/07/spring-boot/spring-boot-sourcecode-springapplication-customization/)中的 **1.6** 小节也提及过。
+- 通过 `SpringApplication` 中的 `addInitializers` 方法添加。其实这里在笔者的[《SpringApplication 的定制化介绍》](../../../../../2024/01/07/spring-boot/spring-boot-sourcecode-springapplication-customization/)中的 **1.6** 小节也提及过。
   ```java
   SpringApplication springApplication = new SpringApplication(DemoApplication.class);
   springApplication.addInitializers(new DemoApplicationContextInitializer());
