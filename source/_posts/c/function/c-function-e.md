@@ -48,10 +48,10 @@ tags:
 |:--|:--|
 |`char ecvt(double value, int ndigit, int *decpt, int *sign);` | 把一个双精度浮点型数转换为字符串，转换结果中不包括十进制小数点 |
 
-> **value** ： 待转换的双精度浮点数。
-> **ndigit** ：存储的有效数字位数。这个函数存储最多 **ndigit** 个数字值作为一个字符串，并添加一个结束符(**'\0'**)，如果 **value** 中的数字个数超过 **ndigit**，低位数字被舍入。如果少于 **ndigit** 个数字，该字符串用 **0**填充。
-> **decpt** ：指出给出小数点位置的整数值, 它是从该字符串的开头位置计算的。**0** 或负数指出小数点在第一个数字的左边。
-> **sign**   ：指出一个指出转换的数的符号的整数。如果该整数为 **0**,这个数为正数,否则为负数。
+- **value** ： 待转换的双精度浮点数。
+- **ndigit** ：存储的有效数字位数。这个函数存储最多 **ndigit** 个数字值作为一个字符串，并添加一个结束符(**'\0'**)，如果 **value** 中的数字个数超过 **ndigit**，低位数字被舍入。如果少于 **ndigit** 个数字，该字符串用 **0**填充。
+- **decpt** ：指出给出小数点位置的整数值, 它是从该字符串的开头位置计算的。**0** 或负数指出小数点在第一个数字的左边。
+- **sign**   ：指出一个指出转换的数的符号的整数。如果该整数为 **0**,这个数为正数,否则为负数。
 
 ## 1.2 演示示例
 ```c
@@ -92,7 +92,7 @@ int main()
 |:--|:--|
 | `void ellipse(int x, int y, int stangle, int endangle, int xradius, int yradius);`| 画一段椭圆线 |
 
-> 以 **(x, y)** 为中心，**xradius**、**yradius** 为 **x 轴** 和 **y 轴** 半径，从角 **stangle** 开始，**endangle** 结束，画一段椭圆线。当**stangle=0，endangle=360** 时，画出一个完整的椭圆
+以 **(x, y)** 为中心，**xradius**、**yradius** 为 **x 轴** 和 **y 轴** 半径，从角 **stangle** 开始，**endangle** 结束，画一段椭圆线。当**stangle=0，endangle=360** 时，画出一个完整的椭圆
 
 ## 2.2 演示示例
 ```c
@@ -191,7 +191,7 @@ int main(void)
 |:--|:--|
 |`int execl(const char *pathname, const char *arg0, ... const char *argn, NULL);` | 载入并运行其它程序  |
 
->**注意：** **execl** 函数，其后缀 `l` 代表 **list**，也就是参数列表的意思。第一个参数 **path** 字符指针指向要执行的文件路径， 接下来的参数代表执行该文件时传递的参数列表：`argv[0],argv[1]...` ，最后一个参数须用空指针 **NULL** 作结束。
+**注意：** **execl** 函数，其后缀 `l` 代表 **list**，也就是参数列表的意思。第一个参数 **path** 字符指针指向要执行的文件路径， 接下来的参数代表执行该文件时传递的参数列表：`argv[0],argv[1]...` ，最后一个参数须用空指针 **NULL** 作结束。
 
 ## 4.2 演示示例
 ### 4.2.1 SubTest.c
@@ -237,7 +237,8 @@ void main(int argc, char *argv[])
 |:--|:--|
 |`int execle(const char *pathname, const char *arg0, ... const char *argn, NULL, const char *const *envp);` | 载入并运行其它程序  |
 
-> **注意：** **execl** 函数是用来执行参数 **path** 字符串所代表的文件路径。接下来的参数代表执行该文件时传递过去的 `argv[0], argv[1]…`，并且倒数第二个参数必须用空指针 **NULL** 作结束，最后一个参数为 **环境变量**。
+**注意：** **execl** 函数是用来执行参数 **path** 字符串所代表的文件路径。接下来的参数代表执行该文件时传递过去的 `argv[0], argv[1]…`，并且倒数第二个参数必须用空指针 **NULL** 作结束，最后一个参数为 **环境变量**。
+
 ## 5.2 演示示例
 ### 5.2.1 SubEnvTest.c
 ```c
@@ -298,7 +299,7 @@ void main(int argc, char *argv[])
 |:--|:--|
 |`int execlp(char *pathname, char *arg0, ... const char *argn, NULL);` |  载入并运行其它程序 |
 
->**注意：** **execlp** 函数会从 **PATH** 环境变量所指的目录中查找符合参数 **pathname** 的文件名，找到后便执行该文件，然后将第二个以后的参数当做该文件的`arg0, arg1, …`，最后一个参数必须用 空指针 **NULL** 作结束。
+**注意：** **execlp** 函数会从 **PATH** 环境变量所指的目录中查找符合参数 **pathname** 的文件名，找到后便执行该文件，然后将第二个以后的参数当做该文件的`arg0, arg1, …`，最后一个参数必须用 空指针 **NULL** 作结束。
 ## 6.2 演示示例
 ```c
 #include <process.h>
@@ -329,7 +330,8 @@ void main(int argc, char *argv[])
 |:--|:--|
 | `int execlpe(const char *pathname, const char *arg0, ... const char *argn, NULL, const char *const *envp);`|  载入并运行其它程序   |
 
->**注意：** **execlp** 函数会从 **PATH** 环境变量所指的目录中查找符合参数 **pathname** 的文件名，找到后便执行该文件，然后将第二个以后的参数当做该文件的`arg0, arg1, …`，其中倒数第二个参数必须用 空指针 **NULL** 作结束，最后一个参数为 **环境变量**。
+**注意：** **execlp** 函数会从 **PATH** 环境变量所指的目录中查找符合参数 **pathname** 的文件名，找到后便执行该文件，然后将第二个以后的参数当做该文件的`arg0, arg1, …`，其中倒数第二个参数必须用 空指针 **NULL** 作结束，最后一个参数为 **环境变量**。
+
 ## 7.2 演示示例
 ### 7.2.1 SubEnvTest.c
 参考 **5.2.1** 的 **SubEnvTest.c**
@@ -364,7 +366,8 @@ void main(int argc, char *argv[])
 |:--|:--|
 |`int execv(const char *pathname, char *const *argv);` | 载入并运行其它程序  |
 
-> **注意：execv** 函数用来运行參数 **pathname** 字符串所指向的程序，第二个参数 **argv** 为參数列表【该数组的最后一个元素必须是空指针 **NULL**】。
+**注意：execv** 函数用来运行參数 **pathname** 字符串所指向的程序，第二个参数 **argv** 为參数列表【该数组的最后一个元素必须是空指针 **NULL**】。
+
 ## 8.2 演示示例
 ### 8.2.1 SubTest.c
 参考 **4.2.1** 的 **SubTest.c**
@@ -400,7 +403,7 @@ void main(int argc, char *argv[])
 |:--|:--|
 |`int execve(const char *pathname, char *const argv[], char *const envp[]);` | 载入并运行其它程序  |
 
-> **注意：execve** 函数用来运行參数 **pathname** 字符串所指向的程序，第二个参数 **argv** 为參数列表【该数组的最后一个元素必须是空指针 **NULL**】，最后一个参数为 **环境变量**。
+**注意：execve** 函数用来运行參数 **pathname** 字符串所指向的程序，第二个参数 **argv** 为參数列表【该数组的最后一个元素必须是空指针 **NULL**】，最后一个参数为 **环境变量**。
 
 ## 9.2 演示示例
 ### 9.2.1 SubEnvTest.c
@@ -439,7 +442,7 @@ void main(int argc, char *argv[])
 |:--|:--|
 |`int execvp(const char *pathname, char *const argv[]);` | 载入并运行其它程序  |
 
-> **注意：execvp** 函会从 **PATH** 环境变量所指的目录中查找符合参数 **pathname** 的文件名，找到后便执行该文件，第二个参数 **argv** 为參数列表【该数组的最后一个元素必须是空指针 **NULL**】。
+**注意：execvp** 函会从 **PATH** 环境变量所指的目录中查找符合参数 **pathname** 的文件名，找到后便执行该文件，第二个参数 **argv** 为參数列表【该数组的最后一个元素必须是空指针 **NULL**】。
 
 ## 10.2 演示示例
 ```c
@@ -472,7 +475,7 @@ void main(int argc, char *argv[])
 |:--|:--|
 |`int execvpe(const char *pathname, char *const argv[], char *const envp[]);` | 载入并运行其它程序  |
 
-> **注意：execvpe** 函会从 **PATH** 环境变量所指的目录中查找符合参数 **pathname** 的文件名，找到后便执行该文件，第二个参数 **argv** 为參数列表【该数组的最后一个元素必须是空指针 **NULL**】，最后一个参数为 **环境变量**。
+**注意：execvpe** 函会从 **PATH** 环境变量所指的目录中查找符合参数 **pathname** 的文件名，找到后便执行该文件，第二个参数 **argv** 为參数列表【该数组的最后一个元素必须是空指针 **NULL**】，最后一个参数为 **环境变量**。
 
 ## 11.2 演示示例
 ### 11.2.1 SubEnvTest.c
@@ -510,7 +513,7 @@ void main(int argc, char *argv[])
 |:--|:--|
 | `void exit(int status);`|  终止程序 |
 
-> **注意： exit** 函数通常是用来终结程序用的，使用后程序自动结束，跳回操作系统。`exit(0)` 表示程序正常退出【相当于主函数 `return 0;`】，`exit⑴` 表示程序异常退出【相当于主函数 `return 1;`】。
+**注意： exit** 函数通常是用来终结程序用的，使用后程序自动结束，跳回操作系统。`exit(0)` 表示程序正常退出【相当于主函数 `return 0;`】，`exit⑴` 表示程序异常退出【相当于主函数 `return 1;`】。
 
 ## 12.2 演示示例
 ```c

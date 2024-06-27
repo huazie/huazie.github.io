@@ -16,11 +16,11 @@ tags:
 | 函数声明 |  函数功能  |
 |:--|:--|
 |`void detectgraph(int *graphdriver, int *graphmode);` |  通过检测硬件确定图形驱动程序和模式 |
-| `double difftime(time_t time2, time_t time1);`| 计算两个时刻之间的时间差  |
-|` void disable(void);` | 屏蔽中断  |
+|`double difftime(time_t time2, time_t time1);`| 计算两个时刻之间的时间差  |
+|`void disable(void);` | 屏蔽中断  |
 |`div_t div(int number, int denom);` | 将两个整数相除, 返回商和余数  |
-| `void drawpoly(int numpoints, int *polypoints);`| 画多边形  |
-| `int dup(int handle);`| 复制文件描述符；若成功为新的文件描述，若出错为-1 |
+|`void drawpoly(int numpoints, int *polypoints);`| 画多边形  |
+|`int dup(int handle);`| 复制文件描述符；若成功为新的文件描述，若出错为-1 |
 |`int dup2(int oldhandle, int newhandle);` | 复制文件描述符；若成功为新的文件描述，若出错为-1。  |
 
 # 1. detectgraph
@@ -108,6 +108,7 @@ int main(void)
 - 再然后，继续调用 `time(NULL)` 函数获取当前的系统时间，并赋值给 `second`；
 - 再接着，调用 `difftime()` 函数计算 `first` 和 `second` 之间的时间差【单位：秒】
 - 最终，输出时间差，并结束程序。
+
 ## 2.3 运行结果
 ![](difftime.gif)
 
@@ -159,7 +160,7 @@ int main(void)
 }
 ```
 
-> **注意：** 这个程序可能无法在现代操作系统上直接运行，因为其中的一些函数（如`disable()`、`enable()`、`getvect()` 和 `setvect()`）是特定于 **DOS** 的。如果你想在现代操作系统（如 **Linux** 或 **Windows**）上运行这个程序，你可能需要使用更现代的方法来处理中断或使用 **DOS** 模拟器。
+**注意：** 这个程序可能无法在现代操作系统上直接运行，因为其中的一些函数（如`disable()`、`enable()`、`getvect()` 和 `setvect()`）是特定于 **DOS** 的。如果你想在现代操作系统（如 **Linux** 或 **Windows**）上运行这个程序，你可能需要使用更现代的方法来处理中断或使用 **DOS** 模拟器。
 
 # 4. div
 ## 4.1 函数说明
@@ -261,7 +262,7 @@ int main(void)
 |:--|:--|
 | `int dup(int handle);`| 复制文件描述符；若成功为新的文件描述，若出错为-1 |
 
-> **dup** 返回的新文件描述符一定是当前可用文件描述中的最小数值。
+**dup** 返回的新文件描述符一定是当前可用文件描述中的最小数值。
 
 ## 6.2 演示示例
 ```c
@@ -324,6 +325,7 @@ void flush(FILE *stream)
    - 接着，打印出复制的文件句柄；
    - 最后，关闭复制的文件句柄。
 6. 最后，再次提示用户按下任意键以退出程序。
+
 ## 6.3 运行结果
 ![](dup.png)
 
@@ -333,7 +335,8 @@ void flush(FILE *stream)
 |:--|:--|
 |`int dup2(int oldhandle, int newhandle);` | 复制文件描述符；若成功为新的文件描述，若出错为-1。  |
 
-> **dup2** 可以用 **newhandle** 参数指定新的描述符数值。如果 **newhandle** 已经打开，则先关闭。若 **oldhandle = newhandle**，则 **dup2** 返回 **newhandle**，而不关闭它。
+**dup2** 可以用 **newhandle** 参数指定新的描述符数值。如果 **newhandle** 已经打开，则先关闭。若 **oldhandle = newhandle**，则 **dup2** 返回 **newhandle**，而不关闭它。
+
 ## 7.2 演示示例
 ```c
 #include <sys\stat.h>
