@@ -395,9 +395,9 @@ public class FleaObjectPoolFactory {
 }
 ```
 
-上述 `build` 方法用于初始化 **Flea** 对象池创建，读取如下 `flea-config.xml` 的配置，来获取指定类名的 **Flea** 对象池构建者实现。
+上述 `build` 方法用于初始化Flea对象池创建，读取如下 `flea-config.xml` 的配置，来获取指定类名的 **Flea** 对象池构建者实现。
 
-以下是 **Flea JPA** 查询对象池构建者的配置：
+以下是Flea JPA查询对象池构建者的配置：
 
 ```xml
     <config-items key="flea-object-pool" desc="Flea对象池配置">
@@ -450,6 +450,7 @@ public class FleaObjectPoolFactory {
 
 这块需要优化 `getQuery` 方法，该方法用于获取指定的 **Flea JPA** 查询对象。
 
+
 ```java
     protected FleaJPAQuery getQuery(Class result) {
         String unitName = FleaEntityManager.getPersistenceUnitName(this.getClass().getSuperclass());
@@ -473,7 +474,7 @@ public class FleaObjectPoolFactory {
 上述逻辑，我们来简单总结下：
 
 - 首先，根据当前的 **DAO类** 获取它的父类【即持久化单元 **DAO** 层类】中定义的持久化单元名 `unitName`。
-- 接着，如果 `unitName` 不为空，则使用持久化单元名 `unitName` 作为对象池名，来获取 `FleaJPAQueryPool`；否则使用默认对象池名 `"default"`，来获取 `FleaJPAQueryPool`。
+- 接着，如果 `unitName` 不为空，则使用持久化单元名 `unitName` 作为对象池名，来获取 `FleaJPAQueryPool`；否则使用默认对象池名"default"，来获取 `FleaJPAQueryPool`。
 - 然后，调用 `FleaJPAQueryPool` 的 `getFleaObject()` 来获取 `FleaJPAQuery`；获取 `FleaJPAQuery` 实例后必须调用 `init` 方法对 **Flea JPA** 查询对象进行初始化。
 - 最后，返回 `FleaJPAQuery` 实例对象给调用方，开始组装查询语句，操作数据库。
 

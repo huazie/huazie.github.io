@@ -256,5 +256,5 @@ void starting(ConfigurableBootstrapContext bootstrapContext, Class<?> mainApplic
 
 
 # 总结
-本篇 **Huazie** 带大家详细分析了 `ApplicationListener ` 的加载和处理应用程序事件，这对于后续的 `SpringApplication` 运行流程的理解至关重要。
+本篇 **Huazie** 带大家详细分析了 **Spring Boot** 中 `ApplicationListener ` 的加载和处理应用程序事件，这对于后续的 `SpringApplication` 运行流程的理解至关重要。
 

@@ -201,15 +201,30 @@ org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingL
 
 ![](applyInitializers.png)
 
-到这步，已经很清楚了，上述 `applyInitializers` 方法中：
+到这步，已经很清楚了，我们来总结一下上述 `applyInitializers` 方法的逻辑：
 
-- 通过 `getInitializers` 方法，获取了 `SpringApplication` 的 `initializers` 变量，即实现了 `ApplicationContextInitializer` 接口的集合。
+*   通过 `getInitializers` 方法，获取了 `SpringApplication` 的 `initializers` 变量，即实现了 `ApplicationContextInitializer` 接口的集合。
+    * 继续查看 `getInitializers` 方法，我们可以看到如下：
+    ```
+    public Set<ApplicationContextInitializer<?>> getInitializers() {
+        return asUnmodifiableOrderedSet(this.initializers);
+    }
+    
+    private static <E> Set<E> asUnmodifiableOrderedSet(Collection<E> elements) {
+        List<E> list = new ArrayList<>(elements);
+        list.sort(AnnotationAwareOrderComparator.INSTANCE);
+        return new LinkedHashSet<>(list);
+    }
+    ```
+    注意看 `asUnmodifiableOrderedSet` 方法中的 `AnnotationAwareOrderComparator` 类，它是 **Spring** 框架中的一个核心排序组件，其作用是对实现了 `Ordered` 接口、`PriorityOrdered`接口以及被 `@Order` 或 `@Priority` 注解修饰的类进行统一的排序。
 
-- 遍历 `ApplicationContextInitializer` 接口的集合，循环操作 `initializer` 的初始化；
-  - 通过 `GenericTypeResolver##resolveTypeArgument` 方法，来解析 `initializer` 对象中的泛型类型参数，并赋值给 `requiredType` 变量。
-  - 通过 `Assert##isInstanceOf` 方法，来检查 `context` 对象是否是`requiredType` 类型的实例。如果不是，那么会抛出一个异常，异常信息为 **"Unable to call initializer."**
-  - 调用 `ApplicationContextInitializer` 接口的 `initialize` 方法，初始化给定的应用上下文对象 `context`。
+*   遍历 `ApplicationContextInitializer` 接口的集合，循环操作 `initializer` 的初始化；
+    *   通过 `GenericTypeResolver##resolveTypeArgument` 方法，来解析 `initializer` 对象中的泛型类型参数，并赋值给 `requiredType` 变量；
+    
+    *   通过 `Assert##isInstanceOf` 方法，来检查 `context` 对象是否是`requiredType` 类型的实例。如果不是，那么会抛出一个异常，异常信息为 **"Unable to call initializer."**；
+    *   调用 `ApplicationContextInitializer` 接口的 `initialize` 方法，初始化给定的应用上下文对象 `context`。
 
 # 总结
-本篇 **Huazie** 带大家详细分析了 `ApplicationContextInitializer  的加载和初始化 ` 逻辑，这对于后续的 `SpringApplication` 运行流程的理解至关重要。
+
+本篇 **Huazie** 带大家详细分析了 **Spring Boot** 中 `ApplicationContextInitializer`  的加载和初始化的逻辑，这对于后续的 `SpringApplication` 运行流程的理解至关重要。
 
