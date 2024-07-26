@@ -25,110 +25,9 @@ tags:
 
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
-# 二、往期内容
-在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：
-
-<table>
-  <tr>
-    <td rowspan="19" align="left" > 
-      <a href="/categories/开发框架-Spring-Boot/">Spring Boot 源码学习</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/02/19/spring-boot/spring-boot-project-introduction/">Spring Boot 项目介绍</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/13/spring-boot/spring-boot-core-operating-principle/">Spring Boot 核心运行原理介绍</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/">【Spring Boot 源码学习】@SpringBootApplication 注解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/22/spring-boot/spring-boot-sourcecode-enableautoconfiguration/">【Spring Boot 源码学习】@EnableAutoConfiguration 注解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/30/spring-boot/spring-boot-sourcecode-autoconfigurationimportselector/">【Spring Boot 源码学习】走近 AutoConfigurationImportSelector</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/08/06/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-1/">【Spring Boot 源码学习】自动装配流程源码解析（上）</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/08/21/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-2/">【Spring Boot 源码学习】自动装配流程源码解析（下）</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/09/08/spring-boot/spring-boot-sourcecode-filteringspringbootcondition/">【Spring Boot 源码学习】深入 FilteringSpringBootCondition</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/09/11/spring-boot/spring-boot-sourcecode-onclasscondition/">【Spring Boot 源码学习】OnClassCondition 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/09/21/spring-boot/spring-boot-sourcecode-onbeancondition/">【Spring Boot 源码学习】OnBeanCondition 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/06/spring-boot/spring-boot-sourcecode-onwebapplicationcondition/">【Spring Boot 源码学习】OnWebApplicationCondition 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/15/spring-boot/spring-boot-sourcecode-conditional/">【Spring Boot 源码学习】@Conditional 条件注解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/22/spring-boot/spring-boot-sourcecode-httpencodingautoconfiguration/">【Spring Boot 源码学习】HttpEncodingAutoConfiguration 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/29/spring-boot/spring-boot-sourcecode-redisautoconfiguration/">【Spring Boot 源码学习】RedisAutoConfiguration 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/11/05/spring-boot/spring-boot-sourcecode-jedisconnectionconfiguration/">【Spring Boot 源码学习】JedisConnectionConfiguration 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/11/12/spring-boot/spring-boot-sourcecode-springapplication/">【Spring Boot 源码学习】初识 SpringApplication</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/11/19/spring-boot/spring-boot-sourcecode-banner-printer/">【Spring Boot 源码学习】Banner 信息打印流程</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/11/24/spring-boot/spring-boot-sourcecode-custom-banner-printer/">【Spring Boot 源码学习】自定义 Banner 信息打印</a> 
-    </td>
-  </tr>
-</table>
-
-# 三、主要内容
+# 二、主要内容
 > **注意：** 以下涉及 **Spring Boot** 源码 均来自版本 **2.7.9**，其他版本有所出入，可自行查看源码。
-## 3.1 初识 BootstrapRegistryInitializer
+## 2.1 初识 BootstrapRegistryInitializer
 废话不多说，我们直接来看 `BootstrapRegistryInitializer` 接口的源码：
 
 ```java
@@ -154,7 +53,8 @@ public interface BootstrapRegistryInitializer {
 > 简而言之，`BootstrapRegistry` 是一个用于存储和共享对象的注册表，这些对象在`ApplicationContext` 准备好之前就可能已经被创建并需要被共享。
 
 在 **Spring Cloud Config** 中，客户端通过向配置中心（**Config Server**）发送请求来获取应用程序的配置信息。而 `BootstrapRegistryInitializer` 就是负责将配置中心的相关信息注册到 **Spring** 容器中的。
-## 3.2 加载 BootstrapRegistryInitializer
+
+## 2.2 加载 BootstrapRegistryInitializer
 ```java
 this.bootstrapRegistryInitializers = new ArrayList<>(
         getSpringFactoriesInstances(BootstrapRegistryInitializer.class));
@@ -201,7 +101,7 @@ org.springframework.cloud.config.client.ConfigClientRetryBootstrapper
 
 有关 **Spring Cloud Config** 的内容，这里就不展开介绍了，感兴趣的小伙伴自行查阅 [**Spring Cloud Config** 的官方文档](https://docs.spring.io/spring-cloud-config/docs/current/reference/html/)。
 
-## 3.3 BootstrapRegistryInitializer 的初始化
+## 2.3 BootstrapRegistryInitializer 的初始化
 
 这里我们需要查看 `SpringApplication` 的 `run(String... args)` 方法，如下所示：
 
@@ -226,6 +126,7 @@ this.bootstrapRegistryInitializers.forEach((initializer) -> initializer.initiali
 从上述的  `SpringApplication` 的 `run(String... args)` 方法源码中，我们也可以看出 `BootstrapRegistryInitializer` 的初始化是在 **Spring Boot** 应用启动一开始进行的。
 
 我们通过实现 `BootstrapRegistryInitializer` 接口并定义 `initialize` 方法，可以将自定义的 **Bean** 初始化器注册到 `ApplicationContext` 中。这样，在 **Spring Boot** 应用启动时，这些初始化器会被自动加载并执行，从而完成一些必要的初始化配置。
-# 四、总结
+
+# 三、总结
 本篇 **Huazie** 带大家详细分析了加载并初始化 `BootstrapRegistryInitializer` 的逻辑，这对于后续的 `SpringApplication` 运行流程的理解至关重要。
 

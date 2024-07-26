@@ -21,42 +21,6 @@ tags:
 
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
-# 往期内容
-在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：
-
-<table>
-    <tr>
-        <td rowspan="6" align="left"> 
-            <a href="/categories/开发框架-Spring-Boot/">Spring Boot 源码学习</a> 
-        </td>
-    </tr>
-    <tr>
-        <td align="left"> 
-            <a href="/2023/02/19/spring-boot/spring-boot-project-introduction/">Spring Boot 项目介绍</a> 
-        </td>
-    </tr>
-    <tr>
-        <td align="left"> 
-            <a href="/2023/07/13/spring-boot/spring-boot-core-operating-principle/">Spring Boot 核心运行原理介绍</a> 
-        </td>
-    </tr>
-    <tr>
-        <td align="left"> 
-            <a href="/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/">【Spring Boot 源码学习】@SpringBootApplication 注解</a> 
-        </td>
-    </tr>
-    <tr>
-        <td align="left"> 
-            <a href="/2023/07/22/spring-boot/spring-boot-sourcecode-enableautoconfiguration/">【Spring Boot 源码学习】@EnableAutoConfiguration 注解</a> 
-        </td>
-    </tr>
-    <tr>
-        <td align="left"> 
-            <a href="/2023/07/30/spring-boot/spring-boot-sourcecode-autoconfigurationimportselector/">【Spring Boot 源码学习】走近 AutoConfigurationImportSelector</a> 
-        </td>
-    </tr>
-</table>
-
 # 主要内容
 下面就让我们从 `AutoConfigurationImportSelector` 的 `selectImports` 方法源码入手，开始了解自动装配流程。
 

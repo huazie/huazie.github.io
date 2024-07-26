@@ -23,88 +23,8 @@ tags:
 <!-- more -->
 
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
-# 二、往期内容
-在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：
 
-<table>
-  <tr>
-    <td rowspan="15" align="left" > 
-      <a href="/categories/开发框架-Spring-Boot/">Spring Boot 源码学习</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/02/19/spring-boot/spring-boot-project-introduction/">Spring Boot 项目介绍</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/13/spring-boot/spring-boot-core-operating-principle/">Spring Boot 核心运行原理介绍</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/">【Spring Boot 源码学习】@SpringBootApplication 注解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/22/spring-boot/spring-boot-sourcecode-enableautoconfiguration/">【Spring Boot 源码学习】@EnableAutoConfiguration 注解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/30/spring-boot/spring-boot-sourcecode-autoconfigurationimportselector/">【Spring Boot 源码学习】走近 AutoConfigurationImportSelector</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/08/06/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-1/">【Spring Boot 源码学习】自动装配流程源码解析（上）</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/08/21/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-2/">【Spring Boot 源码学习】自动装配流程源码解析（下）</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/09/08/spring-boot/spring-boot-sourcecode-filteringspringbootcondition/">【Spring Boot 源码学习】深入 FilteringSpringBootCondition</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/09/11/spring-boot/spring-boot-sourcecode-onclasscondition/">【Spring Boot 源码学习】OnClassCondition 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/09/21/spring-boot/spring-boot-sourcecode-onbeancondition/">【Spring Boot 源码学习】OnBeanCondition 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/06/spring-boot/spring-boot-sourcecode-onwebapplicationcondition/">【Spring Boot 源码学习】OnWebApplicationCondition 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/15/spring-boot/spring-boot-sourcecode-conditional/">【Spring Boot 源码学习】@Conditional 条件注解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/22/spring-boot/spring-boot-sourcecode-httpencodingautoconfiguration/">【Spring Boot 源码学习】HttpEncodingAutoConfiguration 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/29/spring-boot/spring-boot-sourcecode-redisautoconfiguration/">【Spring Boot 源码学习】RedisAutoConfiguration 详解</a> 
-    </td>
-  </tr>
-</table>
-
-# 三、主要内容
+# 二、主要内容
 
 ## 1. RedisConnectionFactory
 
@@ -463,6 +383,6 @@ private JedisConnectionFactory createJedisConnectionFactory(
 - 然后，获取集群模式配置，并判断是否为空，如果不为空，则直接根据集群模式的配置创建并返回一个连接工厂实例。
 - 最后，获取单机模式配置，根据单机模式的配置创建并返回一个连接工厂实例。
 
-# 四、总结
+# 三、总结
 本篇我们深入分析了 `JedisConnectionConfiguration ` 配置类的相关内容，该类用于配置 **Redis** 连接的 **Jedis** 实现。
 

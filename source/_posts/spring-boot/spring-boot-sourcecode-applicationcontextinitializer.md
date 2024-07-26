@@ -25,115 +25,9 @@ tags:
 
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
-# 二、往期内容
-在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：
-
-<table>
-  <tr>
-    <td rowspan="20" align="left" > 
-      <a href="/categories/开发框架-Spring-Boot/">Spring Boot 源码学习</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/02/19/spring-boot/spring-boot-project-introduction/">Spring Boot 项目介绍</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/13/spring-boot/spring-boot-core-operating-principle/">Spring Boot 核心运行原理介绍</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/">【Spring Boot 源码学习】@SpringBootApplication 注解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/22/spring-boot/spring-boot-sourcecode-enableautoconfiguration/">【Spring Boot 源码学习】@EnableAutoConfiguration 注解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/30/spring-boot/spring-boot-sourcecode-autoconfigurationimportselector/">【Spring Boot 源码学习】走近 AutoConfigurationImportSelector</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/08/06/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-1/">【Spring Boot 源码学习】自动装配流程源码解析（上）</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/08/21/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-2/">【Spring Boot 源码学习】自动装配流程源码解析（下）</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/09/08/spring-boot/spring-boot-sourcecode-filteringspringbootcondition/">【Spring Boot 源码学习】深入 FilteringSpringBootCondition</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/09/11/spring-boot/spring-boot-sourcecode-onclasscondition/">【Spring Boot 源码学习】OnClassCondition 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/09/21/spring-boot/spring-boot-sourcecode-onbeancondition/">【Spring Boot 源码学习】OnBeanCondition 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/06/spring-boot/spring-boot-sourcecode-onwebapplicationcondition/">【Spring Boot 源码学习】OnWebApplicationCondition 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/15/spring-boot/spring-boot-sourcecode-conditional/">【Spring Boot 源码学习】@Conditional 条件注解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/22/spring-boot/spring-boot-sourcecode-httpencodingautoconfiguration/">【Spring Boot 源码学习】HttpEncodingAutoConfiguration 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/29/spring-boot/spring-boot-sourcecode-redisautoconfiguration/">【Spring Boot 源码学习】RedisAutoConfiguration 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/11/05/spring-boot/spring-boot-sourcecode-jedisconnectionconfiguration/">【Spring Boot 源码学习】JedisConnectionConfiguration 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/11/12/spring-boot/spring-boot-sourcecode-springapplication/">【Spring Boot 源码学习】初识 SpringApplication</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/11/19/spring-boot/spring-boot-sourcecode-banner-printer/">【Spring Boot 源码学习】Banner 信息打印流程</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/11/24/spring-boot/spring-boot-sourcecode-custom-banner-printer/">【Spring Boot 源码学习】自定义 Banner 信息打印</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/">【Spring Boot 源码学习】BootstrapRegistryInitializer 详解</a> 
-    </td>
-  </tr>
-</table>
-
-# 三、主要内容
+# 二、主要内容
 > **注意：** 以下涉及 **Spring Boot** 源码 均来自版本 **2.7.9**，其他版本有所出入，可自行查看源码。
-## 3.1 初识 ApplicationContextInitializer
+## 2.1 初识 ApplicationContextInitializer
 我们先来看看 `ApplicationContextInitializer` 接口的源码：
 
 ```java
@@ -152,7 +46,7 @@ public interface ApplicationContextInitializer<C extends ConfigurableApplication
 
 `ApplicationContextInitializer` 的主要用途是在 `ConfigurableApplicationContext` 类型（或其子类型）的应用程序上下文刷新之前，允许用户初始化 **Spring** `ConfigurableApplicationContext` 对象实例。通常用于需要在应用程序上下文中进行一些程序化初始化的 **Web** 应用程序。例如，注册属性源或激活与上下文环境相关的配置文件。请参阅 `ContextLoader` 和`FrameworkServlet` 支持，它们分别支持声明 `"contextInitializerClasses"` 上下文参数和初始化参数。建议使用 `ApplicationContextInitializer` 处理器检测是否实现了 **Spring** 的 `Ordered` 接口或者是否存在`@Order` 注解，并在调用之前根据这些信息对实例进行排序。
 
-## 3.2 加载 ApplicationContextInitializer
+## 2.2 加载 ApplicationContextInitializer
 
 ```java
 setInitializers((Collection) getSpringFactoriesInstances(ApplicationContextInitializer.class));
@@ -185,7 +79,7 @@ org.springframework.context.ApplicationContextInitializer=\
 org.springframework.boot.autoconfigure.SharedMetadataReaderFactoryContextInitializer,\
 org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener
 ```
-## 3.3 ApplicationContextInitializer 的初始化
+## 2.3 ApplicationContextInitializer 的初始化
 
 这里我们需要查看 `SpringApplication` 的 `run(String... args)` 方法，如下所示：
 
@@ -224,7 +118,7 @@ org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingL
     *   通过 `Assert##isInstanceOf` 方法，来检查 `context` 对象是否是`requiredType` 类型的实例。如果不是，那么会抛出一个异常，异常信息为 **"Unable to call initializer."**；
     *   调用 `ApplicationContextInitializer` 接口的 `initialize` 方法，初始化给定的应用上下文对象 `context`。
 
-# 总结
+# 三、总结
 
 本篇 **Huazie** 带大家详细分析了 **Spring Boot** 中 `ApplicationContextInitializer`  的加载和初始化的逻辑，这对于后续的 `SpringApplication` 运行流程的理解至关重要。
 

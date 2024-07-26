@@ -34,11 +34,11 @@ tags:
 
 **那通常是什么原因导致线程终止的呢 ？**
 
-通常最主要的原因就是运行时异常【**RuntimeException**】。这一类异常由于表示出现了某种编程错误或者其他不可修复的错误，通常它们不会被程序捕获。它们也不会在调用栈中逐层传递，而是默认地在控制台中输出栈追踪信息，并终止线程。
+通常最主要的原因就是运行时异常【`RuntimeException`】。这一类异常由于表示出现了某种编程错误或者其他不可修复的错误，通常它们不会被程序捕获。它们也不会在调用栈中逐层传递，而是默认地在控制台中输出栈追踪信息，并终止线程。
 
 线程非正常退出的后果可能是良性的，也可能是恶性的，这要取决于线程在应用程序中的作用。例如，如果在 **GUI** 程序中丢失了事件分派线程，那么应用程序将停止处理事件并且 **GUI** 程序会因此失去响应。
 
-由于任何代码都可能抛出一个 **RuntimeException**。因此我们要特别注意，每当调用另一个方法时，都要对它的行为保持怀疑，不要盲目地认为它一定会正常返回，或者一定会抛出在方法原型中声明的某个已检查异常。
+由于任何代码都可能抛出一个 `RuntimeException`。因此我们要特别注意，每当调用另一个方法时，都要对它的行为保持怀疑，不要盲目地认为它一定会正常返回，或者一定会抛出在方法原型中声明的某个已检查异常。
 
 下面我们来看一下如下的示例【典型的线程池工作者线程结构】
 
@@ -58,20 +58,20 @@ tags:
 
 上述示例中，如果任务抛出一个未检查异常，那么它将使线程终结，但会首先通知框架该线程已经终结。然后，框架可能会用新的线程来代替这个工作者线程，也可能不会，因为线程池正在关闭，或者当前已有足够多的线程能满足需要。
 
-**ThreadPoolExecutor** 和 **Swing** 都通过这项技术来确保行为糟糕的任务不会影响到后续任务的执行。
+`ThreadPoolExecutor` 和 `Swing` 都通过这项技术来确保行为糟糕的任务不会影响到后续任务的执行。
 
 ### 1.1 未捕获异常的处理
 
-上面我们介绍了一种主动方法来解决未检查异常，而在 **Thread API** 中同样提供了 **UncaughtExceptionHandler**，它能检测出某个线程由于未捕获的异常而终结的情况。两者结合，能有效地防止线程泄露问题。
+上面我们介绍了一种主动方法来解决未检查异常，而在 **Thread API** 中同样提供了 `UncaughtExceptionHandler`，它能检测出某个线程由于未捕获的异常而终结的情况。两者结合，能有效地防止线程泄露问题。
 
-当一个线程由于未捕获异常而退出时，**JVM** 会把这个事件报告给应用程序提供的 **UncaughtExceptionHandler** 异常处理器。如果没有提供任何异常处理器，那么默认的行为是将栈追踪信息输出到 **System.err** 。
+当一个线程由于未捕获异常而退出时，**JVM** 会把这个事件报告给应用程序提供的 `UncaughtExceptionHandler` 异常处理器。如果没有提供任何异常处理器，那么默认的行为是将栈追踪信息输出到 `System.err` 。
 
 **知识点：**
-- 在**Java 5.0** 之前，控制 **UncaughtExceptionHandler** 的唯一方法就是对 **ThreadGroup** 进行子类化。
-- 在**Java 5.0 及之后** 的版本中，可以通过 **Thread.setUncaughtExceptionHandler** 为每个线程设置一个 **UncaughtExceptionHandler**，还可以使用 **setDefaultUncaughtExceptionHandler** 来设置默认的 **UncaughtExceptionHandler**。
-- 在这些异常处理器中，只有其中一个将被调用 --- **JVM** 首先搜索每个线程的异常处理器，然后再搜索一个 **ThreadGroup** 的异常处理器。**ThreadGroup** 中的默认异常处理器实现将异常处理工作逐层委托给它的上层 **ThreadGroup**，直到其中某个 **ThreadGroup** 的异常处理器能够处理该未捕获异常，否则将一直传递到顶层的 **ThreadGroup**。顶层的 **ThreadGroup** 的异常处理器委托给默认的系统处理器（如果存在，在默认情况下为空），否则将把栈追踪信息输出到控制台。
+- 在**Java 5.0** 之前，控制 `UncaughtExceptionHandler` 的唯一方法就是对 `ThreadGroup` 进行子类化。
+- 在**Java 5.0 及之后** 的版本中，可以通过 `Thread.setUncaughtExceptionHandler` 为每个线程设置一个 `UncaughtExceptionHandler`，还可以使用 `setDefaultUncaughtExceptionHandler` 来设置默认的 `UncaughtExceptionHandler`。
+- 在这些异常处理器中，只有其中一个将被调用 --- **JVM** 首先搜索每个线程的异常处理器，然后再搜索一个 `ThreadGroup` 的异常处理器。`ThreadGroup` 中的默认异常处理器实现将异常处理工作逐层委托给它的上层 `ThreadGroup`，直到其中某个 `ThreadGroup` 的异常处理器能够处理该未捕获异常，否则将一直传递到顶层的 `ThreadGroup`。顶层的 `ThreadGroup` 的异常处理器委托给默认的系统处理器（如果存在，在默认情况下为空），否则将把栈追踪信息输出到控制台。
 
-下面我们来看一下 **UncaughtExceptionHandler** 接口：
+下面我们来看一下 `UncaughtExceptionHandler` 接口：
 
 ```java
 public interface UncaughtExceptionHandler {
@@ -96,17 +96,17 @@ public class UEHLogger implements Thread.UncaughtExceptionHandler {
 
 **实际上很多场景下，我们都是在使用线程池，那么该如何为线程池中的所有线程指定一个异常处理器呢？**
 
-要为线程池中的所有线程设置一个 **UncaughtExceptionHandler**，需要为 **ThreadPoolExecutor** 的构造函数提供一个 **ThreadFactory**。
+要为线程池中的所有线程设置一个 `UncaughtExceptionHandler`，需要为 `ThreadPoolExecutor` 的构造函数提供一个 `ThreadFactory`。
 
-标准线程池允许当发生未捕获异常时结束线程，但由于使用了一个 **try-finally** 代码块来接收通知，因此当线程结束时，将有新的线程来代替它。
+标准线程池允许当发生未捕获异常时结束线程，但由于使用了一个 `try-finally` 代码块来接收通知，因此当线程结束时，将有新的线程来代替它。
 
 如果没有提供捕获异常处理器或者其他的故障通知机制，那么任务会悄悄失败，从而引起更大的问题。
 
-如果你希望在任务由于发生异常而失败时获得通知，并且执行一些特定于任务的恢复操作，那么可以将任务封装在能捕获异常的 **Runnable** 或 **Callable** 中，或者改写 **ThreadPoolExecutor** 的 **afterExecute** 方法。
+如果你希望在任务由于发生异常而失败时获得通知，并且执行一些特定于任务的恢复操作，那么可以将任务封装在能捕获异常的 `Runnable` 或 `Callable` 中，或者改写 `ThreadPoolExecutor` 的 `afterExecute` 方法。
 
 **另外需要注意的是:**
-- 只有通过 **execute** 提交的任务，才能将它抛出的异常交给未捕获异常处理器，而通过 **submit** 提交的任务，无论是抛出的 **未检查异常** 还是 **已检查异常**，都将被认为是任务返回状态的一部分。
-- 如果一个由 **submit** 提交的任务由于抛出了异常而结束，那么这个异常将被 **Future.get** 封装在 **ExecutionException** 中重新抛出。
+- 只有通过 `execute` 提交的任务，才能将它抛出的异常交给未捕获异常处理器，而通过 `submit` 提交的任务，无论是抛出的 **未检查异常** 还是 **已检查异常**，都将被认为是任务返回状态的一部分。
+- 如果一个由 `submit` 提交的任务由于抛出了异常而结束，那么这个异常将被 `Future.get` 封装在 `ExecutionException` 中重新抛出。
 
 ## 2. JVM关闭
 **JVM** 既可以 **正常关闭**，也可以 **强行关闭**。
@@ -114,13 +114,13 @@ public class UEHLogger implements Thread.UncaughtExceptionHandler {
 正常关闭的触发方法有多种，如下：
 
 - 当最后一个 “正常（非守护）” 线程结束时
-- 当调用了 **System.exit** 时
-- 通过其他特定于平台的方法关闭（例如发送了 **SIGINT** 信号或键入 **Ctrl+C**）
+- 当调用了 `System.exit` 时
+- 通过其他特定于平台的方法关闭（例如发送了 `SIGINT` 信号或键入 `Ctrl+C`）
 
 强行关闭的触发方法，有如下：
 
-- 调用 **Runtime.halt(int status)**
-- 在操作系统中 “杀死” **JVM** 进程（例如发送 **SIGKILL**）
+- 调用 `Runtime.halt(int status)`
+- 在操作系统中 “杀死” **JVM** 进程（例如发送 `SIGKILL`）
 
 说到 **JVM** 正常关闭，就不得不提接下来的主角 -- **关闭钩子**。
 
@@ -128,7 +128,7 @@ public class UEHLogger implements Thread.UncaughtExceptionHandler {
 
 **何为关闭钩子 ？**
 
-关闭钩子是指通过 **Runtime.addShutdownHook** 注册的但尚未开始的线程。它只有在 **JVM** 正常关闭才会执行，在强制关闭时不会执行。
+关闭钩子是指通过 `Runtime.addShutdownHook` 注册的但尚未开始的线程。它只有在 **JVM** 正常关闭才会执行，在强制关闭时不会执行。
 
 **JVM 关闭过程中，有哪些需要注意的呢 ？**
 
@@ -136,7 +136,7 @@ public class UEHLogger implements Thread.UncaughtExceptionHandler {
 
 - 在关闭应用程序线程时，如果有（守护或非守护）线程仍然在运行，那么这些线程接下来将与关闭进程并发执行。
 
-- 当所有的关闭钩子都执行结束时，如果 **runFinalizersOnExit** 为 **true**，那么 **JVM** 将运行 **终结器**，然后再停止。
+- 当所有的关闭钩子都执行结束时，如果 `runFinalizersOnExit` 为 `true`，那么 **JVM** 将运行 **终结器**，然后再停止。
 
 - **JVM** 并不会停止或中断任何在关闭时仍然运行的应用程序线程。当 **JVM** 最终结束时，这些线程将被强行结束。
 
@@ -169,7 +169,7 @@ public class UEHLogger implements Thread.UncaughtExceptionHandler {
     }
 ```
 
-上述示例是 **LogService** 在其 **start** 方法中注册一个关闭钩子，从而确保在退出时关闭日志文件。
+上述示例是 `LogService` 在其 `start` 方法中注册一个关闭钩子，从而确保在退出时关闭日志文件。
 
 
 由于关闭钩子将并发执行，因此在关闭日志文件时可能导致其他需要日志服务的关闭钩子产生问题。那为了避免这种情况，关闭钩子不应该依赖那些可能被应用程序或其他关闭钩子关闭的服务。
@@ -196,7 +196,7 @@ public class UEHLogger implements Thread.UncaughtExceptionHandler {
 
 普通线程与守护线程之间的**差异**仅在于当线程退出时发生的操作。
 
-当一个线程退出时，**JVM** 会检查其他正在运行的线程，如果这些线程都是守护线程，那么 **JVM** 会正常退出操作。当 **JVM** 停止时，所有仍然存在的守护线程都将被抛弃--即不会执行 **finally** 代码块，也不会执行回卷栈，而 **JVM** 只是直接退出。
+当一个线程退出时，**JVM** 会检查其他正在运行的线程，如果这些线程都是守护线程，那么 **JVM** 会正常退出操作。当 **JVM** 停止时，所有仍然存在的守护线程都将被抛弃--即不会执行 `finally` 代码块，也不会执行回卷栈，而 **JVM** 只是直接退出。
 
 **需要注意的是：**
 - 我们应当尽可能少地使用守护线程 --- 很少有操作能够在不进行清理的情况下被安全地抛弃。特别是，如果在守护线程中执行可能包含 **I/O** 操作的任务，那么这将是一种危险的行为。
@@ -208,11 +208,11 @@ public class UEHLogger implements Thread.UncaughtExceptionHandler {
 
 当不再需要内存资源时，可以通过垃圾回收器来回收它们，但对于其他的一些资源，例如文件句柄或套接字句柄，当不再需要它们时，必须显式地交还给操作系统。
 
-为了实现这个功能，垃圾回收器对那些定义了 **finalize** 方法的对象会进行特殊处理：在回收器释放它们后，调用它们的 **finalize** 方法，从而保证一些持久化的资源被释放。
+为了实现这个功能，垃圾回收器对那些定义了 `finalize` 方法的对象会进行特殊处理：在回收器释放它们后，调用它们的 `finalize` 方法，从而保证一些持久化的资源被释放。
 
 由于终结器可以在某个由 **JVM** 管理的线程中运行，因此终结器访问的任何状态都可能被多个线程访问，这样就必须对其访问操作进行同步。终结器并不能保证它们在何时运行甚至是否会运行，并且复杂的终结器通常还会在对象上产生巨大的性能开销。
 
-大多数情况下，通过使用 **finally** 代码块和显式的 **close** 方法，能够比使用终结器更好地管理资源。唯一例外的情况在于：当需要管理对象，并且该对象持有的资源是通过本地方法获得的。
+大多数情况下，通过使用 `finally` 代码块和显式的 `close` 方法，能够比使用终结器更好地管理资源。唯一例外的情况在于：当需要管理对象，并且该对象持有的资源是通过本地方法获得的。
 
 **最后需要注意：** 我们应当尽量避免编写和使用包含终结器的类（除非是平台库中的类）
 

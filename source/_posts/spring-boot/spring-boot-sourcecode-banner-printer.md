@@ -22,98 +22,8 @@ tags:
 <!-- more -->
 
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
-# 二、往期内容
-在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：
 
-<table>
-  <tr>
-    <td rowspan="17" align="left" > 
-      <a href="/categories/开发框架-Spring-Boot/">Spring Boot 源码学习</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/02/19/spring-boot/spring-boot-project-introduction/">Spring Boot 项目介绍</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/13/spring-boot/spring-boot-core-operating-principle/">Spring Boot 核心运行原理介绍</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/">【Spring Boot 源码学习】@SpringBootApplication 注解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/22/spring-boot/spring-boot-sourcecode-enableautoconfiguration/">【Spring Boot 源码学习】@EnableAutoConfiguration 注解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/30/spring-boot/spring-boot-sourcecode-autoconfigurationimportselector/">【Spring Boot 源码学习】走近 AutoConfigurationImportSelector</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/08/06/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-1/">【Spring Boot 源码学习】自动装配流程源码解析（上）</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/08/21/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-2/">【Spring Boot 源码学习】自动装配流程源码解析（下）</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/09/08/spring-boot/spring-boot-sourcecode-filteringspringbootcondition/">【Spring Boot 源码学习】深入 FilteringSpringBootCondition</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/09/11/spring-boot/spring-boot-sourcecode-onclasscondition/">【Spring Boot 源码学习】OnClassCondition 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/09/21/spring-boot/spring-boot-sourcecode-onbeancondition/">【Spring Boot 源码学习】OnBeanCondition 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/06/spring-boot/spring-boot-sourcecode-onwebapplicationcondition/">【Spring Boot 源码学习】OnWebApplicationCondition 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/15/spring-boot/spring-boot-sourcecode-conditional/">【Spring Boot 源码学习】@Conditional 条件注解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/22/spring-boot/spring-boot-sourcecode-httpencodingautoconfiguration/">【Spring Boot 源码学习】HttpEncodingAutoConfiguration 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/29/spring-boot/spring-boot-sourcecode-redisautoconfiguration/">【Spring Boot 源码学习】RedisAutoConfiguration 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/11/05/spring-boot/spring-boot-sourcecode-jedisconnectionconfiguration/">【Spring Boot 源码学习】JedisConnectionConfiguration 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/11/12/spring-boot/spring-boot-sourcecode-springapplication/">【Spring Boot 源码学习】初识 SpringApplication</a> 
-    </td>
-  </tr>
-</table>
-
-# 三、主要内容
+# 二、主要内容
 
 ## 1. printBanner 方法
 
@@ -323,6 +233,7 @@ bannerPrinter.print(environment, this.mainApplicationClass, System.out)
 由于上面是将 `System.out` 传入到 `PrintStream` 中，所以最终是将 **Banner** 信息直接输出到控制台，可见如下截图：
 
 ![](showConsoleBannerInfo.png)
-# 四、总结
+
+# 三、总结
 本篇 **Huazie** 带大家通读了 **Banner** 信息打印的源码，相信如果上面的内容都看下来的话，完全熟悉  **Banner** 信息打印流程不再是个问题。有了这些基础的知识，我们就可以来自定义  **Banner** 信息打印，敬请期待下篇博文！！！
 

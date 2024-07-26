@@ -24,171 +24,15 @@ tags:
 
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
-# 二、往期内容
-在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：
-
-<table>
-    <tr>
-        <td rowspan="30" align="left" > 
-            <a href="/categories/开发框架-Spring-Boot/">Spring Boot 源码学习</a> 
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2023/02/19/spring-boot/spring-boot-project-introduction/">Spring Boot 项目介绍</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2023/07/13/spring-boot/spring-boot-core-operating-principle/">Spring Boot 核心运行原理介绍</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/">【Spring Boot 源码学习】@SpringBootApplication 注解</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2023/07/22/spring-boot/spring-boot-sourcecode-enableautoconfiguration/">【Spring Boot 源码学习】@EnableAutoConfiguration 注解</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2023/07/30/spring-boot/spring-boot-sourcecode-autoconfigurationimportselector/">【Spring Boot 源码学习】走近 AutoConfigurationImportSelector</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2023/08/06/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-1/">【Spring Boot 源码学习】自动装配流程源码解析（上）</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2023/08/21/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-2/">【Spring Boot 源码学习】自动装配流程源码解析（下）</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2023/09/08/spring-boot/spring-boot-sourcecode-filteringspringbootcondition/">【Spring Boot 源码学习】深入 FilteringSpringBootCondition</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2023/09/11/spring-boot/spring-boot-sourcecode-onclasscondition/">【Spring Boot 源码学习】OnClassCondition 详解</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2023/09/21/spring-boot/spring-boot-sourcecode-onbeancondition/">【Spring Boot 源码学习】OnBeanCondition 详解</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2023/10/06/spring-boot/spring-boot-sourcecode-onwebapplicationcondition/">【Spring Boot 源码学习】OnWebApplicationCondition 详解</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2023/10/15/spring-boot/spring-boot-sourcecode-conditional/">【Spring Boot 源码学习】@Conditional 条件注解</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2023/10/22/spring-boot/spring-boot-sourcecode-httpencodingautoconfiguration/">【Spring Boot 源码学习】HttpEncodingAutoConfiguration 详解</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2023/10/29/spring-boot/spring-boot-sourcecode-redisautoconfiguration/">【Spring Boot 源码学习】RedisAutoConfiguration 详解</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2023/11/05/spring-boot/spring-boot-sourcecode-jedisconnectionconfiguration/">【Spring Boot 源码学习】JedisConnectionConfiguration 详解</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2023/11/12/spring-boot/spring-boot-sourcecode-springapplication/">【Spring Boot 源码学习】初识 SpringApplication</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2023/11/19/spring-boot/spring-boot-sourcecode-banner-printer/">【Spring Boot 源码学习】Banner 信息打印流程</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2023/11/24/spring-boot/spring-boot-sourcecode-custom-banner-printer/">【Spring Boot 源码学习】自定义 Banner 信息打印</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/">【Spring Boot 源码学习】BootstrapRegistryInitializer 详解</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2023/12/03/spring-boot/spring-boot-sourcecode-applicationcontextinitializer/">【Spring Boot 源码学习】ApplicationContextInitializer 详解</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2023/12/10/spring-boot/spring-boot-sourcecode-applicationlistener/">【Spring Boot 源码学习】ApplicationListener 详解</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2024/01/07/spring-boot/spring-boot-sourcecode-springapplication-customization/">【Spring Boot 源码学习】SpringApplication 的定制化介绍</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2024/01/31/spring-boot/spring-boot-sourcecode-bootstrapregistry/">【Spring Boot 源码学习】BootstrapRegistry 详解</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2024/02/25/spring-boot/spring-boot-sourcecode-bootstrapcontext/">【Spring Boot 源码学习】深入 BootstrapContext 及其默认实现</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2024/03/02/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer-impl/">【Spring Boot 源码学习】BootstrapRegistry 初始化器实现</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2024/03/09/spring-boot/spring-boot-sourcecode-bootstrapcontext-actual-usage-scenario/">【Spring Boot 源码学习】BootstrapContext的实际使用场景</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2024/03/17/spring-boot/spring-boot-sourcecode-applicationcontextinitializer-impl/">【Spring Boot 源码学习】深入 ApplicationContext 初始化器实现</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <a href="/2024/03/24/spring-boot/spring-boot-sourcecode-sharedmetadatareaderfactorycontextinitializer/">【Spring Boot 源码学习】共享 MetadataReaderFactory 上下文初始化器</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="left" > 
-            <a href="2024/03/31/spring-boot/spring-boot-sourcecode-conditionevaluationreportlogginglistener/">【Spring Boot 源码学习】ConditionEvaluationReport 日志记录上下文初始化器</a> 
-        </td>
-    </tr>
-</table>
-
-# 三、主要内容
+# 二、主要内容
 > 注意： 以下涉及 **Spring Boot** 源码 均来自版本 **2.7.9**，其他版本有所出入，可自行查看源码。
-## 3.1 run 方法源码初识
+## 2.1 run 方法源码初识
 ![](run.png)
 
 上述截图就是 `SpringApplication` 的 `run` 方法核心代码。
 
 下面 **Huazie** 将带着大家一起通读这块源码，从整体上了解下 `run` 方法核心流程。
-## 3.2 引导上下文 BootstrapContext
+## 2.2 引导上下文 BootstrapContext
 
 ```java
 DefaultBootstrapContext bootstrapContext = createBootstrapContext();
@@ -206,7 +50,7 @@ DefaultBootstrapContext bootstrapContext = createBootstrapContext();
 - [《深入 BootstrapContext 及其默认实现》](../../../../../2024/02/25/spring-boot/spring-boot-sourcecode-bootstrapcontext/)
 - [《BootstrapRegistry 初始化器实现》](../../../../../2024/03/02/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer-impl/)
 - [《BootstrapContext的实际使用场景》](../../../../../2024/03/09/spring-boot/spring-boot-sourcecode-bootstrapcontext-actual-usage-scenario/)
-## 3.3  系统属性【java.awt.headless】
+## 2.3  系统属性【java.awt.headless】
 
 ```java
 private static final String SYSTEM_PROPERTY_JAVA_AWT_HEADLESS = "java.awt.headless";
@@ -227,7 +71,7 @@ private void configureHeadlessProperty() {
 - **Headless 模式** ，适用于没有显示设备、驱动或图形用户界面的环境，例如服务器。
 
 > **注意：** 设置 `java.awt.headless` 属性为 `true` 会使 **Java AWT** 工具包在 **headless** 模式下运行，这意味着它将不会尝试加载或访问与图形用户界面相关的资源或功能。
-## 3.4 早期启动阶段
+## 2.4 早期启动阶段
 
 ```java
 SpringApplicationRunListeners listeners = getRunListeners(args);
@@ -237,7 +81,7 @@ listeners.starting(bootstrapContext, this.mainApplicationClass);
 `SpringApplicationRunListeners` 中包含了一组 `SpringApplicationRunListener` 的集合。`SpringApplicationRunListener` 是 `SpringApplication` 的 `run` 方法的监听器，它用来监听 **Spring Boot** 应用的不同启动阶段，这些阶段都会发布对应的事件。
 
 这里 `starting` 方法，就对应了最早期的启动阶段，它在 `run` 方法刚开始执行时就被立即调用。`starting` 方法里会发布 `ApplicationStartingEvent` 事件，通过监听该事件，应用可以执行一些非常早期的初始化工作，比如配置系统属性、初始化基础组件等等。
-## 3.5 准备和配置应用环境
+## 2.5 准备和配置应用环境
 
 ```java
 ApplicationArguments applicationArguments = new DefaultApplicationArguments(args);
@@ -274,7 +118,7 @@ Boolean ignore = environment.getProperty(CachedIntrospectionResults.IGNORE_BEANI
 
 **请注意**：如果存在反复访问不存在的 `BeanInfo` 类，可能也表明缓存未奏效。最好将 **Spring** 的 **jar** 包与应用类放在同一个 `ClassLoader` 中，这样可以在任何情况下与应用程序的生命周期一起进行干净的缓存。对于 **Web** 应用程序，如果采用多 `ClassLoader` 布局，可以考虑在 **web.xml** 中声明一个本地的 `org.springframework.web.util.IntrospectorCleanupListener`，这也可以实现有效的缓存。
 
-## 3.6 打印 Banner 信息
+## 2.6 打印 Banner 信息
 
 ```java
 Banner printedBanner = printBanner(environment);
@@ -287,7 +131,7 @@ Banner printedBanner = printBanner(environment);
 - [《Banner 信息打印流程》](../../../../../2023/11/19/spring-boot/spring-boot-sourcecode-banner-printer/)
 - [《自定义 Banner 信息打印》](../../../../../2023/11/24/spring-boot/spring-boot-sourcecode-custom-banner-printer/)
 
-## 3.7 新建应用上下文
+## 2.7 新建应用上下文
 
 ```java
 ConfigurableApplicationContext context = createApplicationContext();
@@ -300,7 +144,7 @@ protected ConfigurableApplicationContext createApplicationContext() {
 上述 `createApplicationContext` 方法的功能是：根据给定的 **Web** 应用程序类型 `webApplicationType` 创建一个可配置的应用上下文对象 `ConfigurableApplicationContext` 。
 
 在[《初识 SpringApplication》](../../../../../2023/11/12/spring-boot/spring-boot-sourcecode-springapplication/)这篇博文的 **2.2 小节**【**Web 应用类型推断**】中，大家可以看到 **Web** 应用程序类型 `webApplicationType` 是如何获取的，这里不赘述了，感兴趣的可以自行查看。
-## 3.8 准备和配置应用上下文
+## 2.8 准备和配置应用上下文
 ```java
 context.setApplicationStartup(this.applicationStartup);
 prepareContext(bootstrapContext, context, environment, listeners, applicationArguments, printedBanner);
@@ -312,7 +156,7 @@ prepareContext(bootstrapContext, context, environment, listeners, applicationArg
 1.  `ApplicationContextInitializedEvent`：当 `SpringApplication` 启动并且 `ApplicationContext` 已准备好，且 `ApplicationContextInitializer` 集合已被调用，但在加载任何 **bean** 定义之前，将发布该事件。
 2.  `ApplicationPreparedEvent` ：当 `SpringApplication` 启动并且 `ApplicationContext` 已经完全准备好但尚未刷新时，将发布事件。在此阶段，**bean** 定义将被加载，环境已经准备好可以使用。
 
-## 3.9 刷新应用上下文
+## 2.9 刷新应用上下文
 
 ```java
 static final SpringApplicationShutdownHook shutdownHook = new SpringApplicationShutdownHook();
@@ -341,12 +185,12 @@ protected void refresh(ConfigurableApplicationContext applicationContext) {
 
 它最后会发布 `ContextRefreshedEvent` 事件，通过监听该事件，可以执行一些应用上下文初始化或刷新后需要进行的操作。
 
-## 3.10 afterRefresh 方法
+## 2.10 afterRefresh 方法
 刷新应用上下文之后，调用 `afterRefresh` 方法。该方法的实现默认为空，可由开发人员自行扩展。
 
 ![](afterRefresh.png)
 
-## 3.11 打印启动日志
+## 2.11 打印启动日志
 
 ```java
 long startTime = System.nanoTime();
@@ -371,7 +215,7 @@ if (this.logStartupInfo) {
 实际运行日志信息类似如下：
 
 ![](result.png)
-## 3.12 Spring 容器启动完成
+## 2.12 Spring 容器启动完成
 
 ```java
 listeners.started(context, timeTakenToStartup);
@@ -381,7 +225,7 @@ listeners.started(context, timeTakenToStartup);
 
 `SpringApplicationRunListeners` 的 `started` 方法里会发布 `ApplicationStartedEvent` 事件，通知监听器 **Spring** 容器启动完成。
 
-## 3.13 callRunners 方法
+## 2.13 callRunners 方法
 
 ```java
 callRunners(context, applicationArguments);
@@ -404,7 +248,7 @@ callRunners(context, applicationArguments);
 
 如果需要访问 `ApplicationArguments` 而不是原始的字符串数组，大家可以考虑使用 `ApplicationRunner`。
 
-## 3.14 Spring 容器正在运行中
+## 2.14 Spring 容器正在运行中
 
 ```java
 Duration timeTakenToReady = Duration.ofNanos(System.nanoTime() - startTime);
@@ -419,15 +263,15 @@ listeners.ready(context, timeTakenToReady);
 
 ![](ready.png)
 
-## 3.15 异常处理
+## 2.15 异常处理
 
 ```java
 handleRunFailure(context, ex, listeners);
 ```
 
-从 **3.5** 到 **3.13** 小节 ，如果出现异常，则会捕获后调用 `handleRunFailure` 进行异常处理。
+从 **2.5** 到 **2.13** 小节 ，如果出现异常，则会捕获后调用 `handleRunFailure` 进行异常处理。
 
-**3.14** 小节，同样它如果出现异常，也会捕获后调用 `handleRunFailure` 进行异常处理。
+**2.14** 小节，同样它如果出现异常，也会捕获后调用 `handleRunFailure` 进行异常处理。
 
 `handleRunFailure` 方法里会发布 `ApplicationFailedEvent` 事件，通过监听该事件，开发人员可以实现如下的一些操作：
 
@@ -440,7 +284,7 @@ handleRunFailure(context, ex, listeners);
 
 有关这块更详细的内容，后续 **Huazie** 将专门出一篇讲解，敬请期待！！！
 
-# 四、总结
+# 三、总结
 
 本篇 **Huazie** 向大家初步介绍了 `SpringApplication` 的 `run` 方法核心流程。由于篇幅受限，其中很多环节并未深入讲解，后续 **Huazie** 将会针对这些内容深入分析，和大家一起从源码详细了解 **Spring Boot** 的运行流程。
 

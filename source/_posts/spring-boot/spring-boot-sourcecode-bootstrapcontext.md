@@ -23,138 +23,13 @@ tags:
 <!-- more -->
 
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
-# 二、往期内容
-在开始本篇的内容介绍之前，我们先来看看往期的系列文章【有需要的朋友，欢迎关注系列专栏】：
 
-<table>
-  <tr>
-    <td rowspan="24" align="left" > 
-      <a href="/categories/开发框架-Spring-Boot/">Spring Boot 源码学习</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/02/19/spring-boot/spring-boot-project-introduction/">Spring Boot 项目介绍</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/13/spring-boot/spring-boot-core-operating-principle/">Spring Boot 核心运行原理介绍</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/16/spring-boot/spring-boot-sourcecode-springbootapplication/">【Spring Boot 源码学习】@SpringBootApplication 注解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/22/spring-boot/spring-boot-sourcecode-enableautoconfiguration/">【Spring Boot 源码学习】@EnableAutoConfiguration 注解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left"> 
-      <a href="/2023/07/30/spring-boot/spring-boot-sourcecode-autoconfigurationimportselector/">【Spring Boot 源码学习】走近 AutoConfigurationImportSelector</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/08/06/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-1/">【Spring Boot 源码学习】自动装配流程源码解析（上）</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/08/21/spring-boot/spring-boot-sourcecode-autoconfigurationdetail-2/">【Spring Boot 源码学习】自动装配流程源码解析（下）</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/09/08/spring-boot/spring-boot-sourcecode-filteringspringbootcondition/">【Spring Boot 源码学习】深入 FilteringSpringBootCondition</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/09/11/spring-boot/spring-boot-sourcecode-onclasscondition/">【Spring Boot 源码学习】OnClassCondition 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/09/21/spring-boot/spring-boot-sourcecode-onbeancondition/">【Spring Boot 源码学习】OnBeanCondition 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/06/spring-boot/spring-boot-sourcecode-onwebapplicationcondition/">【Spring Boot 源码学习】OnWebApplicationCondition 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/15/spring-boot/spring-boot-sourcecode-conditional/">【Spring Boot 源码学习】@Conditional 条件注解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/22/spring-boot/spring-boot-sourcecode-httpencodingautoconfiguration/">【Spring Boot 源码学习】HttpEncodingAutoConfiguration 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/10/29/spring-boot/spring-boot-sourcecode-redisautoconfiguration/">【Spring Boot 源码学习】RedisAutoConfiguration 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/11/05/spring-boot/spring-boot-sourcecode-jedisconnectionconfiguration/">【Spring Boot 源码学习】JedisConnectionConfiguration 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/11/12/spring-boot/spring-boot-sourcecode-springapplication/">【Spring Boot 源码学习】初识 SpringApplication</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/11/19/spring-boot/spring-boot-sourcecode-banner-printer/">【Spring Boot 源码学习】Banner 信息打印流程</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/11/24/spring-boot/spring-boot-sourcecode-custom-banner-printer/">【Spring Boot 源码学习】自定义 Banner 信息打印</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/">【Spring Boot 源码学习】BootstrapRegistryInitializer 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/12/03/spring-boot/spring-boot-sourcecode-applicationcontextinitializer/">【Spring Boot 源码学习】ApplicationContextInitializer 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2023/12/10/spring-boot/spring-boot-sourcecode-applicationlistener/">【Spring Boot 源码学习】ApplicationListener 详解</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2024/01/07/spring-boot/spring-boot-sourcecode-springapplication-customization/">【Spring Boot 源码学习】SpringApplication 的定制化介绍</a> 
-    </td>
-  </tr>
-  <tr>
-    <td align="left" > 
-      <a href="/2024/01/31/spring-boot/spring-boot-sourcecode-bootstrapregistry/">【Spring Boot 源码学习】BootstrapRegistry 详解</a> 
-    </td>
-  </tr>
-</table>
-
-# 三、主要内容
+# 二、主要内容
 
 > 注意： 以下涉及 **Spring Boot** 源码 均来自版本 **2.7.9**，其他版本有所出入，可自行查看源码。
-## 3.1 BootstrapContext
+## 2.1 BootstrapContext
 
-### 3.1.1 源码初识
+### 2.1.1 源码初识
 
 ```java
 public interface BootstrapContext {
@@ -172,7 +47,7 @@ public interface BootstrapContext {
 
 它一共包含 **5** 个方法，下面分别来介绍下：
 
-### 3.1.2 get 方法
+### 2.1.2 get 方法
 
 `get` 方法，只有一个参数：
 
@@ -180,9 +55,9 @@ public interface BootstrapContext {
 
 该方法用于返回一个指定类型的实例对象。如果类型已在上下文中注册，则从上下文中返回一个实例。如果之前未访问过该实例，则会创建它。
 
-有关其具体实现，可查看 **3.3** 小节【`BootstrapContext` 的默认实现】
+有关其具体实现，可查看 **2.3** 小节【`BootstrapContext` 的默认实现】
 
-### 3.1.3 getOrElse 方法
+### 2.1.3 getOrElse 方法
 `getOrElse` 方法，包含两个参数：
 
 - `Class<T> type` ：实例类型
@@ -190,8 +65,9 @@ public interface BootstrapContext {
 
 该方法用于返回一个指定类型的实例对象。如果类型已在上下文中注册，则从上下文中返回一个实例。如果之前未注册过该实例，则直接用第二个参数 other 进行返回【**这里跟 `get` 方法有所区别**】。
 
-有关其具体实现，可查看 **3.3** 小节【`BootstrapContext` 的默认实现】
-### 3.1.4 getOrElseSupply 方法
+有关其具体实现，可查看 **2.3** 小节【`BootstrapContext` 的默认实现】
+
+### 2.1.4 getOrElseSupply 方法
 `getOrElseSupply` 方法，也包含两个参数：
 
 - `Class<T> type` ：实例类型
@@ -199,9 +75,9 @@ public interface BootstrapContext {
 
 该方法用于返回一个指定类型的实例对象。如果类型已在上下文中注册，则从上下文中返回一个实例。如果之前未注册过该实例，则用 `other.get()` 进行返回【**这里类似 `getOrElse` 方法，其实默认实现中 `getOrElse` 就是调用 `getOrElseSupply` 进行返回的**】。
 
-有关其具体实现，可查看 **3.3** 小节【`BootstrapContext` 的默认实现】
+有关其具体实现，可查看 **2.3** 小节【`BootstrapContext` 的默认实现】
 
-### 3.1.5 getOrElseThrow 方法
+### 2.1.5 getOrElseThrow 方法
 `getOrElseThrow` 方法，同样也包含两个参数：
 
 - `Class<T> type` ：实例类型
@@ -210,16 +86,17 @@ public interface BootstrapContext {
 `X` 是 `Throwable` 的子类，如果上述类型还未注册过，则将抛出 `X` 或者 `X` 的子类。
 
 该方法用于返回一个指定类型的实例对象。如果类型已在上下文中注册，则从上下文中返回一个实例。如果之前未注册过该实例，则通过 `throw exceptionSupplier.get()` 将指定异常抛出【这个在 默认实现 `DefaultBootstrapContext` 中即可看到】。
-### 3.1.6 isRegistered 方法
+
+### 2.1.6 isRegistered 方法
 `isRegistered` 方法，只有一个参数：
 
 - `Class<T> type` ：实例类型
 
 该方法用于判断指定的类型是否已经被注册过。如果已经在上下文中注册过了，则返回 true；否则，返回false。
 
-有关其具体实现，可查看 **3.3** 小节【`BootstrapContext` 的默认实现】
+有关其具体实现，可查看 **2.3** 小节【`BootstrapContext` 的默认实现】
 
-## 3.2 ConfigurableBootstrapContext
+## 2.2 ConfigurableBootstrapContext
 
 ```java
 public interface ConfigurableBootstrapContext extends BootstrapRegistry, BootstrapContext {
@@ -230,11 +107,11 @@ public interface ConfigurableBootstrapContext extends BootstrapRegistry, Bootstr
 
 对于开发人员来讲，只需要实现这个接口，并编写相应实现代码，就可以来配置和管理应用程序的引导过程。当然 **Spring Boot** 显然已经帮我们考虑了，这也就是下面 **Huazie** 将要介绍的引导上下文的默认实现 `DefaultBootstrapContext`。
 
-## 3.3 DefaultBootstrapContext
+## 2.3 DefaultBootstrapContext
 
-在 [《BootstrapRegistryInitializer 详解》](../../../../../2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/) 的 3.1 小节，我们提到了 `BootstrapRegistry` 的一个默认实现 `DefaultBootstrapContext` ，下面我们就来深入分析一下。
+在 [《BootstrapRegistryInitializer 详解》](../../../../../2023/11/30/spring-boot/spring-boot-sourcecode-bootstrapregistryinitializer/) 的 2.1 小节，我们提到了 `BootstrapRegistry` 的一个默认实现 `DefaultBootstrapContext` ，下面我们就来深入分析一下。
 
-### 3.3.1 源码初识
+### 2.3.1 源码初识
 话不多说，直接翻看对应的源码：
 
 ```java
@@ -266,7 +143,8 @@ public class DefaultBootstrapContext implements ConfigurableBootstrapContext {
 
 > **注意：** `SimpleApplicationEventMulticaster` 会将所有的事件广播给所有已注册的监听器，而由监听器自行决定忽略它们不感兴趣的事件。监听器通常会在传入的事件对象上进行相应的 `instanceof` 检查。
 默认情况下，所有的监听器都在调用线程中被调用。这允许存在一个恶意的监听器阻塞整个应用程序的风险，但增加了最小的开销。如果指定了替代的任务执行器，可以让监听器在不同的线程中执行，例如来自一个线程池。
-### 3.3.2 实现 BootstrapRegistry 接口中的方法
+
+### 2.3.2 实现 BootstrapRegistry 接口中的方法
 在 [《BootstrapRegistry 详解》](../../../../../2024/01/31/spring-boot/spring-boot-sourcecode-bootstrapregistry/)中，我们已经了解相关的 5 个方法，下面直接看 `DefaultBootstrapContext` 中的实现： 
 
 ```java
@@ -326,7 +204,7 @@ public class DefaultBootstrapContext implements ConfigurableBootstrapContext {
 `addCloseListener` 方法，用于添加一个监听器，该监听器用于监听 `BootstrapContextClosedEvent`，这块后续 **Huazie** 会带大家实践一下。
 
 
-### 3.3.3 实现 BootstrapContext 接口中的方法
+### 2.3.3 实现 BootstrapContext 接口中的方法
 
 ```java
     @Override
@@ -365,9 +243,9 @@ public class DefaultBootstrapContext implements ConfigurableBootstrapContext {
   
 ```
 
-从 **3.1** 小节，我们了解了 `BootstrapContext` 的 **4** 个获取方法。通过查看上述的源码，我们看到这里只需要分析 `getOrElseSupply` 和 `getOrElseThrow` 的实现即可。
+从 **2.1** 小节，我们了解了 `BootstrapContext` 的 **4** 个获取方法。通过查看上述的源码，我们看到这里只需要分析 `getOrElseSupply` 和 `getOrElseThrow` 的实现即可。
 
-同样在  `getOrElseSupply` 和 `getOrElseThrow` 方法中，我们看到了 `synchronized (this.instanceSuppliers)`，这里同 **3.3.2** 中讲解的一样，都是为了防止多个线程同时修改 `instanceSuppliers` 对象，导致数据不一致的问题。
+同样在  `getOrElseSupply` 和 `getOrElseThrow` 方法中，我们看到了 `synchronized (this.instanceSuppliers)`，这里同 **2.3.2** 中讲解的一样，都是为了防止多个线程同时修改 `instanceSuppliers` 对象，导致数据不一致的问题。
 
 `getOrElseSupply` 方法的实现也比较简单。如果指定类型的供应者存在，则通过 `getInstance` 方法从这个供应者中获取对应类型的实例对象；否则，直接从提供者 `other` 参数中获取。
 
@@ -394,11 +272,11 @@ public class DefaultBootstrapContext implements ConfigurableBootstrapContext {
   - 如果实例供应者 `instanceSupplier` 指定的作用域是单例，则将获取的实例对象添加到 `instances` 中，方便后续直接获取。
 - 最后，直接返回指定类型的实例对象 `instance`。
 
-### 3.3.4 close 方法
+### 2.3.4 close 方法
 
 当 `BootstrapContext` 被关闭且 `ApplicationContext` 已准备好时，该方法将被调用【后续笔者讲解 **Spring Boot** 的启动引导过程会涉及到】。
 
-通过阅读源码，我们可以看到这里触发了一个名为 `BootstrapContextClosedEvent` 的事件，该事件会多播给所有注册了该事件的监听器，而这些监听器就是通过 **3.3.2** 小节中提到的 `addCloseListener` 方法添加的【后续 **Huazie** 会带大家实操一下】。
+通过阅读源码，我们可以看到这里触发了一个名为 `BootstrapContextClosedEvent` 的事件，该事件会多播给所有注册了该事件的监听器，而这些监听器就是通过 **2.3.2** 小节中提到的 `addCloseListener` 方法添加的【后续 **Huazie** 会带大家实操一下】。
 
-# 四、总结
+# 三、总结
 本篇 **Huazie** 带大家深入了解了 `BootstrapContext` 及其默认实现，这些内容对我们理解 **Spring Boot** 的启动引导过程至关重要。下篇 **Huazie** 将通过自定义 `BootstrapRegistry` 初始化器实现，来看看引导上下文在 **Spring Boot** 的启动引导过程中的作用。
