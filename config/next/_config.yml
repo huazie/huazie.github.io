@@ -20,7 +20,7 @@ timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://blog.huazie.com/landscape
+url: http://blog.huazie.com/next
 # 文章的 永久链接 格式
 permalink: :year/:month/:day/:title/
 # 永久链接中各部分的默认值
@@ -35,7 +35,7 @@ pretty_urls:
 # 资源文件夹，这个文件夹用来存放内容。
 source_dir: source
 # 公共文件夹，这个文件夹用于存放生成的站点文件。
-public_dir: public/landscape
+public_dir: public/next
 # 标签文件夹
 tag_dir: tags
 # 归档文件夹
@@ -145,7 +145,7 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 # 当前主题名称。值为false时禁用主题
-theme: landscape
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
