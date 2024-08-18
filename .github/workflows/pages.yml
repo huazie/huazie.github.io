@@ -22,13 +22,18 @@ jobs:
       - name: Checkout Theme Phase
         uses: actions/checkout@v4
         with:
-          repository: hexojs/hexo-theme-phase
+          repository: huazie/hexo-theme-phase
           path: themes/phase
       - name: Checkout Theme Light
         uses: actions/checkout@v4
         with:
           repository: hexojs/hexo-theme-light
           path: themes/light
+      - name: Checkout Theme Next
+        uses: actions/checkout@v4
+        with:
+          repository: next-theme/hexo-theme-next
+          path: themes/next
       - name: Use Node.js 20.x
         uses: actions/setup-node@v4
         with:
