@@ -13,7 +13,8 @@ source:
 
 back2top:
   enable: true
-  scroll_percent: true
+  enable_scroll_percent: true
+  scroll_percent: 3
   position: right
   color: "#fc6423"
   exclude: [next]
