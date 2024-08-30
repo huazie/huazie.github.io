@@ -43,7 +43,7 @@ tags:
 ```
 
 # 3. 文件上传接入讲解
-Flea RESTful接口服务端和客户端接入，本篇博文不再赘述；可见笔者 [flea-jersey](/categories/开发框架-Flea/flea-jersey/) 下的文章。
+Flea RESTful接口服务端和客户端接入，本篇博文不再赘述；可见笔者 [flea-jersey](../../../../../../categories/开发框架-Flea/flea-jersey/) 下的文章。
 
 ## 3.1 服务端上传资源定义
 上传资源继承 **FleaJerseyPostResource**，该类定义可至GitHub查看  [flea-jersey-server](https://github.com/Huazie/flea-framework/tree/dev/flea-jersey/flea-jersey-server)，具体如下所示：

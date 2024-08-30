@@ -94,27 +94,27 @@ public class FleaFSResourceConfig extends FleaResourceConfig {
 <table>
   <tr>
     <td rowspan="5" align="left" > 
-      <a href="/categories/开发框架-Flea/flea-jersey/">flea-jersey</a> 
+      <a href="../../../../../../categories/开发框架-Flea/flea-jersey/">flea-jersey</a> 
     </td>
   </tr>
   <tr>
     <td align="left" > 
-      <a href="/2019/11/29/flea-framework/flea-jersey/flea-jersey-server/">flea-jersey使用之Flea RESTful接口服务端接入</a> 
+      <a href="../../../../../../2019/11/29/flea-framework/flea-jersey/flea-jersey-server/">flea-jersey使用之Flea RESTful接口服务端接入</a> 
     </td>
   </tr>
   <tr>
     <td align="left" > 
-      <a href="/2019/12/15/flea-framework/flea-jersey/flea-jersey-client/">flea-jersey使用之Flea RESTful接口客户端接入</a> 
+      <a href="../../../../../../2019/12/15/flea-framework/flea-jersey/flea-jersey-client/">flea-jersey使用之Flea RESTful接口客户端接入</a> 
     </td>
   </tr>
   <tr>
     <td align="left" > 
-      <a href="/2019/12/18/flea-framework/flea-jersey/flea-jersey-file-upload/">flea-jersey使用之文件上传接入</a> 
+      <a href="../../../../../../2019/12/18/flea-framework/flea-jersey/flea-jersey-file-upload/">flea-jersey使用之文件上传接入</a> 
     </td>
   </tr>
   <tr>
     <td align="left" > 
-      <a href="/2019/12/22/flea-framework/flea-jersey/flea-jersey-file-download/">flea-jersey使用之文件下载接入</a> 
+      <a href="../../../../../../2019/12/22/flea-framework/flea-jersey/flea-jersey-file-download/">flea-jersey使用之文件下载接入</a> 
     </td>
   </tr>
 </table>

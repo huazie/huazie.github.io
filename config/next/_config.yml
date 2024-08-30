@@ -182,3 +182,24 @@ feed:
   icon: icon.png
   autodiscovery: true
   template:
+
+# 启用 hexo-generator-searchdb
+search:
+  # file path. By default is search.xml. If the file extension is .json, 
+  # the output format will be JSON. Otherwise XML format file will be exported.
+  path: search.json
+  # the search scope you want to search, you can chose:
+  #   post (Default) - will only cover all the posts of your blog.
+  #   page - will only cover all the pages of your blog.
+  #   all - will cover all the posts and pages of your blog.
+  field: post
+  # whether contains the whole content of each article. 
+  # If false, the generated results only cover title and other meta info without mainbody. 
+  # By default is true.
+  content: true
+  # the form of the page contents, options are:
+  #   html (Default) - original html string being minified.
+  #   striptags - original html string being minified, and remove all the tags.
+  #   raw - markdown text of each posts or pages.
+  format: html
+  

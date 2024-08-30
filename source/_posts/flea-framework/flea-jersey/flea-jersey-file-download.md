@@ -44,7 +44,7 @@ tags:
 ```
 
 # 3. 文件下载接入讲解
-Flea RESTful接口服务端和客户端接入，本篇博文不再赘述；可见笔者 [flea-jersey](/categories/开发框架-Flea/flea-jersey/) 下的文章。
+Flea RESTful接口服务端和客户端接入，本篇博文不再赘述；可见笔者 [flea-jersey](../../../../../../categories/开发框架-Flea/flea-jersey/) 下的文章。
 
 ## 3.1 服务端下载资源定义
 下载资源 **DownloadResource** 继承文件GET资源 **FleaJerseyFGetResource** ，用于实现文件下载功能
