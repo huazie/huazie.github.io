@@ -693,6 +693,8 @@ disqus:
   count: true
 
 # DisqusJS
+# 一个基于Disqus API开发的纯前端、超轻量级的“评论基础模式”实现。
+# 它主要通过Disqus API获取评论数据，并渲染成评论列表，提供给网站访问者查看。
 # For more information: https://disqusjs.skk.moe
 disqusjs:
   enable: false
@@ -704,7 +706,8 @@ disqusjs:
   apikey: # Register new application from https://disqus.com/api/applications/
   shortname: # See: https://disqus.com/admin/settings/general/
 
-# Changyan
+# Changyan 
+# 畅言是一个由新浪公司推出的社会化评论系统
 # For more information: https://changyan.kuaizhan.com
 changyan:
   enable: false
@@ -718,6 +721,8 @@ changyan:
 livere_uid: # <your_uid>
 
 # Gitalk
+# 一个基于GitHub Issue和Preact开发的现代评论插件。
+# 它允许网站访客使用GitHub账号登录并发表评论，所有评论数据都储存在相应的GitHub仓库中。
 # For more information: https://gitalk.github.io
 gitalk:
   enable: false
@@ -735,6 +740,7 @@ gitalk:
   language:
 
 # Utterances
+# 一个由开源社区构建的评论插件，它提供了一种在博客、文章或任何静态网站上添加互动式评论功能的高效解决方案。
 # For more information: https://utteranc.es
 utterances:
   enable: false
