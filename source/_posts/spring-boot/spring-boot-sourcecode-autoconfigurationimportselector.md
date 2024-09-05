@@ -253,18 +253,33 @@ public interface DeferredImportSelector extends ImportSelector {
 如下 `getAutoConfigurationEntry` 中所示【**Spring Boot 2.7.9**】：
 
 ```java
+    /**
+     * 根据导入@Configuration类的AnnotationMetadata返回AutoConfigurationImportSelector.AutoConfigurationEntry。
+     * @param 配置类的注解元数据。
+     * @return 应该导入的自动配置。
+     */
     protected AutoConfigurationEntry getAutoConfigurationEntry(AnnotationMetadata annotationMetadata) {
         if (!isEnabled(annotationMetadata)) {
             return EMPTY_ENTRY;
         }
+        // 从AnnotationMetadata返回适当的AnnotationAttributes。默认情况下，此方法将返回getAnnotationClass()的属性。
         AnnotationAttributes attributes = getAttributes(annotationMetadata);
+        // 通过 SpringFactoriesLoader 类提供的方法加载类路径中META-INF目录下的
+        // spring.factories文件中针对 EnableAutoConfiguration 的注解配置类
         List<String> configurations = getCandidateConfigurations(annotationMetadata, attributes);
+        // 对获得的注解配置类集合进行去重处理，防止多个项目引入同样的配置类
         configurations = removeDuplicates(configurations);
+        // 获得注解中被 exclude 或 excludeName 所排除的类的集合
         Set<String> exclusions = getExclusions(annotationMetadata, attributes);
+        // 检查被排除类是否可实例化，是否被自动注册配置所使用，不符合条件则抛出异常
         checkExcludedClasses(configurations, exclusions);
+        // 从自动配置类集合中去除被排除的类
         configurations.removeAll(exclusions);
+        // 检查配置类的注解是否符合 spring.factories 文件中 AutoConfigurationImportFilter 指定的注解检查条件
         configurations = getConfigurationClassFilter().filter(configurations);
+        // 将筛选完成的配置类和排除的配置类构建为事件类，并传入监听器。监听器的配置在于 spring.factories 文件中，通过 AutoConfigurationImportListener 指定
         fireAutoConfigurationImportEvents(configurations, exclusions);
+        // 创建并返回一个条目，其中包含了筛选完成的配置类和排除的配置
         return new AutoConfigurationEntry(configurations, exclusions);
     }
 ```
