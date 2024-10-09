@@ -194,7 +194,7 @@ type Person struct {
 Sequence{Sortable: SortableStrings{"3", "2", "1"}, sorted: false}
 ```
 
-类型 `SortableStrings` 实现了接口类型 `Sortable`，这个可以在[《接口类型》](https://juejin.cn/post/7389650655449694246)中了解到。这里就可以把一个 `SortableStrings` 类型的值赋给 `Sortable` 字段。
+类型 `SortableStrings` 实现了接口类型 `Sortable`，这个可以在[《接口类型》](../../../../../../2016/07/06/go/go-learning/go-learning8/)中了解到。这里就可以把一个 `SortableStrings` 类型的值赋给 `Sortable` 字段。
 
 编写结构体字面量，还可以忽略字段的名称，但有如下的两个限制：
 

@@ -84,7 +84,7 @@ tags:
 
 ## 2.1 Flea对象池配置
 
-笔者的 **Flea** 框架下专门为对象池配置定义了一个通用的对象池配置对象 `FleaObjectPoolConfig`，它继承自 `GenericObjectPoolConfig`。 `GenericObjectPoolConfig` 是**Apache Commons Pool2** 库中用于配置 `GenericObjectPool` 对象池行为的类，它提供了丰富的参数以支持各种对象池的定制化需求，具体的参数可参考笔者的[《对象池 GenericObjectPool 配置参数详解》](https://juejin.cn/post/7376186315644010505)。
+笔者的 **Flea** 框架下专门为对象池配置定义了一个通用的对象池配置对象 `FleaObjectPoolConfig`，它继承自 `GenericObjectPoolConfig`。 `GenericObjectPoolConfig` 是**Apache Commons Pool2** 库中用于配置 `GenericObjectPool` 对象池行为的类，它提供了丰富的参数以支持各种对象池的定制化需求，具体的参数可参考笔者的[《对象池 GenericObjectPool 配置参数详解》](../../../../../../2019/09/25/java/java-design-patterns/genericobjectpool-config-param/)。
 
 
 ```java
