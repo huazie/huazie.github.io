@@ -53,79 +53,42 @@ tags:
 ## 3.1 定义Flea缓存接口
 [IFleaCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/IFleaCache.java)  自定义缓存接口，包含了一些增删改查的方法
 ```java
-/**
- * <p> 自定义Cache接口类（主要定义了一些增删改查的方法） </p>
- *
- * @author huazie
- */
 public interface IFleaCache {
 
-    /**
-     * <p> 读缓存 </p>
-     *
-     * @param key 数据键关键字
-     * @return 数据值
-     */
     Object get(String key);
 
-    /**
-     * <p> 写缓存 </p>
-     *
-     * @param key   数据键关键字
-     * @param value 数据值
-     */
     void put(String key, Object value);
 
-    /**
-     * <p> 清空所有缓存 </p>
-     */
     void clear();
 
-    /**
-     * <p> 删除指定数据键关键字对应的缓存 </p>
-     *
-     * @param key 数据键关键字
-     */
     void delete(String key);
 
-    /**
-     * <p> 获取 记录当前Cache所有数据键关键字 的Set集合 </p>
-     *
-     * @return 数据键key的集合
-     */
     Set<String> getCacheKey();
 
-    /**
-     * <p> 获取缓存所属系统名 </p>
-     *
-     * @return 缓存所属系统名
-     */
     String getSystemName();
 }
 ```
+
+- `get` : 读缓存
+- `put` : 写缓存
+- `clear` : 清空所有缓存
+- `delete` : 删除指定数据键关键字对应的缓存
+- `getCacheKey` : 获取 记录当前Cache所有数据键关键字 的Set集合
+- `getSystemName` : 获取缓存所属系统名
+
+
 ## 3.2 定义抽象Flea缓存类
-[AbstractFleaCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractFleaCache.java) 抽象缓存类，实现了Flea缓存接口的读、写、删除和清空缓存的基本操作。
+[AbstractFleaCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractFleaCache.java) 抽象缓存类，实现了**Flea**缓存接口的读、写、删除和清空缓存的基本操作。
+
+它定义本地读、本地写和本地删除的抽象方法，由子类实现具体的读、 写和删除缓存的操作。
+
+在实际调用写缓存操作时，会同时记录当前缓存数据的数据键关键字 【`key`】到专门的数据键关键字的缓存中，以`Set`集合存储。
+
+比如缓存数据主关键字为【`name`】，需要存储的数据键关键字为 【`key`】，则在实际调用写缓存操作时，会操作两条缓存数据： 
+- 一条是具体的数据缓存，缓存键为 **系统名_name_key** ，可查看方法 【`getNativeKey`】，有效期从配置中获取； 
+- 一条是数据键关键字的缓存，缓存键为 **系统名_name** ，可查看方法 【`getNativeCacheKey`】，默认永久有效。
+
 ```java
-/**
- * 抽象Flea Cache类，实现了Flea缓存接口的读、写、删除和清空缓存的基本操作。
- *
- * <p> 它定义本地读、本地写和本地删除的抽象方法，由子类实现具体的读、
- * 写和删除缓存的操作。
- *
- * <p> 在实际调用写缓存操作时，会同时记录当前缓存数据的数据键关键字
- * 【{@code key}】到专门的数据键关键字的缓存中，以Set集合存储。
- *
- * <p> 比如缓存数据主关键字为【{@code name}】，需要存储的数据键关键字为
- * 【{@code key}】，则在实际调用写缓存操作时，会操作两条缓存数据：<br/>
- * 一条是具体的数据缓存，缓存键为“系统名_name_key”，可查看方法
- * 【{@code getNativeKey}】，有效期从配置中获取；<br/>
- * 一条是数据键关键字的缓存，缓存键为“系统名_name”，可查看方法
- * 【{@code getNativeCacheKey}】，默认永久有效。
- *
- * @author huazie
- * @version 1.1.0
- * @since 1.0.0
- */
 public abstract class AbstractFleaCache implements IFleaCache {
 
     private static final FleaLogger LOGGER = FleaLoggerProxy.getProxyInstance(AbstractFleaCache.class);
@@ -327,7 +290,7 @@ public abstract class AbstractFleaCache implements IFleaCache {
 }
 
 ```
-该类实现了IFleaCache接口，同时定义了三个抽象方法 :
+该类实现了`IFleaCache`接口，同时定义了三个抽象方法 :
 ```java
     public abstract Object getNativeValue(String key);
 
@@ -339,26 +302,16 @@ public abstract class AbstractFleaCache implements IFleaCache {
 
 ## 3.3 定义MemCached Flea缓存类
 [MemCachedFleaCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/memcached/impl/MemCachedFleaCache.java) 该类继承 `AbstractFleaCache`，实现`Memcached` 缓存的接入使用；
+
+**MemCached Flea**缓存类，实现了以**Flea**框架操作**MemCached**缓存的基本操作方法。
+
+在上述基本操作方法中，实际使用**MemCached**客户端【`memCachedClient`】 读、写和删除**MemCached**缓存。其中写缓存方法【`putNativeValue`】在 添加的数据值为【`null`】时，默认添加空缓存数据【`NullCache`】 到**MemCached**中，有效期取初始化参数【`nullCacheExpiry`】。
+
+单个缓存接入场景，有效期配置可查看【`memcached.properties`】中的配置 参数【`memcached.nullCacheExpiry`】
+
+整合缓存接入场景，有效期配置可查看【`flea-cache-config.xml`】 中的缓存参数【`<cache-param key="fleacore.nullCacheExpiry" desc="空缓存数据有效期（单位：s）">300</cache-param>`】
+
 ```java
-/**
- * MemCached Flea缓存类，实现了以Flea框架操作MemCached缓存的基本操作方法。
- *
- * <p> 在上述基本操作方法中，实际使用MemCached客户端【{@code} memCachedClient】
- * 读、写和删除MemCached缓存。其中写缓存方法【{@code putNativeValue}】在
- * 添加的数据值为【{@code null}】时，默认添加空缓存数据【{@code NullCache}】
- * 到MemCached中，有效期取初始化参数【{@code nullCacheExpiry}】。
- *
- * <p> 单个缓存接入场景，有效期配置可查看【memcached.properties】中的配置
- * 参数【memcached.nullCacheExpiry】
- *
- * <p> 整合缓存接入场景，有效期配置可查看【flea-cache-config.xml】
- * 中的缓存参数【{@code <cache-param key="fleacore.nullCacheExpiry"
- * desc="空缓存数据有效期（单位：s）">300</cache-param>}】
- *
- * @author huazie
- * @version 1.0.0
- * @since 1.0.0
- */
 public class MemCachedFleaCache extends AbstractFleaCache {
 
     private final MemCachedClient memCachedClient;  // MemCached客户端
@@ -409,26 +362,20 @@ public class MemCachedFleaCache extends AbstractFleaCache {
 到这一步为止，底层的Flea缓存接口和实现已经完成，但目前还不能使用；
 ## 3.4 定义Memcached连接池
 [MemCachedPool](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/memcached/MemCachedPool.java) 用于初始化 `MemCached` 的套接字连接池。
+
+- 针对单独缓存接入场景，采用默认连接池初始化的方式； 可参考如下：
 ```java
-/**
- * Flea MemCached连接池，用于初始化MemCached的套接字连接池。
- *
- * <p> 针对单独缓存接入场景，采用默认连接池初始化的方式；<br/>
- * 可参考如下：
- * <pre>
- *   // 初始化默认连接池
- *   MemCachedPool.getInstance().initialize(); </pre>
- *
- * <p> 针对整合缓存接入场景，采用指定连接池初始化的方式；<br/>
- * 可参考如下：
- * <pre>
- *   // 初始化指定连接池
- *   MemCachedPool.getInstance(group).initialize(cacheServerList); </pre>
- *
- * @author huazie
- * @version 1.1.0
- * @since 1.0.0
- */
+    // 初始化默认连接池
+    MemCachedPool.getInstance().initialize(); 
+```     
+
+- 针对整合缓存接入场景，采用指定连接池初始化的方式； 可参考如下：
+```java
+    // 初始化指定连接池
+    MemCachedPool.getInstance(group).initialize(cacheServerList);  
+``` 
+
+```java
 public class MemCachedPool {
 
     private String poolName; // 连接池名
@@ -537,23 +484,15 @@ memcached.hashingAlg=3
 ```
 ## 3.6 定义抽象Flea缓存管理类
 [AbstractFleaCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractFleaCacheManager.java) 用于接入 `Flea` 框架管理缓存。
+
+同步集合类【cacheMap】, 存储的键为缓存数据主关键字， 存储的值为具体的缓存实现类。 
+
+- 如果是整合各类缓存接入，它的键对应缓存定义配置文件【`flea-cache.xml`】 中的【`<cache key="缓存数据主关键字"></cache>`】； 
+- 如果是单个缓存接入，它的键对应【`applicationContext.xml`】中 【`<entry key="缓存数据主关键字"value="有效期（单位：s）"/>`】；
+
+抽象方法【`newCache`】，由子类实现具体的Flea缓存类创建。
+
 ```java
-/**
- * 抽象Flea缓存管理类，用于接入Flea框架管理缓存。
- *
- * <p> 同步集合类【{@code cacheMap}】, 存储的键为缓存数据主关键字，
- * 存储的值为具体的缓存实现类。<br/>
- * 如果是整合各类缓存接入，它的键对应缓存定义配置文件【flea-cache.xml】
- * 中的【{@code <cache key="缓存数据主关键字"></cache>}】；<br/>
- * 如果是单个缓存接入，它的键对应【applicationContext.xml】中
- * 【{@code <entry key="缓存数据主关键字"value="有效期（单位：s）"/>}】；
- *
- * <p> 抽象方法【{@code newCache}】，由子类实现具体的Flea缓存类创建。
- *
- * @author huazie
- * @version 1.0.0
- * @since 1.0.0
- */
 public abstract class AbstractFleaCacheManager {
 
     private static final ConcurrentMap<String, AbstractFleaCache> cacheMap = new ConcurrentHashMap<>();
@@ -617,8 +556,14 @@ public abstract class AbstractFleaCacheManager {
 
 ```
 ## 3.7 定义Memcached Flea缓存管理类 
-[MemCachedFleaCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/memcached/manager/MemCachedFleaCacheManager.java) 用于接入 `Flea` 框架管理`MemCached` 缓存
-上述 `MemCachedFleaCache` 使用, 需要初始化 `MemCachedPool`
+[MemCachedFleaCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/memcached/manager/MemCachedFleaCacheManager.java) 用于接入 `Flea` 框架管理`MemCached` 缓存。
+
+它的默认构造方法，用于单个缓存接入场景，首先新建**MemCached**客户端， 然后初始化 **MemCached** 连接池。
+
+方法 `newCache`，用于创建一个**MemCached Flea**缓存， 它里面包含了 读、写、删除 和 清空 缓存的基本操作。
+
+上述 `MemCachedFleaCache` 使用, 需要初始化 `MemCachedPool`。
+
 ```java
 /**
  * MemCached Flea缓存管理类，用于接入Flea框架管理MemCached 缓存。
@@ -703,20 +648,13 @@ public class MemCachedFleaCacheManager extends AbstractFleaCacheManager {
 ```
 # 4. 进阶接入
 ## 4.1 定义抽象Spring缓存
-[AbstractSpringCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractSpringCache.java) 与 **AbstractFleaCache** 不同之处在于，实现了 **Spring** 的 **Cache** 接口，用于对接 **Spring**，相关配置后面会介绍一下。
+[AbstractSpringCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractSpringCache.java) 实现**Spring**的`Cache`接口 和 **Flea** 的`IFleaCache`接口，由具体的**Spring**缓存管理类初始化。
+
+它实现了读、写、删除和清空缓存的基本操作方法， 内部由具体Flea缓存实现类【`fleaCache`】 调用对应的 读、写、删除 和 清空 缓存的基本操作方法。
+
+与 **AbstractFleaCache** 不同之处在于，实现了 **Spring** 的 **Cache** 接口，用于对接 **Spring**，相关配置后面会介绍一下。
+
 ```java
-/**
- * 抽象 Spring 缓存类，实现Spring的Cache接口 和 Flea
- * 的IFleaCache接口，由具体的Spring缓存管理类初始化。
- *
- * <p> 它实现了读、写、删除和清空缓存的基本操作方法，
- * 内部由具体Flea缓存实现类【{@code fleaCache}】
- * 调用对应的 读、写、删除 和 清空 缓存的基本操作方法。
- *
- * @author huazie
- * @version 1.1.0
- * @since 1.0.0
- */
 public abstract class AbstractSpringCache implements Cache, IFleaCache {
 
     private static final FleaLogger LOGGER = FleaLoggerProxy.getProxyInstance(AbstractSpringCache.class);
@@ -844,19 +782,11 @@ public abstract class AbstractSpringCache implements Cache, IFleaCache {
 ```
 ## 4.2 定义Memcached Spring缓存
 [MemCachedSpringCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/memcached/impl/MemCachedSpringCache.java) 只定义构造方法，使用 `MemCachedFleaCache` 作为具体缓存实现。
+
+它继承了抽象**Spring**缓存父类的 读、写、删除 和 清空 缓存的基本操作方法，由**MemCached Spring**缓存管理类初始化。
+它的构造方法中，必须传入一个具体**Flea**缓存实现类，这里我们使用 **MemCached Flea**缓存【`MemCachedFleaCache`】。
+
 ```java
-/**
- * MemCached Spring缓存类，继承了抽象Spring缓存父类的
- * 读、写、删除 和 清空 缓存的基本操作方法，由MemCached Spring缓存管理类初始化。
- *
- * <p> 它的构造方法中，必须传入一个具体Flea缓存实现类，这里我们使用
- * MemCached Flea缓存【{@code MemCachedFleaCache}】。
- *
- * @author huazie
- * @version 1.0.0
- * @see MemCachedFleaCache
- * @since 1.0.0
- */
 public class MemCachedSpringCache extends AbstractSpringCache {
 
     /**
@@ -885,25 +815,15 @@ public class MemCachedSpringCache extends AbstractSpringCache {
 }
 ```
 ## 4.3 定义抽象Spring缓存管理类
- [AbstractSpringCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractSpringCacheManager.java) 继承 `AbstractTransactionSupportingCacheManager`，用于对接 `Spring`。
+[AbstractSpringCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractSpringCacheManager.java) 继承 `AbstractTransactionSupportingCacheManager`，用于对接 `Spring` 框架管理缓存。
+
+同步集合类【`cacheMap`】, 存储的键为缓存数据主关键字， 存储的值为具体的缓存实现类。 
+- 如果是整合各类缓存接入，它的键对应缓存定义配置文件【`flea-cache.xml`】 中的【`<cache key="缓存数据主关键字"></cache>`】；
+- 如果是单个缓存接入，它的键对应【`applicationContext.xml`】中 【`<entry key="缓存数据主关键字" value="有效期（单位：s）"/>`】；
+
+抽象方法【`newCache`】，由子类实现具体的**Spring**缓存类创建。
 
 ```java
-/**
- * 抽象Spring缓存管理类，用于接入Spring框架管理缓存。
- *
- * <p> 同步集合类【{@code cacheMap}】, 存储的键为缓存数据主关键字，
- * 存储的值为具体的缓存实现类。<br/>
- * 如果是整合各类缓存接入，它的键对应缓存定义配置文件【flea-cache.xml】
- * 中的【{@code <cache key="缓存数据主关键字"></cache>}】；<br/>
- * 如果是单个缓存接入，它的键对应【applicationContext.xml】中
- * 【{@code <entry key="缓存数据主关键字" value="有效期（单位：s）"/>}】；
- *
- * <p> 抽象方法【{@code newCache}】，由子类实现具体的Spring缓存类创建。
- *
- * @author huazie
- * @version 1.0.0
- * @since 1.0.0
- */
 public abstract class AbstractSpringCacheManager extends AbstractTransactionSupportingCacheManager {
 
     private static final ConcurrentMap<String, AbstractSpringCache> cacheMap = new ConcurrentHashMap<>();
@@ -954,24 +874,15 @@ public abstract class AbstractSpringCacheManager extends AbstractTransactionSupp
 }
 ```
 ## 4.4 定义Memcached Spring缓存管理类
-[MemCachedSpringCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/memcached/manager/MemCachedSpringCacheManager.java) 基本实现同 `MemCachedFleaCacheManager`，不同在于 `newCache` 方法返回一个  `MemCachedSpringCache` 的对象。
+[MemCachedSpringCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/memcached/manager/MemCachedSpringCacheManager.java) 用于接入**Spring**框架管理 **MemCached** 缓存。
+
+它的默认构造方法，用于单个缓存接入场景，首先新建**MemCached** 客户端， 然后初始化 **MemCached** 连接池。
+
+方法【`newCache`】用于创建一个**MemCached Spring**缓存， 而它内部是由**MemCached Flea**缓存实现具体的 读、写、删除 和 清空 缓存的基本操作。
+
+它基本实现同 `MemCachedFleaCacheManager`，不同在于 `newCache` 方法返回一个  `MemCachedSpringCache` 的对象。
 
 ```java
-/**
- * MemCached Spring缓存管理类，用于接入Spring框架管理 MemCached 缓存。
- *
- * <p> 它的默认构造方法，用于单个缓存接入场景，首先新建MemCached 客户端，
- * 然后初始化 MemCached 连接池。
- *
- * <p> 方法【{@code newCache}】用于创建一个MemCached Spring缓存，
- * 而它内部是由MemCached Flea缓存实现具体的 读、写、删除 和 清空
- * 缓存的基本操作。
- *
- * @author huazie
- * @version 1.0.0
- * @see MemCachedSpringCache
- * @since 1.0.0
- */
 public class MemCachedSpringCacheManager extends AbstractSpringCacheManager {
 
     private MemCachedClient memCachedClient;   // MemCached客户端类
@@ -1013,11 +924,10 @@ public class MemCachedSpringCacheManager extends AbstractSpringCacheManager {
 }
 ```
 ## 4.5 spring 配置
+
+如下用于配置缓存管理 `MemCachedSpringCacheManager`，其中 `configMap` 为缓存时间(`key`缓存对象名称 `value`缓存过期时间)
+
 ```xml
-<!--
-   配置缓存管理MemCachedSpringCacheManager
-   配置缓存时间 configMap (key缓存对象名称 value缓存过期时间)
--->
 <bean id="memCachedSpringCacheManager" class="com.huazie.fleaframework.cache.memcached.manager.MemCachedSpringCacheManager">
     <property name="configMap">
         <map>
@@ -1029,6 +939,7 @@ public class MemCachedSpringCacheManager extends AbstractSpringCacheManager {
  <!-- 开启缓存， 此处定义表示由spring接入来管理缓存访问 -->
  <cache:annotation-driven cache-manager="memCachedSpringCacheManager" proxy-target-class="true"/>
 ```
+
 ## 4.6 缓存自测
 ```java
     private ApplicationContext applicationContext;

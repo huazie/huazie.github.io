@@ -56,16 +56,24 @@ tags:
  */
 public class FleaDBUnit {
 
-    private String database; // 数据库管理系统名
-    private String name; // 数据库名 或 数据库用户名
-    private String driver; // 数据库驱动名
-    private String url; // 数据库连接地址
-    private String user; // 数据库登录用户名
-    private String password; // 数据库登录密码
+    private String database;
+    private String name;
+    private String driver;
+    private String url;
+    private String user;
+    private String password;
 
     // 省略 set 和 get方法
 }
 ```
+
+- `database` : 数据库管理系统名
+- `name` : 数据库名 或 数据库用户名
+- `driver` : 数据库驱动名
+- `url` : 数据库连接地址
+- `user` : 数据库登录用户名
+- `password` : 数据库登录密码
+
 ## 2.3 定义Flea数据库操作类
 [FleaDBOperation](https://github.com/Huazie/flea-framework/blob/dev/flea-db/flea-db-jdbc/src/main/java/com/huazie/fleaframework/db/jdbc/pojo/FleaDBOperation.java) 封装了JDBC的数据库操作对象，包括数据库连接对象 **Connection**、数据库预编译状态对象 **PreparedStatement** 和 数据库结果集对象 **ResultSet**。该类继承 **Closeable**，实现 **close** 方法，用于每次 **JDBC** 数据库操作后释放资源【这里用到了 [try-with-resource 语法糖](https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html) 】。
 ```java
@@ -91,14 +99,9 @@ public class FleaDBOperation implements Closeable {
 }
 ```
 ## 2.4 定义Flea JDBC配置类
-[FleaJDBCConfig](https://github.com/Huazie/flea-framework/blob/dev/flea-db/flea-db-jdbc/src/main/java/com/huazie/fleaframework/db/jdbc/config/FleaJDBCConfig.java) 中的 **init(String mDatabase, String mName)**  方法用于初始化本次操作的数据库管理系统【mDatabase】、数据库名或数据库用户 【mName】，两者对应数据库配置 **config-items** 中的 **key** 。
+[FleaJDBCConfig](https://github.com/Huazie/flea-framework/blob/dev/flea-db/flea-db-jdbc/src/main/java/com/huazie/fleaframework/db/jdbc/config/FleaJDBCConfig.java) 读取数据库的配置信息，该信息存在于 `flea-config.xml` 中。 其中的 **init(String mDatabase, String mName)**  方法用于初始化本次操作的数据库管理系统【mDatabase】、数据库名或数据库用户 【mName】，两者对应数据库配置 **config-items** 中的 **key** 。
 
 ```java
-/**
- * <p> 读取数据库的配置信息,该信息存在于flea-config.xml中 </p>
- *
- * @author huazie
- */
 public class FleaJDBCConfig {
 
     private static volatile FleaJDBCConfig config;

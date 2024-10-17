@@ -56,7 +56,7 @@ tags:
 [AbstractFleaCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractFleaCache.java)  可参考笔者的这篇博文 [Memcached接入](../../../../../../2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
 
 ## 3.3 定义Redis客户端接口类 
-[RedisClient](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/RedisClient.java) , 注意该版，相比《[flea-frame-cache使用之Redis接入【旧】](../../../../../../2019/08/19/flea-framework/flea-cache/flea-frame-cache-redis/)》博文中，废弃如下与 **ShardedJedis** 有关的方法：
+[RedisClient](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/RedisClient.java) , 注意该版，相比《[flea-frame-cache使用之Redis接入【旧】](../../../../../../2019/08/19/flea-framework/flea-cache/flea-frame-cache-redis/)》博文中，废弃如下与 `ShardedJedis` 有关的方法：
 ```java
     ShardedJedisPool getJedisPool();
     
@@ -64,24 +64,14 @@ tags:
     
     ShardedJedis getShardedJedis();
 ```
-《[flea-frame-cache使用之Redis接入【旧】](../../../../../../2019/08/19/flea-framework/flea-cache/flea-frame-cache-redis/)》博文中 提到了使用 **Redis**客户端代理方式 访问 **RedisClient**， 在这版为了实现Redis访问异常后的重试机制，废弃了代理模式，采用了命令行模式，可参考下面的 **RedisClientCommand**。
+《[flea-frame-cache使用之Redis接入【旧】](../../../../../../2019/08/19/flea-framework/flea-cache/flea-frame-cache-redis/)》博文中 提到了使用 **Redis**客户端代理方式 访问 `RedisClient`， 在这版为了实现 **Redis** 访问异常后的重试机制，废弃了代理模式，采用了命令行模式，可参考下面的 `RedisClientCommand` 。
 
 ## 3.4 定义Redis客户端命令行
-[RedisClientCommand](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/RedisClientCommand.java) 封装了使用ShardedJedis操作Redis缓存的公共逻辑
+[RedisClientCommand](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/RedisClientCommand.java) 封装了使用`ShardedJedis`操作**Redis**缓存的公共逻辑，如果出现异常可以重试 `maxAttempts` 次。
+
+抽象方法 `execute` ，由子类或匿名类实现。在实际调用前，需要从分布式**Jedis**连接池中获取分布式**Jedis**对象；调用结束后， 关闭分布式**Jedis**对象，归还给分布式**Jedis**连接池。
 
 ```java
-/**
- * Redis客户端命令行，封装了使用ShardedJedis操作Redis缓存的公共逻辑，
- * 如果出现异常可以重试{@code maxAttempts} 次。
- *
- * <p> 抽象方法 {@code execute}，由子类或匿名类实现。在实际调用前，
- * 需要从分布式Jedis连接池中获取分布式Jedis对象；调用结束后，
- * 关闭分布式Jedis对象，归还给分布式Jedis连接池。
- *
- * @author huazie
- * @version 1.1.0
- * @since 1.1.0
- */
 public abstract class RedisClientCommand<T> {
 
     private static final FleaLogger LOGGER = FleaLoggerProxy.getProxyInstance(RedisClientCommand.class);
@@ -165,21 +155,41 @@ public abstract class RedisClientCommand<T> {
 
 ```
 ## 3.5 定义分片模式Redis客户端实现类
-[FleaRedisShardedClient](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/impl/FleaRedisShardedClient.java) 主要使用 **ShardedJedis** 来操作 **Redis** 数据。
+[FleaRedisShardedClient](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/impl/FleaRedisShardedClient.java) 主要使用 `ShardedJedis` 来操作 **Redis** 数据，它封装了**Flea框架**操作**Redis**缓存的基本操作。
+
+它内部具体操作**Redis**缓存的功能，由分布式**Jedis**对象完成， 包含读、写、删除**Redis**缓存的基本操作方法。
+
+分片模式下，单个缓存接入场景，可通过如下方式使用：
+```java
+    RedisClient redisClient = new FleaRedisShardedClient.Builder().build();
+    // 执行读，写，删除等基本操作
+    redisClient.set("key", "value"); 
+```
+
+分片模式下，整合缓存接入场景，可通过如下方式使用：
+```java
+    RedisClient redisClient = new FleaRedisShardedClient.Builder(poolName).build();
+    // 执行读，写，删除等基本操作
+    redisClient.set("key", "value"); 
+```
+
+当然每次都新建**Redis**客户端显然不可取，我们可通过**Redis**客户端工厂获取**Redis**客户端。
+分片模式下，单个缓存接入场景，可通过如下方式使用：
+```java
+    RedisClient redisClient = RedisClientFactory.getInstance();
+    // 或者
+    RedisClient redisClient = RedisClientFactory.getInstance(CacheModeEnum.SHARDED);
+```
+
+分片模式下，整合缓存接入场景，可通过如下方式使用：
+```java
+    RedisClient redisClient = RedisClientFactory.getInstance(poolName);
+    // 或者
+    RedisClient redisClient = RedisClientFactory.getInstance(poolName, CacheModeEnum.SHARDED);
+```
+    
 
 ```java
-/**
- * Flea分片模式Redis客户端实现类，封装了Flea框架操作Redis缓存的基本操作。
- *
- * <p> 它内部具体操作Redis缓存的功能，由分布式Jedis对象完成，
- * 包含读、写、删除Redis缓存的基本操作方法。
- * 
- * 详见笔者 https://github.com/Huazie/flea-frame，欢迎 Star
- *
- * @author huazie
- * @version 1.1.0
- * @since 1.0.0
- */
 public class FleaRedisShardedClient extends FleaRedisClient {
 
     private ShardedJedisPool shardedJedisPool; // 分布式Jedis连接池
@@ -300,9 +310,10 @@ public class FleaRedisShardedClient extends FleaRedisClient {
 }
 
 ```
-该类的构造函数初始化逻辑，可以看出我们使用了 **RedisShardedPool**， 下面来介绍一下。
+该类的构造函数初始化逻辑，可以看出我们使用了 `RedisShardedPool` ， 下面来介绍一下。
+
 ## 3.6 定义Redis分片连接池
-[RedisShardedPool](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/RedisShardedPool.java) ，上个版本我们使用 **RedisPool** 初始化Redis相关配置信息，为了体现Redis分片模式，这个版本里面，我们使用 **RedisShardedPool** 用于Redis相关配置信息的初始化，其中重点是获取分布式Jedis连接池 **ShardedJedisPool** ，该类其中一个构造方法如下：
+[RedisShardedPool](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/RedisShardedPool.java) ，上个版本我们使用 `RedisPool` 初始化**Redis**相关配置信息，为了体现**Redis**分片模式，这个版本里面，我们使用 `RedisShardedPool` 用于**Redis**相关配置信息的初始化，其中重点是获取分布式**Jedis**连接池 `ShardedJedisPool` ，该类其中一个构造方法如下：
 ```java
 /**
  * @param poolConfig 连接池配置信息
@@ -312,26 +323,21 @@ public class FleaRedisShardedClient extends FleaRedisClient {
 public ShardedJedisPool(final GenericObjectPoolConfig poolConfig, List<JedisShardInfo> shards,
       Hashing algo) 
 ```
+
+**Redis**分片连接池，用于初始化分布式 **Jedis** 连接池。
+
+针对单独缓存接入场景，采用默认连接池初始化的方式； 可参考如下：
 ```java
-/**
- * Redis分片连接池，用于初始化分布式 Jedis 连接池。
- *
- * <p> 针对单独缓存接入场景，采用默认连接池初始化的方式；<br/>
- * 可参考如下：
- * <pre>
- *   // 初始化默认连接池
- *   RedisShardedPool.getInstance().initialize(); </pre>
- *
- * <p> 针对整合缓存接入场景，采用指定连接池初始化的方式；<br/>
- * 可参考如下：
- * <pre>
- *   // 初始化指定连接池
- *   RedisShardedPool.getInstance(group).initialize(cacheServerList); </pre>
- *
- * @author huazie
- * @version 1.1.0
- * @since 1.0.0
- */
+    // 初始化默认连接池
+    RedisShardedPool.getInstance().initialize();
+``` 
+针对整合缓存接入场景，采用指定连接池初始化的方式； 可参考如下：
+```java
+    // 初始化指定连接池
+    RedisShardedPool.getInstance(group).initialize(cacheServerList); 
+```
+
+```java
 public class RedisShardedPool {
 
     private static final ConcurrentMap<String, RedisShardedPool> redisPools = new ConcurrentHashMap<>();
@@ -417,76 +423,65 @@ public class RedisShardedPool {
 }
 ```
 ## 3.7 Redis配置文件
-flea-cache读取 [redis.properties](https://github.com/Huazie/flea-framework/blob/dev/flea-config/src/main/resources/flea/cache/redis.properties)（Redis配置文件），用作初始化 **RedisShardedPool** 
+**flea-cache**读取 [redis.properties](https://github.com/Huazie/flea-framework/blob/dev/flea-config/src/main/resources/flea/cache/redis.properties)（**Redis**配置文件），用作初始化 `RedisShardedPool`。
 
 ```bash
 # Redis配置
-# Redis缓存所属系统名
+redis.switch=0
+
 redis.systemName=FleaFrame
 
-# Redis服务器地址
 redis.server=127.0.0.1:10001,127.0.0.1:10002,127.0.0.1:10003
 
-# Redis服务登录密码
 redis.password=huazie123,huazie123,huazie123
 
-# Redis服务器权重分配
 redis.weight=1,1,1
 
-# Redis客户端socket连接超时时间（单位：ms）
 redis.connectionTimeout=2000
 
-# Redis客户端socket读写超时时间（单位：ms）
 redis.soTimeout=2000
 
-# Redis分布式hash算法
-# 1 : MURMUR_HASH
-# 2 : MD5
 redis.hashingAlg=1
 
 # Redis客户端连接池配置
-# Jedis连接池最大连接数
 redis.pool.maxTotal=100
 
-# Jedis连接池最大空闲连接数
 redis.pool.maxIdle=10
 
-# Jedis连接池最小空闲连接数
 redis.pool.minIdle=0
 
-# Jedis连接池获取连接时的最大等待时间（单位：ms）
 redis.pool.maxWaitMillis=2000
 
-# Redis客户端操作最大尝试次数【包含第一次操作】
 redis.maxAttempts=5
 
-# 空缓存数据有效期（单位：s）
 redis.nullCacheExpiry=10
 ```
 
+- `redis.switch` : **Redis**分片配置开关（1：开启 0：关闭），如果不配置也默认开启
+- `redis.systemName` : **Redis**缓存所属系统名
+- `redis.server` : **Redis**服务器地址
+- `redis.password` : **Redis**服务登录密码
+- `redis.weight` : **Redis**服务器权重分配
+- `redis.connectionTimeout` : **Redis**客户端**socket**连接超时时间（单位：ms）
+- `redis.soTimeout` : **Redis**客户端**socket**读写超时时间（单位：ms）
+- `redis.hashingAlg` : **Redis**分布式hash算法【1 : MURMUR_HASH 2 : MD5】
+- `redis.pool.maxTotal` : **Jedis**连接池最大连接数
+- `redis.pool.maxIdle` : **Jedis**连接池最大空闲连接数
+- `redis.pool.minIdle` : **Jedis**连接池最小空闲连接数
+- `redis.pool.maxWaitMillis` : **Jedis**连接池获取连接时的最大等待时间（单位：ms）
+- `redis.maxAttempts` : **Redis**客户端操作最大尝试次数【包含第一次操作】
+- `redis.nullCacheExpiry` : 空缓存数据有效期（单位：s）
+
 ## 3.8 定义Redis Flea缓存类
-[RedisFleaCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/impl/RedisFleaCache.java) 继承抽象Flea缓存类 **AbstractFleaCache** ，其构造方法可见如需要传入Redis客户端 **RedisClient** ，相关使用下面介绍：
+[RedisFleaCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/impl/RedisFleaCache.java) 继承抽象**Flea**缓存类 `AbstractFleaCache` ，实现了以**Flea**框架操作**Redis**缓存的基本操作方法，其构造方法可见如需要传入**Redis**客户端 `RedisClient` ，相关使用下面介绍。
+
+在上述基本操作方法中，实际使用**Redis**客户端【`redisClient`】 读、写和删除**Redis**缓存。其中写缓存方法【`putNativeValue`】在 添加的数据值为【`null`】时，默认添加空缓存数据【`NullCache`】 到Redis中，有效期取初始化参数【`nullCacheExpiry`】。
+
+- 单个缓存接入场景，有效期配置可查看【`redis.properties`】中的配置参数 【`redis.nullCacheExpiry`】
+
+- 整合缓存接入场景，有效期配置可查看【`flea-cache-config.xml`】中的缓存参数 【`<cache-param key="fleacore.nullCacheExpiry" desc="空缓存数据有效期（单位：s）">300</cache-param>`】
 
 ```java
-/**
- * Redis Flea缓存类，实现了以Flea框架操作Redis缓存的基本操作方法。
- *
- * <p> 在上述基本操作方法中，实际使用Redis客户端【{@code redisClient}】
- * 读、写和删除Redis缓存。其中写缓存方法【{@code putNativeValue}】在
- * 添加的数据值为【{@code null}】时，默认添加空缓存数据【{@code NullCache}】
- * 到Redis中，有效期取初始化参数【{@code nullCacheExpiry}】。
- *
- * <p> 单个缓存接入场景，有效期配置可查看【redis.properties】中的配置参数
- * 【redis.nullCacheExpiry】
- *
- * <p> 整合缓存接入场景，有效期配置可查看【flea-cache-config.xml】中的缓存参数
- * 【{@code <cache-param key="fleacore.nullCacheExpiry"
- * desc="空缓存数据有效期（单位：s）">300</cache-param>}】
- *
- * @author huazie
- * @version 1.1.0
- * @since 1.0.0
- */
 public class RedisFleaCache extends AbstractFleaCache {
 
     private static final FleaLogger LOGGER = FleaLoggerProxy.getProxyInstance(RedisFleaCache.class);
@@ -562,27 +557,18 @@ public class RedisFleaCache extends AbstractFleaCache {
     }
 }
 ```
+
 ## 3.9 定义抽象Flea缓存管理类
 [AbstractFleaCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractFleaCacheManager.java) 可参考笔者的这篇博文 [Memcached接入](../../../../../../2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
+
 ## 3.10 定义Redis分片模式Flea缓存管理类
-[RedisShardedFleaCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/manager/RedisShardedFleaCacheManager.java)  继承抽象Flea缓存管理类 **AbstractFleaCacheManager**，构造方法使用了 **RedisClientFactory** 获取分片模式下默认连接池的Redis客户端 **RedisClient**，可在 **3.11** 查看。**newCache** 方法返回的是 **RedisFleaCache** 的实例对象，每一类 **Redis** 缓存数据都对应了一个  **RedisFleaCache** 的实例对象。
+[RedisShardedFleaCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/manager/RedisShardedFleaCacheManager.java)  继承抽象**Flea**缓存管理类 `AbstractFleaCacheManager`，用于接入**Flea**框架管理**Redis**缓存。
+
+它的默认构造方法，用于初始化分片模式下默认连接池的**Redis**客户端, 这里需要先初始化**Redis**连接池，默认连接池名为【`default`】； 然后通过 `RedisClientFactory` 获取分片模式下默认连接池的Redis客户端 `RedisClient`，可在 **3.11** 查看。
+
+`newCache` 用于创建一个**Redis Flea**缓存， 它里面包含了 读、写、删除 和 清空 缓存的基本操作。 该方法返回的是 `RedisFleaCache` 的实例对象，每一类 **Redis** 缓存数据都对应了一个  `RedisFleaCache` 的实例对象。
 
 ```java
-/**
- * Redis分片模式Flea缓存管理类，用于接入Flea框架管理Redis缓存。
- *
- * <p> 它的默认构造方法，用于初始化分片模式下默认连接池的Redis客户端,
- * 这里需要先初始化Redis连接池，默认连接池名为【default】；
- * 然后通过Redis客户端工厂类来获取Redis客户端。
- *
- * <p> 方法 {@code newCache} 用于创建一个Redis Flea缓存，
- * 它里面包含了 读、写、删除 和 清空 缓存的基本操作。
- *
- * @author huazie
- * @version 1.1.0
- * @see RedisFleaCache
- * @since 1.0.0
- */
 public class RedisShardedFleaCacheManager extends AbstractFleaCacheManager {
 
     private RedisClient redisClient; // Redis客户端
@@ -606,6 +592,7 @@ public class RedisShardedFleaCacheManager extends AbstractFleaCacheManager {
     }
 }
 ```
+
 ## 3.11 定义Redis客户端工厂类
 [RedisClientFactory](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/RedisClientFactory.java)  ，有四种方式获取 **Redis** 客户端：
  - 一是获取分片模式下默认连接池的 **Redis** 客户端，应用在单个缓存接入场景【**3.10** 采用】；
@@ -614,14 +601,6 @@ public class RedisShardedFleaCacheManager extends AbstractFleaCacheManager {
  - 四是获取指定模式下指定连接池的 **Redis** 客户端，应用在整合缓存接入场景。
 
 ```java
-
-/**
- * Redis客户端工厂，用于获取Redis客户端。
- *
- * @author huazie
- * @version 1.1.0
- * @since 1.0.0
- */
 public class RedisClientFactory {
 
     private static final ConcurrentMap<String, RedisClient> redisClients = new ConcurrentHashMap<>();
@@ -684,7 +663,8 @@ public class RedisClientFactory {
 }
 
 ```
-在上面 的 `getInstance(String poolName, CacheModeEnum mode)` 方法中，使用了 **RedisClientStrategyContext** ，用于定义 **Redis** 客户端策略上下文。根据不同的缓存模式，就可以找到对应的 **Redis** 客户端策略。
+在上面 的 `getInstance(String poolName, CacheModeEnum mode)` 方法中，使用了 `RedisClientStrategyContext` ，用于定义 **Redis** 客户端策略上下文。根据不同的缓存模式，就可以找到对应的 **Redis** 客户端策略。
+
 ## 3.12 定义 Redis 客户端策略上下文
 [RedisClientStrategyContext](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/common/RedisClientStrategyContext.java) 包含了 **Redis** 分片 和 **Redis** 集群 相关的客户端策略。
 ```java
@@ -715,16 +695,9 @@ public class RedisClientStrategyContext extends FleaStrategyContext<RedisClient,
 }
 ```
 ## 3.13 定义分片模式 Redis 客户端策略
-[RedisShardedClientStrategy](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/strategy/RedisShardedClientStrategy.java) 用于新建分片模式Redis客户端
+[RedisShardedClientStrategy](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/strategy/RedisShardedClientStrategy.java) 用于新建分片模式**Redis**客户端
 
 ```java
-/**
- * 分片模式Redis客户端 策略
- *
- * @author huazie
- * @version 1.1.0
- * @since 1.1.0
- */
 public class RedisShardedClientStrategy implements IFleaStrategy<RedisClient, String> {
 
     @Override
@@ -740,7 +713,7 @@ public class RedisShardedClientStrategy implements IFleaStrategy<RedisClient, St
     }
 }
 ```
-好了，到这里我们可以来测试 Redis 分片模式。
+好了，到这里我们可以来测试 **Redis** 分片模式。
 
 ## 3.14 Redis接入自测
 单元测试类详见 [FleaCacheTest](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/test/java/com/huazie/fleaframework/cache/FleaCacheTest.java)
@@ -773,21 +746,13 @@ public class RedisShardedClientStrategy implements IFleaStrategy<RedisClient, St
 # 4. 进阶接入
 ## 4.1 定义抽象Spring缓存 
 [AbstractSpringCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractSpringCache.java) 可参考笔者的这篇博文 [Memcached接入](../../../../../../2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
+
 ## 4.2 定义Redis Spring缓存类
-[RedisSpringCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/impl/RedisSpringCache.java) 继承抽象 **Spring** 缓存 **AbstractSpringCache**，用于对接 **Spring**； 从构造方法可见，该类初始化还是使用 **RedisFleaCache**。
+[RedisSpringCache](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/impl/RedisSpringCache.java) 继承抽象 **Spring** 缓存 `AbstractSpringCache` 的读、写、删除 和 清空 缓存的基本操作方法，由**Redis Spring**缓存管理类初始化，用于对接 **Spring**； 
+
+它的构造方法中，必须传入一个具体**Flea**缓存实现类，这里我们使用 **Redis Flea**缓存【`RedisFleaCache`】。
+
 ```java
-/**
- * Redis Spring缓存类，继承了抽象Spring缓存父类的读、写、删除 和 清空
- * 缓存的基本操作方法，由Redis Spring缓存管理类初始化。
- *
- * <p> 它的构造方法中，必须传入一个具体Flea缓存实现类，这里我们使用
- * Redis Flea缓存【{@code RedisFleaCache}】。
- *
- * @author huazie
- * @version 1.1.0
- * @see RedisFleaCache
- * @since 1.0.0
- */
 public class RedisSpringCache extends AbstractSpringCache {
 
     /**
@@ -822,25 +787,13 @@ public class RedisSpringCache extends AbstractSpringCache {
 [AbstractSpringCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractSpringCacheManager.java) 可参考笔者的这篇博文 [Memcached接入](../../../../../../2019/08/18/flea-framework/flea-cache/flea-cache-memcached/)，不再赘述。
 
 ## 4.4 定义Redis分片模式Spring缓存管理类
-[RedisShardedSpringCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/manager/RedisShardedSpringCacheManager.java) 继承抽象 **Spring** 缓存管理类 **AbstractSpringCacheManager**，用于对接**Spring**; 基本实现同 **RedisShardedFleaCacheManager**，唯一不同在于 **newCache** 的实现。
+[RedisShardedSpringCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/manager/RedisShardedSpringCacheManager.java) 继承抽象 **Spring** 缓存管理类 `AbstractSpringCacheManager`，用于接入**Spring**框架管理**Redis**缓存; 
+
+它的默认构造方法，用于初始化分片模式下默认连接池的**Redis**客户端, 这里需要先初始化**Redis**连接池，默认连接池名为【`default`】； 然后通过**Redis**客户端工厂类来获取**Redis**客户端。
+
+它的基本实现同 `RedisShardedFleaCacheManager`，唯一不同在于 `newCache` 的实现。方法【`newCache`】用于创建一个**Redis Spring**缓存， 而它内部是由**Redis Flea**缓存实现具体的 读、写、删除 和 清空 缓存的基本操作。
 
 ```java
-/**
- * Redis分片模式Spring缓存管理类，用于接入Spring框架管理Redis缓存。
- *
- * <p> 它的默认构造方法，用于初始化分片模式下默认连接池的Redis客户端,
- * 这里需要先初始化Redis连接池，默认连接池名为【default】；
- * 然后通过Redis客户端工厂类来获取Redis客户端。
- *
- * <p> 方法【{@code newCache}】用于创建一个Redis Spring缓存，
- * 而它内部是由Redis Flea缓存实现具体的 读、写、删除 和 清空
- * 缓存的基本操作。
- *
- * @author huazie
- * @version 1.1.0
- * @see RedisSpringCache
- * @since 1.0.0
- */
 public class RedisShardedSpringCacheManager extends AbstractSpringCacheManager {
 
     private RedisClient redisClient; // Redis客户端
@@ -866,11 +819,9 @@ public class RedisShardedSpringCacheManager extends AbstractSpringCacheManager {
 ```
 ## 4.5 spring 配置
 
+如下用于配置缓存管理 `redisShardedSpringCacheManager`，其中 `configMap` 为缓存时间(`key`缓存对象名称 `value`缓存过期时间)
+
 ```xml
-    <!--
-        配置缓存管理 redisShardedSpringCacheManager
-        配置缓存时间 configMap (key缓存对象名称 value缓存过期时间)
-    -->
     <bean id="redisShardedSpringCacheManager" class="com.huazie.frame.cache.redis.manager.RedisShardedSpringCacheManager">
         <property name="configMap">
             <map>

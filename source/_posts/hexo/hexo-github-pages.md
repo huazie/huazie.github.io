@@ -3,6 +3,7 @@ title: 【实操】基于 GitHub Pages + Hexo 搭建个人博客
 date: 2024-01-17 15:14:55
 updated: 2024-01-17 15:14:55
 categories:
+  - [博客框架-Hexo]
   - [开发工具]
 tags:
   - Hexo
