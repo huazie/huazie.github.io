@@ -170,7 +170,7 @@ tags:
 分库场景，模板库和分库都需要有一个对应的持久化单元配置，详见 [接入演示的持久化单元配置](https://github.com/Huazie/flea-db-test/tree/main/flea-config/src/main/resources/META-INF)。
 
 ## 2.4 JPA相关Spring Bean配置
-首先是JPA固定的Spring Bean配置，可查看 [fleajpabeans-spring.xml](https://github.com/Huazie/flea-db-test/blob/main/flea-config/src/main/resources/spring/db/jpa/fleajpabeans-spring.xml) ，配置如下：
+首先是**JPA**固定的**Spring Bean**配置，可查看 [fleajpabeans-spring.xml](https://github.com/Huazie/flea-db-test/blob/main/flea-config/src/main/resources/spring/db/jpa/fleajpabeans-spring.xml) ，配置如下：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -201,7 +201,7 @@ tags:
 
 </beans>
 ```
-与持久化单元对应的 Bean配置，可查看 [fleaorder-spring.xml](https://github.com/Huazie/flea-db-test/blob/main/flea-config/src/main/resources/spring/db/jpa/fleaorder-spring.xml)，配置 如下：
+与持久化单元对应的 **Bean** 配置，可查看 [fleaorder-spring.xml](https://github.com/Huazie/flea-db-test/blob/main/flea-config/src/main/resources/spring/db/jpa/fleaorder-spring.xml)，配置 如下：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -259,7 +259,7 @@ Flea自定义事务注解主要标记在两类方法上：
     FleaLibUtil.setSplitLibSeqValue("SEQ", "123123123");
     // 调用自定义事务注解标记的方法
 ```
-下面我贴出Flea自定义事务切面的代码，如下：
+下面我贴出**Flea**自定义事务切面的代码，如下：
 
 ```java
 @Aspect
@@ -336,9 +336,9 @@ public class FleaTransactionalAspect {
     }
 }
 ```
-在上述代码中，事务名 和 实体管理器 的获取是重点，因Flea自定义事务注解标记在两类不同的方法上，这两者的获取也不一样。通过事务名可直接从Spring配置中获取定义的事务管理器，事务名对应着spring配置中 `transaction-manager` 对应的属性值，详见 2.4中  [fleaorder-spring.xml](https://github.com/Huazie/flea-db-test/blob/main/flea-config/src/main/resources/spring/db/jpa/fleaorder-spring.xml)   。
+在上述代码中，事务名 和 实体管理器 的获取是重点，因**Flea**自定义事务注解标记在两类不同的方法上，这两者的获取也不一样。通过事务名可直接从**Spring**配置中获取定义的事务管理器，事务名对应着**Spring**配置中 `transaction-manager` 对应的属性值，详见 **2.4**中  [fleaorder-spring.xml](https://github.com/Huazie/flea-db-test/blob/main/flea-config/src/main/resources/spring/db/jpa/fleaorder-spring.xml)   。
 
-最后使用 Flea事务模板，来实现标记 `@FleaTransactional`的方法调用之前开启事务，调用成功后提交事务，出现异常回滚事务。
+最后使用 **Flea** 事务模板，来实现标记 `@FleaTransactional`的方法调用之前开启事务，调用成功后提交事务，出现异常回滚事务。
 
 
 ## 3.2 Flea事务模板
@@ -575,7 +575,7 @@ public class FleaEntityManager {
 ## 3.4 Flea JPA分库分表处理接口
  [IFleaJPASplitHandler](https://github.com/Huazie/flea-framework/blob/main/flea-db/flea-db-jpa/src/main/java/com/huazie/fleaframework/db/jpa/handler/IFleaJPASplitHandler.java)，从上面 3.3中，我们可以看到  Flea实体管理器中的各持久化上下文交互接口的静态方法【如： **getFleaNextValue**，**find**，**remove**，**merge**，**persist**，**flush**】都是调用 [FleaJPASplitHelper.getHandler()](https://github.com/Huazie/flea-framework/blob/main/flea-db/flea-db-jpa/src/main/java/com/huazie/fleaframework/db/jpa/FleaJPASplitHelper.java) 的对应方法实现的，也就是 **IFleaJPASplitHandler** 的对应方法。
 
-Flea JPA 分库分表处理者接口，包含分库分表相关的处理接口方法、增删改查的数据操作接口方法。
+**Flea JPA** 分库分表处理者接口，包含分库分表相关的处理接口方法、增删改查的数据操作接口方法。
 
 **下面我们来看看 Flea JPA分库分表处理接口 都有哪些处理方法？**
 
@@ -948,7 +948,7 @@ public abstract class FleaLibTableSplitHandler implements IFleaJPASplitHandler {
 }
 ```
 
-好，上面已经基本实现分表处理者的各项接口方法，剩下一些inner方法，需要由特定的JPA实现来定制化，本例中是EclipseLink。
+上面具体的 `inner` 方法实现，我们可以看到都使用了 **FleaEntityManagerImpl** ，这就是下面将要介绍的 **Flea** 实体管理器 **EclipseLink** 版实现。
 
 下面我们来看看相关代码，如下：
 
@@ -1257,10 +1257,10 @@ public class FleaOrderDAOImpl<T> extends AbstractFleaJPADAOImpl<T> {
 ```
 
 ## 4.4 各实体的DAO层接口和实现
-可至 GitHub 查看如下 [DAO层代码](https://github.com/Huazie/flea-db-test/tree/main/flea-jpa-test/src/main/java/com/huazie/fleadbtest/jpa/split/dao)：
+可至 **GitHub** 查看如下 [DAO层代码](https://github.com/Huazie/flea-db-test/tree/main/flea-jpa-test/src/main/java/com/huazie/fleadbtest/jpa/split/dao)：
 ![](DAO.png)
 ## 4.5 各实体的SV层接口和实现
-可至 GitHub 查看如下 [SV层代码](https://github.com/Huazie/flea-db-test/tree/main/flea-jpa-test/src/main/java/com/huazie/fleadbtest/jpa/split/service)：
+可至 **GitHub** 查看如下 [SV层代码](https://github.com/Huazie/flea-db-test/tree/main/flea-jpa-test/src/main/java/com/huazie/fleadbtest/jpa/split/service)：
 
 ![](SV.png)
 
