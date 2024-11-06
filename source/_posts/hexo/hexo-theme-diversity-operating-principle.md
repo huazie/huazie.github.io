@@ -250,7 +250,7 @@ themes.forEach(function(theme) {
 已有默认主题，直接重新设置默认主题：
 
 
-![](v2-2.gif)
+![](v2-3.gif)
 
 
 #### 2.4.2.2 Phone 端
@@ -277,7 +277,7 @@ themes.forEach(function(theme) {
 
 ## 2.5 后续展望
 
-本篇博文截止，[Diversity](https://github.com/huazie/hexo-theme-diversity/releases/tag/v2.2.5) 主题的版本是 **2.2.6**。
+本篇博文截止，[Diversity](https://github.com/huazie/hexo-theme-diversity/releases/tag/v2.2.6) 主题的版本是 **2.2.6**。
 
 后续该项目将会持续更新中，包括但不限于首页，友链，留言，关于等等。
 
