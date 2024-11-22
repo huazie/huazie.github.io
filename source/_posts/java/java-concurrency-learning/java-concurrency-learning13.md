@@ -1,5 +1,5 @@
 ---
-title: Java并发编程学习13-任务取消（下）
+title: Java并发编程学习13-任务取消的进阶使用
 date: 2022-11-15 15:16:18
 updated: 2024-03-19 17:21:35
 categories:
@@ -23,7 +23,7 @@ tags:
 
 [![](/images/flea-framework.png)](https://github.com/Huazie/flea-framework)
 
-## 1. 任务限时运行
+# 1. 任务限时运行
 
 我们知道许多任务可能永远也无法处理完成（例如，枚举所有的素数），而某些任务，可能很快被处理掉，也可能很长时间才能处理完。这个时候如果能够对任务处理加个时间限制，比如指定 “最多花1分钟搜索答案” 或者 “枚举出1秒钟内能找到的素数”，那将会是非常有用的。
 
@@ -70,7 +70,7 @@ public class TimeRunTest {
 
 读者可以自行调试下，虽然 **timeRun** 能实现限时执行的功能，但它是通过外部线程安排中断实现。
 
-在前面的 [《任务取消（上）》](../../../../../../2022/11/11/java/java-concurrency-learning/java-concurrency-learning12/)中我们了解到，每个线程都有自己的中断策略，在中断线程之前，应该了解它的中断策略，否则就不应该中断该线程。
+在前面的 [《任务取消和线程中断》](../../../../../../2022/11/11/java/java-concurrency-learning/java-concurrency-learning12/)中我们了解到，每个线程都有自己的中断策略，在中断线程之前，应该了解它的中断策略，否则就不应该中断该线程。
 
 由于 **timeRun** 可以从任意一个线程中调用，因此它无法知道这个调用线程的中断策略。
 
@@ -184,9 +184,9 @@ public class TaskUtils {
 
 > 这是 **Thread API** 的一个缺陷，因为无论 **join** 是否成功地完成，在 **Java** 内存模型中都会有内存可见性结果，但 **join** 本身不会返回某个状态来表明它是否成功。
 
-## 2. 通过 Future 来实现取消
+# 2. 通过 Future 来实现取消
 
-在前面的[《同步工具类》](../../../../../../2022/09/17/java/java-concurrency-learning/java-concurrency-learning8/)博文中，咱们已经初步了解 **Future**，它可以管理任务的生命周期、处理异常以及实现取消。
+在前面的[《同步工具类（闭锁、信号量和栅栏）》](../../../../../../2022/09/17/java/java-concurrency-learning/java-concurrency-learning8/)博文中，咱们已经初步了解 **Future**，它可以管理任务的生命周期、处理异常以及实现取消。
 
 而在另一篇[《任务执行演示》](../../../../../../2022/10/15/java/java-concurrency-learning/java-concurrency-learning11/)博文中，我们知道 `ExecutorService.submit` 将返回一个 **Future** 来描述任务。**Future** 拥有一个 **cancel** 方法，该方法带有一个 **boolean** 类型的参数 **mayInterruptIfRunning**，一个 **boolean** 类型的返回值。如果 **mayInterruptIfRunning** 为 **true** 并且任务当前正在某个线程中运行，那么这个线程能被中断。如果 **mayInterruptIfRunning** 为 **false**，则允许完成正在进行的任务，同时还未启动的任务也不再运行，这种方式适用于那些不处理中断的任务中。如果任务无法取消，则 **cancel** 方法返回 **false**，通常是因为任务已经正常完成；否则返回 **true**。
 
@@ -276,7 +276,7 @@ public class TaskUtils {
         LOGGER.debug("timeRun end");
     }
 ```
-## 3. 处理不可中断的阻塞
+# 3. 处理不可中断的阻塞
 
 我们知道，为了方便开发人员构建出能响应取消请求的任务，在 **Java** 类库中的大多数可阻塞的方法都是通过提前返回或者抛出 **InterruptedException** 来响应中断请求的。
 
@@ -415,7 +415,7 @@ public class SocketClient {
 
 ![](result-1.png)
 
-## 4. 采用 newTaskFor 来封装非标准的取消
+# 4. 采用 newTaskFor 来封装非标准的取消
 
 我们可以通过 **Java 6** 在 **ThreadPoolExecutor** 中新增的 **newTaskFor** 方法来进一步优化 **ReaderThread** 中封装非标准取消的技术。
 
@@ -636,5 +636,5 @@ public class SocketClient {
 
 ![](result-3.png)
 
-## 5. 总结
+# 5. 总结
 《任务取消》的内容已告一段落，下篇开始介绍各种任务和服务的关闭机制，以及如何编写任务和服务，使它们能够优雅地处理关闭。
