@@ -51,7 +51,7 @@ tags:
 
 **下面跟着 Huazie 来看看接入 V1 版本都需要做哪些操作？**
 
-*   首先，在你的 **Hexo** 项目根目录下，执行以下命令，并将 `_config.yml` 中的 `theme` 修改为 `diversity`;
+*   首先，在你的**Hexo**项目根目录下，执行以下命令，并将 `_config.yml`中的`theme`修改为`diversity`;
 
 ```shell
 git clone --depth 1 https://github.com/huazie/hexo-theme-diversity/tree/v1 themes/diversity
@@ -63,7 +63,7 @@ _config.yml
 + theme: diversity
 ```
 
-*   然后，将 `themes/diversity` 目录下的 `_config.diversity.yml`，移动到你的 **Hexo** 项目根目录。该文件主要配置 **多主题列表** 和 **多主题服务器端口列表**;
+*   然后，将`themes/diversity`目录下的`_config.diversity.yml`，移动到你的**Hexo**项目根目录。该文件主要配置 **多主题列表** 和 **多主题服务器端口列表**;
 
 ```yml
 themes: [landscape,light,phase]
@@ -71,7 +71,7 @@ themes: [landscape,light,phase]
 #ports: [5000,5001,5002]
 ```
 
-*   接着，在你的 **Hexo** 项目根目录，添加 **config** 目录，为上述多主题列表中的每个主题添加一个对应主题名的配置目录，并在该配置目录下添加对应的 `_config.yml` 【直接从你原来项目根目录下的 `_config.yml` 复制一份即可】，形如：
+*   接着，在你的**Hexo**项目根目录，添加**config**目录，为上述多主题列表中的每个主题添加一个对应主题名的配置目录，并在该配置目录下添加对应的`_config.yml`【直接从你原来项目根目录下的`_config.yml`复制一份即可】，形如：
 
 ```txt
 ├─config
@@ -83,7 +83,7 @@ themes: [landscape,light,phase]
 │  │  ├─_config.yml
 ```
 
-修改上述各主题目录下的 `_config.yml`，以 **landscape** 举例：
+修改上述各主题目录下的`_config.yml`，以**landscape**举例：
 
 ```diff
 _config.yml
@@ -141,13 +141,13 @@ _config.yml
 
 **那么现在，让我们看看 V2 版本该如何接入你的 Hexo 项目中 ？**
 
-*   首先，同样是在你的 **Hexo** 项目根目录下，执行以下命令，并将 `_config.yml` 中的 `theme` 修改为 `diversity`;
+*   首先，同样是在你的**Hexo**项目根目录下，执行以下命令，并将 `_config.yml`中的`theme`修改为`diversity`;
 
 ```shell
 git clone --depth 1 https://github.com/huazie/hexo-theme-diversity/tree/v2 themes/diversity
 ```
 
-*   然后，将 `themes/diversity` 目录下的 `_config.diversity.yml`，移动到你的 **Hexo** 项目根目录。与 **V1** 版本不同的是，**V2** 版本中，我们还需要将 `themes/diversity` 目录下的 `other` 目录中的目录和文件复制或移动到你的 **Hexo** 项目根目录。
+*   然后，将`themes/diversity`目录下的`_config.diversity.yml`，移动到你的**Hexo**项目根目录。与 **V1** 版本不同的是，**V2** 版本中，我们还需要将`themes/diversity`目录下的`other`目录中的目录和文件复制或移动到你的**Hexo**项目根目录。
 
 *   接着，可以直接复用 **V1** 版本中新建的 `config` 目录和其他主题的源码; 针对不同主题，可在各自主题配置中启用分类和标签生成配置【更多配置了解查看 [V2版本](https://github.com/huazie/hexo-theme-diversity/tree/v2)】。
 
