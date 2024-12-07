@@ -342,6 +342,8 @@ public class RedisShardedPool {
 
     private static final ConcurrentMap<String, RedisShardedPool> redisPools = new ConcurrentHashMap<>();
 
+    private static final Object redisPoolLock = new Object();
+
     private String poolName; // 连接池名
 
     private ShardedJedisPool shardedJedisPool; // 分布式Jedis连接池
@@ -369,7 +371,7 @@ public class RedisShardedPool {
      */
     public static RedisShardedPool getInstance(String poolName) {
         if (!redisPools.containsKey(poolName)) {
-            synchronized (redisPools) {
+            synchronized (redisPoolLock) {
                 if (!redisPools.containsKey(poolName)) {
                     RedisShardedPool redisShardedPool = new RedisShardedPool(poolName);
                     redisPools.putIfAbsent(poolName, redisShardedPool);
@@ -605,6 +607,8 @@ public class RedisClientFactory {
 
     private static final ConcurrentMap<String, RedisClient> redisClients = new ConcurrentHashMap<>();
 
+    private static final Object redisClientLock = new Object();
+
     private RedisClientFactory() {
     }
 
@@ -651,7 +655,7 @@ public class RedisClientFactory {
     public static RedisClient getInstance(String poolName, CacheModeEnum mode) {
         String key = StringUtils.strCat(poolName, CommonConstants.SymbolConstants.UNDERLINE, StringUtils.valueOf(mode.getMode()));
         if (!redisClients.containsKey(key)) {
-            synchronized (redisClients) {
+            synchronized (redisClientLock) {
                 if (!redisClients.containsKey(key)) {
                     RedisClientStrategyContext context = new RedisClientStrategyContext(poolName);
                     redisClients.putIfAbsent(key, FleaStrategyFacade.invoke(mode.name(), context));

@@ -310,6 +310,8 @@ public class FleaCacheFactory {
 
     private static final ConcurrentMap<String, AbstractFleaCache> fleaCacheMap = new ConcurrentHashMap<>();
 
+    private static final Object fleaCacheMapLock = new Object();    
+
     private FleaCacheFactory() {
     }
 
@@ -322,7 +324,7 @@ public class FleaCacheFactory {
      */
     public static AbstractFleaCache getFleaCache(String name) {
         if (!fleaCacheMap.containsKey(name)) {
-            synchronized (fleaCacheMap) {
+            synchronized (fleaCacheMapLock) {
                 if (!fleaCacheMap.containsKey(name)) {
                     fleaCacheMap.put(name, newFleaCache(name));
                 }

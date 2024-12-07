@@ -346,6 +346,8 @@ public class FleaObjectPoolFactory {
     // 存储Flea对象池
     private static final ConcurrentMap<String, FleaObjectPool> fleaObjectPools = new ConcurrentHashMap<String, FleaObjectPool>();
 
+    private static final Object objectPoolLock = new Object();    
+
     public static <T extends FleaObjectPool> T getFleaObjectPool(Class<?> objClazz, Class<T> objPoolClazz) {
         return getFleaObjectPool(CommonConstants.FleaPoolConstants.DEFAUTL_POOL_NAME, objClazz, objPoolClazz);
     }
@@ -356,7 +358,7 @@ public class FleaObjectPoolFactory {
         }
         String poolNameKey = poolName + CommonConstants.SymbolConstants.UNDERLINE + objClazz.getName();
         if (!fleaObjectPools.containsKey(poolNameKey)) {
-            synchronized (fleaObjectPools) {
+            synchronized (objectPoolLock) {
                 if (!fleaObjectPools.containsKey(poolNameKey)) {
                     fleaObjectPools.put(poolNameKey, build(poolName, objClazz));
                 }
