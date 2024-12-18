@@ -18,3 +18,12 @@ back2top:
   position: right
   color: "#fc6423"
   exclude: [next]
+
+comments:
+  lazyload: true
+
+utterances:
+  enable: true
+  repo: huazie/hexo-theme-diversity 
+  issue_term: pathname
+  theme: github-light
