@@ -8,7 +8,6 @@ tags:
   - Hexo
   - Diversity
   - hexo-theme-diversity
-comments: true
 ---
 
 ![](/images/hexo-logo.png)
