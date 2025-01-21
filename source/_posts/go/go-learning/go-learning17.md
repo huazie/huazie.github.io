@@ -14,7 +14,7 @@ tags:
 ![](/images/go-logo.png)
 
 # 引言
-Go语言中提供了 **go test** 命令，它不仅仅可以对代码包进行测试，还可以对个别源码文件进行测试，只要存在针对这些测试的测试源码文件。除此之外，Go语言还在标准库中提供了一个专门用于测试的代码包 **testing**，它提供了编写测试源码文件所需的一切。
+**Go** 语言中提供了 **go test** 命令，它不仅仅可以对代码包进行测试，还可以对个别源码文件进行测试，只要存在针对这些测试的测试源码文件。除此之外，**Go** 语言还在标准库中提供了一个专门用于测试的代码包 **testing**，它提供了编写测试源码文件所需的一切。
 
 <!-- more -->
 
@@ -41,7 +41,7 @@ t.Logf("Tomorrow is a %s", " good day ") // 类似于fmt.Printf
 
 使用 **go test –v** 命令，两者都会打印如下信息：
 
-```cmd
+```bash
 xxx_test.go:10: Tomorrow is a good day
 xxx_test.go:11: Tomorrow is a good day
 ```
@@ -59,7 +59,7 @@ xxx_test.go:11: Tomorrow is a good day
 ```go
 actLen := len(s)
 if actLen != expLen {
-  t.Errorf("Error: The length of slice should be %d but %d.\n", expLen, actLen)
+    t.Errorf("Error: The length of slice should be %d but %d.\n", expLen, actLen)
 }
 ```
 
@@ -71,7 +71,7 @@ if actLen != expLen {
 
 ```go
 if listener == nil {
-  t.Fatalf("Listener startup failing! (addr=%s)!\n", serverAddr)
+    t.Fatalf("Listener startup failing! (addr=%s)!\n", serverAddr)
 }
 ```
 
@@ -141,12 +141,12 @@ if listener == nil {
 
 |  时间单位  | 字符串表示法 |
 |:--------- |:-----------|
-|    纳秒    |    “ns”    |
-|    微秒    |  “us”或“µs”|
-|    毫秒    |    “ms”    |
-|     秒     |    “s”     |
-|    分钟    |    “m”     |
-|    小时    |    “h”     |
+|    纳秒    |    `ns`    |
+|    微秒    | `us` 或 `µs` |
+|    毫秒    |    `ms`    |
+|     秒     |    `s`    |
+|    分钟    |    `m`    |
+|    小时    |    `h`     |
 
 
 之前运行代码包 **cnet/ctcp** 中的功能测试函数的执行耗时大约**2**秒左右。现在通过 **-timeout** 标记将测试耗时上限设置为**100**毫秒，并运行测试。如下：
@@ -162,10 +162,10 @@ FAIL    cnet/ctcp       0.715s
 
 ```go
 if testing.Short() {
-  multiSend(serverAddr, "SenderT", 1, (2 * time.Second), showLog)
+    multiSend(serverAddr, "SenderT", 1, (2 * time.Second), showLog)
 } else {
-  multiSend(serverAddr, "SenderT1", 2, (2 * time.Second), showLog)
-  multiSend(serverAddr, "SenderT2", 1, (2 * time.Second), showLog)
+    multiSend(serverAddr, "SenderT1", 2, (2 * time.Second), showLog)
+    multiSend(serverAddr, "SenderT2", 1, (2 * time.Second), showLog)
 }
 ```
 

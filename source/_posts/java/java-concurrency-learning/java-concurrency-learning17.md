@@ -1,5 +1,5 @@
 ---
-title: Java并发编程学习17-线程池的使用（中）
+title: Java并发编程学习17-线程池的使用（配置和扩展ThreadPoolExecutor）
 date: 2023-06-23 14:00:35
 updated: 2024-03-19 17:21:35
 categories:
@@ -9,7 +9,6 @@ tags:
   - ThreadPoolExecutor
   - 饱和策略
   - ThreadFactory
-  - 
 ---
 
 

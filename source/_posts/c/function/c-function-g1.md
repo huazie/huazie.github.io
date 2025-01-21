@@ -45,6 +45,7 @@ tags:
 
 > **注意：** **gcvt** 函数把一个浮点值转换成一个字符串 (包括一个小数点和可能的符号字节) 并存储该字符串在 **buffer** 中。该 **buffer** 应足够大以便容纳转换的值加上结尾的 结束符 `'\0'`，它是自动添加的。
 > 如果一个缓冲区的大小为 **ndigit + 1**，则 **gcvt** 函数将覆盖该缓冲区的末尾。这是因为转换的字符串包括一个小数点以及可能包含符号和指数信息。
+
 ## 1.2 演示示例
 ```c
 #include <stdlib.h>
@@ -138,6 +139,7 @@ int main()
 7. 使用 `sprintf` 函数将起始点和结束点的坐标格式化为字符串。
 8. 在屏幕上显示起始点和结束点的坐标信息。
 9. 等待用户按键输入，然后关闭图形窗口并退出程序。
+
 ## 2.3 运行结果
 ![](getarccoords.png)
 
@@ -260,6 +262,7 @@ int main()
     return 0;
 }
 ```
+
 ## 4.3 运行结果
 ![](getc.png)
 
@@ -282,6 +285,7 @@ int main(void)
    return 0;
 }
 ```
+
 ## 5.3 运行结果
 ![](getchar.png)
 
@@ -309,6 +313,7 @@ int main(void)
 |13 |   LIGHTMAGENTA  |淡洋红 |
 |14 |   YELLOW      |黄     |
 |15 |   WHITE       |白     |
+
 ## 6.2 演示示例
 ```c
 #include <graphics.h>
@@ -367,6 +372,7 @@ int main(void)
 | `char *getcwd(char *buffer, int maxlen);`| 获取当前工作目录  |
 
 > **注意：getcwd** 函数是将当前工作目录的绝对路径复制到参数 **buffer** 所指的内存空间中，参数 **maxlen** 为 **buffer** 的空间大小。
+
 ## 7.2 演示示例
 ```c
 #include <stdio.h>
@@ -382,6 +388,7 @@ int main()
    return 0;
 }
 ```
+
 ## 7.3 运行结果
 ![](getcwd.png)
 
@@ -436,6 +443,7 @@ int main(void)
 }
 
 ```
+
 ## 8.3 运行结果
 ![](getdefaultpalette.gif)
 
@@ -481,6 +489,7 @@ int main(void)
 }
 
 ```
+
 ## 9.3 运行结果
 ![](getdrivename.png)
 
@@ -543,6 +552,7 @@ int main(void)
 }
 
 ```
+
 ## 10.3 运行结果
 ![](getfillpattern.gif)
 
@@ -551,6 +561,11 @@ int main(void)
 | 函数声明 |  函数功能  |
 |:--|:--|
 | `void getfillsettings(struct fillsettingstype *fillinfo);`|  获取有关当前填充模式和填充颜色的信息 |
+
+**参数：**
+- `struct fillsettingstype *fillinfo` : 一个指向 `fillsettingstype` 结构体的指针，该结构体用于存储当前的填充模式设置。 `fillsettingstype` 结构体通常包含以下成员:
+    - `int pattern`：指定填充图案的索引。 BGI库提供了一套预定义的填充图案，可以通过这个索引来选择。
+    - `unsigned char color`：指定填充图案的颜色。 颜色通常是通过一个颜色索引来指定的，该索引对应于一个预定义的颜色表。
 
 ## 11.2 演示示例
 ```c
@@ -611,6 +626,7 @@ int main()
 }
 
 ```
+
 ## 11.3 运行结果
 ![](getfillsettings.png)
 
@@ -659,6 +675,7 @@ int main(void)
 }
 
 ```
+
 ## 12.3 运行结果
 ![](getgraphmode.png)
 
@@ -667,6 +684,13 @@ int main(void)
 | 函数声明 |  函数功能  |
 |:--|:--|
 |`void getimage(int left, int top, int right, int bottom, void *bitmap);` |  保存指定区域的屏幕上的像素图形到指定的内存区域 |
+
+**参数：**
+- `int left`：指定要获取的图像区域的左边界的x坐标，以像素为单位
+- `int top`： 指定要获取的图像区域的上边界的y坐标，以像素为单位
+- `int right`： 指定要获取的图像区域的右边界的x坐标，以像素为单位
+- `int bottom`：指定要获取的图像区域的下边界的y坐标，以像素为单位
+- `void *bitmap`： 指向存储获取到的图像数据的内存位置的指针，这个指针可以指向任何类型的数据。在实际使用中，这个指针通常指向一个预先分配好的缓冲区，该缓冲区的大小应足够存储指定区域的图像数据。
 
 ## 13.2 演示示例
 ```c
@@ -708,6 +732,7 @@ int main()
 }
 
 ```
+
 ## 13.3 运行结果
 ![](getimage.gif)
 
@@ -717,6 +742,13 @@ int main()
 | 函数声明 |  函数功能  |
 |:--|:--|
 |`void getlinesettings(struct linesettingstype *lininfo);` | 取当前线型、模式和宽度  |
+
+**参数：**
+- `struct linesettingstype *lininfo` : 一个指向 `linesettingstype` 结构体的指针，该结构体用于存储当前的线条绘制设置。`linesettingstype` 结构体通常包含以下成员:
+    - `int linestyle`： 指定线条的类型。它通常是一个整数，用于选择预定义的线条样式，如实线、虚线、点线等。
+    - `unsigned char upattern`： 对于某些线条样式（如虚线），该参数可能用于指定线条中点和空白的具体模式。
+    - `int thickness`： 指定线条的宽度。在BGI中，线条的宽度可能是以像素为单位的，但具体实现可能有所不同。
+    - `unsigned char color`： 指定线条的颜色。颜色通常是通过一个颜色索引来指定的，该索引对应于一个预定义的颜色表。
 
 ## 14.2 演示示例
 ```c
@@ -770,6 +802,7 @@ int main()
 }
 
 ```
+
 ## 14.3 运行结果
 ![](getlinesettings.png)
 
@@ -817,6 +850,7 @@ int main(void)
 }
 
 ```
+
 ## 15.3 运行结果
 ![](getmaxcolor.png)
 
@@ -827,6 +861,7 @@ int main(void)
 |:--|:--|
 |`int getmaxx(void);` |  屏幕的最大x坐标 |
 | `int getmaxy(void);`|  屏幕的最大y坐标 |
+
 ## 16.2 演示示例
 ```c
 #include <graphics.h>
@@ -865,6 +900,7 @@ int main(void)
     return 0;
 }
 ```
+
 ## 16.3 运行结果
 ![](getmax.png)
 

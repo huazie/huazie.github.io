@@ -249,6 +249,12 @@ int main(void)
 |`float complex cacosf (float complex z);`|计算复数z的反余弦（float complex）|
 |`long double complex cacosl (long double complex z);`|计算复数z的反余弦（long double complex）|
 
+反余弦函数是三角函数中余弦函数的逆函数，其主要作用是在已知余弦函数值的情况下，求解对应的角度值。反余弦函数的定义域为`[-1, 1]`，值域为`[0, π]`。
+
+反余弦函数的图像是一个在`[0, π]`区间内单调递减的曲线。
+- 当`x=1`时，`arccos(1)=0`，表示余弦值为1的角度是0度；
+- 当`x=-1`时，`arccos(-1)=π`，表示余弦值为-1的角度是180度。
+- 随着x值从1减小到-1，`arccos(x)`的值从0增加到π。
 
 ## 5.2 演示示例
 ```c
@@ -303,6 +309,8 @@ int main(void)
 |`float complex cacoshf (float complex z);`|计算复数z的反双曲余弦（float complex）|
 |`long double complex cacoshl (long double complex z);`|计算复数z的反双曲余弦（long double complex）|
 
+反双曲余弦函数，表示为双曲余弦函数的反函数，其定义为：对于任意实数`x（x≥1）`，存在一个唯一的实数`y`，使得`cosh(y) = x`。此时，`y`就被称为`x`的反双曲余弦值。
+
 ## 6.2 演示示例
 ```c
 #include <stdio.h>
@@ -355,6 +363,9 @@ int main(void)
 | `double complex casin (double complex z);` | 计算复数z的反正弦（double complex）  |
 | `float complex casinf (float complex z);` | 计算复数z的反正弦（float complex）  |
 | `long double complex casinl (long double complex z);` | 计算复数z的反正弦（long double complex）  |
+
+反正弦函数是正弦函数的反函数。也就是说，如果`sinθ=x`，且`x`在`[-1,1]`的范围内，那么`θ`就是`x`的反正弦值。
+
 ## 7.2 演示示例
 ```c
 #include <stdio.h>
@@ -407,6 +418,8 @@ int main(void)
 | `double complex casinh (double complex z);` | 计算复数z的反双曲正弦（double complex）  |
 | `float complex casinhf (float complex z);` | 计算复数z的反双曲正弦（float complex）  |
 | `long double complex casinhl (long double complex z);` | 计算复数z的反双曲正弦（long double complex） |
+
+反双曲正弦函数是双曲正弦函数的反函数。
 
 ## 8.2 演示示例
 ```c
@@ -461,6 +474,8 @@ int main(void)
 | `float complex catanf (float complex z);` | 计算复数z的反正切（float complex）  |
 | `long double complex catanl (long double complex z);` | 计算复数z的反正切（long double complex） |
 
+反正切函数是正切函数的反函数。如果给定一个正切值`x`，反正切函数会返回对应的角度值`θ`，该角度值`θ`满足`tan(θ)=x`，并且`θ`在`(-π/2, π/2)`范围内。
+
 ## 9.2 演示示例
 ```c
 #include <stdio.h>
@@ -512,6 +527,8 @@ int main(void)
 | `double complex catanh (double complex z);` | 计算复数z的反双曲正切（double complex）  |
 | `float complex catanhf (float complex z);` | 计算复数z的反双曲正切（float complex）  |
 | `long double complex catanhl (long double complex z);` | 计算复数z的反双曲正切（long double complex） |
+
+反双曲正切函数是双曲正切函数的反函数。
 
 ## 10.2 演示示例
 ```c

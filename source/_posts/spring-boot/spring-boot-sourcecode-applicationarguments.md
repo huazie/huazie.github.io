@@ -6,6 +6,8 @@ categories:
   - 开发框架-Spring Boot
 tags:
   - Spring Boot
+  - ApplicationArguments
+  - DefaultApplicationArguments
 ---
 
 
@@ -31,11 +33,11 @@ tags:
 
 ```java
 public interface ApplicationArguments {
-  String[] getSourceArgs();
-  Set<String> getOptionNames();
-  boolean containsOption(String name);
-  List<String> getOptionValues(String name);
-  List<String> getNonOptionArgs();
+    String[] getSourceArgs();
+    Set<String> getOptionNames();
+    boolean containsOption(String name);
+    List<String> getOptionValues(String name);
+    List<String> getNonOptionArgs();
 }
 ```
 
@@ -58,6 +60,7 @@ public interface ApplicationArguments {
 
 `DefaultApplicationArguments` 就是 `ApplicationArguments` 接口的一个默认实现，还是来看看相关源码：
 ![](DefaultApplicationArguments.png)
+
 ### 2.2.1 成员变量
 `DefaultApplicationArguments` 的成员变量有两个：
 
@@ -79,6 +82,7 @@ public DefaultApplicationArguments(String... args) {
 ```
 
 构造方法主要用来初始化上述两个成员变量，它接受一个可变长度的字符串数组作为参数，该参数就是运行 `SpringApplication` 的命令行参数。
+
 ### 2.2.3 成员方法
 ![](method.png)
 
@@ -87,6 +91,7 @@ public DefaultApplicationArguments(String... args) {
 在 `getOptionNames` 方法中，可以看到返回的 `Set` 集合是通过 `Collections.unmodifiableSet` 包装过的 `Set` 集合的不可修改视图。`Collections.unmodifiableSet` 允许模块向用户提供对内部集合的“只读”访问权限。对返回集合的查询操作将“穿透”到指定的集合，而尝试修改返回的集合（无论是直接修改还是通过其迭代器）都将导致`UnsupportedOperationException` 异常。如果指定的集合是可序列化的，那么返回的集合也将是可序列化的。
 
 同理，在 `getOptionValues` 方法中的 `Collections.unmodifiableList` 方法返回的是 `List` 集合的不可修改视图。
+
 ## 2.3 SimpleCommandLinePropertySource
 上述 2.2.3 中，我们可以看到最终成员方法的处理都是来自 `SimpleCommandLinePropertySource` 类中的实现方法。
 
@@ -108,9 +113,11 @@ public DefaultApplicationArguments(String... args) {
 new SimpleCommandLineArgsParser().parse(args);
 ```
 ![](SimpleCommandLineArgsParser.png)
+
 ## 2.4 应用场景
 
 有关 `ApplicationArguments` 的应用场景，我们一步步跟着源码来看：
+
 ### 2.4.1 准备和配置应用环境
 首先是 `run` 方法中，先创建一个 `DefaultApplicationArguments` 对象，并赋值给 `applicationArguments` 变量；
 
@@ -155,7 +162,11 @@ new SimpleCommandLineArgsParser().parse(args);
 ![](ApplicationRunner.png)
 ![](CommandLineRunner.png)
 
+`ApplicationRunner` 接口使用 `ApplicationArguments` 包装了命令行参数，提供了更丰富的 API 来解析参数，详细内容上面已讲解过；
 
+`CommandLineRunner` 接口直接处理原生的字符串数组形式的命令行参数，更简洁直观。
+
+此外，如果它们有多个实现类时，其执行顺序可以通过 @Order 注解来控制，这里可从 `AnnotationAwareOrderComparator.sort(runners);` 得知。
 
 # 三、总结
 

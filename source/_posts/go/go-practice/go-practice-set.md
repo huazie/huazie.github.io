@@ -46,7 +46,7 @@ tags:
 
 首先，在工作区的 `src` 目录的代码包 `basic/set`（可以自行定义，但后面要保持一致）中，创建一个名为 `hash_set.go` 的源码文件。
 
-根据代码包 `basic/set` 可知，源码文件 `hash_set.go` 的包声明语句（这里可以查看[《Go语言学习1-基础入门》中的 **1.5.1** 包声明](../../../../../../2016/06/27/go/go-learning/go-learning1/)）如下：
+根据代码包 `basic/set` 可知，源码文件 `hash_set.go` 的包声明语句（这里可以查看[《Go语言学习1-基础入门》中的 **6.1** 包声明](../../../../../../2016/06/27/go/go-learning/go-learning1/)）如下：
 
 ```go
 package set

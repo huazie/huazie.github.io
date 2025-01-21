@@ -648,7 +648,7 @@ void showpos(FILE *stream)
 ```
 ## 18.3 运行结果
 
-![](fgetpos.png)
+![](fsetpos.png)
 
 # 19. fstat
 ## 19.1 函数说明

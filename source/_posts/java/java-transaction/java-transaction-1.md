@@ -56,7 +56,7 @@ tags:
 我们来看一个简单的 JDBC 事务管理示例：
 
 ```java
-  @Test
+    @Test
     public void testJDBCTransaction() throws Exception {
         // flea-config.xml 中配置
         FleaJDBCConfig.init(DBSystemEnum.MySQL.getName(), "fleajpatest");
@@ -144,7 +144,7 @@ tags:
 在 Spring 配置文件中，我们需要配置数据源，如下：
 
 ```xml
-  <bean id="jdbcDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <bean id="jdbcDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://localhost:3306/fleajpatest?useUnicode=true&amp;characterEncoding=UTF-8" />
         <property name="username" value="替换成你的MySQL用户名" />
@@ -155,7 +155,7 @@ tags:
 配置 `JdbcTemplate`，用于使用 `JDBC` 操作数据库，如下：
 
 ```xml
-  <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="jdbcDataSource"/>
     </bean>
 ```
@@ -163,7 +163,7 @@ tags:
 配置事务管理器 `DataSourceTransactionManager`，如下：
 
 ```xml
-  <bean id="jdbcTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <bean id="jdbcTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="jdbcDataSource" />
     </bean>
 ```
@@ -249,7 +249,7 @@ public class StudentSpringJDBCTest {
 我们重新来修改一下业务代码，抛出 `RuntimeException` 异常 ：
 
 ```java
- @Transactional("jdbcTransactionManager")
+    @Transactional("jdbcTransactionManager")
     public void service() throws RuntimeException {
 
         // 省略。。。
@@ -306,21 +306,21 @@ public class StudentSpringJDBCTest {
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
-  <persistence-unit name="fleajpa" transaction-type="RESOURCE_LOCAL">
-    <!-- provider -->
-    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <!-- Connection JDBC -->
-    <class>com.huazie.fleadbtest.jpa.common.entity.Student</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <persistence-unit name="fleajpa" transaction-type="RESOURCE_LOCAL">
+        <!-- provider -->
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <!-- Connection JDBC -->
+        <class>com.huazie.fleadbtest.jpa.common.entity.Student</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
-    <properties>
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-      <property name="javax.persistence.jdbc.url"
-        value="jdbc:mysql://localhost:3306/fleajpatest?useUnicode=true&amp;characterEncoding=UTF-8" />
-      <property name="javax.persistence.jdbc.user" value="替换成你的MySQL用户名" />
-      <property name="javax.persistence.jdbc.password" value="替换成你的MySQL用户密码" />
-    </properties>
-  </persistence-unit>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+            <property name="javax.persistence.jdbc.url"
+            value="jdbc:mysql://localhost:3306/fleajpatest?useUnicode=true&amp;characterEncoding=UTF-8" />
+            <property name="javax.persistence.jdbc.user" value="替换成你的MySQL用户名" />
+            <property name="javax.persistence.jdbc.password" value="替换成你的MySQL用户密码" />
+        </properties>
+    </persistence-unit>
 
 </persistence>
 
@@ -330,7 +330,7 @@ public class StudentSpringJDBCTest {
 在 **Spring** 配置文件中，添加 **JPA** 相关的默认 **Bean**，用来初始化 `LocalContainerEntityManagerFactoryBean`，如下：
 
 ```xml
-  <bean id="defaultPersistenceManager"
+    <bean id="defaultPersistenceManager"
           class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
         <property name="persistenceXmlLocations">
             <!-- 可以配置多个持久单元 -->
@@ -356,7 +356,7 @@ public class StudentSpringJDBCTest {
 配置 `LocalContainerEntityManagerFactoryBean`，它是 **Spring Data JPA** 中用于创建和管理 `EntityManagerFactory` 的一个核心类，如下所示：
 
 ```xml
-  <bean id="fleaJpaEntityManagerFactory"
+    <bean id="fleaJpaEntityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitManager" ref="defaultPersistenceManager"/>
         <property name="persistenceUnitName" value="fleajpa"/>
@@ -375,7 +375,7 @@ public class StudentSpringJDBCTest {
 配置 **JPA** 事务管理器 `JpaTransactionManager`，如下：
 
 ```xml
-  <bean id="fleaJpaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+    <bean id="fleaJpaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="fleaJpaEntityManagerFactory"/>
     </bean>
 ```

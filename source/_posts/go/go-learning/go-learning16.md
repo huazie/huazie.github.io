@@ -1,5 +1,5 @@
 ---
-title: Go语言学习16-特殊流程控制
+title: Go语言学习16-特殊流程控制（defer，error，panic，recover）
 date: 2016-07-20 20:14:16
 updated: 2024-03-24 21:21:11
 categories:
