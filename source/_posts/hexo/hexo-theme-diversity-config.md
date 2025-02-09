@@ -38,6 +38,8 @@ favicon: /images/diversity.ico
 
 back_image: /images/back.jpg
 
+darkmode: 0
+
 path:
   landscape: /images/landscape.jpg
   phase: /images/phase.png
@@ -67,24 +69,26 @@ utterances:
   repo: user-name/repo-name
   issue_term: pathname
   theme: github-light
+  dark: github-dark
 ```
 
 *   **title** - Diversity主题默认标题
 *   **description** - Diversity主题默认描述
 *   **image** - 当网页链接被分享到社交平台时显示的图片URL
 *   **favicon** - Favicon路径【一个小型图标，用于在浏览器的标签页、地址栏或书签栏中标识和区分不同的网站】
-*   **back\_image** - 主题图片翻转后的背景图片
+*   **back_image** - 主题图片翻转后的背景图片
+*   **darkmode** - 深色模式，可选值： 0（关闭） | 1（跟随系统）
 *   **path** - 多主题图片路径【主题名 + 图片路径】。 以 `landscape` 主题举例：
     *   如果该图片路径未配置，默认取 `/images/default.png`
 *   **source** - 主题项目来源【用于主题来源按钮点击跳转】
 *   **page** - 页面配置
-    *   **blog\_scroll\_height** - 博客页滚动高度【单位：`px`】
+    *   **blog_scroll_height** - 博客页滚动高度【单位：`px`】
         *   滚动页面高度大于等于配置高度，隐藏菜单导航栏
         *   滚动页面高度小于配置高度，显示菜单导航栏
 *   **back2top** - 返回顶部按钮配置
     *   **enable** - 是否启用，可选值： `true` | `false`
-    *   **enable\_scroll\_percent** - 返回顶部按钮中是否启用展示滚动百分比，可选值： `true` | `false`
-    *   **scroll\_percent** - 展示返回顶部按钮的最少滚动百分比，建议值： `2 | 3 | 4 | 5`
+    *   **enable_scroll_percent** - 返回顶部按钮中是否启用展示滚动百分比，可选值： `true` | `false`
+    *   **scroll_percent** - 展示返回顶部按钮的最少滚动百分比，建议值： `2 | 3 | 4 | 5`
     *   **position** - 返回顶部按钮展示位置，可选值： `left` | `right`
     *   **color** - 鼠标悬浮或用户触摸时，返回顶部按钮的内容所展示的颜色
     *   **exclude** - 被排除主题，配置中的主题不展示返回顶部按钮
@@ -93,14 +97,15 @@ utterances:
 *   **utterances** - Utterances 配置，更多信息查看：<https://utteranc.es>
     *   **enable** - 是否启用，可选值： `true` | `false`
     *   **repo** - GitHub仓库所有者和名称
-    *   **issue\_term** - 指定issue的匹配规则，可选值： `pathname` | `url` | `title` | `og:title` | `issue number` | `specific term`
+    *   **issue_term** - 指定issue的匹配规则，可选值： `pathname` | `url` | `title` | `og:title` | `issue number` | `specific term`
         *   **pathname** - issue标题包含页面路径名。Utterances 会搜索标题包含页面路径名的issue。如果未找到匹配的议题，当有人首次发表评论时，Utterances 将自动创建一个。
         *   **url** - issue标题包含页面URL。Utterances 会搜索标题包含页面URL 的issue。如果未找到匹配的议题，当有人首次发表评论时，Utterances 将自动创建一个。
         *   **title** - issue标题包含页面标题。Utterances 会搜索标题包含页面标题的issue。如果未找到匹配的议题，当有人首次发表评论时，Utterances 将自动创建一个。
         *   **og:title** - issue标题包含页面 `og:title`。Utterances 会搜索标题包含页面 Open Graph 标题元数据的issue。如果未找到匹配的议题，当有人首次发表评论时，Utterances 将自动创建一个。
         *   **issue number** - 特定issue编号。您可以通过编号配置 Utterances 以加载特定issue。不会自动创建issue。
         *   **specific term** - issue标题包含特定术语。您可以配置 Utterances 以搜索标题包含您配置的特定术语的issue。如果未找到匹配的议题，当有人首次发表评论时，Utterances 将自动创建一个，且该issue的标题将是您设置的术语。
-    *   **theme** - Utterances主题，可选值： `github-light` | `github-dark` | `preferred-color-scheme` | `github-dark-orange` | `icy-dark` | `dark-blue` | `photon-dark` | `boxy-light`
+    *   **theme** - Utterances 默认主题，可选值： `github-light` | `github-dark` | `preferred-color-scheme` | `github-dark-orange` | `icy-dark` | `dark-blue` | `photon-dark` | `boxy-light`
+    *   **dark** - Utterances 深色主题
 
 将 `themes/diversity` 目录下的 `_config.diversity.yml`，添加到你的 **Hexo** 项目根目录。
 
@@ -195,11 +200,11 @@ category_generator:
   order_by: -date
 ```
 
-*   **category\_generator** - 分类生成配置
-    *   **enable\_index\_page** - `true` 【启用分类首页生成, 通常是 `/categories/index.html`]
+*   **category_generator** - 分类生成配置
+    *   **enable_index_page** - `true` 【启用分类首页生成, 通常是 `/categories/index.html`]
     *   **layout** - 分类首页布局。 如果不配置，则默认为 `category-index`
-    *   **per\_page** - 每页展示条数
-    *   **order\_by** - 默认按日期降序排列（新到旧）
+    *   **per_page** - 每页展示条数
+    *   **order_by** - 默认按日期降序排列（新到旧）
 
 ```yml
 tag_generator:
@@ -209,11 +214,11 @@ tag_generator:
   order_by: -date
 ```
 
-*   **tag\_generator** - 标签生成配置
-    *   **enable\_index\_page** - `true` 【启用标签首页生成, 通常是 `/tags/index.html`]
+*   **tag_generator** - 标签生成配置
+    *   **enable_index_page** - `true` 【启用标签首页生成, 通常是 `/tags/index.html`]
     *   **layout** - 标签首页布局。 如果不配置，则默认为 `tag-index`
-    *   **per\_page** - 每页展示条数
-    *   **order\_by** - 默认按日期降序排列（新到旧）
+    *   **per_page** - 每页展示条数
+    *   **order_by** - 默认按日期降序排列（新到旧）
 
 # 三、结语
 

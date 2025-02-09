@@ -83,6 +83,7 @@ int main(void)
     return 0;
 }
 ```
+
 ## 1.3 运行结果
 ![](getmodename.png)
 
@@ -137,6 +138,7 @@ int main()
     return 0;
 }
 ```
+
 ## 2.3 运行结果
 
 ![](getmoderange.png)
@@ -201,6 +203,7 @@ int main()
     return 0;
 }
 ```
+
 ## 3.3 运行结果
 
 ![](getpalette.png)
@@ -275,9 +278,8 @@ int main(void)
     closegraph();
     return 0;
 }
-
-
 ```
+
 ## 4.3 运行结果
 
 ![](getpixel.gif)
@@ -290,6 +292,7 @@ int main(void)
 |`char *gets(char *str);` |  从标准输入流中读取字符串，直至遇到到换行符或EOF时停止，并将读取的结果存放在 **buffer** 指针所指向的字符数组中。<br/> 换行符不作为读取串的内容，读取的换行符被转换为 `'\0'` 空字符，并由此来结束字符串。 |
 
 > **注意： gets** 函数可以无限读取，易发生溢出。如果溢出，多出来的字符将被写入到堆栈中，这就覆盖了堆栈原先的内容，破坏一个或多个不相关变量的值。
+
 ## 5.2 演示示例
 ```c
 #include <stdio.h>
@@ -304,6 +307,7 @@ int main()
    return 0;
 }
 ```
+
 ## 5.3 运行结果
 ![](gets.png)
 
@@ -385,8 +389,8 @@ int main()
     closegraph();
     return 0;
 }
-
 ```
+
 ## 6.3 运行结果
 ![](gettextsettings.png)
 
@@ -450,8 +454,8 @@ int main()
     closegraph();
     return 0;
 }
-
 ```
+
 ## 7.3 运行结果
 ![](getviewsettings.png)
 
@@ -508,6 +512,7 @@ int main(void)
     return 0;
 }
 ```
+
 ## 8.3 运行结果
 ![](getw.png)
 
@@ -551,8 +556,8 @@ int main(void)
     closegraph();
     return 0;
 }
-
 ```
+
 ## 9.3 运行结果
 ![](getxy.png)
 
@@ -591,6 +596,7 @@ int main(void)
     return 0;
 }
 ```
+
 ## 10.3 运行结果
 
 ![](gmtime.png)
@@ -645,6 +651,7 @@ int main(void)
 }
 
 ```
+
 ## 11.3 运行结果
 
 ![](graphdefaults.gif)
@@ -688,6 +695,7 @@ int main(void)
 }
 
 ```
+
 ## 12.3 运行结果
 ![](grapherrormsg.png)
 
@@ -729,6 +737,7 @@ int main(void)
 }
 
 ```
+
 ## 13.3 运行结果
 ![](graphresult.png)
 
@@ -777,6 +786,7 @@ int main()
     return 0;
 }
 ```
+
 ## 14.3 运行结果
 ![](getmaxwh.png)
 
@@ -788,6 +798,7 @@ int main()
 |`int getdisplaycolor( int color );` |  根据 color ，返回要显示的颜色值  |
 
 > **注意：**  color = -1 , 则返回 WHITE = 15 的颜色值；color < - 1 或 color > 15，则输出一个8位整数。
+
 ## 15.2 演示示例
 ```c
 #include <graphics.h>
@@ -824,8 +835,8 @@ int main()
     return 0;
 }
 
-
 ```
+
 ## 15.3 运行结果
 ![](getdisplaycolor.png)
 
@@ -875,6 +886,7 @@ int main()
 }
 
 ```
+
 ## 16.3 运行结果
 ![](getwindowwh.png)
 
@@ -922,6 +934,7 @@ int main()
 }
 
 ```
+
 ## 17.3 运行结果
 
 ![](getrefreshingbgi.png)

@@ -4,6 +4,8 @@ themes: [landscape,next,light,phase]
 # 不配置，默认从4001开始
 #ports: [5000,5001,5002,5003]
 
+darkmode: 1
+
 path:
   next: /diversity/images/next.jpg
 
@@ -27,3 +29,4 @@ utterances:
   repo: huazie/hexo-theme-diversity 
   issue_term: pathname
   theme: github-light
+  dark: github-dark
