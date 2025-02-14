@@ -113,13 +113,15 @@ Flea缓存配置文件 ( [flea-cache-config.xml](https://github.com/Huazie/flea-
         <cache-item key="MemCached" desc="MemCached的Flea缓存建造者实现">com.huazie.fleaframework.cache.memcached.builder.MemCachedFleaCacheBuilder</cache-item>
         <cache-item key="RedisSharded" desc="Redis分片模式下的Flea缓存建造者实现">com.huazie.fleaframework.cache.redis.builder.RedisShardedFleaCacheBuilder</cache-item>
         <cache-item key="RedisCluster" desc="Redis集群模式下的Flea缓存建造者实现">com.huazie.fleaframework.cache.redis.builder.RedisClusterFleaCacheBuilder</cache-item>
+        <cache-item key="RedisSentinel" desc="Redis哨兵模式下的Flea缓存建造者实现">com.huazie.fleaframework.cache.redis.builder.RedisSentinelFleaCacheBuilder</cache-item>
     </cache-items>
 
     <!-- 缓存参数集 -->
     <cache-params>
         <!-- 通用缓存参数 -->
-        <cache-param key="fleacore.nullCacheExpiry" desc="空缓存数据有效期（单位：s）">10</cache-param>
+        <cache-param key="fleacore.nullCacheExpiry" desc="空缓存数据有效期（单位：s）">300</cache-param>
         <!-- Redis 缓存参数 -->
+        <cache-param key="redis.switch" desc="Redis分片配置开关（1：开启 0：关闭），如果不配置也默认开启">0</cache-param>
         <cache-param key="redis.connectionTimeout" desc="Redis客户端socket连接超时时间（单位：ms）">2000</cache-param>
         <cache-param key="redis.soTimeout" desc="Redis客户端socket读写超时时间（单位：ms）">2000</cache-param>
         <cache-param key="redis.hashingAlg" desc="Redis分布式hash算法(1:MURMUR_HASH,2:MD5)">1</cache-param>
@@ -130,11 +132,21 @@ Flea缓存配置文件 ( [flea-cache-config.xml](https://github.com/Huazie/flea-
         <cache-param key="redis.maxAttempts" desc="Redis客户端操作最大尝试次数【包含第一次操作】">5</cache-param>
 
         <!-- Redis Cluster 缓存参数-->
-        <cache-param key="redis.cluster.connectionTimeout" desc="Redis客户端socket连接超时时间（单位：ms）">2000</cache-param>
-        <cache-param key="redis.cluster.soTimeout" desc="Redis客户端socket读写超时时间（单位：ms）">2000</cache-param>
-        <cache-param key="redis.cluster.password" desc="Redis集群服务节点登录密码（集群各节点配置同一个）">huazie123</cache-param>
+        <cache-param key="redis.cluster.switch" desc="Redis集群配置开关（1：开启 0：关闭），如果不配置也默认开启">1</cache-param>
+        <cache-param key="redis.cluster.connectionTimeout" desc="Redis集群客户端socket连接超时时间（单位：ms）">2000</cache-param>
+        <cache-param key="redis.cluster.soTimeout" desc="Redis集群客户端socket读写超时时间（单位：ms）">2000</cache-param>
+        <!-- 可以不用配置，缓存服务器cache-server没有配置，默认使用这里的密码配置 -->
+        <!--<cache-param key="redis.cluster.password" desc="Redis集群服务节点登录密码（集群各节点配置同一个）">huazie123</cache-param>-->
+
+        <!-- Redis Sentinel 缓存参数-->
+        <cache-param key="redis.sentinel.switch" desc="Redis哨兵配置开关（1：开启 0：关闭），如果不配置也默认开启">1</cache-param>
+        <cache-param key="redis.sentinel.connectionTimeout" desc="Redis哨兵客户端socket连接超时时间（单位：ms）">2000</cache-param>
+        <cache-param key="redis.sentinel.soTimeout" desc="Redis哨兵客户端socket读写超时时间（单位：ms）">2000</cache-param>
+        <!-- 可以不用配置，缓存服务器cache-server没有配置，默认使用这里的密码配置 -->
+        <!--<cache-param key="redis.sentinel.password" desc="Redis主从服务器节点登录密码（各节点配置同一个）">huazie123</cache-param>-->
 
         <!-- MemCached缓存参数 -->
+        <cache-param key="memcached.switch" desc="MemCached配置开关（1：开启 0：关闭），如果不配置也默认开启">1</cache-param>
         <cache-param key="memcached.initConn" desc="初始化时对每个服务器建立的连接数目">20</cache-param>
         <cache-param key="memcached.minConn" desc="每个服务器建立最小的连接数">20</cache-param>
         <cache-param key="memcached.maxConn" desc="每个服务器建立最大的连接数">500</cache-param>
@@ -156,19 +168,21 @@ Flea缓存配置文件 ( [flea-cache-config.xml](https://github.com/Huazie/flea-
         <!-- type="缓存数据类型" 对应 flea-cache.xml 中 <cache type="缓存数据类型" />  -->
         <cache-data type="fleaAuth" desc="Flea Auth缓存数据所在组配置">authGroup</cache-data>
         <cache-data type="fleaFrame" desc="Flea Frame配置数据所在组配置">configGroup</cache-data>
-        <cache-data type="fleaJersey" desc="Flea Jersey配置数据所在组配置">configGroup</cache-data>
+        <cache-data type="fleaJersey" desc="Flea Jersey配置数据所在组配置">jerseyGroup</cache-data>
         <cache-data type="fleaDynamic" desc="Flea 动态数据缓存所在组配置">dynamicGroup</cache-data>
     </cache-datas>
 
     <!-- Flea缓存组集 -->
     <cache-groups>
         <!-- group 对应 <cache-data>group</cache-date>  -->
-        <!-- group = MemCached 对应 <cache-item key="MemCached"> -->
-        <!-- group = RedisSharded 对应 <cache-item key="RedisSharded"> -->
-        <!-- group = RedisCluster 对应 <cache-item key="RedisCluster"> -->
+        <!-- group 的缓存组关联缓存实现 MemCached 对应Flea缓存建造者实现 <cache-item key="MemCached"> -->
         <cache-group group="authGroup" desc="Flea权限数据缓存组">MemCached</cache-group>
+        <!-- group 的缓存组关联缓存实现 RedisSharded 对应Flea缓存建造者实现 <cache-item key="RedisSharded"> -->
         <cache-group group="configGroup" desc="Flea配置数据缓存组">RedisSharded</cache-group>
+        <!-- group 的缓存组关联缓存实现 RedisCluster 对应Flea缓存建造者实现 <cache-item key="RedisCluster"> -->
         <cache-group group="dynamicGroup" desc="Flea动态数据缓存组">RedisCluster</cache-group>
+        <!-- group 的缓存组关联缓存实现 RedisSentinel 对应Flea缓存建造者实现 <cache-item key="RedisSentinel"> -->
+        <cache-group group="jerseyGroup" desc="Flea动态数据缓存组">RedisSentinel</cache-group>
     </cache-groups>
 
     <!-- Flea缓存服务器集 -->
@@ -180,12 +194,16 @@ Flea缓存配置文件 ( [flea-cache-config.xml](https://github.com/Huazie/flea-
         <cache-server group="configGroup" password="huazie123" weight="1" desc="Redis缓存服务器【分片模式】">127.0.0.1:10002</cache-server>
         <cache-server group="configGroup" password="huazie123" weight="1" desc="Redis缓存服务器【分片模式】">127.0.0.1:10003</cache-server>
 
-        <cache-server group="dynamicGroup" desc="Redis缓存服务器【集群模式】">127.0.0.1:20011</cache-server>
-        <cache-server group="dynamicGroup" desc="Redis缓存服务器【集群模式】">127.0.0.1:20012</cache-server>
-        <cache-server group="dynamicGroup" desc="Redis缓存服务器【集群模式】">127.0.0.1:20021</cache-server>
-        <cache-server group="dynamicGroup" desc="Redis缓存服务器【集群模式】">127.0.0.1:20022</cache-server>
-        <cache-server group="dynamicGroup" desc="Redis缓存服务器【集群模式】">127.0.0.1:20031</cache-server>
-        <cache-server group="dynamicGroup" desc="Redis缓存服务器【集群模式】">127.0.0.1:20032</cache-server>
+        <cache-server group="dynamicGroup" password="huazie123" desc="Redis缓存服务器【集群模式】">127.0.0.1:20011</cache-server>
+        <cache-server group="dynamicGroup" password="huazie123" desc="Redis缓存服务器【集群模式】">127.0.0.1:20012</cache-server>
+        <cache-server group="dynamicGroup" password="huazie123" desc="Redis缓存服务器【集群模式】">127.0.0.1:20021</cache-server>
+        <cache-server group="dynamicGroup" password="huazie123" desc="Redis缓存服务器【集群模式】">127.0.0.1:20022</cache-server>
+        <cache-server group="dynamicGroup" password="huazie123" desc="Redis缓存服务器【集群模式】">127.0.0.1:20031</cache-server>
+        <cache-server group="dynamicGroup" password="huazie123" desc="Redis缓存服务器【集群模式】">127.0.0.1:20032</cache-server>
+
+        <cache-server group="jerseyGroup" master="mymaster" database="0" desc="Redis哨兵服务器">127.0.0.1:36379</cache-server>
+        <cache-server group="jerseyGroup" master="mymaster" database="0" desc="Redis哨兵服务器">127.0.0.1:36380</cache-server>
+        <cache-server group="jerseyGroup" master="mymaster" database="0" desc="Redis哨兵服务器">127.0.0.1:36381</cache-server>
     </cache-servers>
 
 </flea-cache-config>
@@ -428,7 +446,7 @@ public class MemCachedFleaCacheBuilder implements IFleaCacheBuilder {
 
 ```
 
-### 3.7 定义Redis Flea缓存建造者
+### 3.7 定义Redis分片模式Flea缓存建造者
 [RedisShardedFleaCacheBuilder](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/builder/RedisShardedFleaCacheBuilder.java) 实现 **IFleaCacheBuilder**，用于构建基于Redis的Flea缓存，即创建一个 分片模式的 **RedisFleaCache**。
 
 ```java
@@ -480,6 +498,7 @@ public class RedisShardedFleaCacheBuilder implements IFleaCacheBuilder {
     }
 }
 ```
+
 ### 3.8 定义Redis集群模式Flea缓存建造者
 [RedisClusterFleaCacheBuilder](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/builder/RedisClusterFleaCacheBuilder.java) 实现 **IFleaCacheBuilder**，用于构建基于Redis的Flea缓存，即创建一个 集群模式的 **RedisFleaCache**。
 
@@ -532,10 +551,70 @@ public class RedisClusterFleaCacheBuilder implements IFleaCacheBuilder {
         return fleaCache;
     }
 }
-
 ```
 
-### 3.9 定义核心Flea缓存管理类
+### 3.9 定义Redis哨兵模式Flea缓存建造者
+[RedisSentinelFleaCacheBuilder](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/builder/RedisSentinelFleaCacheBuilder.java) 实现 **IFleaCacheBuilder**，用于构建基于Redis的Flea缓存，即创建一个哨兵模式的 **RedisFleaCache**。
+
+```java
+/**
+ * Redis哨兵模式Flea缓存建造者实现类，用于整合各类缓存接入时创建Redis Flea缓存。
+ *
+ * <p> 缓存定义文件【flea-cache.xml】中，每一个缓存定义配置都对应缓存配置文件
+ * 【flea-cache-config.xml】中的一类缓存数据，每类缓存数据都归属一个缓存组，
+ * 每个缓存组都映射着具体的缓存实现名，而整合各类缓存接入时，
+ * 每个具体的缓存实现名都配置了Flea缓存建造者实现类。
+ *
+ * <p> 可查看Flea缓存配置文件【flea-cache-config.xml】，
+ * 获取Redis Flea缓存建造者配置项【{@code <cache-item key="RedisSentinel">}】
+ *
+ * @author huazie
+ * @version 2.0.0
+ * @see FleaCacheFactory
+ * @since 2.0.0
+ */
+public class RedisSentinelFleaCacheBuilder implements IFleaCacheBuilder {
+
+    private static final FleaLogger LOGGER = FleaLoggerProxy.getProxyInstance(RedisSentinelFleaCacheBuilder.class);
+
+    @Override
+    public AbstractFleaCache build(String name, List<CacheServer> cacheServerList) {
+        if (CollectionUtils.isEmpty(cacheServerList)) {
+            ExceptionUtils.throwFleaException(FleaCacheConfigException.class, "无法初始化哨兵模式下Redis Flea缓存，缓存服务器列表【cacheServerList】为空");
+        }
+        // 获取缓存数据有效期（单位：s）
+        int expiry = CacheConfigUtils.getExpiry(name);
+        // 获取空缓存数据有效期（单位：s）
+        int nullCacheExpiry = CacheConfigUtils.getNullCacheExpiry();
+        // 获取Redis哨兵配置开关（1：开启 0：关闭），如果不配置也默认开启
+        boolean isSwitchOpen = CacheConfigUtils.isSwitchOpen(CacheConstants.RedisConfigConstants.REDIS_SENTINEL_CONFIG_SWITCH);
+
+        AbstractFleaCache fleaCache;
+        if (isSwitchOpen) { // 开关启用，按实际缓存处理
+            // 获取缓存组名
+            String group = cacheServerList.get(0).getGroup();
+            // 初始化指定连接池名【group】的Redis哨兵模式连接池
+            RedisSentinelPool.getInstance(group).initialize(cacheServerList);
+            // 获取哨兵模式下的指定连接池名【group】的Redis客户端
+            RedisClient redisClient = RedisClientFactory.getInstance(group, CacheModeEnum.SENTINEL);
+            // 创建一个Redis Flea缓存
+            fleaCache = new RedisFleaCache(name, expiry, nullCacheExpiry, CacheModeEnum.SENTINEL, redisClient);
+
+            if (LOGGER.isDebugEnabled()) {
+                Object obj = new Object() {};
+                LOGGER.debug1(obj, "Pool Name = {}", RedisSentinelPool.getInstance(group).getPoolName());
+                LOGGER.debug1(obj, "Pool = {}", RedisSentinelPool.getInstance(group).getJedisSentinelPool());
+            }
+        } else { // 开关关闭，默认返回空缓存实现
+            fleaCache = new EmptyFleaCache(name, expiry, nullCacheExpiry);
+        }
+
+        return fleaCache;
+    }
+}
+```
+
+### 3.10 定义核心Flea缓存管理类
 [CoreFleaCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/core/manager/CoreFleaCacheManager.java) 继承 **AbstractFleaCacheManager** ，实现 **newCache** 方法，用于创建一个核心 **Flea** 缓存。
 ```java
 /**
@@ -558,9 +637,9 @@ public class CoreFleaCacheManager extends AbstractFleaCacheManager {
         return new CoreFleaCache(name);
     }
 }
-
 ```
-### 3.10 整合接入自测 
+
+### 3.11 整合接入自测 
 单元测试类 [FleaCacheTest](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/test/java/com/huazie/fleaframework/cache/FleaCacheTest.java)
 
 首先，这里需要按照 Flea缓存配置文件 (**flea-cache-config.xml**) 中的缓存服务器 **cache-server** 中地址部署相应的 Memcached 和 Redis 服务，可参考笔者的 [这篇博文](../../../../../../2019/08/30/flea-framework/flea-cache/flea-cache-windows-more-services/)。
@@ -570,6 +649,7 @@ public class CoreFleaCacheManager extends AbstractFleaCacheManager {
     public void testCoreFleaCache() {
         try {
             AbstractFleaCacheManager manager = FleaCacheManagerFactory.getFleaCacheManager(CacheEnum.FleaCore.getName());
+            // 这里根据传入不同的缓存主关键字，可以得到不同的缓存实现
             AbstractFleaCache cache = manager.getCache("fleaconfigdata");
             LOGGER.debug("Cache={}", cache);
             //## 1.  简单字符串
@@ -620,6 +700,7 @@ public class CoreSpringCache extends AbstractSpringCache {
     }
 }
 ```
+
 ### 4.2 定义核心Spring缓存管理类
 [CoreSpringCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/core/manager/CoreSpringCacheManager.java) 继承抽象 **Spring** 缓存管理类 [AbstractSpringCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractSpringCacheManager.java)，用于对接 **Spring**；基本实现同核心 **Flea** 缓存管理类 **CoreFleaCacheManager**，唯一不同在于 **newCache** 的实现，这边是 **new** 一个核心 **Spring** 缓存 **CoreSpringCache**。
 ```java
@@ -646,6 +727,7 @@ public class CoreSpringCacheManager extends AbstractSpringCacheManager {
 }
 
 ```
+
 ### 4.3 Spring配置
 
 ```xml
@@ -655,6 +737,7 @@ public class CoreSpringCacheManager extends AbstractSpringCacheManager {
 <!-- 开启缓存 -->
 <cache:annotation-driven cache-manager="coreSpringCacheManager" proxy-target-class="true"/>
 ```
+
 ### 4.4 缓存自测
 
 ```java
@@ -699,6 +782,7 @@ public class CoreSpringCacheManager extends AbstractSpringCacheManager {
         }
     }
 ```
+
 ### 4.5 业务逻辑层接入缓存管理
 **@Cacheable** 使用，**value** 为缓存名，也作缓存主关键字， **key** 为具体的缓存键
 

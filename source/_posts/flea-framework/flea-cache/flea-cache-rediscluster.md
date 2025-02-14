@@ -242,16 +242,20 @@ public JedisCluster(Set<HostAndPort> jedisClusterNode, int connectionTimeout, in
 }
 ```
 
+**Redis**集群连接池，用于初始化**Jedis**集群实例。
+
+针对单独缓存接入场景，采用默认连接池初始化的方式； 可参考如下：
 ```java
+    // 初始化默认连接池
+    RedisClusterPool.getInstance().initialize();
+``` 
+针对整合缓存接入场景，采用指定连接池初始化的方式； 可参考如下：
+```java
+    // 初始化指定连接池
+    RedisClusterPool.getInstance(group).initialize(cacheServerList);
+```
 
-
-/**
- * Redis集群连接池，用于初始化Jedis集群实例。
- *
- * @author huazie
- * @version 1.1.0
- * @since 1.1.0
- */
+```java
 public class RedisClusterPool {
 
     private static final ConcurrentMap<String, RedisClusterPool> redisClusterPools = new ConcurrentHashMap<>();
@@ -386,7 +390,7 @@ redis.nullCacheExpiry=10
 ## 3.9 定义Redis集群模式Flea缓存管理类
 [RedisClusterFleaCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/manager/RedisClusterFleaCacheManager.java)  继承抽象Flea缓存管理类 `AbstractFleaCacheManager`，用于接入**Flea**框架管理**Redis**缓存。
 
-它的默认构造方法，用于初始化集群模式下默认连接池的**Redis**客户端, 这里需要先初始化**Redis**连接池，默认连接池名为【`default`】； 然后通过 `RedisClientFactory` 获取集群模式下默认连接池的Redis客户端 `RedisClient`，可在 **3.10** 查看。
+它的默认构造方法，用于初始化集群模式下默认连接池的**Redis**客户端, 这里需要先初始化**Redis**集群连接池，默认连接池名为【`default`】； 然后通过 `RedisClientFactory` 获取集群模式下默认连接池的Redis客户端 `RedisClient`，可在 **3.10** 查看。
 
 方法 `newCache` 用于创建一个 `RedisFleaCache` 的实例对象，它里面包含了 读、写、删除 和 清空 缓存的基本操作，每一类 **Redis** 缓存数据都对应了一个 `RedisFleaCache` 的实例对象。
 
@@ -415,6 +419,7 @@ public class RedisClusterFleaCacheManager extends AbstractFleaCacheManager {
 }
 
 ```
+
 ## 3.10 定义Redis客户端工厂类 
 [RedisClientFactory](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/RedisClientFactory.java) ，有四种方式获取 **Redis** 客户端：
  - 一是获取分片模式下默认连接池的 **Redis** 客户端，应用在单个缓存接入场景；
