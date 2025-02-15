@@ -4,7 +4,7 @@ themes: [landscape,next,light,phase]
 # 不配置，默认从4001开始
 #ports: [5000,5001,5002,5003]
 
-darkmode: 1
+darkmode: 2
 
 path:
   next: /diversity/images/next.jpg
