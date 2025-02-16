@@ -158,8 +158,8 @@ public abstract class RedisClientCommand<T, P extends Pool<M>, M> {
         }
     }
 }
-
 ```
+
 ## 3.5 定义分片模式Redis客户端实现类
 [FleaRedisShardedClient](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/impl/FleaRedisShardedClient.java) 主要使用 `ShardedJedis` 来操作 **Redis** 数据，它封装了**Flea框架**操作**Redis**缓存的基本操作。
 
@@ -193,7 +193,6 @@ public abstract class RedisClientCommand<T, P extends Pool<M>, M> {
     // 或者
     RedisClient redisClient = RedisClientFactory.getInstance(poolName, CacheModeEnum.SHARDED);
 ```
-    
 
 ```java
 public class FleaRedisShardedClient extends FleaRedisClient {
@@ -430,6 +429,7 @@ public class RedisShardedPool {
     }
 }
 ```
+
 ## 3.7 Redis配置文件
 **flea-cache**读取 [redis.properties](https://github.com/Huazie/flea-framework/blob/dev/flea-config/src/main/resources/flea/cache/redis.properties)（**Redis**配置文件），用作初始化 `RedisShardedPool`。
 
@@ -704,6 +704,7 @@ public class RedisClientStrategyContext extends FleaStrategyContext<RedisClient,
     }
 }
 ```
+
 ## 3.13 定义分片模式 Redis 客户端策略
 [RedisShardedClientStrategy](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/strategy/RedisShardedClientStrategy.java) 用于新建分片模式**Redis**客户端
 
@@ -827,6 +828,7 @@ public class RedisShardedSpringCacheManager extends AbstractSpringCacheManager {
     }
 }
 ```
+
 ## 4.5 spring 配置
 
 如下用于配置缓存管理 `redisShardedSpringCacheManager`，其中 `configMap` 为缓存时间(`key`缓存对象名称 `value`缓存过期时间)
@@ -843,6 +845,7 @@ public class RedisShardedSpringCacheManager extends AbstractSpringCacheManager {
     <!-- 开启缓存 -->
     <cache:annotation-driven cache-manager="redisShardedSpringCacheManager" proxy-target-class="true"/>
 ```
+
 ## 4.6 缓存自测
 
 ```java

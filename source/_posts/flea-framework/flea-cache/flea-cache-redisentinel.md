@@ -508,7 +508,7 @@ public class RedisSentinelClientStrategy implements IFleaStrategy<RedisClient, S
 ```
 好了，到这里我们可以来测试 Redis 哨兵模式。
 
-## 3.13 Redis集群模式接入自测
+## 3.14 Redis集群模式接入自测
 单元测试类  [FleaCacheTest](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/test/java/com/huazie/fleaframework/cache/FleaCacheTest.java)
 
 首先，这里需要按照 **Redis哨兵配置文件** 中的地址部署相应的 **Redis哨兵服务** 和 **Redis主从服务**，后续有机会我再出一篇简单的Redis主从 + 哨兵的搭建博文。

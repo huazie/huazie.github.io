@@ -359,9 +359,10 @@ public class MemCachedFleaCache extends AbstractFleaCache {
 }
 
 ```
-到这一步为止，底层的Flea缓存接口和实现已经完成，但目前还不能使用；
+到这一步为止，底层的**Flea**缓存接口和实现已经完成，但目前还不能使用，下面我们继续来看**Memcached**连接池：
+
 ## 3.4 定义Memcached连接池
-[MemCachedPool](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/memcached/MemCachedPool.java) 用于初始化 `MemCached` 的套接字连接池。
+[MemCachedPool](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/memcached/MemCachedPool.java) 用于初始化 **MemCached** 的套接字连接池。
 
 - 针对单独缓存接入场景，采用默认连接池初始化的方式； 可参考如下：
 ```java
@@ -435,8 +436,8 @@ public class MemCachedPool {
 
     // 详见 GitHub 链接
 }
-
 ```
+
 ## 3.5 Memcached配置文件
 flea-cache 读取 [memcached.properties](https://github.com/Huazie/flea-framework/blob/dev/flea-config/src/main/resources/flea/cache/memcached.properties)（**Memcached**配置文件），用作初始化 **MemCachedPool**
 ```bash
@@ -482,6 +483,7 @@ memcached.nullCacheExpiry=10
 memcached.hashingAlg=3
 
 ```
+
 ## 3.6 定义抽象Flea缓存管理类
 [AbstractFleaCacheManager](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/AbstractFleaCacheManager.java) 用于接入 `Flea` 框架管理缓存。
 

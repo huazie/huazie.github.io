@@ -208,6 +208,7 @@ Flea缓存配置文件 ( [flea-cache-config.xml](https://github.com/Huazie/flea-
 
 </flea-cache-config>
 ```
+
 ### 3.2 Flea缓存定义文件 
 Flea缓存定义文件（[flea-cache.xml](https://github.com/Huazie/flea-framework/blob/dev/flea-config/src/main/resources/flea/cache/flea-cache.xml)），用来定义各类缓存，其中 **key** 表示缓存主关键字， **type** 表示一类缓存数据，**expiry** 表示缓存生效时长（单位：秒【0：永久】）。
 
@@ -309,6 +310,7 @@ public class CoreFleaCache extends AbstractFleaCache {
     }
 }
 ```
+
 ### 3.4 定义Flea缓存工厂类 
 [FleaCacheFactory](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/common/FleaCacheFactory.java) 根据缓存名（即缓存主关键字）所创建的Flea缓存都存入 **ConcurrentMap<String, AbstractFleaCache>** 中。**newCache** 方法主要是根据缓存名查找相关缓存 **cache**，再找到缓存数据 **cache-data**，接着找到缓存组 **cache-group**，最后根据缓存组所属的缓存系统，查找缓存配置项 **cache-item**，获取对应Flea缓存的建造者实现，可参见 **flea-cache-config.xml** 配置。
 
@@ -362,8 +364,8 @@ public class FleaCacheFactory {
         // 详见 GitHub 链接
     }
 }
-
 ```
+
 ### 3.5 定义Flea缓存建造者接口类 
 
 [IFleaCacheBuilder](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/IFleaCacheBuilder.java) 定义 `build` 方法，用于构建 `Flea` 缓存对象
@@ -391,8 +393,8 @@ public interface IFleaCacheBuilder {
      */
     AbstractFleaCache build(String name, List<CacheServer> cacheServerList);
 }
-
 ```
+
 ### 3.6 定义Memcached Flea缓存建造者
 [MemCachedFleaCacheBuilder](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/memcached/builder/MemCachedFleaCacheBuilder.java) 实现 **IFleaCacheBuilder**，用于构建基于 **Memcached** 的 **Flea** 缓存，即创建一个 **MemCachedFleaCache**。
 
@@ -443,7 +445,6 @@ public class MemCachedFleaCacheBuilder implements IFleaCacheBuilder {
         return fleaCache;
     }
 }
-
 ```
 
 ### 3.7 定义Redis分片模式Flea缓存建造者

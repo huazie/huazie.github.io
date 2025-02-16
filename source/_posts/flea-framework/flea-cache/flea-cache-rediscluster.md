@@ -110,8 +110,8 @@ public interface RedisClient {
 
     String getPoolName();
 }
-
 ```
+
 ## 3.4 定义集群模式Redis客户端实现类
 [FleaRedisClusterClient](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/main/java/com/huazie/fleaframework/cache/redis/impl/FleaRedisClusterClient.java) 即**Flea**集群模式**Redis**客户端实现，封装了**Flea框架**操作**Redis**缓存的基本操作。它内部具体操作**Redis**集群缓存的功能，由**Jedis**集群实例对象 `JedisCluster` 完成， 包含读、写、删除**Redis**缓存的基本操作方法。
 
@@ -228,7 +228,6 @@ public class FleaRedisClusterClient extends FleaRedisClient {
         }
     }
 }
-
 ```
 该类的构造函数初始化逻辑，可以看出我们使用了 `RedisClusterPool`， 下面来介绍一下。
 
@@ -417,7 +416,6 @@ public class RedisClusterFleaCacheManager extends AbstractFleaCacheManager {
         return new RedisFleaCache(name, expiry, nullCacheExpiry, CacheModeEnum.CLUSTER, redisClient);
     }
 }
-
 ```
 
 ## 3.10 定义Redis客户端工厂类 
@@ -498,7 +496,6 @@ public class RedisClientFactory {
         return redisClients.get(key);
     }
 }
-
 ```
 在上面 的 `getInstance(String poolName, CacheModeEnum mode)` 方法中，使用了 **RedisClientStrategyContext** ，用于定义 **Redis** 客户端策略上下文。根据不同的缓存模式，就可以找到对应的 **Redis** 客户端策略。
 
@@ -603,7 +600,6 @@ public class RedisClusterSpringCacheManager extends AbstractSpringCacheManager {
     }
 
 }
-
 ```
 
 ## 4.5 spring 配置
