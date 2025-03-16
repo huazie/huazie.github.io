@@ -13,7 +13,7 @@ tags:
 ![](/images/cache.png)
 
 # 引言
-相信各位本地开发环境大部分都是在 `windows` 系列系统上，本篇博文着眼于介绍如何在`Windows` 部署多个 `Memcached` 和 `Redis` 服务【这里不是 `Redis` 集群服务，以后有机会介绍在此基础上部署 `Redis` 集群服务】，以方便用于本地应用测试接入`Memcached` 和`Redis`。
+考虑到各位读者朋友的本地开发环境大部分都是在 `windows` 系列系统上，本篇博文着眼于介绍如何在`Windows` 部署多个 `Memcached` 和 `Redis` 服务【这里不是 `Redis` 集群服务，以后有机会介绍在此基础上部署 `Redis` 集群服务】，以方便用于本地应用测试接入`Memcached` 和`Redis`。
 
 <!-- more -->
 
