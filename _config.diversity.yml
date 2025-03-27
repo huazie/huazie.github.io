@@ -22,6 +22,8 @@ back2top:
   exclude: [next]
 
 comments:
+  style: tabs
+  active: utterances
   lazyload: true
 
 utterances:
@@ -30,3 +32,13 @@ utterances:
   issue_term: pathname
   theme: github-light
   dark: github-dark
+
+gitalk:
+  enable: true
+  github_id: huazie
+  repo: hexo-theme-diversity
+  client_id: Ov23liUeEbTbvL4TtFLI
+  client_secret: 625f6af43748eb4a6a27a9111d252155e88c836e
+  admin_user: huazie
+  distraction_free_mode: true
+  proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token
