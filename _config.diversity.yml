@@ -25,6 +25,13 @@ comments:
   style: tabs
   active: utterances
   lazyload: true
+  nav:
+    utterances:
+      text: Utterances
+      order: 1
+    gitalk:
+      text: Gitalk
+      order: 2
 
 utterances:
   enable: true
