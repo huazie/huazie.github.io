@@ -32,6 +32,9 @@ comments:
     gitalk:
       text: Gitalk
       order: 2
+    giscus:
+      text: Giscus
+      order: 3
 
 utterances:
   enable: true
@@ -49,3 +52,17 @@ gitalk:
   admin_user: huazie
   distraction_free_mode: true
   proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token
+
+giscus:
+  enable: true
+  repo: huazie/hexo-theme-diversity
+  repo_id: R_kgDOLxZw-w
+  category: Announcements
+  category_id: DIC_kwDOLxZw-84CiJXv
+  mapping: pathname
+  strict: 0
+  reactions_enabled: 1
+  emit_metadata: 0
+  theme: light
+  dark: dark
+  input_position: top
