@@ -30,6 +30,12 @@ tags:
 |`int ilogb (double x);` | 获取 x 的对数的积分部分（double） |
 |`int ilogbf (float x);` |   获取 x 的对数的积分部分（float）  |
 |`int ilogbl (long double x);` |  获取 x 的对数的积分部分（long double）   |
+|`int isalnum(int c);` |  检查字符 c 是否为字母或数字 |
+|`int isalpha(int c);` | 检查字符 c 是否为（大写或小写）字母  |
+|`int isdigit(int c);` | 检查字符 c 是否为数字（0 - 9）  |
+|`int isinf(double x);` | 检查浮点数 x 是否为无穷大（正无穷或负无穷）  |
+|`int isnan(double x);` | 检查浮点数 x 是否为非数字（NaN）  |
+| `int isspace(int c);`| 检查字符 c 是否为空白字符，如空格（' '）、制表符（'\t'）、换行符（'\n'）等。  |
 | `char * itoa(int value, char *string, int radix);`| 把一整数转换为字符串  |
 
 # 1. imagesize
@@ -717,8 +723,203 @@ int main()
 ![](ilogb.png)
 
 
-# 15. itoa
-## 15.1 函数说明
+## 15. isalnum
+### 15.1 函数说明
+| 函数声明 |  函数功能  |
+|:--|:--|
+|`int isalnum(int c);` |  检查字符 c 是否为字母或数字 |
+
+**参数：**
+- `c`  ： 待检查的字符
+
+**返回值：**
+- 若字符为字母或数字，返回非零值；
+- 否则返回 0。
+
+### 15.2 演示示例
+```c
+#include <stdio.h>
+#include <ctype.h>
+
+int main() 
+{
+    char ch = 'a';
+    if (isalnum(ch)) 
+    {
+        printf("%c 是字母或数字\n", ch);
+    }
+    return 0;
+}
+```
+
+从上面示例中，我们可以看到 `char` 类型的 `ch` 变量传入了 `isalpha` 函数，而它函数声明中的入参是 `int` 类型，**那这是为什么呢？**
+
+这其实同 **C** 语言的自动类型转换有关。 我们知道在 **C** 语言中，`char` 类型本质上是一种整数类型，它占用一个字节（**8** 位）的存储空间，用于存储字符的 **ASCII** 码值（或其他字符编码值）。例如，字符 `'a'` 的 **ASCII** 码值是 `97`。当将一个 `char` 类型的变量作为参数传递给 `isalpha` 这种期望 `int` 类型参数的函数时，**C** 编译器会自动将 `char` 类型的值提升为 `int` 类型。这种转换是隐式的，不需要程序员显式地进行类型转换操作。例如，当执行 `isalpha('A')` 时，字符 `'A'` 的 **ASCII** 码值 `97` 会被自动提升为 `int` 类型的 `97`，然后传递给 `isalpha` 函数进行处理。
+
+### 15.3 运行结果
+![](isalnum.png)
+
+
+## 16. isalpha
+### 16.1 函数说明
+| 函数声明 |  函数功能  |
+|:--|:--|
+|`int isalpha(int c);` | 检查字符 c 是否为（大写或小写）字母  |
+
+**参数：**
+- `c`  ： 待检查的字符
+
+**返回值：**
+- 如果字符是（大写或小写）字母，返回非零值；
+- 否则返回 0。
+
+### 16.2 演示示例
+```c
+#include <stdio.h>
+#include <ctype.h>
+
+int main() 
+{
+    char ch = 'A';
+    if (isalpha(ch)) 
+    {
+        printf("%c 是字母\n", ch);
+    }
+    return 0;
+}
+```
+
+### 16.3 运行结果
+![](isalpha.png)
+
+## 17. isdigit
+### 17.1 函数说明
+| 函数声明 |  函数功能  |
+|:--|:--|
+|`int isdigit(int c);` | 检查字符 c 是否为数字（0 - 9）  |
+
+**参数：**
+- `c`  ： 待检查的字符
+
+**返回值：**
+- 若字符是数字，返回非零值；
+- 否则返回 0。
+
+### 17.2 演示示例
+```c
+#include <stdio.h>
+#include <ctype.h>
+
+int main() 
+{
+    char ch = '5';
+    if (isdigit(ch)) 
+    {
+        printf("%c 是数字\n", ch);
+    }
+    return 0;
+}
+```
+
+### 17.3 运行结果
+![](isdigit.png)
+
+## 18. isinf
+### 18.1 函数说明
+| 函数声明 |  函数功能  |
+|:--|:--|
+|`int isinf(double x);` | 检查浮点数 x 是否为无穷大（正无穷或负无穷）  |
+
+**参数：**
+- `x`  ： 待检查的浮点数
+
+**返回值：**
+- 如果是无穷大，返回非零值；
+- 否则返回 0。
+
+### 18.2 演示示例
+```c
+#include <stdio.h>
+#include <math.h>
+
+int main() 
+{
+    double num = 1.0 / 0.0;
+    if (isinf(num)) 
+    {
+        printf("该数是无穷大\n");
+    }
+    return 0;
+}
+```
+### 18.3 运行结果
+![](isinf.png)
+
+## 19. isnan
+### 19.1 函数说明
+| 函数声明 |  函数功能  |
+|:--|:--|
+|`int isnan(double x);` | 检查浮点数 x 是否为非数字（NaN）  |
+
+**参数：**
+- `x`  ： 待检查的浮点数
+
+**返回值：**
+- 如果是 NaN，返回非零值；
+- 否则返回 0。
+
+### 19.2 演示示例
+```c
+#include <stdio.h>
+#include <math.h>
+
+int main() 
+{
+    double num = sqrt(-1.0);
+    if (isnan(num)) 
+    {
+        printf("该数是 NaN\n");
+    }
+    return 0;
+}
+```
+### 19.3 运行结果
+![](isnan.png)
+
+## 20. isspace
+### 20.1 函数说明
+| 函数声明 |  函数功能  |
+|:--|:--|
+| `int isspace(int c);`| 检查字符 c 是否为空白字符，如空格（' '）、制表符（'\t'）、换行符（'\n'）等。  |
+
+**参数：**
+- `c`  ： 待检查的字符
+
+**返回值：**
+- 若字符是空白字符，返回非零值；
+- 否则返回 0。
+
+### 20.2 演示示例
+```c
+#include <stdio.h>
+#include <ctype.h>
+
+int main() 
+{
+    char ch = ' ';
+    if (isspace(ch)) 
+    {
+        printf("%c 是空白字符\n", ch);
+    }
+    return 0;
+}
+```
+
+### 20.3 运行结果
+![](isspace.png)
+
+## 21. itoa
+### 21.1 函数说明
 | 函数声明 |  函数功能  |
 |:--|:--|
 | `char * itoa(int value, char *string, int radix);`| 把一整数转换为字符串  |
@@ -729,7 +930,8 @@ int main()
 - `string`  ： 转换后储存的字符数组
 - `radix`   ： 转换进制数，如2,8,10,16 进制等，大小应在2-36之间
 
-## 15.2 演示示例
+
+### 21.2 演示示例
 ```c
 #include <stdlib.h>
 #include <stdio.h>
@@ -754,7 +956,7 @@ int main(void)
 }
 ```
 
-## 15.3 运行结果
+### 21.3 运行结果
 ![](itoa.png)
 
 # 参考
