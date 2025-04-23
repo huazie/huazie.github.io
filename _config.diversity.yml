@@ -13,6 +13,9 @@ path:
 source:
   next: https://github.com/next-theme/hexo-theme-next
 
+page:
+  header_nav_position: center
+
 back2top:
   enable: true
   enable_scroll_percent: true
