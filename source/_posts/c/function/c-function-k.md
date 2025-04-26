@@ -48,10 +48,10 @@ tags:
 |:--|:--|
 |`void *kcalloc(size_t n, size_t size, gfp_t flags);` |  它是 Linux 内核中的一个函数，用于在内核空间分配一块连续的指定大小的内存，它与标准库函数 calloc() 的功能类似。 |
 
-> **参数：**
-> - **n ：** 要分配的元素个数
-> - **size ：** 每个元素的大小
-> - **flags ：** 用于控制内存分配行为的标志
+**参数：**
+- **n ：** 要分配的元素个数
+- **size ：** 每个元素的大小
+- **flags ：** 用于控制内存分配行为的标志
 
 ## 1.2 演示示例
 ```c
@@ -140,8 +140,8 @@ int main()
 |:--|:--|
 |`void keep(void *ptr);` |  它是 Linux 内核中的一个函数，用于防止编译器将指定的符号优化掉。 |
 
-> **参数：**
-> - **ptr：** 是指向要保留的符号的指针。
+**参数：**
+- **ptr：** 是指向要保留的符号的指针。
 
 ## 3.2 演示示例
 
@@ -185,10 +185,11 @@ module_exit(my_exit);
 |:--|:--|
 |`asmlinkage int kernel_thread(int (*fn)(void *), void *arg, unsigned long flags);` | 它是 Linux 内核中的一个函数，用于在内核空间中创建一个新进程。  |
 
-> **参数：**
-> - **fn ：** 指向线程处理函数的指针
-> - **arg ：** 传递给线程处理函数的参数
-> - **flags ：** 用于控制进程创建方式的标志。
+**参数：**
+- **fn ：** 指向线程处理函数的指针
+- **arg ：** 传递给线程处理函数的参数
+- **flags ：** 用于控制进程创建方式的标志。
+
 ## 4.2 演示示例
 ```c
 #include <linux/module.h>
@@ -236,8 +237,9 @@ module_exit(my_exit);
 |:--|:--|
 |`void kfree(void *ptr);` |  它是 Linux 内核中的一个函数，用于释放使用 kmalloc() 或者 kzalloc() 函数分配的内存空间。 |
 
-> **参数：** 
-> - **ptr ：** 指向要释放的内存块的指针。
+**参数：** 
+- **ptr ：** 指向要释放的内存块的指针。
+
 ## 5.2 演示示例
 **参考 7.2 所示**
 
@@ -249,9 +251,10 @@ module_exit(my_exit);
 |:--|:--|
 | `int kill(pid_t pid, int sig);`|  向指定进程或进程组发送一个信号 |
 
-> **参数：**
-> - **pid：** 目标进程的 ID（进程ID或进程组ID）
-> - **sig：** 要发送的信号编号
+**参数：**
+- **pid：** 目标进程的 ID（进程ID或进程组ID）
+- **sig：** 要发送的信号编号
+
 ## 6.2 演示示例
 ```c
 #include <stdio.h>
@@ -306,10 +309,11 @@ int main()
 |:--|:--|
 |`int kill_proc(pid_t pid, int sig, int priv);` |   它是 Linux 内核中的一个函数，用于向指定进程发送信号。|
 
-> **参数：**
-> - **pid ：** 要接收信号的进程的 PID
-> - **sig ：** 要发送的信号
-> - **priv ：** 表示是否对目标进程进行权限检查的标志。
+**参数：**
+- **pid ：** 要接收信号的进程的 PID
+- **sig ：** 要发送的信号
+- **priv ：** 表示是否对目标进程进行权限检查的标志。
+
 ## 7.2 演示示例
 ```c
 #include <linux/module.h>
@@ -369,9 +373,9 @@ module_exit(my_exit);
 |:--|:--|
 |`void *kmalloc(size_t size, gfp_t flags);` |  它是 Linux 内核中的一个函数，用于在内核中分配指定大小的内存空间。 |
 
-> **参数：**
-> - **size：** 表示要分配的内存大小
-> - **flags：** 表示一组标志位，用于控制内存分配方式。
+**参数：**
+- **size：** 表示要分配的内存大小
+- **flags：** 表示一组标志位，用于控制内存分配方式。
 
 ## 8.2 演示示例
 ```c
@@ -420,8 +424,9 @@ module_exit(my_exit);
 |`void *kmap(struct page *page);`|它是 Linux 内核中的一个函数，用于将一个页映射到内核虚拟地址空间。|
 |`void *kmap_high(struct page *page);` |  它是 Linux 内核中的一个函数，用于将高端内存映射到内核虚拟地址空间中。 |
 
-> **参数：**
-> - **page ：** 要映射的物理页面的指针。
+**参数：**
+- **page ：** 要映射的物理页面的指针。
+
 ## 9.2 演示示例
 ```c
 #include <linux/module.h>
@@ -476,15 +481,16 @@ module_exit(my_exit);
 上述示例程序中，在 `my_init()` 函数中使用 `alloc_pages()` 函数分配了一块高端内存物理页面，并使用 `kmap_high()` 函数将其映射到内核虚拟地址空间中。在之后，对映射的内存进行操作并打印它的值。最后，使用 `kunmap_high()` 函数将映射解除并使用 `__free_pages()` 函数释放页面。
 
 > **注意：** 在使用 kmap_high() 函数时，必须确保请求的页面大小不会超过系统可用的物理内存大小，并且可以正确地处理异常情况。另外，使用高端内存应格外小心，因为它们与物理内存管理和 **DMA** 操作相关，可能会影响系统的稳定性和安全性。
+
 # 10. kmem_cache_alloc
 ## 10.1 函数说明
 | 函数声明 |  函数功能  |
 |:--|:--|
 | `void *kmem_cache_alloc(struct kmem_cache *cachep, int flags);`| 它是 Linux 内核中的一个函数，用于从指定的内存缓存中分配一个对象  |
 
-> **参数：**
-> - **cachep：** 指向所需缓存区的指针
-> - **flags：** 用于控制内存分配方式的标志。
+**参数：**
+- **cachep：** 指向所需缓存区的指针
+- **flags：** 用于控制内存分配方式的标志。
 
 ## 10.2 演示示例
 ```c
@@ -550,25 +556,28 @@ module_exit(my_exit);
 |:--|:--|
 | `struct kmem_cache *kmem_cache_create(const char *name, size_t size, size_t align, unsigned long flags, void (*ctor)(void *));`|  它是 Linux 内核中的一个函数，用于创建一个内存缓存区，可以用于高效地分配和释放指定大小的对象。 |
 
-> **参数：**
-> - **name ：** 缓存区的名称
-> - **size ：** 要分配的对象的大小
-> - **align ：** 对齐方式
-> - **flags ：**  标志位
-> - **ctor ：**  构造函数指针。
+**参数：**
+- **name ：** 缓存区的名称
+- **size ：** 要分配的对象的大小
+- **align ：** 对齐方式
+- **flags ：**  标志位
+- **ctor ：**  构造函数指针。
+
 ## 11.2 演示示例
 **参考 10.2 所示**
 
 > **注意：** 在使用 `kmem_cache_create()` 函数时，必须确保请求的内存大小不会超过系统可用的物理内存大小，并且可以正确地处理内存分配失败等异常情况。另外，使用内存缓存区应格外小心，因为它们与内核数据结构和操作高度相关，并且可能会影响系统的稳定性和安全性。
+
 # 12. kmem_cache_free
 ## 12.1 函数说明
 | 函数声明 |  函数功能  |
 |:--|:--|
 |`void kmem_cache_free(struct kmem_cache *cachep, void *objp);`|它是 Linux 内核中的一个函数，用于将之前使用 kmem_cache_alloc() 函数分配的对象释放回内存缓存池，以便下次再次分配使用。|
 
-> **参数：**
-> - **cachep：** 指向之前使用的缓存区的指针
-> - **objp：** 要释放的对象的指针。
+**参数：**
+- **cachep：** 指向之前使用的缓存区的指针
+- **objp：** 要释放的对象的指针。
+
 ## 12.2 演示示例
 **参考 10.2 所示**
 
@@ -581,8 +590,9 @@ module_exit(my_exit);
 |:--|:--|
 |`void kmem_cache_destroy(struct kmem_cache *cachep);`|它是 Linux 内核中的一个函数，用于销毁之前使用 kmem_cache_create() 函数创建的内存缓存区。|
 
-> **参数：**
-> - **cachep：** 指向要销毁的缓存区的指针
+**参数：**
+- **cachep：** 指向要销毁的缓存区的指针
+
 ## 13.2 演示示例
 **参考 10.2 所示**
 
@@ -595,9 +605,10 @@ module_exit(my_exit);
 |:--|:--|
 |`void *kmem_cache_zalloc(struct kmem_cache *cache, gfp_t flags);`|它是 Linux 内核中的一个函数，用于从指定内存缓存区中分配一块指定大小的内存，并将其清零。|
 
-> **参数：**
-> - **cache ：** 要分配内存的缓存区
-> - **flags ：** 用于控制内存分配行为的标志
+**参数：**
+- **cache ：** 要分配内存的缓存区
+- **flags ：** 用于控制内存分配行为的标志
+
 ## 14.2 演示示例
 
 ```c
@@ -663,10 +674,11 @@ module_exit(my_exit);
 |:--|:--|
 |`void *kmemdup(const void *src, size_t len, gfp_t flags);` | 它是 Linux 内核中的一个函数，用于在内核空间中将一段指定大小的内存复制到另一段新的内存中，并返回这段新内存的指针。  |
 
-> **参数：**
-> - **src ：** 要复制的源内存地址
-> - **len ：** 要复制的内存字节数
-> - **flags ：** 用于控制内存分配行为的标志
+**参数：**
+- **src ：** 要复制的源内存地址
+- **len ：** 要复制的内存字节数
+- **flags ：** 用于控制内存分配行为的标志
+
 ## 15.2 演示示例
 ```c
 #include <linux/module.h>
@@ -717,6 +729,7 @@ module_exit(my_exit);
 |`void kprintf(const char *format, ...);` |  用于嵌入式系统中输出调试信息 |
 
 > **注意：** 该函数原型和使用方法与标准库中的 `printf()` 函数类似。不同的是，`kprintf()` 函数通常需要根据具体的嵌入式系统进行修改，以适应不同的输出方式。
+
 ## 16.2 演示示例
 ```c
 #include <stdio.h>
@@ -783,10 +796,11 @@ int main()
 |:--|:--|
 | `void *krealloc(const void *ptr, size_t new_size, gfp_t flags);`|  它是 Linux 内核中的一个函数，用于动态调整已分配内存块的大小。 |
 
-> **参数：**
-> - **ptr ：** 指向原内存块的指针
-> - **new_size ：** 新的内存块大小
-> - **flags ：** 用于控制内存分配行为的标志。
+**参数：**
+- **ptr ：** 指向原内存块的指针
+- **new_size ：** 新的内存块大小
+- **flags ：** 用于控制内存分配行为的标志。
+
 ## 17.2 演示示例
 ```c
 #include <linux/module.h>
@@ -842,8 +856,9 @@ module_exit(my_exit);
 |:--|:--|
 | `size_t ksize(const void *ptr);`| 它是 Linux 内核中的一个函数，用于获取已分配内存块的大小。  |
 
-> **参数：**
-> - **ptr ：** 指向已分配内存块的指针。
+**参数：**
+- **ptr ：** 指向已分配内存块的指针。
+
 ## 18.2 演示示例
 ```c
 #include <linux/module.h>
@@ -888,9 +903,10 @@ module_exit(my_exit);
 |:--|:--|
 | `char *kstrdup(const char *s, gfp_t flags);`|  它是 Linux 内核中的一个函数，用于在内核空间中复制一个以 NULL 结尾的字符串，并返回这个新的字符串指针。 |
 
-> **参数：**
-> - **s ：** 要复制的源字符串
-> - **flags ：** 用于控制内存分配行为的标志
+**参数：**
+- **s ：** 要复制的源字符串
+- **flags ：** 用于控制内存分配行为的标志
+
 ## 19.2 演示示例
 ```c
 #include <linux/module.h>
@@ -941,10 +957,11 @@ module_exit(my_exit);
 |:--|:--|
 |`char *kstrndup(const char *s, size_t len, gfp_t flags);` |  它是 Linux 内核中的一个函数，用于在内核空间中复制一个以 NULL 结尾的字符串的一部分，并返回这个新的字符串指针。 |
 
-> **参数：**
-> - **s ：** 要复制的源字符串
-> - **len ：** 要复制的字符串长度
-> - **flags ：** 用于控制内存分配行为的标志
+**参数：**
+- **s ：** 要复制的源字符串
+- **len ：** 要复制的字符串长度
+- **flags ：** 用于控制内存分配行为的标志
+
 ## 20.2 演示示例
 ```c
 #include <linux/module.h>
@@ -995,10 +1012,11 @@ module_exit(my_exit);
 |:--|:--|
 |`void kstat_irqs_cpu(int cpu, int *irqs, unsigned long *stime);` |  它是 Linux 内核中的一个函数，用于查询指定 CPU 的中断统计信息。 |
 
-> **参数：**
+**参数：**
 > **cpu ：** 要查询的 CPU 编号
 > **irqs ：** 用于保存中断计数值的数组
 > **stime ：** 用于保存中断处理时间戳的变量
+
 ## 21.2 演示示例
 ```c
 #include <linux/module.h>
@@ -1047,10 +1065,11 @@ module_exit(my_exit);
 |:--|:--|
 |`struct task_struct *kthread_create(int (*threadfn)(void *data), void *data, const char *namefmt, ...);` | 它是 Linux 内核中的一个函数，用于创建一个内核线程。  |
 
-> **参数：**
+**参数：**
 > **threadfn ：** 指向线程处理函数的指针
 > **data ：** 传递给线程处理函数的参数
 > **namefmt ：** 用于命名线程的格式化字符串（类似于 **printf()** 函数的格式化字符串）。
+
 ## 22.2 演示示例
 ```c
 #include <linux/module.h>
@@ -1110,8 +1129,9 @@ module_exit(my_exit);
 |:--|:--|
 |`int kthread_stop(struct task_struct *k);` |  它是 Linux 内核中的一个函数，用于停止由 kthread_create() 函数创建的内核线程。 |
 
-> **参数：**
+**参数：**
 > **k ：** 指向要停止的内核线程的指针。
+
 ## 23.2 演示示例
 **参考 22.2 中所示**
 
@@ -1124,8 +1144,9 @@ module_exit(my_exit);
 |:--|:--|
 | `void kunmap_high(struct page *page);`|  它是 Linux 内核中的一个函数，用于取消一个高端内存映射。 |
 
-> **参数：**
-> - **page ：** 要取消映射的高端内存页
+**参数：**
+- **page ：** 要取消映射的高端内存页
+
 ## 24.2 演示示例
 ```c
 #include <linux/module.h>
@@ -1187,9 +1208,10 @@ module_exit(my_exit);
 |:--|:--|
 |`void *kzalloc(size_t size, gfp_t flags);` | 它是 Linux 内核中的一个函数，用于分配指定大小的内存空间，并将其初始化为零。  |
 
-> **参数：**
-> - **size：** 表示要分配的内存大小
-> - **flags：** 表示一组标志位，用于控制内存分配方式。
+**参数：**
+- **size：** 表示要分配的内存大小
+- **flags：** 表示一组标志位，用于控制内存分配方式。
+
 ## 25.2 演示示例
 ```c
 c
@@ -1230,8 +1252,6 @@ module_exit(my_exit);
 上述示例程序中，在 `my_init()` 函数中使用 `kzalloc()` 函数分配了一个大小为 **1024** 字节的内存空间，并将其初始化为零。然后，在处理完该内存区域之后，使用 `kfree()` 函数释放了所占用的内存。
 
 > **注意：** 虽然可以使用 `kmalloc()` 函数分配内存然后手动初始化为零，但是使用 `kzalloc()` 函数可以更加高效和简单地完成这个操作。另外，由于 `kzalloc()` 函数返回的内存地址是经过清零的，因此在使用该函数分配内存时，无需显式调用 `memset()` 等函数进行初始化操作。
-
-
 
 
 # 参考
