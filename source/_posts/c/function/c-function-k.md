@@ -14,8 +14,8 @@ tags:
 # 总览
 | 函数声明 |  函数功能  |
 |:--|:--|
-|`void *kcalloc(size_t n, size_t size, gfp_t flags);` |  它是 Linux 内核中的一个函数，用于在内核空间分配一块连续的指定大小的内存，它与标准库函数 calloc() 的功能类似。 |
 | `int kbhit(void);`| 在控制台中检测是否有按键被按下  |
+|`void *kcalloc(size_t n, size_t size, gfp_t flags);` |  它是 Linux 内核中的一个函数，用于在内核空间分配一块连续的指定大小的内存，它与标准库函数 calloc() 的功能类似。 |
 |`void keep(void *ptr);` |  它是 Linux 内核中的一个函数，用于防止编译器将指定的符号优化掉。 |
 |`asmlinkage int kernel_thread(int (*fn)(void *), void *arg, unsigned long flags);` | 它是 Linux 内核中的一个函数，用于在内核空间中创建一个新进程。  |
 |`void kfree(void *ptr);` |  它是 Linux 内核中的一个函数，用于释放使用 kmalloc() 或者 kzalloc() 函数分配的内存空间。 |
@@ -42,8 +42,39 @@ tags:
 |`void *kzalloc(size_t size, gfp_t flags);` | 它是 Linux 内核中的一个函数，用于分配指定大小的内存空间，并将其初始化为零。  |
 
 
-# 1. kcalloc
+# 1. kbhit
 ## 1.1 函数说明
+| 函数声明 |  函数功能  |
+|:--|:--|
+| `int kbhit(void);`| 在控制台中检测是否有按键被按下  |
+
+> 如果有按键被按下，该函数返回非零值，否则返回 0。
+
+## 1.2 演示示例
+```c
+#include <stdio.h>
+#include <conio.h>
+
+int main()
+{
+    int ch;
+
+    printf("Press any key to continue...\n");
+    while (!kbhit()) {
+        // 等待用户按键
+    }
+    ch = getch(); // 获取用户按下的键值
+    printf("You pressed the '%c' key\n", ch);
+
+    return 0;
+}
+```
+
+## 1.3 运行结果
+![](kbhit.png)
+
+# 2. kcalloc
+## 2.1 函数说明
 | 函数声明 |  函数功能  |
 |:--|:--|
 |`void *kcalloc(size_t n, size_t size, gfp_t flags);` |  它是 Linux 内核中的一个函数，用于在内核空间分配一块连续的指定大小的内存，它与标准库函数 calloc() 的功能类似。 |
@@ -53,7 +84,7 @@ tags:
 - **size ：** 每个元素的大小
 - **flags ：** 用于控制内存分配行为的标志
 
-## 1.2 演示示例
+## 2.2 演示示例
 ```c
 #include <linux/module.h>
 #include <linux/kernel.h>
@@ -102,37 +133,6 @@ module_exit(my_exit);
 
 > **注意：** 在使用 `kcalloc()` 函数时，必须确保请求的内存大小不会超过系统可用的物理内存大小，并且可以正确地处理内存分配失败等异常情况。另外，分配的内存应在不再需要时及时释放，以免造成内存泄漏等问题。
 
-
-# 2. kbhit
-## 2.1 函数说明
-| 函数声明 |  函数功能  |
-|:--|:--|
-| `int kbhit(void);`| 在控制台中检测是否有按键被按下  |
-
-> 如果有按键被按下，该函数返回非零值，否则返回 0。
-
-## 2.2 演示示例
-```c
-#include <stdio.h>
-#include <conio.h>
-
-int main()
-{
-    int ch;
-
-    printf("Press any key to continue...\n");
-    while (!kbhit()) {
-        // 等待用户按键
-    }
-    ch = getch(); // 获取用户按下的键值
-    printf("You pressed the '%c' key\n", ch);
-
-    return 0;
-}
-```
-
-## 2.3 运行结果
-![](kbhit.png)
 
 # 3. keep
 ## 3.1 函数说明
