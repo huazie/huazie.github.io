@@ -643,7 +643,7 @@ public class CoreFleaCacheManager extends AbstractFleaCacheManager {
 ### 3.11 整合接入自测 
 单元测试类 [FleaCacheTest](https://github.com/Huazie/flea-framework/blob/dev/flea-cache/src/test/java/com/huazie/fleaframework/cache/FleaCacheTest.java)
 
-首先，这里需要按照 Flea缓存配置文件 (**flea-cache-config.xml**) 中的缓存服务器 **cache-server** 中地址部署相应的 Memcached 和 Redis 服务，可参考笔者的 [这篇博文](../../../../../../2019/08/30/flea-framework/flea-cache/flea-cache-windows-more-services/)。
+首先，这里需要按照 Flea缓存配置文件 (**flea-cache-config.xml**) 中的缓存服务器 **cache-server** 中地址部署相应的 Memcached 和 Redis 服务，可参考笔者的 [这篇博文](../../../../../../2019/08/30/flea-framework/flea-cache/flea-cache-windows-more-services/)。 当然，这里的 Redis 服务，只是分片模式使用到的，至于集群模式和哨兵模式，有机会再专门写博文讲解。
 
 ```java
     @Test
