@@ -65,8 +65,8 @@ public ConfigurableApplicationContext run(String... args) {
                         "Environment prefix cannot be set via properties.");
         bindToSpringApplication(environment);
         if (!this.isCustomEnvironment) {
-                EnvironmentConverter environmentConverter = new EnvironmentConverter(getClassLoader());
-                environment = environmentConverter.convertEnvironmentIfNecessary(environment, deduceEnvironmentClass());
+            EnvironmentConverter environmentConverter = new EnvironmentConverter(getClassLoader());
+            environment = environmentConverter.convertEnvironmentIfNecessary(environment, deduceEnvironmentClass());
         }
         ConfigurationPropertySources.attach(environment);
         return environment;
@@ -97,11 +97,11 @@ ConfigurableEnvironment environment = getOrCreateEnvironment();
 ```java
     private ConfigurableEnvironment getOrCreateEnvironment() {
         if (this.environment != null) {
-                return this.environment;
+            return this.environment;
         }
         ConfigurableEnvironment environment = this.applicationContextFactory.createEnvironment(this.webApplicationType);
         if (environment == null && this.applicationContextFactory != ApplicationContextFactory.DEFAULT) {
-                environment = ApplicationContextFactory.DEFAULT.createEnvironment(this.webApplicationType);
+            environment = ApplicationContextFactory.DEFAULT.createEnvironment(this.webApplicationType);
         }
         return (environment != null) ? environment : new ApplicationEnvironment();
     }
@@ -145,7 +145,7 @@ class DefaultApplicationContextFactory implements ApplicationContextFactory {
                         getClass().getClassLoader())) {
             T result = action.apply(candidate, webApplicationType);
             if (result != null) {
-                    return result;
+                return result;
             }
         }
         return (defaultResult != null) ? defaultResult.get() : null;
@@ -199,7 +199,7 @@ configureEnvironment(environment, applicationArguments.getSourceArgs());
 protected void configureEnvironment(ConfigurableEnvironment environment, String[] args) {
     // addConversionService = true：需要设置转换服务
     if (this.addConversionService) {
-            environment.setConversionService(new ApplicationConversionService());
+        environment.setConversionService(new ApplicationConversionService());
     }
     configurePropertySources(environment, args);
     configureProfiles(environment, args);

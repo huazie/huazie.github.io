@@ -599,11 +599,9 @@ public class RedisSentinelSpringCacheManager extends AbstractSpringCacheManager 
 
 ## 4.5 spring 配置
 
+如下用于配置缓存管理 `redisSentinelSpringCacheManager`，其中 `configMap` 为缓存时间(`key`缓存对象名称 `value`缓存过期时间)
+
 ```xml
-    <!--
-        配置缓存管理 redisSentinelSpringCacheManager
-        配置缓存时间 configMap (key缓存对象名称 value缓存过期时间)
-    -->
     <bean id="redisSentinelSpringCacheManager" class="com.huazie.fleaframework.cache.redis.manager.RedisSentinelSpringCacheManager">
         <!-- 使用带参数的构造函数实例化，指定Redis数据库索引 -->
         <!--<constructor-arg index="0" value="0"/>-->
