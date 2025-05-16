@@ -55,7 +55,7 @@ tags:
 npm install -g prettier
 ```
 
-> 当然这里执行 `npm` 命令之前，我们需要首先安装 `Node.js` ，并配置相关环境变量，这里可以参考笔者的[《【实操】基于 GitHub Pages + Hexo 搭建个人博客》](https://juejin.cn/post/7373226679731240970#heading-1) 中的第二章节。
+> 当然这里执行 `npm` 命令之前，我们需要首先安装 `Node.js` ，并配置相关环境变量，这里可以参考笔者的[《【实操】基于 GitHub Pages + Hexo 搭建个人博客》](../../../../../2024/01/17/hexo/hexo-github-pages/) 中的第二章节。
 
 ![](prettier.png)
 
