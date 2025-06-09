@@ -34,11 +34,6 @@ jobs:
         with:
           repository: next-theme/hexo-theme-next
           path: themes/next
-      - name: Checkout Game
-        uses: actions/checkout@v4
-        with:
-          repository: huazie/flea-game
-          path: source/diversity/game
       - name: Use Node.js 20.x
         uses: actions/setup-node@v4
         with:
@@ -56,6 +51,11 @@ jobs:
         run: npm run clean
       - name: Build
         run: npm run build
+      - name: Checkout Game
+        uses: actions/checkout@v4
+        with:
+          repository: huazie/flea-game
+          path: public/diversity/game
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
