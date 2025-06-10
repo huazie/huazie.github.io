@@ -51,6 +51,8 @@ jobs:
         run: npm run clean
       - name: Build
         run: npm run build
+      - name: Clean existing game directory
+        run: rm -rf public/diversity/game
       - name: Checkout Game
         uses: actions/checkout@v4
         with:
