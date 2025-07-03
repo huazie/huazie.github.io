@@ -773,7 +773,7 @@ int main(void)
 ```
 
 ## 16.3 运行结果
-![](setgraphmode.png)
+![](setgraphmode.gif)
 
 # 17. setjmp
 ## 17.1 函数说明
