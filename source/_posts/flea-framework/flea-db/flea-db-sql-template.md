@@ -34,6 +34,65 @@ tags:
 ## 2.1 SQL模板配置
 SQL模板配置包含了SQL模板规则，SQL模板定义，SQL模板参数，SQL关系配置。具体配置可至GitHub，查看 [flea-sql-template.xml](https://github.com/Huazie/flea-db-test/blob/main/flea-config/src/main/resources/flea/db/flea-sql-template.xml)
 
+**SQL** 模板规则，即定义 **SQL** 模板的校验规则，主要包含增删改查的 **4** 类模板。
+以 **INSERT SQL** 模板的校验规则配置举例，如下所示【这里属性 `value` 值其实就是 **INSERT SQL** 模板的正则表达式】：
+
+```xml
+    <!-- 这边的规则为固定写法，一般不做修改 -->
+    <rules>
+        <rule id="insert" name="INSERT SQL模板的校验规则配置">
+            <property key="sql" value="[ ]*(INSERT)[ ]+(INTO)[ ]+##table##[ ]+\([ ]*##columns##[ ]+\)[ ]+(VALUES)[ ]+\([ ]*##values##[ ]+\)[ ]*" />
+        </rule>
+    </rules>
+```
+
+**SQL** 模板定义，即定义通用的增删改查 **SQL** 模板。
+以 **INSERT SQL** 模板定义举例，如下所示：
+
+```xml
+    <!-- SQL模板定义配置 -->
+    <templates>
+        <template id="insert" ruleId="insert" name="INSERT SQL模板" desc="用于原生SQL中INSERT语句的使用">
+            <!-- SQL模板数据 -->
+            <property key="template" value="INSERT INTO ##table## (##columns## ) VALUES (##values## )" />
+            <!-- SQL模板类型 -->
+            <property key="type" value="insert"/>
+        </template>
+    </templates>
+```
+
+**SQL** 模板参数，即定义 **SQL** 模板中的参数取值。 
+以 **INSERT SQL** 模板参数举例，如下所示：
+
+```xml
+    <!-- SQL模板参数配置 -->
+    <params>
+        <param id="insert" name="SQL模板參數" desc="用于定义SQL模板中的替换参数">
+            <!-- 表名 -->
+            <property key="table" value="flea_config_data" />
+            <!-- 这两个不填，表示表的字段全部使用
+            <property key="columns" value="config_id, config_type, config_code, config_name, data1, config_state" />
+            <property key="values" value=":configId:, :configType:, :configCode:, :configName:, :data1:, :configState:" />-->
+        </param>
+    </params>
+```
+
+**SQL** 关系配置，用于关联 **SQL** 模板和 **SQL** 模板参数。
+以 **INSERT SQL** 关系配置举例，如下所示：
+
+```xml
+    <!-- SQL模板和模板参数关联关系配置（简称 SQL关系配置）-->
+    <relations>
+        <relation id="insert" templateId="insert" paramId="insert" name="SQL关系"/>
+    </relations>
+```
+
+**relation** 用于定义一条 **SQL** 关系配置：
+
+- `id` : SQL关系编号
+- `templateId` : SQL模板编号
+- `paramId` : SQL模板参数编号
+
 ## 2.2 新增数据
 **相关配置可查看 ：** 
 
@@ -48,6 +107,7 @@ SQL模板配置包含了SQL模板规则，SQL模板定义，SQL模板参数，SQ
 
     <relation id="insert" templateId="insert" paramId="insert" name="SQL关系"/>
 ```
+
 **JPA方式接入SQL模板：**
 ```java
     @Test
@@ -64,10 +124,13 @@ SQL模板配置包含了SQL模板规则，SQL模板定义，SQL模板参数，SQ
         LOGGER.debug("result = {}", ret);
     }
 ```
+
 **运行结果：**
 ![](jpa-result-add.png)
+
 **新增数据：**
 ![](jpa-add-data.png)
+
 **JDBC方式接入SQL模板：**
 ```java
     @Test
@@ -84,10 +147,13 @@ SQL模板配置包含了SQL模板规则，SQL模板定义，SQL模板参数，SQ
         LOGGER.debug("result = {}", ret);
     }
 ```
+
 **运行结果：**
 ![](jdbc-result-add.png)
+
 **新增数据：**
 ![](jdbc-add-data.png)
+
 ## 2.3 查询数据
 **相关配置可查看 ：** 
 
@@ -137,6 +203,7 @@ SQL模板配置包含了SQL模板规则，SQL模板定义，SQL模板参数，SQ
         LOGGER.debug("Student List = {}", FleaJDBCHelper.query("select", student));
     }
 ```
+
 **运行结果：**
 ![](jdbc-result-query.png)
 
@@ -155,7 +222,9 @@ SQL模板配置包含了SQL模板规则，SQL模板定义，SQL模板参数，SQ
         
     <relation id="update" templateId="update" paramId="update" name="SQL关系"/>
 ```
+
 **JPA方式接入SQL模板：**
+
 ```java
     @Test
     public void testUpdateSqlTemplateFromJPA() throws Exception {
@@ -173,9 +242,11 @@ SQL模板配置包含了SQL模板规则，SQL模板定义，SQL模板参数，SQ
         LOGGER.debug("Result = {}", studentSV.update("update", student));
     }
 ```
+
 **运行结果：**
 ![](jpa-result-update.png)
 ![](jpa-update-data.png)
+
 **JDBC方式接入SQL模板：**
 ```java
     @Test
@@ -194,6 +265,7 @@ SQL模板配置包含了SQL模板规则，SQL模板定义，SQL模板参数，SQ
         LOGGER.debug("Result = {}", FleaJDBCHelper.update("update", student));
     }
 ```
+
 **运行结果：**
 ![](jdbc-result-update.png)
 ![](jdbc-update-data.png)
@@ -211,7 +283,9 @@ SQL模板配置包含了SQL模板规则，SQL模板定义，SQL模板参数，SQ
         
     <relation id="delete" templateId="delete" paramId="delete" name="SQL关系"/>
 ```
+
 **JPA方式接入SQL模板：**
+
 ```java
     @Test
     public void testDeleteSqlTemplateFromJPA() throws Exception {
@@ -227,6 +301,7 @@ SQL模板配置包含了SQL模板规则，SQL模板定义，SQL模板参数，SQ
         LOGGER.debug("Result = {}", studentSV.delete("delete", student));
     }
 ```
+
 **运行结果：**
 ![](jpa-result-delete.png)
 
@@ -246,6 +321,7 @@ SQL模板配置包含了SQL模板规则，SQL模板定义，SQL模板参数，SQ
         LOGGER.debug("Result = {}", FleaJDBCHelper.delete("delete", student));
     }
 ```
+
 **运行结果：**
 ![](jdbc-result-delete.png)
 
@@ -288,6 +364,7 @@ SQL模板配置包含了SQL模板规则，SQL模板定义，SQL模板参数，SQ
         LOGGER.debug("Student Count = {}", studentList.size());
     }
 ```
+
 运行结果：
 ![](jpa-result-page.png)
 
@@ -312,6 +389,7 @@ SQL模板配置包含了SQL模板规则，SQL模板定义，SQL模板参数，SQ
         LOGGER.debug("Student Count = {}", studentList.size());
     }
 ```
+
 **运行结果：**
 ![](jdbc-result-page.png)
 
@@ -345,6 +423,7 @@ SQL模板配置包含了SQL模板规则，SQL模板定义，SQL模板参数，SQ
         LOGGER.debug("Student Count = {}", studentSV.querySingle("select_2", student));
     }
 ```
+
 **运行结果：**
 ![](jpa-result-count.png)
 
@@ -363,6 +442,7 @@ SQL模板配置包含了SQL模板规则，SQL模板定义，SQL模板参数，SQ
         LOGGER.debug("Student Count = {}", FleaJDBCHelper.querySingle("select_2", student));
     }
 ```
+
 **运行结果：**
 ![](jdbc-result-count.png)
 
@@ -389,6 +469,7 @@ SQL模板配置包含了SQL模板规则，SQL模板定义，SQL模板参数，SQ
         LOGGER.debug("Student Age = {}", studentSV.querySingle("select_3", new Student()));
     }
 ```
+
 **运行结果：**
 ![](jpa-result-sum.png)
 
@@ -400,6 +481,7 @@ SQL模板配置包含了SQL模板规则，SQL模板定义，SQL模板参数，SQ
         LOGGER.debug("Student Age = {}", FleaJDBCHelper.querySingle("select_3", new Student()));
     }
 ```
+
 **运行结果：**
 ![](jdbc-result-sum.png)
 
