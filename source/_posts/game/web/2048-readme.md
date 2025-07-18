@@ -6,7 +6,6 @@ categories:
   - [游戏开发,WEB游戏]
 tags:
   - 纯前端游戏
-  - 数独
   - 2048
   - flea-game
 ---
