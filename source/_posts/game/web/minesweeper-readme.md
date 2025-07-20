@@ -207,4 +207,4 @@ minesweeper/
 
 # 📄 许可证
 
-本项目采用MIT许可证。有关详细信息，请参阅[LICENSE](../LICENSE)文件。
+本项目采用MIT许可证。有关详细信息，请参阅[LICENSE](https://github.com/huazie/flea-game/blob/main/LICENSE)文件。
