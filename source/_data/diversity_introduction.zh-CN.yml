@@ -1,0 +1,5 @@
+# Diversity 主题介绍配置（中文）
+# 如需添加其他语言，请创建对应文件，如 diversity_introduction.en.yml
+
+# 主题名: 主题介绍
+icarus: 一个简洁、现代的 Hexo 主题，具有模块化设计。
