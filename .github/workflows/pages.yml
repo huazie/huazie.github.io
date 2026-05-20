@@ -35,10 +35,10 @@ jobs:
         with:
           repository: next-theme/hexo-theme-next
           path: themes/next
-      - name: Use Node.js 20.x
+      - name: Use Node.js 22.x
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
       - name: Cache NPM dependencies
         uses: actions/cache@v4
         with:
@@ -60,7 +60,7 @@ jobs:
           repository: huazie/flea-game
           path: public/diversity/game
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./public
   deploy:
