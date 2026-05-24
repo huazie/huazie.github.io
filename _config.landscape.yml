@@ -105,6 +105,9 @@ comments:
     giscus:
       text: Giscus
       order: 3
+    twikoo:
+      text: Twikoo
+      order: 4
 
 utterances:
   enable: true
@@ -136,3 +139,7 @@ giscus:
   theme: light
   dark: dark
   input_position: top
+
+twikoo:
+  enable: true
+  env_id: https://huazie.netlify.app/.netlify/functions/twikoo
