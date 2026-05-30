@@ -38,13 +38,16 @@ comments:
     twikoo:
       text: Twikoo
       order: 4
+    gitment:
+      text: Gitment
+      order: 5
 
 utterances:
   enable: true
   repo: huazie/hexo-theme-diversity 
   issue_term: pathname
   theme: github-light
-  dark: icy-dark
+  dark: github-dark
 
 gitalk:
   enable: true
@@ -54,7 +57,7 @@ gitalk:
   client_secret: 625f6af43748eb4a6a27a9111d252155e88c836e
   admin_user: huazie
   distraction_free_mode: true
-  proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token
+  proxy: https://huazie-oauth.netlify.app/api/auth
 
 giscus:
   enable: true
@@ -73,3 +76,12 @@ giscus:
 twikoo:
   enable: true
   env_id: https://huazie.netlify.app/.netlify/functions/twikoo
+
+gitment:
+  enable: true
+  owner: huazie
+  repo: hexo-theme-diversity
+  client_id: Ov23li7WIKTIa0F9GJtZ
+  client_secret: 7f068a3fa7852d2ded8742833939eac385d957b6
+  #proxy: http://localhost:8888/api/auth
+  proxy: https://huazie-oauth.netlify.app/api/auth
