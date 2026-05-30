@@ -21,7 +21,7 @@
     "hexo-comments-utterances": "^1.0.4",
     "hexo-generator-archive": "^2.0.0",
     "hexo-generator-category": "^2.0.0",
-    "hexo-generator-comments": "^1.0.7",
+    "hexo-generator-comments": "^1.0.8",
     "hexo-generator-feed": "^3.0.0",
     "hexo-generator-index": "^3.0.0",
     "hexo-generator-searchdb": "^1.4.1",
