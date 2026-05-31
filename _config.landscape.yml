@@ -92,7 +92,7 @@ valine:
   guest_info: nick,mail,link #valine comment header info
 
 comments:
-  style: tabs
+  style: dropdown
   active: utterances
   lazyload: true
   nav:

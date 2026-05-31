@@ -204,7 +204,7 @@ search:
   format: html
 
 comments:
-  style: tabs
+  style: dropdown
   active: utterances
   lazyload: true
   nav:

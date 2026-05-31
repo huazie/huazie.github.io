@@ -36,7 +36,7 @@ font:
     size: 17px
 
 comments:
-  style: tabs
+  style: dropdown
   active: utterances
   lazyload: true
   nav:

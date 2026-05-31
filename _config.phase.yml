@@ -22,7 +22,7 @@ rss: /atom.xml
 disqus_shortname:
 
 comments:
-  style: tabs
+  style: dropdown
   active: utterances
   lazyload: true
   nav:

@@ -421,7 +421,7 @@ providers:
     iconcdn: fontawesome
 
 comments:
-  style: tabs
+  style: dropdown
   active: utterances
   lazyload: true
   nav:
