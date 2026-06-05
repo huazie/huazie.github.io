@@ -28,12 +28,12 @@ jobs:
       - name: Checkout Theme Light
         uses: actions/checkout@v4
         with:
-          repository: hexojs/hexo-theme-light
+          repository: huazie/hexo-theme-light
           path: themes/light
       - name: Checkout Theme Next
         uses: actions/checkout@v4
         with:
-          repository: next-theme/hexo-theme-next
+          repository: huazie/hexo-theme-next
           path: themes/next
       - name: Use Node.js 22.x
         uses: actions/setup-node@v4
