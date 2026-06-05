@@ -668,22 +668,81 @@ canvas_ribbon:
 
 # Multiple Comment System Support
 comments:
-  # Available values: tabs | buttons
-  style: tabs
-  # Choose a comment system to be displayed by default.
-  # Available values: disqus | disqusjs | changyan | livere | gitalk | utterances
-  active:
-  # Setting `true` means remembering the comment system selected by the visitor.
-  storage: true
-  # Lazyload all comment systems.
-  lazyload: false
-  # Modify texts or order for any naves, here are some examples.
+  layout: page
+  style: dropdown
+  active: utterances
+  lazyload: true
   nav:
-    #disqus:
-    #  text: Load Disqus
-    #  order: -1
-    #gitalk:
-    #  order: -2
+    utterances:
+      text: Utterances
+      order: 1
+    gitalk:
+      text: Gitalk
+      order: 2
+    giscus:
+      text: Giscus
+      order: 3
+    twikoo:
+      text: Twikoo
+      order: 4
+    gitment:
+      text: Gitment
+      order: 5
+    waline:
+      text: Waline
+      order: 6
+
+utterances:
+  enable: true
+  repo: huazie/hexo-theme-diversity 
+  issue_term: pathname
+  theme: github-light
+  dark: github-dark
+
+gitalk:
+  enable: true
+  github_id: huazie
+  repo: hexo-theme-diversity
+  client_id: Ov23liUeEbTbvL4TtFLI
+  client_secret: 625f6af43748eb4a6a27a9111d252155e88c836e
+  admin_user: huazie
+  distraction_free_mode: true
+  proxy: https://huazie-oauth.netlify.app/api/auth
+
+giscus:
+  enable: true
+  repo: huazie/hexo-theme-diversity
+  repo_id: R_kgDOLxZw-w
+  category: Announcements
+  category_id: DIC_kwDOLxZw-84CiJXv
+  mapping: pathname
+  strict: 0
+  reactions_enabled: 1
+  emit_metadata: 0
+  theme: light
+  dark: dark
+  input_position: top
+
+twikoo:
+  enable: true
+  env_id: https://huazie.netlify.app/.netlify/functions/twikoo
+
+gitment:
+  enable: true
+  owner: huazie
+  repo: hexo-theme-diversity
+  client_id: Ov23li7WIKTIa0F9GJtZ
+  client_secret: 7f068a3fa7852d2ded8742833939eac385d957b6
+  #proxy: http://localhost:8888/api/auth
+  proxy: https://huazie-oauth.netlify.app/api/auth
+
+waline:
+  enable: true
+  server_url: https://huazie-waline.netlify.app/.netlify/functions/comment
+  emoji: ['//unpkg.com/@waline/emojis/weibo','//unpkg.com/@waline/emojis@1.4.0/qq','//unpkg.com/@waline/emojis@1.4.0/tieba','//unpkg.com/@waline/emojis@1.4.0/alus','//unpkg.com/@waline/emojis@1.4.0/bilibili','//unpkg.com/@waline/emojis@1.4.0/bmoji','//unpkg.com/@waline/emojis@1.4.0/tw-emoji']
+  required_meta: ['nick', 'mail']
+  wordLimit: 20
+  reaction: true
 
 # Disqus
 # For more information: https://disqus.com
@@ -724,31 +783,31 @@ livere_uid: # <your_uid>
 # 一个基于GitHub Issue和Preact开发的现代评论插件。
 # 它允许网站访客使用GitHub账号登录并发表评论，所有评论数据都储存在相应的GitHub仓库中。
 # For more information: https://gitalk.github.io
-gitalk:
-  enable: false
-  github_id: # GitHub repo owner
-  repo: # Repository name to store issues
-  client_id: # GitHub Application Client ID
-  client_secret: # GitHub Application Client Secret
-  admin_user: # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
-  distraction_free_mode: true # Facebook-like distraction free mode
-  # When the official proxy is not available, you can change it to your own proxy address
-  proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token # This is official proxy address
-  # Gitalk's display language depends on user's browser or system environment
-  # If you want everyone visiting your site to see a uniform language, you can set a force language value
-  # Available values: en | es-ES | fr | ru | zh-CN | zh-TW
-  language:
+# gitalk:
+#   enable: false
+#   github_id: # GitHub repo owner
+#   repo: # Repository name to store issues
+#   client_id: # GitHub Application Client ID
+#   client_secret: # GitHub Application Client Secret
+#   admin_user: # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
+#   distraction_free_mode: true # Facebook-like distraction free mode
+#   # When the official proxy is not available, you can change it to your own proxy address
+#   proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token # This is official proxy address
+#   # Gitalk's display language depends on user's browser or system environment
+#   # If you want everyone visiting your site to see a uniform language, you can set a force language value
+#   # Available values: en | es-ES | fr | ru | zh-CN | zh-TW
+#   language:
 
 # Utterances
 # 一个由开源社区构建的评论插件，它提供了一种在博客、文章或任何静态网站上添加互动式评论功能的高效解决方案。
 # For more information: https://utteranc.es
-utterances:
-  enable: false
-  repo: user-name/repo-name # Github repository owner and name
-  # Available values: pathname | url | title | og:title
-  issue_term: pathname
-  # Available values: github-light | github-dark | preferred-color-scheme | github-dark-orange | icy-dark | dark-blue | photon-dark | boxy-light
-  theme: github-light
+# utterances:
+#   enable: false
+#   repo: user-name/repo-name # Github repository owner and name
+#   # Available values: pathname | url | title | og:title
+#   issue_term: pathname
+#   # Available values: github-light | github-dark | preferred-color-scheme | github-dark-orange | icy-dark | dark-blue | photon-dark | boxy-light
+#   theme: github-light
 
 # Isso
 # For more information: https://isso-comments.de

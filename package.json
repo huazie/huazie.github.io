@@ -19,6 +19,7 @@
     "hexo-comments-gitment": "^1.0.0",
     "hexo-comments-twikoo": "^1.0.0",
     "hexo-comments-utterances": "^1.0.4",
+    "hexo-comments-waline": "^1.0.0",
     "hexo-generator-archive": "^2.0.0",
     "hexo-generator-category": "^2.0.0",
     "hexo-generator-comments": "^1.1.1",

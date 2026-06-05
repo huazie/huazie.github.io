@@ -50,6 +50,9 @@ comments:
     gitment:
       text: Gitment
       order: 5
+    waline:
+      text: Waline
+      order: 6
 
 utterances:
   enable: true
@@ -94,3 +97,10 @@ gitment:
   client_secret: 7f068a3fa7852d2ded8742833939eac385d957b6
   #proxy: http://localhost:8888/api/auth
   proxy: https://huazie-oauth.netlify.app/api/auth
+
+waline:
+  enable: true
+  server_url: https://huazie-waline.netlify.app/.netlify/functions/comment
+  emoji: ['//unpkg.com/@waline/emojis/weibo','//unpkg.com/@waline/emojis@1.4.0/qq','//unpkg.com/@waline/emojis@1.4.0/tieba','//unpkg.com/@waline/emojis@1.4.0/alus','//unpkg.com/@waline/emojis@1.4.0/bilibili','//unpkg.com/@waline/emojis@1.4.0/bmoji','//unpkg.com/@waline/emojis@1.4.0/tw-emoji']
+  required_meta: ['nick', 'mail']
+  wordLimit: 20
