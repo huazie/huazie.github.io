@@ -492,5 +492,6 @@ waline:
   enable: true
   server_url: https://huazie-waline.netlify.app/.netlify/functions/comment
   emoji: ['//unpkg.com/@waline/emojis/weibo','//unpkg.com/@waline/emojis@1.4.0/qq','//unpkg.com/@waline/emojis@1.4.0/tieba','//unpkg.com/@waline/emojis@1.4.0/alus','//unpkg.com/@waline/emojis@1.4.0/bilibili','//unpkg.com/@waline/emojis@1.4.0/bmoji','//unpkg.com/@waline/emojis@1.4.0/tw-emoji']
+  dark: .dark-theme  
   required_meta: ['nick', 'mail']
   wordLimit: 20
