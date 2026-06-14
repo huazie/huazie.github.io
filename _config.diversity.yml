@@ -36,6 +36,7 @@ font:
     size: 17px
 
 comments:
+  path: diversity/comments
   style: dropdown
   active: utterances
   lazyload: true
