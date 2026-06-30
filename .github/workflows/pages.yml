@@ -65,8 +65,8 @@ jobs:
           npm run clean
           npm run build
           cd ..
-          # 将构建产物复制到主站点的 public 目录下
-          cp -r temp-comments-site/public/* public/
+          # 将构建产物复制到主站点的 public 目录下，不覆盖已存在的文件
+          cp -rn temp-comments-site/public/* public/
       - name: Clean existing game directory
         run: rm -rf public/diversity/game
       - name: Checkout Game
