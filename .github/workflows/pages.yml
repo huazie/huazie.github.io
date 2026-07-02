@@ -48,6 +48,8 @@ jobs:
             ${{ runner.OS }}-npm-cache
       - name: Install Dependencies
         run: npm install
+      - name: Clean Public Directory
+        run: rm -rf public/*
       - name: Clean Main Site
         run: npm run clean
       - name: Build Main Site
@@ -66,7 +68,7 @@ jobs:
           npm run build
           cd ..
           # 将构建产物复制到主站点的 public 目录下，不覆盖已存在的文件
-          cp -rn temp-comments-site/public/* public/
+          cp -r --update=none temp-comments-site/public/* public/
       - name: Clean existing game directory
         run: rm -rf public/diversity/game
       - name: Checkout Game
