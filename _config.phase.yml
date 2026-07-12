@@ -88,6 +88,8 @@ gitment:
   client_secret: 7f068a3fa7852d2ded8742833939eac385d957b6
   #proxy: http://localhost:8888/api/auth
   proxy: https://huazie-oauth.netlify.app/api/auth
+  gitmint: true
+  lang: zh-CN
 
 waline:
   enable: true
