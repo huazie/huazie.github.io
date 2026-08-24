@@ -16,7 +16,7 @@
     "hexo": "^7.2.0",
     "hexo-comments-giscus": "^1.0.5",
     "hexo-comments-gitalk": "^1.0.6",
-    "hexo-comments-gitment": "^1.0.3",
+    "hexo-comments-gitment": "^1.0.4",
     "hexo-comments-twikoo": "^1.0.0",
     "hexo-comments-utterances": "^1.0.5",
     "hexo-comments-waline": "^1.0.0",
