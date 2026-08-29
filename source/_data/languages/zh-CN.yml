@@ -14,3 +14,4 @@ introduction:
 #   - 未配置的菜单自动回退主题 i18n __('menu.{key}')，再兜底菜单 key 本身。
 menu:
   game: 游戏
+  open: 开源

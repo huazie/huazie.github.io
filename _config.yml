@@ -140,6 +140,8 @@ include:
 exclude:
 # Hexo 会忽略整个 Hexo 项目下的这些文件夹或文件
 ignore:
+  # other 目录仅用于同步，不参与构建（否则会被主题 i18n 处理器误当作语言文件读取）
+  - '**/themes/diversity/other/**'
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/

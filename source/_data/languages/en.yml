@@ -14,3 +14,4 @@ introduction:
 #   - Menus not configured here fall back to the theme i18n __('menu.{key}'), then to the menu key itself.
 menu:
   game: Game
+  open: Open
