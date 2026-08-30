@@ -669,7 +669,7 @@ canvas_ribbon:
 # Multiple Comment System Support
 comments:
   layout: page
-  style: dropdown
+  style: both
   active: utterances
   lazyload: true
   nav:

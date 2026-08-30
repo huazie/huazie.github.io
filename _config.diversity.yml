@@ -37,7 +37,7 @@ font:
 
 comments:
   path: diversity/comments
-  style: dropdown
+  style: both
   active: utterances
   lazyload: true
   nav:

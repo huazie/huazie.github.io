@@ -93,7 +93,7 @@ valine:
 
 comments:
   layout: comments-all
-  style: dropdown
+  style: both
   active: utterances
   lazyload: true
   nav:

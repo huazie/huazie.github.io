@@ -422,7 +422,7 @@ providers:
 
 comments:
   layout: comments-all
-  style: tabs
+  style: both
   active: utterances
   lazyload: true
   nav:
