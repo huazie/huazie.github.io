@@ -11,4 +11,4 @@ description: Diversity Comments 是一个轻量级的多评论系统聚合方案
 tags: [Hexo, Diversity, 多评论系统, Utterances, Gitalk, Giscus, Twikoo, Gitment, Waline]
 language: [JavaScript, EJS]
 license: MIT
-order: 2
+order: 3

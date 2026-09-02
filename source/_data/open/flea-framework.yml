@@ -9,4 +9,4 @@ description: Flea Framework 是一个模块化、轻量级的 Java 应用开发�
 tags: [缓存管理, 数据持久化管理, 授权管理, Jersey, 通用工具, Java 框架, Maven]
 language: Java
 license: BSD-3-Clause
-order: 3
+order: 4

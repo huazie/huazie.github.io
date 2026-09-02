@@ -1,0 +1,13 @@
+# 开源项目配置（单文件模式：文件名即 key，本文件 key = diversity-plugins）
+# 可选字段：demo / doc / license_url / order（排序，升序）
+name: Diversity Plugins
+logo: /images/diversity.svg
+source: https://github.com/huazie/diversity-plugins
+doc: https://github.com/huazie/diversity-plugins#readme
+author: Huazie
+author_url: https://github.com/huazie
+description: Hexo Diversity 主题插件集合，采用 npm workspaces 单体仓库管理，为 Hexo 博客提供更多功能与定制选项；包含热配置插件，以及集成 Utterances、Gitalk、Giscus、Twikoo、Gitment、Waline 六大评论系统的多评论生成插件。
+tags: [Hexo, Diversity, 插件集合, hexo-hot-config, hexo-generator-comments, 多评论系统插件]
+language: [JavaScript, EJS, JSX, Nunjucks]
+license: MIT
+order: 2
