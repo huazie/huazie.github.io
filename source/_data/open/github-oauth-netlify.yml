@@ -1,0 +1,11 @@
+# 开源项目配置（单文件模式：文件名即 key，本文件 key = github-oauth-netlify）
+name: GitHub OAuth Netlify
+source: https://github.com/huazie/github-oauth-netlify
+doc: https://github.com/huazie/github-oauth-netlify#readme
+author: Huazie
+author_url: https://github.com/huazie
+description: 基于 Netlify 云函数的 GitHub OAuth 认证代理，接收前端 OAuth 参数并转发 GitHub token 端点，适用于 Gitalk、Gitment 等评论系统的授权登录。
+tags: [GitHub, OAuth, Netlify, 云函数, 认证代理]
+language: [JavaScript]
+license: MIT
+order: 6
