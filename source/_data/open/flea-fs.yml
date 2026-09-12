@@ -1,0 +1,13 @@
+# 开源项目配置（单文件模式：文件名即 key，本文件 key = flea-fs）
+# 可选字段：demo / doc / license_url / order（排序，升序）
+name: FleaFS
+logo: /diversity/images/logo/flea-framework.png
+source: https://github.com/huazie/FleaFS
+doc: https://github.com/huazie/FleaFS#readme
+author: Huazie
+author_url: https://github.com/huazie
+description: FleaFS（Flea 文件服务器）支持各授权系统接入，提供文件上传、下载、更新、删除、搜索与版本管理，基于 FastDFS 分布式文件存储与 ElasticSearch 弹性搜索，采用 Spring 与 Flea Framework 构建。
+tags: [文件服务器, 分布式文件存储, FastDFS, ElasticSearch, Flea Jersey, JPA, 分库分表, Memcached, Redis]
+language: Java
+license: MIT
+order: 8

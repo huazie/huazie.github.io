@@ -1,0 +1,13 @@
+# 开源项目配置（单文件模式：文件名即 key，本文件 key = flea-management）
+# 可选字段：demo / doc / license_url / order（排序，升序）
+name: Flea Management
+logo: /diversity/images/logo/flea-framework.png
+source: https://github.com/huazie/FleaManagement
+doc: https://github.com/huazie/FleaManagement#readme
+author: Huazie
+author_url: https://github.com/huazie
+description: FleaManagement（跳蚤管家）是一款基于 Ace Framework 的后台管理系统，后端以 Flea Framework 与 Spring 为基石，集成 JPA 分库分表与 Memcached/Redis 缓存，前后台交互由 Spring MVC 承载。
+tags: [跳蚤管家, 后台管理系统, Ace Framework, Spring MVC, Struts2, JPA, 分库分表, Memcached, Redis]
+language: [Java, HTML, JavaScript, CSS]
+license: MIT
+order: 7
