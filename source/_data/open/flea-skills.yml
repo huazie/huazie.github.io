@@ -1,0 +1,13 @@
+# 开源项目配置（单文件模式：文件名即 key，本文件 key = flea-skills）
+# 可选字段：demo / doc / license_url / order（排序，升序）
+name: Flea Skills
+logo: /diversity/images/logo/flea-framework.png
+source: https://github.com/huazie/flea-skills
+doc: https://github.com/huazie/flea-skills#readme
+author: Huazie
+author_url: https://github.com/huazie
+description: flea-skills 是一个实用的技能（Agent Skills）集合仓库，持续收录日常开发、发布与自动化等场景的开箱即用技能，每个技能均含 SKILL.md 指南及配套 references / scripts 资源，复制到本地技能目录即可使用。
+tags: [技能集合, Agent Skill, Hexo, 掘金签到, 自动化, Shell, Node.js]
+language: [JavaScript, Shell, Markdown]
+license: MIT
+order: 9
