@@ -15,7 +15,7 @@ tags:
 
 ![](/images/diversity-logo.png)
 
-# 📖 前言
+# 📖 一、前言
 
 前面两篇介绍了基于 GitHub Issues 的 Utterances 与 Gitalk。本篇登场的 **Giscus** 则更进一步 —— 它基于 **GitHub Discussions（讨论区）** 实现，是这几款 GitHub 系评论系统中最"现代化"的一员。
 
@@ -23,13 +23,13 @@ tags:
 
 <!-- more -->
 
-# 🔍 认识 Giscus
+# 🔍 二、认识 Giscus
 
 [`Giscus`](https://giscus.app) 是一个利用 **GitHub Discussions** 实现的评论系统。它所有的评论数据存储于 **GitHub** 公开仓库的 **Discussions**（讨论区）中，每个网页对应一个 **Discussion**，**评论即 Discussion 下的回复**。
 
 与 Issues 相比，Discussions 更适合承载"讨论"：支持分类管理、楼中楼回复、表情反应（Reactions），社区氛围更浓。
 
-# ✨ 插件功能特性
+# ✨ 三、插件功能特性
 
 | 特性 | 描述 | 优势 |
 |------|------|------|
@@ -41,7 +41,7 @@ tags:
 | **多语言支持** | 支持多种界面语言 | 国际化友好 |
 | **易于配置** | 简单的 YAML 配置 | 快速上手，灵活定制 |
 
-# 🚀 快速上手
+# 🚀 四、快速上手
 
 ## 1. 安装插件
 
@@ -103,7 +103,7 @@ giscus:
 
 这是 Giscus 接入中最容易卡住的一步。推荐直接打开 [`giscus.app`](https://giscus.app/zh-CN)，按页面向导依次填入仓库名、选择 Discussion 分类，网站会**自动生成** `repo_id` 与 `category_id`，复制过来即可，无需手工从 GitHub API 挖取。
 
-# ⚠️ 注意事项
+# ⚠️ 五、注意事项
 
 * **仓库需公开**并安装 [giscus App](https://github.com/apps/giscus)，评论功能才能正常读写 Discussions。
 * **mapping 推荐 `pathname`**：与 Utterances 的 `issue_term` 类似，一旦选定尽量别改，避免历史 Discussion 与页面对不上。
@@ -111,7 +111,7 @@ giscus:
 * **reacts_enabled**：控制主帖子上的表情反应开关，`1` 开启、`0` 关闭。
 * **懒加载**：`data_loading: lazy` 可让评论区在滚动到可视区域时才加载，进一步提升页面性能。
 
-# 📝 小结
+# 📝 六、小结
 
 本文带大家上手了 **diversity-plugins** 中的 [hexo-comments-giscus](https://www.npmjs.com/package/hexo-comments-giscus) 插件。如果你的博客读者以开发者为主，又希望评论区具备**分类、楼中楼、表情反应**等更现代的互动能力，Giscus 值得一试。
 

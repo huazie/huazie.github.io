@@ -15,7 +15,7 @@ tags:
 
 ![](/images/diversity-logo.png)
 
-# 📖 前言
+# 📖 一、前言
 
 之前 **Huazie** 在 [《个人博客支持留言评论，来看看 Hexo Diversity 主题如何实现的！》](../../../../../2025/05/08/hexo/hexo-theme-diversity-comments/) 一文中，介绍过 **Diversity** 主题是如何集成多种评论系统的。
 
@@ -25,7 +25,7 @@ tags:
 
 <!-- more -->
 
-# 🧩 插件简介
+# 🧩 二、插件简介
 
 [hexo-generator-comments](https://www.npmjs.com/package/hexo-generator-comments) 是一款 **Hexo 多评论系统生成插件**，支持多种评论系统的集成与切换，提供统一的评论界面。
 
@@ -34,7 +34,7 @@ tags:
 - 六款评论插件（Utterances / Gitalk / Giscus / Twikoo / Gitment / Waline）都**必须与它搭配使用**
 - 它负责生成统一的评论页面（默认路径 `/comments/`），处理多系统的展示、切换与记忆
 
-# ✨ 功能特性
+# ✨ 三、功能特性
 
 | 特性 | 描述 |
 |------|------|
@@ -46,7 +46,7 @@ tags:
 | **自定义布局** | 灵活的布局和样式自定义选项 |
 | **深色模式支持** | 内置深色模式样式，自动适应系统主题 |
 
-# ⚙️ 基本配置
+# ⚙️ 四、基本配置
 
 安装插件后，在 Hexo 站点根目录的 `_config.yml` 中添加以下配置：
 
@@ -82,7 +82,7 @@ comments:
   * `text`：导航元素的展示文本【选填】，默认为评论系统名
   * `order`：导航元素的展示顺序【数字越大，展示越靠后】
 
-# 🗨️ 已支持的评论系统
+# 🗨️ 五、已支持的评论系统
 
 以下是目前已支持的评论系统一览：
 
@@ -97,7 +97,7 @@ comments:
 
 每款评论系统都对应一个独立的插件包，**Huazie** 会在本系列后续文章中逐一带大家上手。
 
-# 🔗 与评论插件的搭配
+# 🔗 六、与评论插件的搭配
 
 核心插件与评论插件的关系，可以概括为一个"安装公式"：
 
@@ -114,7 +114,7 @@ npm install hexo-comments-giscus --save
 
 > 另外提一句：**Diversity** 主题已内置对该插件体系的集成，使用 Diversity 的朋友只需按主题配置说明开启即可。
 
-# 📝 小结
+# 📝 七、小结
 
 本文介绍了 **diversity-plugins** 的核心插件 [hexo-generator-comments](https://www.npmjs.com/package/hexo-generator-comments)：
 

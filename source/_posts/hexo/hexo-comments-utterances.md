@@ -15,7 +15,7 @@ tags:
 
 ![](/images/diversity-logo.png)
 
-# 📖 前言
+# 📖 一、前言
 
 上一篇 [《一套配置通吃六大评论系统！深入解读 Hexo Generator Comments 核心插件》](../../../../../2026/10/27/hexo/hexo-generator-comments/) 介绍了负责统一评论界面的核心插件。而真正让某一款评论系统"跑起来"的，是与其搭配的独立评论插件。
 
@@ -23,7 +23,7 @@ tags:
 
 <!-- more -->
 
-# 🔍 认识 Utterances
+# 🔍 二、认识 Utterances
 
 [`Utterances`](https://utteranc.es) 是一个由开源社区构建的评论插件，它提供了一种在博客、文章或任何静态网站上添加互动式评论功能的高效解决方案。
 
@@ -36,7 +36,7 @@ tags:
 * **界面纯净无广告**：开源透明，无追踪
 * **访客使用 GitHub 账号即可留言**
 
-# ✨ 插件功能特性
+# ✨ 三、插件功能特性
 
 | 特性 | 描述 | 优势 |
 |------|------|------|
@@ -47,7 +47,7 @@ tags:
 | **即时加载** | 支持懒加载和加载动画 | 优化页面性能 |
 | **易于配置** | 简单的 YAML 配置 | 快速上手，灵活定制 |
 
-# 🚀 快速上手
+# 🚀 四、快速上手
 
 ## 1. 安装插件
 
@@ -98,13 +98,13 @@ utterances:
 
 其中 `issue_term` 决定了"网页 → Issue"的映射规则，可选值包括 `pathname` | `url` | `title` | `og:title` | `issue number` | `specific term`。一般**推荐使用默认的 `pathname`**，即用页面路径作为 issue 标题，适合绝大多数场景。完整映射规则说明请查阅插件的 [README 文档](https://github.com/huazie/diversity-plugins/tree/main/packages/hexo-comments-utterances/README.md)。
 
-# ⚠️ 注意事项
+# ⚠️ 五、注意事项
 
 * **仓库需公开**：Utterances 的评论数据存放在 GitHub 仓库的 Issues 中，需绑定一个公开的 GitHub 仓库。
 * **issue_term 一旦选定尽量别改**：修改映射方式会导致已生成的 Issue 与页面对不上，历史评论可能"找不到家"。
 * **主题适配**：`theme` 与 `dark` 分别控制亮色、暗色模式下的评论样式，可选值如 `github-light`、`github-dark`、`preferred-color-scheme` 等。
 
-# 📝 小结
+# 📝 六、小结
 
 本文带大家上手了 **diversity-plugins** 中的 [hexo-comments-utterances](https://www.npmjs.com/package/hexo-comments-utterances) 插件：**一个公开仓库 + 几行 YAML 配置，就能让你的博客拥有基于 GitHub Issues 的评论区**。
 

@@ -15,7 +15,7 @@ tags:
 
 ![](/images/diversity-logo.png)
 
-# 📖 前言
+# 📖 一、前言
 
 系列最后一篇，登场的评论插件是 **Waline** —— 六款插件中功能最丰富的一员：评论、阅读量、点赞、表情反应一站配齐，而前端只需 **50kB**。
 
@@ -23,7 +23,7 @@ tags:
 
 <!-- more -->
 
-# 🔍 认识 Waline
+# 🔍 二、认识 Waline
 
 [`Waline`](https://waline.js.org) 是一个简单但功能强大的评论解决方案，定位是"轻量后端起评"：
 
@@ -34,7 +34,7 @@ tags:
 
 与 Twikoo 类似，Waline 也需要一个**服务端**来存取评论数据，好消息是 Vercel 免费额度即可跑起来。
 
-# ✨ 插件功能特性
+# ✨ 三、插件功能特性
 
 | 特性 | 描述 | 优势 |
 |------|------|------|
@@ -46,7 +46,7 @@ tags:
 | **多语言支持** | 内置 30+ 语言支持 | 国际化友好 |
 | **易于配置** | 简单的 YAML 配置 | 快速上手，灵活定制 |
 
-# 🚀 快速上手
+# 🚀 四、快速上手
 
 ## 1. 部署 Waline 服务端
 
@@ -130,14 +130,14 @@ waline:
 
 完整配置选项请查阅插件的 [README 文档](https://github.com/huazie/diversity-plugins/tree/main/packages/hexo-comments-waline/README.md)。
 
-# ⚠️ 注意事项
+# ⚠️ 五、注意事项
 
 * **先部署后接入**：`server_url` 来自已部署的 Waline 服务端，请确保服务可用后再启用评论。
 * **meta 与 required_meta 搭配**：`meta` 控制评论时展示哪些信息字段（昵称/邮箱/链接），`required_meta` 从中挑选必填项。
 * **表情与搜索**：`emoji` 支持传入表情包数组，设为 `false` 可禁用；`search` 可开启表情包搜索功能。
 * **客户端资源可自持**：`js_url` / `css_url` 默认走 unpkg CDN，必要时可替换为自部署地址，避免 CDN 波动。
 
-# 📝 小结
+# 📝 六、小结
 
 至此，**diversity-plugins** 的六款评论插件就全部介绍完了。作为收官的 [hexo-comments-waline](https://www.npmjs.com/package/hexo-comments-waline)，它以 50kB 的身躯提供了**评论、阅读量、点赞、表情反应**的一站式互动能力，是功能党的不二之选。
 

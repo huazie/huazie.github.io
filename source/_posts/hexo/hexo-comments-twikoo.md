@@ -15,7 +15,7 @@ tags:
 
 ![](/images/diversity-logo.png)
 
-# 📖 前言
+# 📖 一、前言
 
 前面几篇介绍的 Utterances、Gitalk、Giscus 都深度绑定 GitHub 生态，访客评论需要 GitHub 账号。如果你的博客受众更"大众"一些，或者希望**评论数据完全自主可控**，那么本篇的 **Twikoo** 会是一个理想选择。
 
@@ -23,7 +23,7 @@ tags:
 
 <!-- more -->
 
-# 🔍 认识 Twikoo
+# 🔍 二、认识 Twikoo
 
 [`Twikoo`](https://twikoo.js.org) 是一个**简洁、安全、免费**的静态网站评论系统。
 
@@ -31,7 +31,7 @@ tags:
 
 它支持 **腾讯云 CloudBase、Vercel、Netlify** 等多种部署方式，其中 Vercel / Netlify 均有免费额度，个人博客零成本即可运行。
 
-# ✨ 插件功能特性
+# ✨ 三、插件功能特性
 
 | 特性 | 描述 | 优势 |
 |------|------|------|
@@ -43,7 +43,7 @@ tags:
 | **易于配置** | 简单的 YAML 配置 | 快速上手，灵活定制 |
 | **多语言支持** | 内置多语言界面 | 国际化用户体验 |
 
-# 🚀 快速上手
+# 🚀 四、快速上手
 
 ## 1. 部署 Twikoo 后端环境
 
@@ -99,13 +99,13 @@ twikoo:
 | `lang` | String | `zh-CN` | 否 | 评论区语言 |
 | `js` | String | CDN 地址 | 否 | Twikoo JS SDK 的 CDN 地址，可指定特定版本或自部署地址 |
 
-# ⚠️ 注意事项
+# ⚠️ 五、注意事项
 
 * **先部署后接入**：`env_id` 来自已部署的 Twikoo 后端环境，请确保环境可用后再启用评论。
 * **region 别乱填**：仅腾讯云环境需要填写 `ap-shanghai` 或 `ap-guangzhou`；使用 Vercel 部署时**不要填**。
 * **SDK 版本可控**：`js` 配置可固定 Twikoo SDK 版本，也可指向自部署的 SDK 地址，避免 CDN 波动影响评论区。
 
-# 📝 小结
+# 📝 六、小结
 
 本文带大家上手了 **diversity-plugins** 中的 [hexo-comments-twikoo](https://www.npmjs.com/package/hexo-comments-twikoo) 插件。它的核心卖点是：**免费私有部署 + 数据自主可控**，访客无需 GitHub 账号也能直接留言，适合面向更广泛读者的博客。
 

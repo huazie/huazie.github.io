@@ -15,7 +15,7 @@ tags:
 
 ![](/images/diversity-logo.png)
 
-# 📖 前言
+# 📖 一、前言
 
 上一篇我们认识了基于 GitHub Issues 的轻量评论插件 [Utterances](../../../../../2026/10/27/hexo/hexo-comments-utterances/)。本篇登场的 **Gitalk** 同样基于 GitHub Issues，但功能更丰富 —— 它支持 **GitHub OAuth 安全登录**，访客体验更完整。
 
@@ -23,13 +23,13 @@ tags:
 
 <!-- more -->
 
-# 🔍 认识 Gitalk
+# 🔍 二、认识 Gitalk
 
 [`Gitalk`](https://gitalk.github.io) 是一个基于 **GitHub Issue** 和 **Preact** 开发的现代评论插件。它允许网站访客使用 **GitHub** 账号登录并发表评论，所有评论数据都储存在相应的 **GitHub** 仓库中。
 
 与 Utterances 一样，它无需自建数据库；不同的是，Gitalk 走的是完整的 **OAuth 认证** 流程，登录、评论、查看都在评论区内完成。
 
-# ✨ 插件功能特性
+# ✨ 三、插件功能特性
 
 | 特性 | 描述 | 优势 |
 |------|------|------|
@@ -40,7 +40,7 @@ tags:
 | **多语言支持** | 支持多种界面语言 | 国际化友好 |
 | **易于配置** | 简单的 YAML 配置 | 快速上手，灵活定制 |
 
-# 🚀 快速上手
+# 🚀 四、快速上手
 
 ## 1. 申请 GitHub OAuth Application
 
@@ -107,14 +107,14 @@ gitalk:
 
 完整的配置选项详解，请查阅插件的 [README 文档](https://github.com/huazie/diversity-plugins/tree/main/packages/hexo-comments-gitalk/README.md)。
 
-# ⚠️ 注意事项
+# ⚠️ 五、注意事项
 
 * **凭证保密**：`client_secret` 属于敏感信息，注意不要把含真实凭证的配置文件提交到公开仓库。
 * **评论初始化**：每个页面的评论对应仓库中的一个 Issue，首次访问时会自动创建。
 * **管理员配置**：`admin_user` 需填写仓库管理员的 GitHub ID，便于对评论区 Issue 进行管理。
 * **跨域代理**：部分网络环境下获取访问令牌可能受限，可通过 `proxy` 配置自定义代理地址。
 
-# 📝 小结
+# 📝 六、小结
 
 本文带大家上手了 **diversity-plugins** 中的 [hexo-comments-gitalk](https://www.npmjs.com/package/hexo-comments-gitalk) 插件。相比 Utterances，Gitalk 提供了更完整的 OAuth 登录与评论管理体验，适合希望**评论区功能更丰富**的博客。
 

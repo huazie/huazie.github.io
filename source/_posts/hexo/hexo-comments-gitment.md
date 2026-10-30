@@ -15,7 +15,7 @@ tags:
 
 ![](/images/diversity-logo.png)
 
-# 📖 前言
+# 📖 一、前言
 
 GitHub Issues 系评论插件的第三位成员登场 —— **Gitment**。它比 Gitalk 更轻量，同时保留 OAuth 登录与 Markdown 支持。不过在接入前有一个**必须知道**的坑：它的默认 OAuth 代理已经失效，需要自行部署。本篇 **Huazie** 会把这个坑讲清楚。
 
@@ -23,13 +23,13 @@ GitHub Issues 系评论插件的第三位成员登场 —— **Gitment**。它�
 
 <!-- more -->
 
-# 🔍 认识 Gitment
+# 🔍 二、认识 Gitment
 
 [`Gitment`](https://github.com/imsun/gitment) 是一个基于 **GitHub Issues** 的轻量级评论系统，访客通过 GitHub OAuth 登录后即可评论，评论数据存储在你指定仓库的 Issues 中。
 
 它支持 **Markdown/GFM 语法**，代码高亮、格式丰富的评论都能完美呈现，非常契合技术博客的场景。
 
-# ✨ 插件功能特性
+# ✨ 三、插件功能特性
 
 | 特性 | 描述 | 优势 |
 |------|------|------|
@@ -40,7 +40,7 @@ GitHub Issues 系评论插件的第三位成员登场 —— **Gitment**。它�
 | **Markdown 支持** | 支持 Markdown/GFM 语法 | 代码高亮，格式丰富 |
 | **易于配置** | 简单的 YAML 配置 | 快速上手，灵活定制 |
 
-# 🚀 快速上手
+# 🚀 四、快速上手
 
 ## 1. 安装插件
 
@@ -111,14 +111,14 @@ gitment:
 | `proxy` | OAuth 代理地址，**重点见下方注意事项** |
 | `gitmint` | 是否启用 Gitmint 增强 |
 
-# ⚠️ 注意事项
+# ⚠️ 五、注意事项
 
 * **默认 OAuth 代理已失效**：Gitment 项目默认代理 `gh-oauth.imsun.net` 已经失效，如遇登录异常，需通过 `proxy` 配置**自行部署**的 OAuth 代理服务。这是选择 Gitment 前必须评估的成本。
 * **Gitmint 增强选项**：`gitmint: true` 会启用 [Gitmint](https://github.com/imsun/gitment) 的兼容替代品 —— 它修复了 Gitment 的多个问题；启用后 CSS/JS/CommentClass 将完全替换为 Gitmint，**与 Gitment 互斥**。
 * **凭证保密**：`client_secret` 属于敏感信息，注意不要提交到公开仓库。
 * **高度折叠**：`max_comment_height` 默认 250px，长评论会折叠展示，可按需调整。
 
-# 📝 小结
+# 📝 六、小结
 
 本文带大家上手了 **diversity-plugins** 中的 [hexo-comments-gitment](https://www.npmjs.com/package/hexo-comments-gitment) 插件。Gitment 轻量、支持 Markdown，但**默认 OAuth 代理失效**这一点决定了它更适合愿意自行部署代理的用户。
 
