@@ -10,33 +10,33 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           # If your repository depends on submodule, please see: https://github.com/actions/checkout
           submodules: recursive
       - name: Checkout Theme Diversity
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: huazie/hexo-theme-diversity
           path: themes/diversity
       - name: Checkout Theme Phase
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: huazie/hexo-theme-phase
           path: themes/phase
       - name: Checkout Theme Light
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: huazie/hexo-theme-light
           path: themes/light
       - name: Checkout Theme Next
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: huazie/hexo-theme-next
           path: themes/next
       - name: Use Node.js 22.x
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '22'
       - name: Cache NPM dependencies
@@ -56,7 +56,7 @@ jobs:
         run: npm run build
       # 构建 diversity-comments-site
       - name: Checkout diversity-comments-site
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: huazie/diversity-comments-site
           path: temp-comments-site
@@ -72,7 +72,7 @@ jobs:
       - name: Clean existing game directory
         run: rm -rf public/diversity/game
       - name: Checkout Game
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: huazie/flea-game
           path: public/diversity/game
