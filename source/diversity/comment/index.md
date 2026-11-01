@@ -1,13 +1,14 @@
 ---
 title: 留言
 subTitle: Diversity 主题接入介绍
+description: 博客多样性（Diversity），一款多主题自由切换的 Hexo 主题，接入介绍与使用交流，欢迎在此留言评论。
 date: 2024-12-22 19:48:25
 updated: 2026-04-16 23:54:12
 layout: comment
 comments: true
 ---
 
-[![build and deploy](https://img.shields.io/github/actions/workflow/status/huazie/huazie.github.io/pages.yml?branch=main&label=build%20and%20deploy&logo=github)](https://github.com/huazie/huazie.github.io/actions/workflows/pages.yml) [![NPM version](https://img.shields.io/npm/v/hexo-theme-diversity.svg?style=flat&logo=npm)](https://www.npmjs.com/package/hexo-theme-diversity) [![Hexo version](https://img.shields.io/badge/hexo-%3E=5.3.0-blue?style=flat&logo=hexo)](https://hexo.io) [![license](https://img.shields.io/badge/license-MIT-orange)](https://github.com/huazie/hexo-theme-diversity/blob/main/LICENSE) [![GitHub Repo stars](https://img.shields.io/github/stars/huazie/hexo-theme-diversity?style=flat)](https://github.com/huazie/hexo-theme-diversity/stargazers)
+<img src="../../images/diversity.png" width="80" height="80"> [![build and deploy](https://img.shields.io/github/actions/workflow/status/huazie/huazie.github.io/pages.yml?branch=main&label=build%20and%20deploy&logo=github)](https://github.com/huazie/huazie.github.io/actions/workflows/pages.yml) [![NPM version](https://img.shields.io/npm/v/hexo-theme-diversity.svg?style=flat&logo=npm)](https://www.npmjs.com/package/hexo-theme-diversity) [![Hexo version](https://img.shields.io/badge/hexo-%3E=5.3.0-blue?style=flat&logo=hexo)](https://hexo.io) [![license](https://img.shields.io/badge/license-MIT-orange)](https://github.com/huazie/hexo-theme-diversity/blob/main/LICENSE) [![GitHub Repo stars](https://img.shields.io/github/stars/huazie/hexo-theme-diversity?style=flat)](https://github.com/huazie/hexo-theme-diversity/stargazers)
 
 博客多样性，一款多主题自由切换的 **Hexo** 主题
 
