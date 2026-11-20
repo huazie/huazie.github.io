@@ -76,6 +76,20 @@ jobs:
         with:
           repository: huazie/flea-game
           path: public/diversity/game
+      # 构建 backlog-desk 静态 demo（纯前端演示态，产物无需 URL 参数即进入演示模式）
+      - name: Checkout Backlog Desk
+        uses: actions/checkout@v5
+        with:
+          repository: huazie/backlog-desk
+          path: temp-backlog-desk
+      - name: Build Backlog Desk Demo
+        run: |
+          cd temp-backlog-desk
+          npm install
+          npm run build:demo
+          cd ..
+          mkdir -p public/demo/backlog-desk
+          cp -r temp-backlog-desk/build-demo/* public/demo/backlog-desk/
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:

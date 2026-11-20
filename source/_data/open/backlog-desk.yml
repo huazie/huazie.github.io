@@ -1,0 +1,13 @@
+# 开源项目配置（单文件模式：文件名即 key，本文件 key = backlog-desk）
+# 可选字段：demo / doc / license_url / order（排序，升序）
+name: Backlog Desk
+source: https://github.com/huazie/backlog-desk
+demo: https://blog.huazie.com/demo/backlog-desk/
+doc: https://github.com/huazie/backlog-desk#readme
+author: Huazie
+author_url: https://github.com/huazie
+description: Backlog Desk 是一个本地零依赖的改造清单工作台，读取各项目 Agent 记忆目录下的改造清单，清单增删改即时写回，并双向自动跟踪改造推进；npx 直接运行或 bdesk 命令启动，默认仅监听 127.0.0.1:8787。
+tags: [改造清单, Agent 记忆, 工作台, backlog-desk, 双向同步, Node.js]
+language: JavaScript
+license: MIT
+order: 10
