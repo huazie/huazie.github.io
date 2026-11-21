@@ -7,3 +7,4 @@ public/
 .deploy*/
 _multiconfig.yml
 /.workbuddy
+/source/_data/open-readme
