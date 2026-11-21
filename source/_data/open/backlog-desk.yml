@@ -1,6 +1,7 @@
 # 开源项目配置（单文件模式：文件名即 key，本文件 key = backlog-desk）
 # 可选字段：demo / doc / license_url / order（排序，升序）
 name: Backlog Desk
+logo: https://blog.huazie.com/demo/backlog-desk/favicon.svg
 source: https://github.com/huazie/backlog-desk
 demo: https://blog.huazie.com/demo/backlog-desk/
 doc: https://github.com/huazie/backlog-desk#readme
